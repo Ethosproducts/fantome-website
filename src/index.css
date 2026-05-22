@@ -4,7 +4,7 @@
   --color-fantome-black: #FFFFFF;
   --color-fantome-cyan: #00F0FF;
   --color-fantome-gold: #FFD700;
-  --color-fantome-glass: rgba(10, 47, 29, 0.05);
+  --color-fantome-glass: #FFFFFF;
   
   --font-outfit: 'Outfit', sans-serif;
   --font-inter: 'Inter', sans-serif;
@@ -23,8 +23,8 @@
 
 @utility glass-panel {
   background-color: var(--color-fantome-glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(10, 47, 29, 0.1);
+  /* No blur for corporate */
+  border: 1px solid #E2E8F0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
 }
 

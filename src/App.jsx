@@ -23,11 +23,11 @@ function LightningBolts({ color }) {
       animate="animate"
     >
       <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M 10 0 L 15 20 L 5 40 L 20 60 L 10 80 L 15 100" fill="none" stroke={color} strokeWidth="0.5" style={{ filter: `drop-shadow(0 0 2px ${color})` }} />
-        <path d="M 90 0 L 85 15 L 95 30 L 80 50 L 90 75 L 85 100" fill="none" stroke={color} strokeWidth="0.5" style={{ filter: `drop-shadow(0 0 2px ${color})` }} />
-        <path d="M 15 20 L 30 35 L 20 50" fill="none" stroke={color} strokeWidth="0.3" style={{ filter: `drop-shadow(0 0 2px ${color})` }} />
-        <path d="M 85 15 L 70 25 L 75 40" fill="none" stroke={color} strokeWidth="0.3" style={{ filter: `drop-shadow(0 0 2px ${color})` }} />
-        <path d="M 50 -10 L 45 20 L 55 40 L 40 60 L 60 80 L 50 110" fill="none" stroke="#fff" strokeWidth="0.2" style={{ filter: `drop-shadow(0 0 5px ${color})` }} />
+        <path d="M 10 0 L 15 20 L 5 40 L 20 60 L 10 80 L 15 100" fill="none" stroke={color} strokeWidth="0.5" style={{ filter: "none" }} />
+        <path d="M 90 0 L 85 15 L 95 30 L 80 50 L 90 75 L 85 100" fill="none" stroke={color} strokeWidth="0.5" style={{ filter: "none" }} />
+        <path d="M 15 20 L 30 35 L 20 50" fill="none" stroke={color} strokeWidth="0.3" style={{ filter: "none" }} />
+        <path d="M 85 15 L 70 25 L 75 40" fill="none" stroke={color} strokeWidth="0.3" style={{ filter: "none" }} />
+        <path d="M 50 -10 L 45 20 L 55 40 L 40 60 L 60 80 L 50 110" fill="none" stroke="#fff" strokeWidth="0.2" style={{ filter: "none" }} />
       </svg>
     </motion.div>
   );
@@ -235,8 +235,8 @@ function HeroTicker({ activeColor }) {
         {items.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-12 mx-12">
             <span
-              className="text-[11px] font-black uppercase tracking-[0.25em] font-outfit"
-              style={{ color: activeColor, textShadow: `0 0 8px ${activeColor}88` }}
+              className="text-[11px] font-bold uppercase tracking-[0.25em] font-sans"
+              style={{ color: activeColor, textShadow: "none" }}
             >
               {item}
             </span>
@@ -294,9 +294,9 @@ function Hero({ activeColor, activeFlavor }) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-[12vw] md:text-[10vw] font-black font-outfit uppercase tracking-tighter leading-none whitespace-nowrap opacity-90 select-none"
+          className="text-[12vw] md:text-[10vw] font-bold font-sans uppercase tracking-tighter leading-none whitespace-nowrap opacity-90 select-none"
         >
-          <span style={{ color: activeColor, textShadow: `0 0 50px ${activeColor}` }}>UNSEEN</span> POWER
+          <span style={{ color: activeColor, textShadow: "none" }}>UNSEEN</span> POWER
         </motion.h1>
       </div>
       
@@ -339,7 +339,7 @@ function Hero({ activeColor, activeFlavor }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="text-xl md:text-2xl text-[#0A2F1D] font-semibold tracking-[0.3em] uppercase drop-shadow-lg"
+          className="text-xl md:text-2xl text-slate-800 font-semibold tracking-[0.3em] uppercase drop-shadow-lg"
         >
           Premium Energy Catalyst
         </motion.p>
@@ -347,9 +347,9 @@ function Hero({ activeColor, activeFlavor }) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 1 }}
-          whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${activeColor}` }}
+          whileHover={{ scale: 1.05, boxShadow: "none" }}
           onClick={() => document.getElementById('connect').scrollIntoView({ behavior: 'smooth' })}
-          className="mt-8 px-12 py-4 bg-green-50/90 backdrop-blur-md border-2 text-[#0A2F1D] font-bold uppercase tracking-[0.2em] rounded-full pointer-events-auto transition-colors duration-300"
+          className="mt-8 px-12 py-4 bg-slate-50/90 backdrop-blur-md border-2 text-slate-800 font-bold tracking-wide rounded-full pointer-events-auto transition-colors duration-300"
           style={{ borderColor: activeColor }}
         >
           Connect Us
@@ -433,8 +433,8 @@ function StorySection({ activeColor, activeFlavor }) {
   
   return (
     <section id="story" className="py-32 px-6 max-w-7xl mx-auto relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-72 h-72 rounded-full bg-fantome-cyan/5 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-fantome-gold/5 blur-3xl pointer-events-none" />
+      
+      
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <motion.div
@@ -447,35 +447,35 @@ function StorySection({ activeColor, activeFlavor }) {
           <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
             Biological Catalyst
           </span>
-          <h2 className="text-4xl md:text-6xl font-black font-outfit uppercase leading-tight">
+          <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase leading-tight">
             Scientific <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0A2F1D] to-green-600">Formulation.</span>
+            <span className="text-slate-800">Formulation</span>
           </h2>
-          <p className="text-green-700 text-lg leading-relaxed font-light">
+          <p className="text-slate-600 text-lg leading-relaxed font-light">
             Engineered with high precision. Fantôme delivers a potent energy profile driven by B-Complex vitamins, pure Taurine, and exact Caffeine mapping. Crafted for zero fat accumulation and optimal metabolic acceleration.
           </p>
           
           {/* Quick Metrics */}
           <div className="flex gap-8">
             <div>
-              <h4 className="text-3xl font-bold font-outfit" style={{ color: activeColor }}>
+              <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '75 mg' : '75 mg'}
               </h4>
-              <p className="text-xs text-green-600 uppercase tracking-widest mt-1">Caffeine / 250ml</p>
+              <p className="text-xs text-slate-500 tracking-wide mt-1">Caffeine / 250ml</p>
             </div>
-            <div className="border-l border-[#0A2F1D]/10" />
+            <div className="border-l border-slate-200" />
             <div>
-              <h4 className="text-3xl font-bold font-outfit" style={{ color: activeColor }}>
+              <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '15 kcal' : '93.75 kcal'}
               </h4>
-              <p className="text-xs text-green-600 uppercase tracking-widest mt-1">Energy / 250ml</p>
+              <p className="text-xs text-slate-500 tracking-wide mt-1">Energy / 250ml</p>
             </div>
-            <div className="border-l border-[#0A2F1D]/10" />
+            <div className="border-l border-slate-200" />
             <div>
-              <h4 className="text-3xl font-bold font-outfit" style={{ color: activeColor }}>
+              <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '400 mg' : '800 mg'}
               </h4>
-              <p className="text-xs text-green-600 uppercase tracking-widest mt-1">Taurine / 250ml</p>
+              <p className="text-xs text-slate-500 tracking-wide mt-1">Taurine / 250ml</p>
             </div>
           </div>
         </motion.div>
@@ -486,37 +486,37 @@ function StorySection({ activeColor, activeFlavor }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="p-8 rounded-3xl glass-panel border border-[#0A2F1D]/10 bg-white/90 shadow-2xl relative overflow-hidden"
+          className="p-8 rounded-3xl glass-panel border border-slate-200 bg-white shadow-2xl relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-32 h-32 blur-3xl opacity-10 rounded-full pointer-events-none" style={{ backgroundColor: activeColor }} />
           
-          <div className="flex items-center gap-3 border-b border-[#0A2F1D]/10 pb-4 mb-6">
+          
+          <div className="flex items-center gap-3 border-b border-slate-200 pb-4 mb-6">
             <FlaskConical className="w-6 h-6" style={{ color: activeColor }} />
-            <h3 className="font-outfit font-black text-2xl tracking-widest uppercase">LABORATORY SPECIFICATION</h3>
+            <h3 className="font-sans font-bold text-2xl tracking-widest uppercase">LABORATORY SPECIFICATION</h3>
           </div>
 
           <div className="space-y-4">
-            <div className="border-b border-[#0A2F1D]/10 pb-2">
-              <span className="text-xs text-green-600 uppercase tracking-widest">Typical Values</span>
-              <h4 className="text-lg font-bold font-outfit uppercase mt-0.5">{nutrition.servingSize}</h4>
+            <div className="border-b border-slate-200 pb-2">
+              <span className="text-xs text-slate-500 tracking-wide">Typical Values</span>
+              <h4 className="text-lg font-bold font-sans uppercase mt-0.5">{nutrition.servingSize}</h4>
             </div>
 
-            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm border-b border-[#0A2F1D]/5 pb-4">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm border-b border-slate-100 pb-4">
               {nutrition.values.map((item, idx) => (
-                <div key={idx} className="flex justify-between border-b border-[#0A2F1D]/5 py-1">
-                  <span className="text-green-700">{item.name}</span>
+                <div key={idx} className="flex justify-between border-b border-slate-100 py-1">
+                  <span className="text-slate-600">{item.name}</span>
                   <span className="font-bold">{item.val}</span>
                 </div>
               ))}
             </div>
 
             <div>
-              <span className="text-xs text-green-600 uppercase tracking-widest">Active Bio-Elements & Vitamins</span>
+              <span className="text-xs text-slate-500 tracking-wide">Active Bio-Elements & Vitamins</span>
               <div className="grid grid-cols-2 gap-x-8 gap-y-2 mt-2 text-xs">
                 {nutrition.bioElements.map((item, idx) => (
-                  <div key={idx} className={`flex justify-between py-0.5 border-b border-[#0A2F1D]/5 ${item.name === 'Vitamin B12' ? 'col-span-2' : ''}`}>
-                    <span className="text-green-700">{item.name}</span>
-                    <span className="font-bold text-[#0A2F1D]">{item.val}</span>
+                  <div key={idx} className={`flex justify-between py-0.5 border-b border-slate-100 ${item.name === 'Vitamin B12' ? 'col-span-2' : ''}`}>
+                    <span className="text-slate-600">{item.name}</span>
+                    <span className="font-bold text-slate-800">{item.val}</span>
                   </div>
                 ))}
               </div>
@@ -552,7 +552,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
           Chemical Breakdown
         </span>
-        <h2 className="text-4xl md:text-6xl font-black font-outfit uppercase mt-2">
+        <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Formula Variations
         </h2>
       </div>
@@ -561,15 +561,15 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         {/* Navigation Arrows */}
         <button 
           onClick={prevSlide}
-          className="absolute left-0 lg:left-8 z-30 p-4 rounded-full glass-panel hover:bg-white/10 transition-colors border border-[#0A2F1D]/10 cursor-pointer"
+          className="absolute left-0 lg:left-8 z-30 p-4 rounded-full glass-panel hover:bg-white transition-colors border border-slate-200 cursor-pointer"
         >
-          <ChevronLeft className="w-6 h-6 text-[#0A2F1D]" />
+          <ChevronLeft className="w-6 h-6 text-slate-800" />
         </button>
         <button 
           onClick={nextSlide}
-          className="absolute right-0 lg:right-8 z-30 p-4 rounded-full glass-panel hover:bg-white/10 transition-colors border border-[#0A2F1D]/10 cursor-pointer"
+          className="absolute right-0 lg:right-8 z-30 p-4 rounded-full glass-panel hover:bg-white transition-colors border border-slate-200 cursor-pointer"
         >
-          <ChevronRight className="w-6 h-6 text-[#0A2F1D]" />
+          <ChevronRight className="w-6 h-6 text-slate-800" />
         </button>
 
         {/* Carousel Content */}
@@ -583,7 +583,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-5xl px-12"
           >
             {/* Visual Preview displaying respective Can artwork background texture */}
-            <div className="relative w-full aspect-square rounded-3xl glass-panel p-12 bg-gradient-to-br from-white/5 to-transparent border border-[#0A2F1D]/10 flex items-center justify-center overflow-hidden">
+            <div className="relative w-full aspect-square rounded-3xl glass-panel p-12 bg-gradient-to-br from-white/5 to-transparent border border-slate-200 flex items-center justify-center overflow-hidden">
               <div 
                 className="absolute inset-0 blur-3xl opacity-25 transition-all duration-500"
                 style={{ background: `radial-gradient(circle, ${flavors[currentIdx].color} 0%, transparent 70%)` }}
@@ -593,7 +593,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 initial={{ scale: 0.8, rotate: -5, y: 10 }}
                 animate={{ scale: 1, rotate: 0, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="w-56 h-88 rounded-2xl border border-[#0A2F1D]/10 bg-green-50/80 shadow-2xl relative z-10 flex flex-col items-center justify-center p-6 overflow-hidden backdrop-blur-md"
+                className="w-56 h-88 rounded-2xl border border-slate-200 bg-slate-50/80 shadow-2xl relative z-10 flex flex-col items-center justify-center p-6 overflow-hidden backdrop-blur-md"
               >
                 {/* Radial glow specific to flavor inside the card */}
                 <div 
@@ -617,7 +617,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 
                 {/* Floating bottom shadow under the can */}
                 <motion.div 
-                  className="absolute bottom-4 w-20 h-2 bg-white/90 rounded-full blur-[3px] mx-auto left-0 right-0 z-10"
+                  className="absolute bottom-4 w-20 h-2 bg-white rounded-full blur-[3px] mx-auto left-0 right-0 z-10"
                   animate={{ scale: [1, 0.85, 1], opacity: [0.6, 0.35, 0.6] }}
                   transition={{ 
                     duration: 4, 
@@ -630,19 +630,19 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 
             {/* Flavors Details */}
             <div className="space-y-8">
-              <span className="px-4 py-1 text-xs font-bold uppercase tracking-widest rounded-full border" style={{ borderColor: flavors[currentIdx].color, color: flavors[currentIdx].color }}>
+              <span className="px-4 py-1 text-xs font-bold tracking-wide rounded-full border" style={{ borderColor: flavors[currentIdx].color, color: flavors[currentIdx].color }}>
                 {flavors[currentIdx].flavor}
               </span>
-              <h3 className="text-4xl md:text-5xl font-black font-outfit uppercase">
+              <h3 className="text-4xl md:text-5xl font-bold font-sans uppercase">
                 {flavors[currentIdx].title} Formulation
               </h3>
-              <p className="text-green-700 font-light leading-relaxed">
+              <p className="text-slate-600 font-light leading-relaxed">
                 {flavors[currentIdx].desc}
               </p>
               
               <div className="space-y-4">
-                <h4 className="text-sm font-bold uppercase tracking-widest text-[#0A2F1D]">Full Ingredient Manifest:</h4>
-                <p className="text-xs text-green-700 leading-relaxed bg-green-50/80 border border-[#0A2F1D]/5 p-4 rounded-2xl font-light">
+                <h4 className="text-sm font-bold tracking-wide text-slate-800">Full Ingredient Manifest:</h4>
+                <p className="text-xs text-slate-600 leading-relaxed bg-slate-50/80 border border-slate-100 p-4 rounded-2xl font-light">
                   {flavors[currentIdx].fullIngredients}
                 </p>
               </div>
@@ -723,10 +723,10 @@ function ShopSection({ activeColor }) {
         <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
           Official Store
         </span>
-        <h2 className="text-4xl md:text-6xl font-black font-outfit uppercase mt-2">
+        <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Coming Soon
         </h2>
-        <p className="text-green-700 text-sm md:text-base font-light uppercase tracking-widest mt-4">
+        <p className="text-slate-600 text-sm md:text-base font-light tracking-wide mt-4">
           The next-generation secure case drop is currently in synchronization
         </p>
       </div>
@@ -736,24 +736,24 @@ function ShopSection({ activeColor }) {
         <div className="lg:col-span-6 flex justify-center">
           <motion.div
             whileHover={{ y: -10 }}
-            className="w-full max-w-md p-8 rounded-3xl glass-panel border border-[#0A2F1D]/10 flex flex-col justify-between group bg-gradient-to-br from-white/5 to-transparent relative overflow-hidden"
+            className="w-full max-w-md p-8 rounded-3xl glass-panel border border-slate-200 flex flex-col justify-between group bg-gradient-to-br from-white/5 to-transparent relative overflow-hidden"
           >
             {/* Glowing activeColor aura */}
-            <div className="absolute top-0 right-0 w-48 h-48 blur-3xl opacity-20 rounded-full pointer-events-none group-hover:opacity-40 transition-opacity" style={{ backgroundColor: currentCrateFlavorInfo.color }} />
+            
             
             <div>
               <div className="flex justify-between items-start">
-                <span className="text-xs uppercase tracking-widest font-black" style={{ color: currentCrateFlavorInfo.color }}>24 + 3 Cans Free</span>
-                <span className="bg-white/10 border border-[#0A2F1D]/20 text-[#0A2F1D] text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
+                <span className="text-xs tracking-wide font-bold" style={{ color: currentCrateFlavorInfo.color }}>24 + 3 Cans Free</span>
+                <span className="bg-white border border-slate-300 text-slate-800 text-[9px] font-bold tracking-wide px-3 py-1 rounded-full">
                   COMING SOON
                 </span>
               </div>
               
-              <h3 className="text-3xl font-black font-outfit uppercase mt-4 text-[#0A2F1D]">
+              <h3 className="text-3xl font-bold font-sans uppercase mt-4 text-slate-800">
                 {selectedCrateFlavor} Case
               </h3>
               
-              <div className="mt-6 aspect-square rounded-2xl bg-white/90 border border-[#0A2F1D]/5 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
+              <div className="mt-6 aspect-square rounded-2xl bg-white border border-slate-100 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
                 {/* Radial glow background */}
                 <div 
                   className="absolute inset-0 blur-2xl opacity-20 transition-all duration-500"
@@ -770,35 +770,35 @@ function ShopSection({ activeColor }) {
 
                 {/* Vault Locked overlay */}
                 <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] flex flex-col items-center justify-center gap-2 z-20">
-                  <div className="p-4 rounded-full bg-white/90 border border-[#0A2F1D]/10 text-[#0A2F1D] shadow-2xl">
+                  <div className="p-4 rounded-full bg-white border border-slate-200 text-slate-800 shadow-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" style={{ color: currentCrateFlavorInfo.color }}>
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                     </svg>
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#0A2F1D] mt-2">TRANSMISSION LOCKED</span>
+                  <span className="text-[10px] font-bold tracking-wide text-slate-800 mt-2">TRANSMISSION LOCKED</span>
                 </div>
                 
-                <span className="text-xs font-black uppercase tracking-[0.25em] text-[#0A2F1D]/10 absolute bottom-12 z-10 font-outfit">FANTÔME SECURE CASE</span>
-                <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[9px] font-bold bg-white/75 border border-[#0A2F1D]/10 z-30 tracking-widest uppercase">
+                <span className="text-xs font-bold uppercase tracking-[0.25em] text-slate-800/10 absolute bottom-12 z-10 font-sans">FANTÔME SECURE CASE</span>
+                <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[9px] font-bold bg-white/75 border border-slate-200 z-30 tracking-widest uppercase">
                   27 Cans Total
                 </div>
               </div>
 
               {/* Flavor Selector */}
               <div className="mt-6">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-green-600 block mb-2.5 font-bold">Preview Crate Flavor</span>
+                <span className="text-[10px] tracking-wide text-slate-500 block mb-2.5 font-bold">Preview Crate Flavor</span>
                 <div className="flex gap-2">
                   {crateFlavors.map(f => (
                     <button
                       key={f.name}
                       onClick={() => setSelectedCrateFlavor(f.name)}
-                      className={`flex-1 py-2 px-3 text-[10px] rounded-xl border transition-all font-black uppercase cursor-pointer text-center ${
+                      className={`flex-1 py-2 px-3 text-[10px] rounded-xl border transition-all font-bold uppercase cursor-pointer text-center ${
                         selectedCrateFlavor === f.name 
-                          ? 'bg-[#0A2F1D] text-white border-[#0A2F1D]' 
-                          : 'bg-white/5 text-green-700 border-[#0A2F1D]/5 hover:border-[#0A2F1D]/20'
+                          ? 'bg-emerald-700 text-white hover:bg-emerald-800 border-[#0A2F1D]' 
+                          : 'bg-white text-slate-600 border-slate-100 hover:border-slate-300'
                       }`}
-                      style={selectedCrateFlavor === f.name ? { boxShadow: `0 0 15px ${f.color}50` } : {}}
+                      style={selectedCrateFlavor === f.name ? { boxShadow: "none" } : {}}
                     >
                       {f.name}
                     </button>
@@ -807,13 +807,13 @@ function ShopSection({ activeColor }) {
               </div>
             </div>
 
-            <div className="mt-8 flex items-center justify-between pt-6 border-t border-[#0A2F1D]/5">
+            <div className="mt-8 flex items-center justify-between pt-6 border-t border-slate-100">
               <div>
-                <span className="text-xs text-green-600 uppercase tracking-widest">Target Price</span>
-                <h4 className="text-2xl font-bold font-outfit text-[#0A2F1D] mt-1">{formatPrice(1440)}</h4>
+                <span className="text-xs text-slate-500 tracking-wide">Target Price</span>
+                <h4 className="text-2xl font-bold font-sans text-slate-800 mt-1">{formatPrice(1440)}</h4>
               </div>
               
-              <span className="text-xs font-black uppercase tracking-widest text-green-700 py-3 px-5 rounded-xl border border-[#0A2F1D]/10 bg-white/5">
+              <span className="text-xs font-bold tracking-wide text-slate-600 py-3 px-5 rounded-xl border border-slate-200 bg-white">
                 LOCKED
               </span>
             </div>
@@ -823,25 +823,25 @@ function ShopSection({ activeColor }) {
         {/* Right Side: Cybernetic Terminal UI with Countdown & Alert Sign Up */}
         <div className="lg:col-span-6 space-y-8">
           {/* Terminal Box */}
-          <div className="p-8 rounded-3xl glass-panel border border-[#0A2F1D]/10 bg-green-50/80 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 blur-3xl opacity-10 rounded-full pointer-events-none" style={{ backgroundColor: activeColor }} />
+          <div className="p-8 rounded-3xl glass-panel border border-slate-200 bg-slate-50/80 shadow-2xl relative overflow-hidden">
+            
             
             {/* Terminal Header */}
-            <div className="flex items-center justify-between border-b border-[#0A2F1D]/10 pb-4 mb-6">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
-                <h3 className="font-outfit font-black text-xl tracking-widest uppercase text-[#0A2F1D]">SECURE ACCESS LOCKOUT</h3>
+                <h3 className="font-sans font-bold text-xl tracking-widest uppercase text-slate-800">SECURE ACCESS LOCKOUT</h3>
               </div>
-              <span className="text-[9px] font-mono text-green-600 bg-white/5 px-2 py-1 rounded border border-[#0A2F1D]/5">SYS.V_2.0</span>
+              <span className="text-[9px] font-mono text-slate-500 bg-white px-2 py-1 rounded border border-slate-100">SYS.V_2.0</span>
             </div>
 
-            <p className="text-green-700 text-sm leading-relaxed font-light mb-8">
+            <p className="text-slate-600 text-sm leading-relaxed font-light mb-8">
               The official Fantôme secure case containing our premier energy catalyst variations is currently under orbital dispatch. The single bottle cans for sale are discontinued to prioritize high-capacity case deployments.
             </p>
 
             {/* Glowing Countdown */}
             <div className="space-y-3 mb-8">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-green-600 font-bold block">Transmission Synchronization Est. Time</span>
+              <span className="text-[10px] tracking-wide text-slate-500 font-bold block">Transmission Synchronization Est. Time</span>
               <div className="grid grid-cols-4 gap-3 text-center">
                 {[
                   { label: "DAYS", val: timeLeft.days },
@@ -849,18 +849,18 @@ function ShopSection({ activeColor }) {
                   { label: "MINUTES", val: timeLeft.minutes },
                   { label: "SECONDS", val: timeLeft.seconds }
                 ].map((t, idx) => (
-                  <div key={idx} className="p-3 rounded-2xl bg-white/90 border border-[#0A2F1D]/5 flex flex-col justify-center">
-                    <span className="text-2xl md:text-3xl font-black font-outfit tracking-tight" style={{ color: activeColor, textShadow: `0 0 10px ${activeColor}80` }}>
+                  <div key={idx} className="p-3 rounded-2xl bg-white border border-slate-100 flex flex-col justify-center">
+                    <span className="text-2xl md:text-3xl font-bold font-sans tracking-tight" style={{ color: activeColor, textShadow: "none" }}>
                       {String(t.val).padStart(2, '0')}
                     </span>
-                    <span className="text-[8px] text-green-600 font-bold tracking-widest uppercase mt-1">{t.label}</span>
+                    <span className="text-[8px] text-slate-500 font-bold tracking-widest uppercase mt-1">{t.label}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Newsletter Notify Form */}
-            <div className="border-t border-[#0A2F1D]/5 pt-6">
+            <div className="border-t border-slate-100 pt-6">
               <AnimatePresence mode="wait">
                 {!isSubmitted ? (
                   <motion.form 
@@ -871,7 +871,7 @@ function ShopSection({ activeColor }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-green-600 font-bold block">Register for launch authorization</span>
+                    <span className="text-[10px] tracking-wide text-slate-500 font-bold block">Register for launch authorization</span>
                     <div className="flex flex-col sm:flex-row gap-3">
                       <input 
                         type="email" 
@@ -879,15 +879,15 @@ function ShopSection({ activeColor }) {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="ENTER SECURE EMAIL ADDRESS"
-                        className="px-5 py-4 rounded-2xl glass-panel bg-white/90 text-xs uppercase tracking-wider font-semibold border border-[#0A2F1D]/10 flex-grow focus:outline-none focus:border-[#0A2F1D] transition-colors"
+                        className="px-5 py-4 rounded-2xl glass-panel bg-white text-xs tracking-wide font-semibold border border-slate-200 flex-grow focus:outline-none focus:border-[#0A2F1D] transition-colors"
                         style={{ color: '#fff' }}
                       />
                       <motion.button 
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         type="submit"
-                        className="px-6 py-4 rounded-2xl bg-[#0A2F1D] text-white font-bold uppercase tracking-widest text-xs flex items-center justify-center hover:bg-white/90 transition-colors cursor-pointer"
-                        style={{ boxShadow: `0 0 20px rgba(255,255,255,0.15)` }}
+                        className="px-6 py-4 rounded-2xl bg-emerald-700 text-white hover:bg-emerald-800 font-bold tracking-wide text-xs flex items-center justify-center hover:bg-white transition-colors cursor-pointer"
+                        style={{ boxShadow: "none" }}
                       >
                         Authorize
                       </motion.button>
@@ -904,8 +904,8 @@ function ShopSection({ activeColor }) {
                       <Check className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-outfit font-black text-sm uppercase tracking-wider text-[#0A2F1D]">TRANSMISSION ESTABLISHED</h4>
-                      <p className="text-xs text-green-700 mt-1 leading-relaxed">
+                      <h4 className="font-sans font-bold text-sm tracking-wide text-slate-800">TRANSMISSION ESTABLISHED</h4>
+                      <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                         Security authorization verified. You will receive priority access notifications the microsecond the crate drops.
                       </p>
                     </div>
@@ -917,13 +917,13 @@ function ShopSection({ activeColor }) {
           
           {/* Subtle details bullet points */}
           <div className="grid grid-cols-2 gap-4 text-xs">
-            <div className="p-4 rounded-2xl border border-[#0A2F1D]/5 bg-white/5 space-y-1">
-              <span className="font-bold text-[#0A2F1D] block uppercase tracking-wider">Priority Distribution</span>
-              <p className="text-green-600 font-light leading-relaxed">Secure Case orders receive automatic express distribution globally.</p>
+            <div className="p-4 rounded-2xl border border-slate-100 bg-white space-y-1">
+              <span className="font-bold text-slate-800 block tracking-wide">Priority Distribution</span>
+              <p className="text-slate-500 font-light leading-relaxed">Secure Case orders receive automatic express distribution globally.</p>
             </div>
-            <div className="p-4 rounded-2xl border border-[#0A2F1D]/5 bg-white/5 space-y-1">
-              <span className="font-bold text-[#0A2F1D] block uppercase tracking-wider">Discontinued Singles</span>
-              <p className="text-green-600 font-light leading-relaxed">Individual cans removed to focus entirely on specialized 27-can crates.</p>
+            <div className="p-4 rounded-2xl border border-slate-100 bg-white space-y-1">
+              <span className="font-bold text-slate-800 block tracking-wide">Discontinued Singles</span>
+              <p className="text-slate-500 font-light leading-relaxed">Individual cans removed to focus entirely on specialized 27-can crates.</p>
             </div>
           </div>
         </div>
@@ -964,18 +964,18 @@ function CampaignsSection({ activeColor }) {
   ];
 
   return (
-    <section id="campaigns" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-[#0A2F1D]/5">
+    <section id="campaigns" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-slate-100">
       {/* Glow aura */}
-      <div className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full blur-[120px] opacity-10 pointer-events-none" style={{ backgroundColor: activeColor }} />
+      
 
       <div className="text-center mb-20">
         <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
           Brand Operations
         </span>
-        <h2 className="text-4xl md:text-6xl font-black font-outfit uppercase mt-2">
+        <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Our Campaigns
         </h2>
-        <p className="text-green-700 text-sm md:text-base font-light uppercase tracking-widest mt-4">
+        <p className="text-slate-600 text-sm md:text-base font-light tracking-wide mt-4">
           Tactical activations and planetary brand maneuvers
         </p>
       </div>
@@ -985,7 +985,7 @@ function CampaignsSection({ activeColor }) {
           <motion.div
             key={camp.id}
             whileHover={{ y: -8 }}
-            className={`rounded-3xl border border-[#0A2F1D]/10 overflow-hidden bg-white/90 shadow-2xl relative group flex flex-col h-full transform-gpu ${idx === 0 ? "md:col-span-2" : ""}`}
+            className={`rounded-3xl border border-slate-200 overflow-hidden bg-white shadow-2xl relative group flex flex-col h-full transform-gpu ${idx === 0 ? "md:col-span-2" : ""}`}
             style={{ contain: "content" }}
           >
             {/* Visual background element */}
@@ -994,7 +994,7 @@ function CampaignsSection({ activeColor }) {
             {/* Hover glow line */}
             <div className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ backgroundColor: activeColor }} />
 
-            <div className="relative aspect-[16/10] overflow-hidden bg-green-50/80 transform-gpu">
+            <div className="relative aspect-[16/10] overflow-hidden bg-slate-50/80 transform-gpu">
               {camp.video ? (
                 <video
                   src={camp.video}
@@ -1016,20 +1016,20 @@ function CampaignsSection({ activeColor }) {
               )}
               {/* Badge overlay */}
               <div className="absolute top-6 left-6 z-20 flex gap-2">
-                <span className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider bg-white/85 border border-[#0A2F1D]/15 text-[#0A2F1D]">
+                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-white/85 border border-slate-200 text-slate-800">
                   {camp.tag}
                 </span>
-                <span className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider bg-[#0A2F1D] text-white" style={{ boxShadow: `0 0 12px ${activeColor}50` }}>
+                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-emerald-700 text-white hover:bg-emerald-800" style={{ boxShadow: "none" }}>
                   {camp.stat}
                 </span>
               </div>
             </div>
 
             <div className="p-8 relative z-20 space-y-4">
-              <h3 className="text-2xl md:text-3xl font-black font-outfit uppercase tracking-wide text-[#0A2F1D] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
+              <h3 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-slate-800 group-hover:text-emerald-700 transition-all duration-300">
                 {camp.title}
               </h3>
-              <p className="text-green-700 font-light leading-relaxed text-sm md:text-base">
+              <p className="text-slate-600 font-light leading-relaxed text-sm md:text-base">
                 {camp.desc}
               </p>
             </div>
@@ -1045,9 +1045,9 @@ function CampaignsSection({ activeColor }) {
 // ==========================================
 function FounderSection({ activeColor }) {
   return (
-    <section className="relative py-32 px-6 border-t border-[#0A2F1D]/5 bg-green-50 z-20 overflow-hidden">
+    <section className="relative py-32 px-6 border-t border-slate-100 bg-slate-50 z-20 overflow-hidden">
       {/* Background ambient glow */}
-      <div className="absolute top-1/2 -right-1/4 w-[800px] h-[800px] rounded-full blur-[120px] opacity-10 pointer-events-none" style={{ backgroundColor: activeColor }} />
+      
       
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
         <motion.div 
@@ -1057,8 +1057,8 @@ function FounderSection({ activeColor }) {
           transition={{ duration: 0.8 }}
           className="w-full lg:w-5/12"
         >
-          <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border border-[#0A2F1D]/10" style={{ boxShadow: `0 0 40px ${activeColor}15` }}>
-            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-green-50/90">
+          <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border border-slate-200" style={{ boxShadow: "none" }}>
+            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-slate-50/90">
               <img 
                 src="/founder.png" 
                 alt="Shri Ankit Khandelwal - Founder" 
@@ -1066,8 +1066,8 @@ function FounderSection({ activeColor }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent pointer-events-none" />
               <div className="absolute bottom-8 left-8 right-8">
-                <h3 className="text-3xl font-black font-outfit uppercase tracking-widest text-[#0A2F1D] mb-2">Shri Ankit Khandelwal</h3>
-                <p className="text-sm font-bold uppercase tracking-[0.3em]" style={{ color: activeColor }}>Eminent Entrepreneur</p>
+                <h3 className="text-3xl font-bold font-sans tracking-wide text-slate-800 mb-2">Shri Ankit Khandelwal</h3>
+                <p className="text-sm font-bold tracking-wide" style={{ color: activeColor }}>Eminent Entrepreneur</p>
               </div>
             </div>
           </div>
@@ -1081,19 +1081,19 @@ function FounderSection({ activeColor }) {
           className="w-full lg:w-7/12 space-y-10"
         >
           <div className="space-y-6">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black font-outfit uppercase tracking-widest text-[#0A2F1D] leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-wide text-slate-800 leading-tight">
               The Visionary <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0A2F1D] to-green-600">Behind The Power</span>
+              <span className="text-slate-800">The Power</span>
             </h2>
-            <div className="h-1 w-24 rounded-full" style={{ backgroundColor: activeColor, boxShadow: `0 0 15px ${activeColor}` }} />
+            <div className="h-1 w-24 rounded-full" style={{ backgroundColor: activeColor, boxShadow: "none" }} />
           </div>
           
-          <div className="space-y-8 text-green-700 font-light leading-relaxed text-lg lg:text-xl">
+          <div className="space-y-8 text-slate-600 font-light leading-relaxed text-lg lg:text-xl">
             <p>
-              A first-generation entrepreneur, <strong className="text-[#0A2F1D] font-bold">Shri Ankit Khandelwal</strong> has built a diversified global business enterprise from the ground up. Driven by a relentless pursuit of excellence and an unyielding work ethic, his journey is a testament to what absolute dedication can achieve.
+              A first-generation entrepreneur, <strong className="text-slate-800 font-bold">Shri Ankit Khandelwal</strong> has built a diversified global business enterprise from the ground up. Driven by a relentless pursuit of excellence and an unyielding work ethic, his journey is a testament to what absolute dedication can achieve.
             </p>
             <p>
-              Recognizing a critical gap in the market for a truly premium, scientifically backed energy catalyst, he conceptualized <strong className="text-[#0A2F1D] font-bold tracking-wider">FANTÔME</strong>. It was designed not merely as a beverage, but as a lifestyle symbol for the relentless, the ambitious, and the unstoppable.
+              Recognizing a critical gap in the market for a truly premium, scientifically backed energy catalyst, he conceptualized <strong className="text-slate-800 font-bold tracking-wider">FANTÔME</strong>. It was designed not merely as a beverage, but as a lifestyle symbol for the relentless, the ambitious, and the unstoppable.
             </p>
             <p>
               Under his visionary leadership, Fantôme Energy merges cutting-edge formulation with dark, sophisticated aesthetics, redefining the boundaries of physical and cognitive performance on a global scale.
@@ -1118,15 +1118,15 @@ function ConnectSection({ activeColor }) {
   ];
 
   return (
-    <section id="connect" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-[#0A2F1D]/5">
+    <section id="connect" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-slate-100">
       <div className="text-center mb-20">
         <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
           Network
         </span>
-        <h2 className="text-4xl md:text-6xl font-black font-outfit uppercase mt-2">
+        <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Connect Us
         </h2>
-        <p className="text-green-700 text-sm md:text-base font-light uppercase tracking-widest mt-4">
+        <p className="text-slate-600 text-sm md:text-base font-light tracking-wide mt-4">
           Join the planetary energy transmission
         </p>
       </div>
@@ -1139,16 +1139,16 @@ function ConnectSection({ activeColor }) {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ y: -5, scale: 1.05 }}
-            className="flex flex-col items-center gap-4 p-8 rounded-3xl border border-[#0A2F1D]/10 bg-green-50/80 hover:bg-white/5 transition-colors group cursor-pointer"
+            className="flex flex-col items-center gap-4 p-8 rounded-3xl border border-slate-200 bg-slate-50/80 hover:bg-white transition-colors group cursor-pointer"
             style={{ minWidth: "160px" }}
           >
             <div 
-              className="text-[#0A2F1D] group-hover:text-[#0A2F1D] transition-colors duration-500"
-              style={{ filter: `drop-shadow(0 0 10px ${activeColor}40)` }}
+              className="text-slate-800 group-hover:text-slate-800 transition-colors duration-500"
+              style={{ filter: "none" }}
             >
               {social.icon}
             </div>
-            <span className="font-bold uppercase tracking-widest text-sm text-green-800 group-hover:text-[#0A2F1D]">
+            <span className="font-bold tracking-wide text-sm text-slate-700 group-hover:text-slate-800">
               {social.name}
             </span>
           </motion.a>
@@ -1163,65 +1163,65 @@ function ConnectSection({ activeColor }) {
 // ==========================================
 function Footer({ activeColor }) {
   return (
-    <footer className="relative border-t border-[#0A2F1D]/10 bg-white overflow-hidden py-20 px-6 z-20">
+    <footer className="relative border-t border-slate-200 bg-white overflow-hidden py-20 px-6 z-20">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:30px_30px] opacity-20 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-6">
-          <h2 className="text-3xl font-black font-outfit uppercase tracking-widest text-[#0A2F1D]">FANTÔME</h2>
-          <p className="text-green-700 font-light max-w-sm">
+          <h2 className="text-3xl font-bold font-sans tracking-wide text-slate-800">FANTÔME</h2>
+          <p className="text-slate-600 font-light max-w-sm">
             Receive transmission updates on biological formula upgrades, new flavor drops, and exclusive team merchandise releases.
           </p>
           <div className="flex gap-4">
             <input 
               type="email" 
               placeholder="ENTER EMAIL TRANSMISSION"
-              className="px-6 py-4 rounded-xl glass-panel bg-green-50/80 text-sm uppercase tracking-wider font-semibold border border-[#0A2F1D]/10 w-full focus:outline-none focus:border-[#0A2F1D] transition-colors"
+              className="px-6 py-4 rounded-xl glass-panel bg-slate-50/80 text-sm tracking-wide font-semibold border border-slate-200 w-full focus:outline-none focus:border-[#0A2F1D] transition-colors"
             />
-            <button className="p-4 rounded-xl bg-[#0A2F1D] text-white font-bold uppercase tracking-widest flex items-center justify-center hover:bg-white/80 transition-colors">
+            <button className="p-4 rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 font-bold tracking-wide flex items-center justify-center hover:bg-white transition-colors">
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
         </div>
 
         {/* Legal Grid Compliance (Real Addresses & FSSAI Lic) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-green-600 font-medium">
-          <div className="p-5 rounded-2xl glass-panel border border-[#0A2F1D]/5 space-y-3 bg-green-100/50">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0A2F1D]">Manufactured By</h4>
-            <p className="font-bold text-green-800">KOLADIYA INDUSTRIES PVT. LTD.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-slate-500 font-medium">
+          <div className="p-5 rounded-2xl glass-panel border border-slate-100 space-y-3 bg-slate-100/50">
+            <h4 className="text-[10px] font-bold tracking-wide text-slate-800">Manufactured By</h4>
+            <p className="font-bold text-slate-700">KOLADIYA INDUSTRIES PVT. LTD.</p>
             <p className="leading-relaxed">
               Plot no. 21 to 26, 3rd Phase Industrial Estate, Navagam, Bhavnagar, Gujarat – 364110
             </p>
-            <p className="font-bold uppercase tracking-wider text-green-700">
-              FSSAI Lic. No: <span className="text-[#0A2F1D]">10722999000112</span>
+            <p className="font-bold tracking-wide text-slate-600">
+              FSSAI Lic. No: <span className="text-slate-800">10722999000112</span>
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl glass-panel border border-[#0A2F1D]/5 space-y-3 bg-green-100/50">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0A2F1D]">Marketed By</h4>
-            <p className="font-bold text-green-800">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
+          <div className="p-5 rounded-2xl glass-panel border border-slate-100 space-y-3 bg-slate-100/50">
+            <h4 className="text-[10px] font-bold tracking-wide text-slate-800">Marketed By</h4>
+            <p className="font-bold text-slate-700">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
             <p className="leading-relaxed">
               Plot No. 10, Nayapalli, Bhubaneswar, Odisha – 751014
             </p>
             <div className="space-y-1">
-              <p className="font-bold uppercase tracking-wider text-green-700">
-                FSSAI Lic. No: <span className="text-[#0A2F1D]">10016031000631</span>
+              <p className="font-bold tracking-wide text-slate-600">
+                FSSAI Lic. No: <span className="text-slate-800">10016031000631</span>
               </p>
-              <p>Email: <a href="mailto:info@ethosglobal.in" className="text-[#0A2F1D]/80 hover:text-[#0A2F1D] underline">info@ethosglobal.in</a></p>
-              <p>Customer Care: <span className="text-[#0A2F1D]">9090355570</span></p>
+              <p>Email: <a href="mailto:info@ethosglobal.in" className="text-slate-800/80 hover:text-slate-800 underline">info@ethosglobal.in</a></p>
+              <p>Customer Care: <span className="text-slate-800">9090355570</span></p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-[#0A2F1D]/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-green-600 font-bold uppercase tracking-widest">
+      <div className="max-w-7xl mx-auto border-t border-slate-100 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-bold tracking-wide">
         <span>© 2026 FANTÔME ENERGY. ALL BIO-SYSTEMS RESERVED.</span>
         <div className="flex items-center gap-6">
           <a 
             href="https://www.instagram.com/fantomeenergy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#0A2F1D]/20 bg-white/5 hover:bg-white/10 transition-all group"
+            className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 bg-white hover:bg-white transition-all group"
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -1240,9 +1240,9 @@ function Footer({ activeColor }) {
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
             </svg>
-            <span className="text-[#0A2F1D] font-bold">Instagram</span>
+            <span className="text-slate-800 font-bold">Instagram</span>
           </a>
-          <span className="w-1 h-1 rounded-full bg-white/20"></span>
+          <span className="w-1 h-1 rounded-full bg-slate-50"></span>
           <span style={{ color: activeColor }} className="transition-colors duration-500">UNSEEN POWER</span>
         </div>
       </div>
@@ -1305,7 +1305,7 @@ function FantomeChatbot({ activeColor }) {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)] z-[100] cursor-pointer transition-colors duration-500 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-sm z-[100] cursor-pointer transition-colors duration-500 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
         style={{ backgroundColor: activeColor, color: '#000' }}
       >
         <MessageCircle className="w-6 h-6" />
@@ -1319,23 +1319,23 @@ function FantomeChatbot({ activeColor }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed bottom-6 right-6 w-[350px] max-w-[calc(100vw-3rem)] h-[500px] max-h-[80vh] z-[101] bg-white/95 backdrop-blur-xl border rounded-2xl flex flex-col shadow-2xl overflow-hidden"
+            className="fixed bottom-6 right-6 w-[350px] max-w-[calc(100vw-3rem)] h-[500px] max-h-[80vh] z-[101] bg-white backdrop-blur-xl border rounded-2xl flex flex-col shadow-2xl overflow-hidden"
             style={{ borderColor: `${activeColor}40` }}
           >
             {/* Header */}
-            <div className="p-4 border-b flex justify-between items-center bg-green-50/90" style={{ borderColor: `${activeColor}20` }}>
+            <div className="p-4 border-b flex justify-between items-center bg-slate-50/90" style={{ borderColor: `${activeColor}20` }}>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full border flex items-center justify-center shadow-[0_0_10px_rgba(0,0,0,0.5)]" style={{ borderColor: activeColor, backgroundColor: `${activeColor}20`, color: activeColor }}>
-                  <span className="font-outfit font-black text-xs">F</span>
+                <div className="w-8 h-8 rounded-full border flex items-center justify-center shadow-sm" style={{ borderColor: activeColor, backgroundColor: `${activeColor}20`, color: activeColor }}>
+                  <span className="font-sans font-bold text-xs">F</span>
                 </div>
                 <div>
-                  <h3 className="text-[#0A2F1D] font-outfit font-black uppercase text-sm tracking-wider">Fantôme AI</h3>
-                  <p className="text-[10px] text-green-700 uppercase tracking-widest flex items-center gap-1">
+                  <h3 className="text-slate-800 font-sans font-bold uppercase text-sm tracking-wider">Fantôme AI</h3>
+                  <p className="text-[10px] text-slate-600 tracking-wide flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: activeColor }}></span> Online
                   </p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="text-green-700 hover:text-[#0A2F1D] transition-colors p-1 cursor-pointer">
+              <button onClick={() => setIsOpen(false)} className="text-slate-600 hover:text-slate-800 transition-colors p-1 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -1345,7 +1345,7 @@ function FantomeChatbot({ activeColor }) {
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div 
-                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-white/10 text-[#0A2F1D] rounded-tr-sm' : 'bg-white/90 border text-green-800 rounded-tl-sm'}`}
+                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-white text-slate-800 rounded-tr-sm' : 'bg-white border text-slate-700 rounded-tl-sm'}`}
                     style={msg.sender === 'bot' ? { borderColor: `${activeColor}30`, boxShadow: `inset 0 0 10px ${activeColor}10` } : {}}
                   >
                     {msg.text}
@@ -1356,13 +1356,13 @@ function FantomeChatbot({ activeColor }) {
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSend} className="p-4 border-t bg-green-50/90 flex gap-2" style={{ borderColor: `${activeColor}20` }}>
+            <form onSubmit={handleSend} className="p-4 border-t bg-slate-50/90 flex gap-2" style={{ borderColor: `${activeColor}20` }}>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Transmit query..."
-                className="flex-1 bg-white/5 border border-[#0A2F1D]/10 rounded-xl px-4 py-3 text-sm text-[#0A2F1D] focus:outline-none focus:border-[#0A2F1D] transition-colors"
+                className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-[#0A2F1D] transition-colors"
               />
               <button
                 type="submit"
@@ -1453,34 +1453,34 @@ function App() {
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen relative bg-white text-[#0A2F1D] overflow-hidden">
+    <div className="min-h-screen relative bg-white text-slate-800 overflow-hidden">
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
 
 
         {/* Navigation Bar */}
         <nav className="w-full p-4 md:p-6 pt-2 md:pt-4">
-          <div className="max-w-7xl mx-auto glass-panel px-6 py-3 flex justify-between items-center border border-[#0A2F1D]/10 bg-green-50/90 rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto glass-panel px-6 py-3 flex justify-between items-center border border-slate-200 bg-slate-50/90 rounded-full shadow-md backdrop-blur-xl">
           {/* Logo with dynamic glow */}
           <div 
-            className="font-outfit font-black text-2xl tracking-[0.2em] text-[#0A2F1D] select-none cursor-pointer transition-all duration-500"
-            style={{ textShadow: `0 0 15px ${activeColor}80` }}
+            className="font-sans font-bold text-2xl tracking-[0.2em] text-emerald-800 select-none cursor-pointer transition-all duration-500"
+            style={{ textShadow: "none" }}
           >
             FANTÔME
           </div>
           
           {/* Navigation Links */}
-          <div className="hidden md:flex gap-10 text-xs font-bold tracking-[0.15em] uppercase text-green-700">
+          <div className="hidden md:flex gap-10 text-xs font-bold tracking-[0.15em] uppercase text-slate-600">
             {['Flavors', 'Story', 'Shop', 'Campaigns'].map((item) => (
               <a 
                 key={item} 
                 href={`#${item.toLowerCase()}`} 
-                className="relative group transition-colors hover:text-[#0A2F1D] py-2"
+                className="relative group transition-colors hover:text-slate-800 py-2"
               >
                 {item}
                 <span 
                   className="absolute left-1/2 bottom-0 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full group-hover:left-0" 
-                  style={{ backgroundColor: activeColor, boxShadow: `0 0 8px ${activeColor}` }}
+                  style={{ backgroundColor: activeColor, boxShadow: "none" }}
                 />
               </a>
             ))}
@@ -1489,15 +1489,15 @@ function App() {
           {/* Bag Button */}
           <button 
             onClick={() => setIsCartOpen(true)}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#0A2F1D]/10 font-bold text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer hover:scale-105"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 font-bold text-xs tracking-wide transition-all duration-300 cursor-pointer hover:scale-105"
             style={{ 
               backgroundColor: `${activeColor}15`, 
               borderColor: `${activeColor}50`,
-              boxShadow: `0 0 20px ${activeColor}20`
+              boxShadow: "none"
             }}
           >
             <ShoppingBag className="w-4 h-4" style={{ color: activeColor }} />
-            <span className="text-[#0A2F1D]">Bag ({cartCount})</span>
+            <span className="text-slate-800">Bag ({cartCount})</span>
           </button>
         </div>
       </nav>
@@ -1541,21 +1541,21 @@ function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsCartOpen(false)}
-              className="absolute inset-0 bg-white/90 backdrop-blur-sm"
+              className="absolute inset-0 bg-white backdrop-blur-sm"
             />
             <motion.div 
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="relative w-full max-w-md h-full bg-white border-l border-[#0A2F1D]/10 p-8 flex flex-col justify-between z-10"
+              className="relative w-full max-w-md h-full bg-white border-l border-slate-200 p-8 flex flex-col justify-between z-10"
             >
               <div>
-                <div className="flex justify-between items-center border-b border-[#0A2F1D]/10 pb-6">
-                  <h3 className="text-2xl font-bold font-outfit uppercase">Shopping Bag</h3>
+                <div className="flex justify-between items-center border-b border-slate-200 pb-6">
+                  <h3 className="text-2xl font-bold font-sans uppercase">Shopping Bag</h3>
                   <button 
                     onClick={() => setIsCartOpen(false)}
-                    className="text-xs font-bold uppercase tracking-widest text-green-600 hover:text-[#0A2F1D] cursor-pointer"
+                    className="text-xs font-bold tracking-wide text-slate-500 hover:text-slate-800 cursor-pointer"
                   >
                     Close
                   </button>
@@ -1563,16 +1563,16 @@ function App() {
 
                 <div className="mt-8 space-y-6 overflow-y-auto max-h-[60vh] pr-2">
                   {cart.length === 0 ? (
-                    <div className="text-center py-20 text-green-600 uppercase tracking-widest font-bold text-sm">
+                    <div className="text-center py-20 text-slate-500 tracking-wide font-bold text-sm">
                       Your bag is empty
                     </div>
                   ) : (
                     cart.map((item) => (
-                      <div key={item.id} className="flex justify-between items-center p-4 rounded-2xl glass-panel border border-[#0A2F1D]/5 relative overflow-hidden group">
+                      <div key={item.id} className="flex justify-between items-center p-4 rounded-2xl glass-panel border border-slate-100 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-16 h-16 blur-2xl opacity-10 rounded-full pointer-events-none" style={{ backgroundColor: item.color }} />
                         <div className="flex gap-4 items-center">
                           <div 
-                            className="w-12 h-16 rounded-lg border border-[#0A2F1D]/10 bg-green-50/80 flex-shrink-0"
+                            className="w-12 h-16 rounded-lg border border-slate-200 bg-slate-50/80 flex-shrink-0"
                             style={{
                               backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url(${item.graphic})`,
                               backgroundSize: 'contain',
@@ -1581,33 +1581,33 @@ function App() {
                             }}
                           />
                           <div>
-                            <span className="text-[10px] uppercase tracking-widest font-bold" style={{ color: item.color }}>{item.pack}</span>
-                            <h4 className="text-sm font-bold font-outfit uppercase text-[#0A2F1D] mt-0.5">{item.title}</h4>
-                            <span className="text-xs font-bold text-green-700 mt-1 block">
+                            <span className="text-[10px] tracking-wide font-bold" style={{ color: item.color }}>{item.pack}</span>
+                            <h4 className="text-sm font-bold font-sans uppercase text-slate-800 mt-0.5">{item.title}</h4>
+                            <span className="text-xs font-bold text-slate-600 mt-1 block">
                               {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(item.price)} each
                             </span>
                           </div>
                         </div>
 
                         <div className="flex flex-col items-end gap-2">
-                          <div className="flex items-center gap-2 bg-white/5 border border-[#0A2F1D]/10 rounded-lg p-1">
+                          <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg p-1">
                             <button 
                               onClick={() => handleUpdateQuantity(item.id, -1)}
-                              className="p-1 hover:bg-white/10 rounded text-green-700 hover:text-[#0A2F1D] transition-colors cursor-pointer"
+                              className="p-1 hover:bg-white rounded text-slate-600 hover:text-slate-800 transition-colors cursor-pointer"
                             >
                               <Minus className="w-3.5 h-3.5" />
                             </button>
                             <span className="text-xs font-bold w-4 text-center">{item.quantity}</span>
                             <button 
                               onClick={() => handleUpdateQuantity(item.id, 1)}
-                              className="p-1 hover:bg-white/10 rounded text-green-700 hover:text-[#0A2F1D] transition-colors cursor-pointer"
+                              className="p-1 hover:bg-white rounded text-slate-600 hover:text-slate-800 transition-colors cursor-pointer"
                             >
                               <Plus className="w-3.5 h-3.5" />
                             </button>
                           </div>
                           <button 
                             onClick={() => handleRemoveFromCart(item.id)}
-                            className="text-[10px] font-black uppercase tracking-widest text-red-500 hover:text-red-400 flex items-center gap-1 cursor-pointer"
+                            className="text-[10px] font-bold tracking-wide text-red-500 hover:text-red-400 flex items-center gap-1 cursor-pointer"
                           >
                             <Trash2 className="w-3 h-3" />
                             <span>Remove</span>
@@ -1620,8 +1620,8 @@ function App() {
               </div>
 
               {cart.length > 0 && (
-                <div className="border-t border-[#0A2F1D]/10 pt-6">
-                  <div className="flex justify-between items-center text-lg font-bold uppercase tracking-wider mb-6">
+                <div className="border-t border-slate-200 pt-6">
+                  <div className="flex justify-between items-center text-lg font-bold tracking-wide mb-6">
                     <span>Total</span>
                     <span>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(cartTotal)}</span>
                   </div>
@@ -1631,7 +1631,7 @@ function App() {
                       setShowCheckoutSuccess(true);
                       setCart([]);
                     }}
-                    className="w-full py-4 rounded-2xl bg-[#0A2F1D] text-white font-bold uppercase tracking-widest hover:bg-opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer font-outfit"
+                    className="w-full py-4 rounded-2xl bg-emerald-700 text-white hover:bg-emerald-800 font-bold tracking-wide hover:bg-opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer font-sans"
                   >
                     Checkout
                   </button>
@@ -1651,37 +1651,37 @@ function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowCheckoutSuccess(false)}
-              className="absolute inset-0 bg-green-50 backdrop-blur-md"
+              className="absolute inset-0 bg-slate-50 backdrop-blur-md"
             />
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-md bg-white border border-[#0A2F1D]/10 p-8 rounded-3xl text-center shadow-2xl z-10 overflow-hidden"
+              className="relative w-full max-w-md bg-white border border-slate-200 p-8 rounded-3xl text-center shadow-2xl z-10 overflow-hidden"
             >
               {/* Radial glow */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-fantome-cyan/10 blur-3xl pointer-events-none" />
               
-              <div className="w-16 h-16 rounded-full bg-white/5 border border-[#0A2F1D]/10 flex items-center justify-center mx-auto mb-6">
+              
+              <div className="w-16 h-16 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto mb-6">
                 <Check className="w-8 h-8 text-[#00FF00]" style={{ filter: 'drop-shadow(0 0 8px #00FF00)' }} />
               </div>
               
-              <h3 className="text-3xl font-black font-outfit uppercase tracking-wider text-[#0A2F1D]">
+              <h3 className="text-3xl font-bold font-sans tracking-wide text-slate-800">
                 Transmission Received
               </h3>
               
-              <p className="text-sm text-green-700 font-light leading-relaxed mt-4 max-w-xs mx-auto">
+              <p className="text-sm text-slate-600 font-light leading-relaxed mt-4 max-w-xs mx-auto">
                 Your premium catalyst order has been verified. Your shipment is being prepared for rapid deployment.
               </p>
               
-              <div className="mt-8 p-4 rounded-2xl bg-white/5 border border-[#0A2F1D]/5 text-[10px] text-green-600 tracking-wider font-bold flex items-center justify-center gap-2 uppercase">
+              <div className="mt-8 p-4 rounded-2xl bg-white border border-slate-100 text-[10px] text-slate-500 tracking-wider font-bold flex items-center justify-center gap-2 uppercase">
                 <ShieldAlert className="w-4 h-4 text-fantome-gold" />
                 <span>SECURE BIO-QUANTUM ENCRYPTED CHECKOUT</span>
               </div>
               
               <button 
                 onClick={() => setShowCheckoutSuccess(false)}
-                className="mt-8 w-full py-4 rounded-2xl bg-[#0A2F1D] text-white font-bold uppercase tracking-widest hover:bg-opacity-90 transition-all cursor-pointer font-outfit"
+                className="mt-8 w-full py-4 rounded-2xl bg-emerald-700 text-white hover:bg-emerald-800 font-bold tracking-wide hover:bg-opacity-90 transition-all cursor-pointer font-sans"
               >
                 Acknowledge Transmission
               </button>
