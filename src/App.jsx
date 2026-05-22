@@ -692,9 +692,9 @@ function ShopSection({ activeColor }) {
   }, []);
 
   const crateFlavors = [
-    { name: "Mojito", color: "#059669", graphic: "/mojito_straight.png?v=6" },
-    { name: "Original", color: "#DC2626", graphic: "/original_straight.png?v=6" },
-    { name: "Sugar Free", color: "#475569", graphic: "/sugarfree_straight.png?v=6" }
+    { name: "Mojito", color: "#059669", graphic: "/mojito_perfect.png" },
+    { name: "Original", color: "#DC2626", graphic: "/original_perfect.png" },
+    { name: "Sugar Free", color: "#475569", graphic: "/sugarfree_perfect.png" }
   ];
 
   const currentCrateFlavorInfo = crateFlavors.find(f => f.name === selectedCrateFlavor) || crateFlavors[0];
@@ -1394,7 +1394,7 @@ function App() {
       desc: "The absolute standard of premium carbonated energy. Infused with natural wild Mint and zesty Lime juice, structured precisely around B-Complex catalysts to break sensory thresholds.",
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (Green Colour INS 102 & INS 150), Permitted Food Flavour (Mint Flavour), Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour (Natural & Nature Identical Flavouring Substances).",
       canGraphic: "/mojito_texture.png",
-      canFront: "/mojito_straight.png?v=6"
+      canFront: "/mojito_perfect.png"
     },
     { 
       title: "Original", 
@@ -1403,7 +1403,7 @@ function App() {
       desc: "Our classic adaptation. A violent shockwave of mental clarity and cognitive ignition, utilizing high taurine metrics and immediate energy release regulators.",
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 122 & INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/original_texture.png",
-      canFront: "/original_straight.png?v=6"
+      canFront: "/original_perfect.png"
     },
     { 
       title: "Sugar Free", 
@@ -1412,7 +1412,7 @@ function App() {
       desc: "Pure power, completely unburdened by carbohydrates. Engineered for elite metabolic performance and sustained neural support without the glycemic crash.",
       fullIngredients: "Water, Sucralose, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/sugarfree_texture.png",
-      canFront: "/sugarfree_straight.png?v=6"
+      canFront: "/sugarfree_perfect.png"
     }
   ];
 
