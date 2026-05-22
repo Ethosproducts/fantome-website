@@ -1281,7 +1281,7 @@ function FantomeChatbot({ activeColor }) {
       const query = userMsg.text.toLowerCase();
 
       // Basic questions handling
-      if (query.match(/\b(hi|hello|hey|greetings)\b/)) {
+      if (query.match(/\b(h+i+|h+e+l+o+|h+e+y+|greetings)\b/i)) {
         responseText = "Hello! Welcome to Fantôme Energy. How can I assist you today?";
       } else if (query.includes("flavor") || query.includes("flavour") || query.includes("taste")) {
         responseText = "We have three premium flavors available: Mojito (Green), Original (Red), and Sugar Free (Silver).";
