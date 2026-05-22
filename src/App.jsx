@@ -142,27 +142,6 @@ function FantomeCan({ activeFlavor }) {
           <meshStandardMaterial color="#e8e8e8" metalness={1.0} roughness={0.18} />
         </mesh>
 
-        {/* 5. Bottom Tapered Heel (dark black aluminum for black cans, silver for sugar free) */}
-        <mesh position={[0, -2.375, 0]}>
-          <cylinderGeometry args={[0.85, 0.70, 0.25, 64, 1, true]} />
-          <meshStandardMaterial 
-            color={activeFlavor === 'Sugar Free' ? "#ffffff" : "#121212"} 
-            metalness={activeFlavor === 'Sugar Free' ? 1.0 : 0.85} 
-            roughness={activeFlavor === 'Sugar Free' ? 0.12 : 0.25} 
-          />
-        </mesh>
-
-        {/* 6. Bottom Base Rim / Stand (silver metal) */}
-        <mesh position={[0, -2.525, 0]}>
-          <cylinderGeometry args={[0.70, 0.70, 0.05, 64]} />
-          <meshStandardMaterial color="#e0e0e0" metalness={1.0} roughness={0.15} />
-        </mesh>
-
-        {/* Color Accent Ring under the bottom base rim */}
-        <mesh position={[0, -2.56, 0]} scale={[1.01, 0.03, 1.01]}>
-          <cylinderGeometry args={[0.70, 0.70, 1, 64]} />
-          <meshStandardMaterial color={tintColor} emissive={tintColor} emissiveIntensity={2.0} />
-        </mesh>
 
         {/* ── CAN TOP ASSEMBLY (Reference-accurate pull-tab sitting on sunken lid) ── */}
 
