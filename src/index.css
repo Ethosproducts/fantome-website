@@ -11,6 +11,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 35%, #38bdf8 65%, #ffedd5 90%, #fed7aa 100%);
     background-attachment: fixed;
@@ -19,6 +23,17 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  canvas {
+    touch-action: none;
+  }
+
+  img, video {
+    content-visibility: auto;
   }
 }
 

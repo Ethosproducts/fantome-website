@@ -1,11 +1,14 @@
-import React, { useRef, useState, useEffect, Suspense } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import React, { useRef, useState, useEffect, Suspense, lazy, memo, useMemo, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, PresentationControls, useTexture, Sparkles, ContactShadows } from '@react-three/drei';
 import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send } from 'lucide-react';
-import * as THREE from 'three';
 import { Link } from 'react-router-dom';
+
+// Lazy load heavy 3D dependencies - these won't block initial paint
+const Canvas3D = lazy(() => import('@react-three/fiber').then(m => ({ default: m.Canvas })));
+import { useFrame } from '@react-three/fiber';
+import { Environment, Float, PresentationControls, useTexture, Sparkles, ContactShadows } from '@react-three/drei';
+import { RepeatWrapping, ClampToEdgeWrapping, MathUtils } from 'three';
 
 // ==========================================
 // 3D LIGHTNING BOLTS (SVG Revert)
@@ -49,16 +52,15 @@ function FantomeCan({ activeFlavor }) {
   
   // Configure textures to wrap perfectly around the cylinder with high-definition anisotropic filtering.
   [originalTexture, mojitoTexture, sugarFreeTexture].forEach(tex => {
-    tex.wrapS = THREE.RepeatWrapping;
-    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.wrapS = RepeatWrapping;
+    tex.wrapT = ClampToEdgeWrapping;
     tex.repeat.set(1.0, 1.0); 
     if (tex !== sugarFreeTexture) {
       tex.offset.set(0.5, 0.0);
     } else {
       tex.offset.set(0.0, 0.0);
     }
-    // Set 16x anisotropic filtering for crystal-clear texture rendering at oblique viewing angles
-    tex.anisotropy = 16;
+    tex.anisotropy = 8;
   });
   
   let currentTexture = mojitoTexture;
@@ -74,9 +76,8 @@ function FantomeCan({ activeFlavor }) {
 
   const lightRef = useRef();
   
-  // Check for debug query parameters
-  const queryParams = new URLSearchParams(window.location.search);
-  const urlAngle = queryParams.get('angle');
+  // Check for debug query parameters (memoized to avoid re-parsing on every frame)
+  const urlAngle = useMemo(() => new URLSearchParams(window.location.search).get('angle'), []);
   
   useFrame((state, delta) => {
     const t = state.clock.getElapsedTime();
@@ -90,7 +91,7 @@ function FantomeCan({ activeFlavor }) {
     
     // Smoothly interpolate the can't rotation to the front offset
     const lerpFactor = urlAngle !== null ? 1.0 : (1 - Math.exp(-4 * delta));
-    angleRef.current = THREE.MathUtils.lerp(angleRef.current, FRONT_OFFSET, lerpFactor);
+    angleRef.current = MathUtils.lerp(angleRef.current, FRONT_OFFSET, lerpFactor);
 
     if (canRef.current) {
       canRef.current.rotation.y = angleRef.current;
@@ -113,7 +114,7 @@ function FantomeCan({ activeFlavor }) {
       <group ref={canRef}>
         {/* 1. Main cylindrical body with printed wrap texture (open-ended to fit tapered ends) */}
         <mesh>
-          <cylinderGeometry args={[1.0, 1.0, 4.5, 64, 1, true]} />
+          <cylinderGeometry args={[1.0, 1.0, 4.5, 32, 1, true]} />
           <meshStandardMaterial 
             map={currentTexture} 
             metalness={activeFlavor === 'Sugar Free' ? 0.85 : 0.85} 
@@ -125,7 +126,7 @@ function FantomeCan({ activeFlavor }) {
 
         {/* Thin Silver Collar / Rim at the top edge */}
         <mesh position={[0, 2.25 + 0.02, 0]}>
-          <cylinderGeometry args={[1.005, 1.005, 0.04, 64]} />
+          <cylinderGeometry args={[1.005, 1.005, 0.04, 32]} />
           <meshStandardMaterial 
             color="#dcdcdc" 
             metalness={1.0} 
@@ -135,7 +136,7 @@ function FantomeCan({ activeFlavor }) {
 
         {/* Flat lid disc to close the top of the cylinder */}
         <mesh position={[0, 2.25, 0]}>
-          <cylinderGeometry args={[1.0, 1.0, 0.01, 64]} />
+          <cylinderGeometry args={[1.0, 1.0, 0.01, 32]} />
           <meshStandardMaterial 
             color="#c0c0c0" 
             metalness={0.9} 
@@ -255,30 +256,36 @@ function Hero({ activeColor, activeFlavor }) {
             <img src={activeFlavor === 'Original Mojito' ? '/mojito_perfect.png' : '/sugarfree_perfect.png'} alt={activeFlavor} className="h-2/3 object-contain drop-shadow-2xl" />
           </div>
         }>
-          <Canvas camera={{ position: [0, 0, 10], fov: 45 }} style={{ pointerEvents: 'auto' }}>
-            <ambientLight intensity={0.06} />
-            
-            {/* Moody, low-brightness three-point lighting setup to completely eliminate glare */}
-            <directionalLight position={[5, 4, 5]} intensity={0.15} color="#ffffff" />
-            <directionalLight position={[-5, 2, 4]} intensity={0.10} color="#ffffff" />
-            <directionalLight position={[0, 5, -8]} intensity={0.15} color={activeColor} />
-            
-            <Suspense fallback={null}>
-              <Environment files="/studio_small_03_1k.hdr" intensity={0.05} />
-            </Suspense>
-            
-            <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
-               <Suspense fallback={null}>
-                 <FantomeCan activeFlavor={activeFlavor} />
-               </Suspense>
-            </PresentationControls>
-            
-            <Sparkles count={150} scale={12} size={4} speed={0.4} opacity={0.6} color={activeColor} />
-            <Sparkles count={50} scale={10} size={10} speed={1} opacity={0.2} color="#ffffff" />
-            
-            {/* Soft ambient floor shadow beneath the floating can */}
-            <ContactShadows position={[0, -3.8, 0]} opacity={0.4} scale={8} blur={2.0} far={4} />
-          </Canvas>
+          <Suspense fallback={
+            <div className="w-full h-full flex items-center justify-center pointer-events-none">
+              <img src={activeFlavor === 'Mojito' ? '/mojito_perfect.png?v=7' : activeFlavor === 'Original' ? '/original_perfect.png?v=7' : '/sugarfree_perfect.png?v=8'} alt={activeFlavor} className="h-2/3 object-contain drop-shadow-2xl animate-pulse" />
+            </div>
+          }>
+            <Canvas3D camera={{ position: [0, 0, 10], fov: 45 }} style={{ pointerEvents: 'auto' }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
+              <ambientLight intensity={0.06} />
+              
+              {/* Moody, low-brightness three-point lighting setup to completely eliminate glare */}
+              <directionalLight position={[5, 4, 5]} intensity={0.15} color="#ffffff" />
+              <directionalLight position={[-5, 2, 4]} intensity={0.10} color="#ffffff" />
+              <directionalLight position={[0, 5, -8]} intensity={0.15} color={activeColor} />
+              
+              <Suspense fallback={null}>
+                <Environment files="/studio_small_03_1k.hdr" intensity={0.05} />
+              </Suspense>
+              
+              <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
+                 <Suspense fallback={null}>
+                   <FantomeCan activeFlavor={activeFlavor} />
+                 </Suspense>
+              </PresentationControls>
+              
+              <Sparkles count={60} scale={12} size={4} speed={0.4} opacity={0.6} color={activeColor} />
+              <Sparkles count={20} scale={10} size={10} speed={1} opacity={0.2} color="#ffffff" />
+              
+              {/* Soft ambient floor shadow beneath the floating can */}
+              <ContactShadows position={[0, -3.8, 0]} opacity={0.4} scale={8} blur={2.0} far={4} frames={1} />
+            </Canvas3D>
+          </Suspense>
         </ErrorBoundary>
       </div>
 
@@ -943,7 +950,7 @@ function CampaignsSection({ activeColor }) {
                   muted
                   loop
                   playsInline
-                  preload="auto"
+                  preload="none"
                   className="w-full h-full object-cover transform-gpu"
                   style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
                 />
@@ -951,6 +958,7 @@ function CampaignsSection({ activeColor }) {
                 <img
                   src={camp.image}
                   alt={camp.title}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
                   style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
                 />
@@ -1014,6 +1022,7 @@ function FounderSection({ activeColor }) {
               <img 
                 src="/founder.png" 
                 alt="Shri Ankit Khandelwal - Founder" 
+                loading="lazy"
                 className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-sky-200/40 via-sky-200/10 to-transparent pointer-events-none" />
