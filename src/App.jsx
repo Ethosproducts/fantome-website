@@ -161,14 +161,14 @@ function HeroTicker({ activeColor }) {
       style={{
         borderTop: `1px solid ${activeColor}33`,
         borderBottom: `1px solid ${activeColor}33`,
-        background: `linear-gradient(90deg, #f8fafc, ${activeColor}10, #f8fafc)`,
+        background: `linear-gradient(90deg, transparent, ${activeColor}10, transparent)`,
       }}
     >
       {/* Left / right fade masks */}
       <div className="absolute left-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, #f8fafc, transparent)' }} />
+        style={{ background: 'linear-gradient(to right, #7dd3fc, transparent)' }} />
       <div className="absolute right-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left, #f8fafc, transparent)' }} />
+        style={{ background: 'linear-gradient(to left, #7dd3fc, transparent)' }} />
 
       <div className="flex whitespace-nowrap hero-ticker-track">
         {items.map((item, i) => (
@@ -206,7 +206,12 @@ function Hero({ activeColor, activeFlavor }) {
 
   return (
     <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/5 via-fantome-black to-fantome-black z-0"></div>
+      <div 
+        className="absolute inset-0 z-0" 
+        style={{ 
+          background: 'radial-gradient(circle at center, rgba(186, 230, 253, 0.3) 0%, rgba(125, 211, 252, 0.6) 60%, rgba(56, 189, 248, 0.8) 100%)' 
+        }} 
+      />
 
       {/* Background flashes */}
       <motion.div 
@@ -224,7 +229,7 @@ function Hero({ activeColor, activeFlavor }) {
         }}
         animate="animate"
         className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
-        style={{ background: 'white' }}
+        style={{ background: '#e0f2fe' }}
       />
       
       {/* BACKGROUND TEXT */}
@@ -288,7 +293,7 @@ function Hero({ activeColor, activeFlavor }) {
           transition={{ duration: 0.5, delay: 1 }}
           whileHover={{ scale: 1.05, boxShadow: "none" }}
           onClick={() => document.getElementById('connect').scrollIntoView({ behavior: 'smooth' })}
-          className="mt-8 px-12 py-4 bg-slate-50/90 backdrop-blur-md border-2 text-slate-800 font-bold tracking-wide rounded-full pointer-events-auto transition-colors duration-300"
+          className="mt-8 px-12 py-4 bg-gradient-to-r from-sky-400/80 to-sky-500/80 hover:from-sky-500/90 hover:to-sky-600/90 backdrop-blur-md border-2 text-slate-800 font-bold tracking-wide rounded-full pointer-events-auto transition-colors duration-300 shadow-md"
           style={{ borderColor: activeColor }}
         >
           Connect Us
@@ -388,9 +393,9 @@ function StorySection({ activeColor, activeFlavor }) {
           </span>
           <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase leading-tight">
             Scientific <br />
-            <span className="text-slate-800">Formulation</span>
+            <span className="text-sky-950">Formulation</span>
           </h2>
-          <p className="text-slate-600 text-lg leading-relaxed font-light">
+          <p className="text-sky-800 text-lg leading-relaxed font-light">
             Engineered with high precision. Fantôme delivers a potent energy profile driven by B-Complex vitamins, pure Taurine, and exact Caffeine mapping. Crafted for zero fat accumulation and optimal metabolic acceleration.
           </p>
           
@@ -400,21 +405,21 @@ function StorySection({ activeColor, activeFlavor }) {
               <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '75 mg' : '75 mg'}
               </h4>
-              <p className="text-xs text-slate-500 tracking-wide mt-1">Caffeine / 250ml</p>
+              <p className="text-xs text-sky-700 tracking-wide mt-1">Caffeine / 250ml</p>
             </div>
-            <div className="border-l border-slate-200" />
+            <div className="border-l border-sky-400/30" />
             <div>
               <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '15 kcal' : '93.75 kcal'}
               </h4>
-              <p className="text-xs text-slate-500 tracking-wide mt-1">Energy / 250ml</p>
+              <p className="text-xs text-sky-700 tracking-wide mt-1">Energy / 250ml</p>
             </div>
-            <div className="border-l border-slate-200" />
+            <div className="border-l border-sky-400/30" />
             <div>
               <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '400 mg' : '800 mg'}
               </h4>
-              <p className="text-xs text-slate-500 tracking-wide mt-1">Taurine / 250ml</p>
+              <p className="text-xs text-sky-700 tracking-wide mt-1">Taurine / 250ml</p>
             </div>
           </div>
         </motion.div>
@@ -425,24 +430,24 @@ function StorySection({ activeColor, activeFlavor }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="p-8 rounded-3xl glass-panel border border-slate-200 bg-white shadow-2xl relative overflow-hidden"
+          className="p-8 rounded-3xl glass-panel shadow-2xl relative overflow-hidden"
         >
           
           
-          <div className="flex items-center gap-3 border-b border-slate-200 pb-4 mb-6">
+          <div className="flex items-center gap-3 border-b border-sky-400/30 pb-4 mb-6">
             <FlaskConical className="w-6 h-6" style={{ color: activeColor }} />
             <h3 className="font-sans font-bold text-2xl tracking-widest uppercase">LABORATORY SPECIFICATION</h3>
           </div>
 
           <div className="space-y-4">
-            <div className="border-b border-slate-200 pb-2">
+            <div className="border-b border-sky-400/30 pb-2">
               <span className="text-xs text-slate-500 tracking-wide">Typical Values</span>
               <h4 className="text-lg font-bold font-sans uppercase mt-0.5">{nutrition.servingSize}</h4>
             </div>
 
-            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm border-b border-slate-100 pb-4">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm border-b border-sky-400/20 pb-4">
               {nutrition.values.map((item, idx) => (
-                <div key={idx} className="flex justify-between border-b border-slate-100 py-1">
+                <div key={idx} className="flex justify-between border-b border-sky-400/10 py-1">
                   <span className="text-slate-600">{item.name}</span>
                   <span className="font-bold">{item.val}</span>
                 </div>
@@ -453,7 +458,7 @@ function StorySection({ activeColor, activeFlavor }) {
               <span className="text-xs text-slate-500 tracking-wide">Active Bio-Elements & Vitamins</span>
               <div className="grid grid-cols-2 gap-x-8 gap-y-2 mt-2 text-xs">
                 {nutrition.bioElements.map((item, idx) => (
-                  <div key={idx} className={`flex justify-between py-0.5 border-b border-slate-100 ${item.name === 'Vitamin B12' ? 'col-span-2' : ''}`}>
+                  <div key={idx} className={`flex justify-between py-0.5 border-b border-sky-400/10 ${item.name === 'Vitamin B12' ? 'col-span-2' : ''}`}>
                     <span className="text-slate-600">{item.name}</span>
                     <span className="font-bold text-slate-800">{item.val}</span>
                   </div>
@@ -500,13 +505,13 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         {/* Navigation Arrows */}
         <button 
           onClick={prevSlide}
-          className="absolute left-0 lg:left-8 z-30 p-4 rounded-full glass-panel hover:bg-white transition-colors border border-slate-200 cursor-pointer"
+          className="absolute left-0 lg:left-8 z-30 p-4 rounded-full glass-panel hover:bg-sky-300/60 transition-colors cursor-pointer"
         >
           <ChevronLeft className="w-6 h-6 text-slate-800" />
         </button>
         <button 
           onClick={nextSlide}
-          className="absolute right-0 lg:right-8 z-30 p-4 rounded-full glass-panel hover:bg-white transition-colors border border-slate-200 cursor-pointer"
+          className="absolute right-0 lg:right-8 z-30 p-4 rounded-full glass-panel hover:bg-sky-300/60 transition-colors cursor-pointer"
         >
           <ChevronRight className="w-6 h-6 text-slate-800" />
         </button>
@@ -522,7 +527,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-5xl px-12"
           >
             {/* Visual Preview displaying respective Can artwork background texture */}
-            <div className="relative w-full aspect-square rounded-3xl glass-panel p-12 bg-gradient-to-br from-white/5 to-transparent border border-slate-200 flex items-center justify-center overflow-hidden">
+            <div className="relative w-full aspect-square rounded-3xl glass-panel p-12 bg-gradient-to-br from-sky-300/40 to-sky-400/20 flex items-center justify-center overflow-hidden">
               <div 
                 className="absolute inset-0 blur-3xl opacity-25 transition-all duration-500"
                 style={{ background: `radial-gradient(circle, ${flavors[currentIdx].color} 0%, transparent 70%)` }}
@@ -532,7 +537,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 initial={{ scale: 0.8, rotate: -5, y: 10 }}
                 animate={{ scale: 1, rotate: 0, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="w-48 h-72 sm:w-52 sm:h-80 lg:w-56 lg:h-88 rounded-2xl border border-slate-200 bg-slate-50/80 shadow-2xl relative z-10 flex flex-col items-center justify-center p-4 lg:p-6 overflow-hidden backdrop-blur-md"
+                className="w-48 h-72 sm:w-52 sm:h-80 lg:w-56 lg:h-88 rounded-2xl border border-sky-400/30 bg-sky-300/50 shadow-2xl relative z-10 flex flex-col items-center justify-center p-4 lg:p-6 overflow-hidden backdrop-blur-md"
               >
                 {/* Radial glow specific to flavor inside the card */}
                 <div 
@@ -569,7 +574,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
               
               <div className="space-y-4">
                 <h4 className="text-sm font-bold tracking-wide text-slate-800">Full Ingredient Manifest:</h4>
-                <p className="text-xs text-slate-600 leading-relaxed bg-slate-50/80 border border-slate-100 p-4 rounded-2xl font-light">
+                <p className="text-xs text-slate-600 leading-relaxed bg-sky-300/30 border border-sky-400/30 p-4 rounded-2xl font-light">
                   {flavors[currentIdx].fullIngredients}
                 </p>
               </div>
@@ -663,7 +668,7 @@ function ShopSection({ activeColor }) {
         <div className="lg:col-span-6 flex justify-center">
           <motion.div
             whileHover={{ y: -10 }}
-            className="w-full max-w-md p-8 rounded-3xl glass-panel border border-slate-200 flex flex-col justify-between group bg-gradient-to-br from-white/5 to-transparent relative overflow-hidden"
+            className="w-full max-w-md p-8 rounded-3xl glass-panel flex flex-col justify-between group bg-gradient-to-br from-sky-300/30 to-sky-400/10 relative overflow-hidden"
           >
             {/* Glowing activeColor aura */}
             
@@ -671,7 +676,7 @@ function ShopSection({ activeColor }) {
             <div>
               <div className="flex justify-between items-start">
                 <span className="text-xs tracking-wide font-bold" style={{ color: currentCrateFlavorInfo.color }}>24 + 3 Cans Free</span>
-                <span className="bg-white border border-slate-300 text-slate-800 text-[9px] font-bold tracking-wide px-3 py-1 rounded-full">
+                <span className="bg-sky-300/50 border border-sky-400/30 text-slate-800 text-[9px] font-bold tracking-wide px-3 py-1 rounded-full">
                   COMING SOON
                 </span>
               </div>
@@ -680,7 +685,7 @@ function ShopSection({ activeColor }) {
                 {selectedCrateFlavor} Case
               </h3>
               
-              <div className="mt-6 aspect-square rounded-2xl bg-white border border-slate-100 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
+              <div className="mt-6 aspect-square rounded-2xl bg-sky-300/30 border border-sky-400/30 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
                 {/* Radial glow background */}
                 <div 
                   className="absolute inset-0 blur-2xl opacity-20 transition-all duration-500"
@@ -696,8 +701,8 @@ function ShopSection({ activeColor }) {
                 />
 
                 {/* Vault Locked overlay */}
-                <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] flex flex-col items-center justify-center gap-2 z-20">
-                  <div className="p-4 rounded-full bg-white border border-slate-200 text-slate-800 shadow-2xl">
+                <div className="absolute inset-0 bg-sky-300/20 backdrop-blur-[2px] flex flex-col items-center justify-center gap-2 z-20">
+                  <div className="p-4 rounded-full bg-sky-300/50 border border-sky-400/30 text-slate-800 shadow-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" style={{ color: currentCrateFlavorInfo.color }}>
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -707,14 +712,14 @@ function ShopSection({ activeColor }) {
                 </div>
                 
                 <span className="text-xs font-bold uppercase tracking-[0.25em] text-slate-800/10 absolute bottom-12 z-10 font-sans">FANTÔME SECURE CASE</span>
-                <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[9px] font-bold bg-white/75 border border-slate-200 z-30 tracking-widest uppercase">
+                <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[9px] font-bold bg-sky-300/50 border border-sky-400/30 z-30 tracking-widest uppercase">
                   27 Cans Total
                 </div>
               </div>
 
               {/* Flavor Selector */}
               <div className="mt-6">
-                <span className="text-[10px] tracking-wide text-slate-500 block mb-2.5 font-bold">Preview Crate Flavor</span>
+                <span className="text-[10px] tracking-wide text-sky-850 block mb-2.5 font-bold">Preview Crate Flavor</span>
                 <div className="flex gap-2">
                   {crateFlavors.map(f => (
                     <button
@@ -722,8 +727,8 @@ function ShopSection({ activeColor }) {
                       onClick={() => setSelectedCrateFlavor(f.name)}
                       className={`flex-1 py-2 px-3 text-[10px] rounded-xl border transition-all font-bold uppercase cursor-pointer text-center ${
                         selectedCrateFlavor === f.name 
-                          ? 'bg-emerald-700 text-white hover:bg-emerald-800 border-[#0A2F1D]' 
-                          : 'bg-white text-slate-600 border-slate-100 hover:border-slate-300'
+                          ? 'bg-sky-600 text-white hover:bg-sky-700 border-sky-700' 
+                          : 'bg-sky-300/20 text-slate-700 border-sky-400/30 hover:bg-sky-300/50 hover:border-sky-400/50'
                       }`}
                       style={selectedCrateFlavor === f.name ? { boxShadow: "none" } : {}}
                     >
@@ -734,13 +739,13 @@ function ShopSection({ activeColor }) {
               </div>
             </div>
 
-            <div className="mt-8 flex items-center justify-between pt-6 border-t border-slate-100">
+            <div className="mt-8 flex items-center justify-between pt-6 border-t border-sky-400/30">
               <div>
                 <span className="text-xs text-slate-500 tracking-wide">Target Price</span>
                 <h4 className="text-2xl font-bold font-sans text-slate-800 mt-1">{formatPrice(1440)}</h4>
               </div>
               
-              <span className="text-xs font-bold tracking-wide text-slate-600 py-3 px-5 rounded-xl border border-slate-200 bg-white">
+              <span className="text-xs font-bold tracking-wide text-slate-700 py-3 px-5 rounded-xl border border-sky-400/30 bg-sky-300/50">
                 LOCKED
               </span>
             </div>
@@ -748,18 +753,18 @@ function ShopSection({ activeColor }) {
         </div>
 
         {/* Right Side: Cybernetic Terminal UI with Countdown & Alert Sign Up */}
-        <div className="lg:col-span-6 space-y-8">
+        <div className="lg:col-span-6 space-y-6">
           {/* Terminal Box */}
-          <div className="p-8 rounded-3xl glass-panel border border-slate-200 bg-slate-50/80 shadow-2xl relative overflow-hidden">
+          <div className="p-8 rounded-3xl glass-panel border border-sky-400/40 shadow-2xl relative overflow-hidden">
             
             
             {/* Terminal Header */}
-            <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+            <div className="flex items-center justify-between border-b border-sky-400/30 pb-4 mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
                 <h3 className="font-sans font-bold text-xl tracking-widest uppercase text-slate-800">SECURE ACCESS LOCKOUT</h3>
               </div>
-              <span className="text-[9px] font-mono text-slate-500 bg-white px-2 py-1 rounded border border-slate-100">SYS.V_2.0</span>
+              <span className="text-[9px] font-mono text-sky-900 bg-sky-300/50 px-2 py-1 rounded border border-sky-400/30">SYS.V_2.0</span>
             </div>
 
             <p className="text-slate-600 text-sm leading-relaxed font-light mb-8">
@@ -768,7 +773,7 @@ function ShopSection({ activeColor }) {
 
             {/* Glowing Countdown */}
             <div className="space-y-3 mb-8">
-              <span className="text-[10px] tracking-wide text-slate-500 font-bold block">Transmission Synchronization Est. Time</span>
+              <span className="text-[10px] tracking-wide text-sky-800 font-bold block">Transmission Synchronization Est. Time</span>
               <div className="grid grid-cols-4 gap-3 text-center">
                 {[
                   { label: "DAYS", val: timeLeft.days },
@@ -776,18 +781,18 @@ function ShopSection({ activeColor }) {
                   { label: "MINUTES", val: timeLeft.minutes },
                   { label: "SECONDS", val: timeLeft.seconds }
                 ].map((t, idx) => (
-                  <div key={idx} className="p-3 rounded-2xl bg-white border border-slate-100 flex flex-col justify-center">
-                    <span className="text-2xl md:text-3xl font-bold font-sans tracking-tight" style={{ color: activeColor, textShadow: "none" }}>
+                  <div key={idx} className="p-3 rounded-2xl bg-sky-300/30 border border-sky-400/30 flex flex-col justify-center">
+                    <span className="text-2xl md:text-3xl font-bold font-sans tracking-tight text-sky-950" style={{ textShadow: "none" }}>
                       {String(t.val).padStart(2, '0')}
                     </span>
-                    <span className="text-[8px] text-slate-500 font-bold tracking-widest uppercase mt-1">{t.label}</span>
+                    <span className="text-[8px] text-sky-800 font-bold tracking-widest uppercase mt-1">{t.label}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Newsletter Notify Form */}
-            <div className="border-t border-slate-100 pt-6">
+            <div className="border-t border-sky-400/30 pt-6">
               <AnimatePresence mode="wait">
                 {!isSubmitted ? (
                   <motion.form 
@@ -798,7 +803,7 @@ function ShopSection({ activeColor }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <span className="text-[10px] tracking-wide text-slate-500 font-bold block">Register for launch authorization</span>
+                    <span className="text-[10px] tracking-wide text-sky-800 font-bold block">Register for launch authorization</span>
                     <div className="flex flex-col sm:flex-row gap-3">
                       <input 
                         type="email" 
@@ -806,14 +811,13 @@ function ShopSection({ activeColor }) {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="ENTER SECURE EMAIL ADDRESS"
-                        className="px-5 py-4 rounded-2xl glass-panel bg-white text-xs tracking-wide font-semibold border border-slate-200 flex-grow focus:outline-none focus:border-[#0A2F1D] transition-colors"
-                        style={{ color: '#fff' }}
+                        className="px-5 py-4 rounded-2xl glass-panel bg-sky-300/30 text-xs tracking-wide font-semibold border border-sky-400/30 flex-grow focus:outline-none focus:border-sky-500 transition-colors text-slate-800"
                       />
                       <motion.button 
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         type="submit"
-                        className="px-6 py-4 rounded-2xl bg-emerald-700 text-white hover:bg-emerald-800 font-bold tracking-wide text-xs flex items-center justify-center hover:bg-white transition-colors cursor-pointer"
+                        className="px-6 py-4 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide text-xs flex items-center justify-center transition-colors cursor-pointer"
                         style={{ boxShadow: "none" }}
                       >
                         Authorize
@@ -825,14 +829,14 @@ function ShopSection({ activeColor }) {
                     key="success"
                     initial={{ scale: 0.95, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="p-5 rounded-2xl bg-[#00FF00]/5 border border-[#00FF00]/15 flex items-start gap-4"
+                    className="p-5 rounded-2xl bg-sky-300/20 border border-sky-400/30 flex items-start gap-4"
                   >
-                    <div className="p-2 rounded-xl bg-[#00FF00]/10 text-[#00FF00] mt-0.5">
+                    <div className="p-2 rounded-xl bg-sky-300/40 text-sky-900 mt-0.5 animate-pulse">
                       <Check className="w-5 h-5" />
                     </div>
                     <div>
                       <h4 className="font-sans font-bold text-sm tracking-wide text-slate-800">TRANSMISSION ESTABLISHED</h4>
-                      <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                      <p className="text-xs text-slate-650 mt-1 leading-relaxed">
                         Security authorization verified. You will receive priority access notifications the microsecond the crate drops.
                       </p>
                     </div>
@@ -844,13 +848,13 @@ function ShopSection({ activeColor }) {
           
           {/* Subtle details bullet points */}
           <div className="grid grid-cols-2 gap-4 text-xs">
-            <div className="p-4 rounded-2xl border border-slate-100 bg-white space-y-1">
+            <div className="p-4 rounded-2xl border border-sky-400/30 bg-sky-300/30 space-y-1">
               <span className="font-bold text-slate-800 block tracking-wide">Priority Distribution</span>
-              <p className="text-slate-500 font-light leading-relaxed">Secure Case orders receive automatic express distribution globally.</p>
+              <p className="text-sky-900 font-light leading-relaxed">Secure Case orders receive automatic express distribution globally.</p>
             </div>
-            <div className="p-4 rounded-2xl border border-slate-100 bg-white space-y-1">
+            <div className="p-4 rounded-2xl border border-sky-400/30 bg-sky-300/30 space-y-1">
               <span className="font-bold text-slate-800 block tracking-wide">Discontinued Singles</span>
-              <p className="text-slate-500 font-light leading-relaxed">Individual cans removed to focus entirely on specialized 27-can crates.</p>
+              <p className="text-sky-900 font-light leading-relaxed">Individual cans removed to focus entirely on specialized 27-can crates.</p>
             </div>
           </div>
         </div>
@@ -891,7 +895,7 @@ function CampaignsSection({ activeColor }) {
   ];
 
   return (
-    <section id="campaigns" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-slate-100">
+    <section id="campaigns" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-sky-400/30">
       {/* Glow aura */}
       
 
@@ -902,7 +906,7 @@ function CampaignsSection({ activeColor }) {
         <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Our Campaigns
         </h2>
-        <p className="text-slate-600 text-sm md:text-base font-light tracking-wide mt-4">
+        <p className="text-sky-900 text-sm md:text-base font-light tracking-wide mt-4">
           Tactical activations and planetary brand maneuvers
         </p>
       </div>
@@ -912,16 +916,16 @@ function CampaignsSection({ activeColor }) {
           <motion.div
             key={camp.id}
             whileHover={{ y: -8 }}
-            className={`rounded-3xl border border-slate-200 overflow-hidden bg-white shadow-2xl relative group flex flex-col h-full transform-gpu ${idx === 0 ? "md:col-span-2" : ""}`}
+            className={`rounded-3xl overflow-hidden glass-panel border border-sky-400/40 shadow-2xl relative group flex flex-col h-full transform-gpu ${idx === 0 ? "md:col-span-2" : ""}`}
             style={{ contain: "content" }}
           >
             {/* Visual background element */}
-            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-sky-300/40 via-sky-300/10 to-transparent z-10 pointer-events-none" />
             
             {/* Hover glow line */}
             <div className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ backgroundColor: activeColor }} />
 
-            <div className="relative aspect-[16/10] overflow-hidden bg-slate-50/80 transform-gpu">
+            <div className="relative aspect-[16/10] overflow-hidden bg-sky-300/30 transform-gpu">
               {camp.video ? (
                 <video
                   src={camp.video}
@@ -943,20 +947,20 @@ function CampaignsSection({ activeColor }) {
               )}
               {/* Badge overlay */}
               <div className="absolute top-6 left-6 z-20 flex gap-2">
-                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-white/85 border border-slate-200 text-slate-800">
+                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-sky-300/80 border border-sky-400/30 text-slate-800">
                   {camp.tag}
                 </span>
-                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-emerald-700 text-white hover:bg-emerald-800" style={{ boxShadow: "none" }}>
+                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-sky-600 text-white hover:bg-sky-700" style={{ boxShadow: "none" }}>
                   {camp.stat}
                 </span>
               </div>
             </div>
 
             <div className="p-8 relative z-20 space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-slate-800 group-hover:text-emerald-700 transition-all duration-300">
+              <h3 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-slate-800 group-hover:text-sky-700 transition-all duration-300">
                 {camp.title}
               </h3>
-              <p className="text-slate-600 font-light leading-relaxed text-sm md:text-base">
+              <p className="text-slate-700 font-light leading-relaxed text-sm md:text-base">
                 {camp.desc}
               </p>
             </div>
@@ -972,7 +976,7 @@ function CampaignsSection({ activeColor }) {
 // ==========================================
 function FounderSection({ activeColor }) {
   return (
-    <section className="relative py-32 px-6 border-t border-slate-100 bg-slate-50 z-20 overflow-hidden">
+    <section className="relative py-32 px-6 border-t border-sky-400/30 bg-sky-300/10 z-20 overflow-hidden">
       {/* Background ambient glow */}
       
       
@@ -984,14 +988,14 @@ function FounderSection({ activeColor }) {
           transition={{ duration: 0.8 }}
           className="w-full lg:w-5/12"
         >
-          <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border border-slate-200" style={{ boxShadow: "none" }}>
-            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-slate-50/90">
+          <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border border-sky-400/40" style={{ boxShadow: "none" }}>
+            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-sky-200/40">
               <img 
                 src="/founder.png" 
                 alt="Shri Ankit Khandelwal - Founder" 
                 className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-sky-200/40 via-sky-200/10 to-transparent pointer-events-none" />
               <div className="absolute bottom-8 left-8 right-8">
                 <h3 className="text-3xl font-bold font-sans tracking-wide text-slate-800 mb-2">Shri Ankit Khandelwal</h3>
                 <p className="text-sm font-bold tracking-wide" style={{ color: activeColor }}>Eminent Entrepreneur</p>
@@ -1042,7 +1046,7 @@ function ConnectSection({ activeColor }) {
   ];
 
   return (
-    <section id="connect" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-slate-100">
+    <section id="connect" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-sky-400/30">
       <div className="text-center mb-20">
         <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
           Network
@@ -1050,7 +1054,7 @@ function ConnectSection({ activeColor }) {
         <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Connect Us
         </h2>
-        <p className="text-slate-600 text-sm md:text-base font-light tracking-wide mt-4">
+        <p className="text-sky-900 text-sm md:text-base font-light tracking-wide mt-4">
           Join the planetary energy transmission
         </p>
       </div>
@@ -1063,7 +1067,7 @@ function ConnectSection({ activeColor }) {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ y: -5, scale: 1.05 }}
-            className="flex flex-col items-center gap-4 p-8 rounded-3xl border border-slate-200 bg-slate-50/80 hover:bg-white transition-colors group cursor-pointer"
+            className="flex flex-col items-center gap-4 p-8 rounded-3xl border border-sky-400/40 glass-panel hover:bg-sky-300/40 transition-colors group cursor-pointer"
             style={{ minWidth: "160px" }}
           >
             <div 
@@ -1087,65 +1091,65 @@ function ConnectSection({ activeColor }) {
 // ==========================================
 function Footer({ activeColor }) {
   return (
-    <footer className="relative border-t border-slate-200 bg-white overflow-hidden py-20 px-6 z-20">
+    <footer className="relative border-t border-sky-400/30 bg-sky-300/30 backdrop-blur-xl overflow-hidden py-20 px-6 z-20">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:30px_30px] opacity-20 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-6">
           <h2 className="text-3xl font-bold font-sans tracking-wide text-slate-800">FANTÔME</h2>
-          <p className="text-slate-600 font-light max-w-sm">
+          <p className="text-slate-700 font-light max-w-sm">
             Receive transmission updates on biological formula upgrades, new flavor drops, and exclusive team merchandise releases.
           </p>
           <div className="flex gap-4">
             <input 
               type="email" 
               placeholder="ENTER EMAIL TRANSMISSION"
-              className="px-6 py-4 rounded-xl glass-panel bg-slate-50/80 text-sm tracking-wide font-semibold border border-slate-200 w-full focus:outline-none focus:border-[#0A2F1D] transition-colors"
+              className="px-6 py-4 rounded-xl glass-panel bg-sky-300/30 text-sm tracking-wide font-semibold border border-sky-400/30 w-full focus:outline-none focus:border-sky-500 transition-colors text-slate-800"
             />
-            <button className="p-4 rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 font-bold tracking-wide flex items-center justify-center hover:bg-white transition-colors">
+            <button className="p-4 rounded-xl bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide flex items-center justify-center cursor-pointer transition-colors">
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
         </div>
 
         {/* Legal Grid Compliance (Real Addresses & FSSAI Lic) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-slate-500 font-medium">
-          <div className="p-5 rounded-2xl glass-panel border border-slate-100 space-y-3 bg-slate-100/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-sky-900 font-medium">
+          <div className="p-5 rounded-2xl glass-panel border border-sky-400/40 space-y-3 bg-sky-300/20">
             <h4 className="text-[10px] font-bold tracking-wide text-slate-800">Manufactured By</h4>
-            <p className="font-bold text-slate-700">KOLADIYA INDUSTRIES PVT. LTD.</p>
+            <p className="font-bold text-slate-900">KOLADIYA INDUSTRIES PVT. LTD.</p>
             <p className="leading-relaxed">
               Plot no. 21 to 26, 3rd Phase Industrial Estate, Navagam, Bhavnagar, Gujarat – 364110
             </p>
-            <p className="font-bold tracking-wide text-slate-600">
-              FSSAI Lic. No: <span className="text-slate-800">10722999000112</span>
+            <p className="font-bold tracking-wide text-sky-900">
+              FSSAI Lic. No: <span className="text-slate-900">10722999000112</span>
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl glass-panel border border-slate-100 space-y-3 bg-slate-100/50">
+          <div className="p-5 rounded-2xl glass-panel border border-sky-400/40 space-y-3 bg-sky-300/20">
             <h4 className="text-[10px] font-bold tracking-wide text-slate-800">Marketed By</h4>
-            <p className="font-bold text-slate-700">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
+            <p className="font-bold text-slate-900">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
             <p className="leading-relaxed">
               Plot No. 10, Nayapalli, Bhubaneswar, Odisha – 751014
             </p>
             <div className="space-y-1">
-              <p className="font-bold tracking-wide text-slate-600">
-                FSSAI Lic. No: <span className="text-slate-800">10016031000631</span>
+              <p className="font-bold tracking-wide text-sky-900">
+                FSSAI Lic. No: <span className="text-slate-900">10016031000631</span>
               </p>
-              <p>Email: <a href="mailto:info@ethosglobal.in" className="text-slate-800/80 hover:text-slate-800 underline">info@ethosglobal.in</a></p>
-              <p>Customer Care: <span className="text-slate-800">9090355570</span></p>
+              <p>Email: <a href="mailto:info@ethosglobal.in" className="text-sky-900/80 hover:text-sky-900 underline">info@ethosglobal.in</a></p>
+              <p>Customer Care: <span className="text-slate-900">9090355570</span></p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-slate-100 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-bold tracking-wide">
+      <div className="max-w-7xl mx-auto border-t border-sky-400/30 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-sky-800 font-bold tracking-wide">
         <span>© 2026 FANTÔME ENERGY. ALL BIO-SYSTEMS RESERVED.</span>
         <div className="flex items-center gap-6">
           <a 
             href="https://www.instagram.com/fantomeenergy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 bg-white hover:bg-white transition-all group"
+            className="flex items-center gap-2 px-4 py-2 rounded-full border border-sky-400/30 bg-sky-300/30 hover:bg-sky-300/50 transition-all group"
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -1166,7 +1170,7 @@ function Footer({ activeColor }) {
             </svg>
             <span className="text-slate-800 font-bold">Instagram</span>
           </a>
-          <span className="w-1 h-1 rounded-full bg-slate-50"></span>
+          <span className="w-1 h-1 rounded-full bg-sky-100"></span>
           <span style={{ color: activeColor }} className="font-bold transition-colors duration-500">UNSEEN POWER</span>
         </div>
       </div>
@@ -1241,18 +1245,18 @@ function FantomeChatbot({ activeColor }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed bottom-6 right-6 w-[350px] max-w-[calc(100vw-3rem)] h-[500px] max-h-[80vh] z-[101] bg-white backdrop-blur-xl border rounded-2xl flex flex-col shadow-2xl overflow-hidden"
+            className="fixed bottom-6 right-6 w-[350px] max-w-[calc(100vw-3rem)] h-[500px] max-h-[80vh] z-[101] glass-panel flex flex-col shadow-2xl overflow-hidden"
             style={{ borderColor: `${activeColor}40` }}
           >
             {/* Header */}
-            <div className="p-4 border-b flex justify-between items-center bg-slate-50/90" style={{ borderColor: `${activeColor}20` }}>
+            <div className="p-4 border-b flex justify-between items-center bg-sky-300/30" style={{ borderColor: `${activeColor}20` }}>
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full border flex items-center justify-center shadow-sm" style={{ borderColor: activeColor, backgroundColor: `${activeColor}20`, color: activeColor }}>
                   <span className="font-sans font-bold text-xs">F</span>
                 </div>
                 <div>
                   <h3 className="text-slate-800 font-sans font-bold uppercase text-sm tracking-wider">Fantôme AI</h3>
-                  <p className="text-[10px] text-slate-600 tracking-wide flex items-center gap-1">
+                  <p className="text-[10px] text-slate-650 tracking-wide flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: activeColor }}></span> Online
                   </p>
                 </div>
@@ -1267,7 +1271,7 @@ function FantomeChatbot({ activeColor }) {
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div 
-                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-white text-slate-800 rounded-tr-sm' : 'bg-white border text-slate-700 rounded-tl-sm'}`}
+                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-sky-600 text-white rounded-tr-sm border border-sky-700/30' : 'bg-sky-300/30 border border-sky-400/30 text-slate-800 rounded-tl-sm'}`}
                     style={msg.sender === 'bot' ? { borderColor: `${activeColor}30`, boxShadow: `inset 0 0 10px ${activeColor}10` } : {}}
                   >
                     {msg.text}
@@ -1278,13 +1282,13 @@ function FantomeChatbot({ activeColor }) {
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSend} className="p-4 border-t bg-slate-50/90 flex gap-2" style={{ borderColor: `${activeColor}20` }}>
+            <form onSubmit={handleSend} className="p-4 border-t bg-sky-300/30 flex gap-2" style={{ borderColor: `${activeColor}20` }}>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Transmit query..."
-                className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-[#0A2F1D] transition-colors"
+                className="flex-1 bg-sky-300/40 border border-sky-400/30 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 transition-colors"
               />
               <button
                 type="submit"
@@ -1375,17 +1379,17 @@ function App() {
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen relative bg-white text-slate-800 overflow-hidden">
+    <div className="min-h-screen relative text-slate-800 overflow-hidden bg-transparent">
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
 
 
         {/* Navigation Bar */}
         <nav className="w-full p-4 md:p-6 pt-2 md:pt-4">
-          <div className="max-w-7xl mx-auto glass-panel px-6 py-3 flex justify-between items-center border border-slate-200 bg-slate-50/90 rounded-full shadow-md backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto glass-panel px-6 py-3 flex justify-between items-center rounded-full shadow-lg">
           {/* Logo with dynamic glow */}
           <div 
-            className="font-sans font-bold text-2xl tracking-[0.2em] text-emerald-800 select-none cursor-pointer transition-all duration-500"
+            className="font-sans font-bold text-2xl tracking-[0.2em] text-sky-950 select-none cursor-pointer transition-all duration-500"
             style={{ textShadow: "none" }}
           >
             FANTÔME
@@ -1401,7 +1405,7 @@ function App() {
               >
                 {item}
                 <span 
-                  className="absolute left-1/2 bottom-0 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full group-hover:left-0" 
+                  className="absolute left-1/2 bottom-0 w-0 h-[2px] bg-transparent transition-all duration-300 group-hover:w-full group-hover:left-0" 
                   style={{ backgroundColor: activeColor, boxShadow: "none" }}
                 />
               </a>
@@ -1411,7 +1415,7 @@ function App() {
           {/* Bag Button */}
           <button 
             onClick={() => setIsCartOpen(true)}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 font-bold text-xs tracking-wide transition-all duration-300 cursor-pointer hover:scale-105"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full border font-bold text-xs tracking-wide transition-all duration-300 cursor-pointer hover:scale-105"
             style={{ 
               backgroundColor: `${activeColor}15`, 
               borderColor: `${activeColor}50`,
@@ -1463,17 +1467,17 @@ function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsCartOpen(false)}
-              className="absolute inset-0 bg-white backdrop-blur-sm"
+              className="absolute inset-0 bg-sky-200/40 backdrop-blur-sm"
             />
             <motion.div 
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="relative w-full max-w-md h-full bg-white border-l border-slate-200 p-8 flex flex-col justify-between z-10"
+              className="relative w-full max-w-md h-full bg-sky-300/90 backdrop-blur-md border-l border-sky-400/30 p-8 flex flex-col justify-between z-10"
             >
               <div>
-                <div className="flex justify-between items-center border-b border-slate-200 pb-6">
+                <div className="flex justify-between items-center border-b border-sky-400/30 pb-6">
                   <h3 className="text-2xl font-bold font-sans uppercase">Shopping Bag</h3>
                   <button 
                     onClick={() => setIsCartOpen(false)}
@@ -1490,11 +1494,11 @@ function App() {
                     </div>
                   ) : (
                     cart.map((item) => (
-                      <div key={item.id} className="flex justify-between items-center p-4 rounded-2xl glass-panel border border-slate-100 relative overflow-hidden group">
+                      <div key={item.id} className="flex justify-between items-center p-4 rounded-2xl glass-panel border border-sky-400/20 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-16 h-16 blur-2xl opacity-10 rounded-full pointer-events-none" style={{ backgroundColor: item.color }} />
                         <div className="flex gap-4 items-center">
                           <div 
-                            className="w-12 h-16 rounded-lg border border-slate-200 bg-slate-50/80 flex-shrink-0"
+                            className="w-12 h-16 rounded-lg border border-sky-400/30 bg-sky-200/40 flex-shrink-0"
                             style={{
                               backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url(${item.graphic})`,
                               backgroundSize: 'contain',
@@ -1512,17 +1516,17 @@ function App() {
                         </div>
 
                         <div className="flex flex-col items-end gap-2">
-                          <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg p-1">
+                          <div className="flex items-center gap-2 bg-sky-300/40 border border-sky-400/30 rounded-lg p-1">
                             <button 
                               onClick={() => handleUpdateQuantity(item.id, -1)}
-                              className="p-1 hover:bg-white rounded text-slate-600 hover:text-slate-800 transition-colors cursor-pointer"
+                              className="p-1 hover:bg-sky-300/40 rounded text-slate-600 hover:text-slate-800 transition-colors cursor-pointer"
                             >
                               <Minus className="w-3.5 h-3.5" />
                             </button>
                             <span className="text-xs font-bold w-4 text-center">{item.quantity}</span>
                             <button 
                               onClick={() => handleUpdateQuantity(item.id, 1)}
-                              className="p-1 hover:bg-white rounded text-slate-600 hover:text-slate-800 transition-colors cursor-pointer"
+                              className="p-1 hover:bg-sky-300/40 rounded text-slate-600 hover:text-slate-800 transition-colors cursor-pointer"
                             >
                               <Plus className="w-3.5 h-3.5" />
                             </button>
@@ -1542,7 +1546,7 @@ function App() {
               </div>
 
               {cart.length > 0 && (
-                <div className="border-t border-slate-200 pt-6">
+                <div className="border-t border-sky-400/30 pt-6">
                   <div className="flex justify-between items-center text-lg font-bold tracking-wide mb-6">
                     <span>Total</span>
                     <span>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(cartTotal)}</span>
@@ -1553,7 +1557,7 @@ function App() {
                       setShowCheckoutSuccess(true);
                       setCart([]);
                     }}
-                    className="w-full py-4 rounded-2xl bg-emerald-700 text-white hover:bg-emerald-800 font-bold tracking-wide hover:bg-opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer font-sans"
+                    className="w-full py-4 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer font-sans"
                   >
                     Checkout
                   </button>
@@ -1573,19 +1577,19 @@ function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowCheckoutSuccess(false)}
-              className="absolute inset-0 bg-slate-50 backdrop-blur-md"
+              className="absolute inset-0 bg-sky-200/40 backdrop-blur-md"
             />
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-md bg-white border border-slate-200 p-8 rounded-3xl text-center shadow-2xl z-10 overflow-hidden"
+              className="relative w-full max-w-md glass-panel border border-sky-400/35 p-8 text-center shadow-2xl z-10 overflow-hidden"
             >
               {/* Radial glow */}
               
               
-              <div className="w-16 h-16 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto mb-6">
-                <Check className="w-8 h-8 text-[#00FF00]" style={{ filter: 'drop-shadow(0 0 8px #00FF00)' }} />
+              <div className="w-16 h-16 rounded-full bg-sky-300/50 border border-sky-400/30 flex items-center justify-center mx-auto mb-6">
+                <Check className="w-8 h-8" style={{ color: activeColor, filter: `drop-shadow(0 0 8px ${activeColor})` }} />
               </div>
               
               <h3 className="text-3xl font-bold font-sans tracking-wide text-slate-800">
@@ -1596,14 +1600,14 @@ function App() {
                 Your premium catalyst order has been verified. Your shipment is being prepared for rapid deployment.
               </p>
               
-              <div className="mt-8 p-4 rounded-2xl bg-white border border-slate-100 text-[10px] text-slate-500 tracking-wider font-bold flex items-center justify-center gap-2 uppercase">
+              <div className="mt-8 p-4 rounded-2xl bg-sky-300/30 border border-sky-400/30 text-[10px] text-sky-900 tracking-wider font-bold flex items-center justify-center gap-2 uppercase">
                 <ShieldAlert className="w-4 h-4 text-fantome-gold" />
                 <span>SECURE BIO-QUANTUM ENCRYPTED CHECKOUT</span>
               </div>
               
               <button 
                 onClick={() => setShowCheckoutSuccess(false)}
-                className="mt-8 w-full py-4 rounded-2xl bg-emerald-700 text-white hover:bg-emerald-800 font-bold tracking-wide hover:bg-opacity-90 transition-all cursor-pointer font-sans"
+                className="mt-8 w-full py-4 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide transition-all cursor-pointer font-sans"
               >
                 Acknowledge Transmission
               </button>

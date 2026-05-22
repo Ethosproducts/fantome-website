@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-fantome-black: #FFFFFF;
-  --color-fantome-cyan: #00F0FF;
-  --color-fantome-gold: #FFD700;
-  --color-fantome-glass: #FFFFFF;
+  --color-fantome-black: #bae6fd;
+  --color-fantome-cyan: #0284c7;
+  --color-fantome-gold: #b45309;
+  --color-fantome-glass: rgba(125, 211, 252, 0.6);
   
   --font-outfit: 'Outfit', sans-serif;
   --font-inter: 'Inter', sans-serif;
@@ -12,8 +12,9 @@
 
 @layer base {
   body {
-    background-color: var(--color-fantome-black);
-    color: #0A2F1D;
+    background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 50%, #0284c7 100%);
+    background-attachment: fixed;
+    color: #0F172A;
     font-family: var(--font-inter);
     margin: 0;
     padding: 0;
@@ -22,9 +23,10 @@
 }
 
 @utility glass-panel {
-  background-color: var(--color-fantome-glass);
-  /* No blur for corporate */
-  border: 1px solid #E2E8F0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(186, 230, 253, 0.75) 0%, rgba(125, 211, 252, 0.45) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(14, 165, 233, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.15);
   border-radius: 1rem;
 }
 
