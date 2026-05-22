@@ -551,7 +551,6 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                     repeat: Infinity, 
                     ease: "easeInOut" 
                   }}
-                  style={{ filter: "drop-shadow(0 15px 25px rgba(0,0,0,0.65))" }}
                 />
               </motion.div>
             </div>
