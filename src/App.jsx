@@ -593,7 +593,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 initial={{ scale: 0.8, rotate: -5, y: 10 }}
                 animate={{ scale: 1, rotate: 0, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="w-56 h-88 rounded-2xl border border-slate-200 bg-slate-50/80 shadow-2xl relative z-10 flex flex-col items-center justify-center p-6 overflow-hidden backdrop-blur-md"
+                className="w-48 h-72 sm:w-52 sm:h-80 lg:w-56 lg:h-88 rounded-2xl border border-slate-200 bg-slate-50/80 shadow-2xl relative z-10 flex flex-col items-center justify-center p-4 lg:p-6 overflow-hidden backdrop-blur-md"
               >
                 {/* Radial glow specific to flavor inside the card */}
                 <div 
@@ -605,7 +605,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 <motion.img 
                   src={flavors[currentIdx].canFront} 
                   alt={flavors[currentIdx].title}
-                  className="h-72 object-contain relative z-20"
+                  className="h-56 sm:h-64 lg:h-72 object-contain relative z-20"
                   animate={{ y: [0, -8, 0] }}
                   transition={{ 
                     duration: 4, 
