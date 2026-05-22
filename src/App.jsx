@@ -121,6 +121,25 @@ function FantomeCan({ activeFlavor }) {
         </mesh>
 
 
+        {/* Thin Silver Collar / Rim at the top edge */}
+        <mesh position={[0, 2.25 + 0.02, 0]}>
+          <cylinderGeometry args={[1.005, 1.005, 0.04, 64]} />
+          <meshStandardMaterial 
+            color="#dcdcdc" 
+            metalness={1.0} 
+            roughness={0.15} 
+          />
+        </mesh>
+
+        {/* Flat lid disc to close the top of the cylinder */}
+        <mesh position={[0, 2.25, 0]}>
+          <cylinderGeometry args={[1.0, 1.0, 0.01, 64]} />
+          <meshStandardMaterial 
+            color="#c0c0c0" 
+            metalness={0.9} 
+            roughness={0.2} 
+          />
+        </mesh>
       </group>
     </Float>
   );
