@@ -614,17 +614,6 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                   }}
                   style={{ filter: "drop-shadow(0 15px 25px rgba(0,0,0,0.65))" }}
                 />
-
-                {/* Floating bottom shadow under the can */}
-                <motion.div 
-                  className="absolute bottom-4 w-20 h-2 bg-white rounded-full blur-[3px] mx-auto left-0 right-0 z-10"
-                  animate={{ scale: [1, 0.85, 1], opacity: [0.6, 0.35, 0.6] }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                />
               </motion.div>
             </div>
 
