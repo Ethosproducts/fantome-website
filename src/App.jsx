@@ -1276,19 +1276,17 @@ function FantomeChatbot({ activeColor }) {
 
     // Automated Response Logic
     setTimeout(() => {
-      let responseText = "Transmission unverified. For complex inquiries, please contact info@ethosglobal.in or 9090355570.";
+      // Default response for complex questions
+      let responseText = "For any complex questions, kindly WhatsApp us at our number: +91 9090355570";
       const query = userMsg.text.toLowerCase();
 
-      if (query.includes("flavor") || query.includes("taste")) {
-        responseText = "We engineer three core biological catalysts: Mojito (Green), Original (Red), and Sugar Free (Silver).";
-      } else if (query.includes("ingredient") || query.includes("caffeine") || query.includes("taurine")) {
-        responseText = "Fantôme is formulated with high-grade Taurine (up to 320mg), Caffeine (30mg/100ml), Inositol, and essential B-Complex vitamins for maximum cognitive ignition.";
-      } else if (query.includes("buy") || query.includes("price") || query.includes("shop") || query.includes("order")) {
-        responseText = "You can procure our premium 27-can crates directly from the Shop section above. Secure case orders receive automatic express distribution globally.";
-      } else if (query.includes("shibani") || query.includes("ad") || query.includes("campaign")) {
-        responseText = "Our exclusive broadcast campaign with Shibani unleashes unseen power and metabolic acceleration. Watch it in our Campaigns section.";
-      } else if (query.includes("sugar free") || query.includes("sugar-free") || query.includes("diet")) {
-        responseText = "Our Sugar Free formulation delivers pure power unburdened by carbohydrates, engineered for elite metabolic performance without the glycemic crash.";
+      // Basic questions handling
+      if (query.match(/\b(hi|hello|hey|greetings)\b/)) {
+        responseText = "Hello! Welcome to Fantôme Energy. How can I assist you today?";
+      } else if (query.includes("flavor") || query.includes("flavour") || query.includes("taste")) {
+        responseText = "We have three premium flavors available: Mojito (Green), Original (Red), and Sugar Free (Silver).";
+      } else if (query.includes("buy") || query.includes("price") || query.includes("cost") || query.includes("shop") || query.includes("order")) {
+        responseText = "Our premium 24-can crate is priced at ₹1,440. You can place your order directly from the Shop section above.";
       }
 
       setMessages(prev => [...prev, { id: Date.now() + 1, text: responseText, sender: "bot" }]);
