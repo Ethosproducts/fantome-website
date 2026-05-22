@@ -694,7 +694,7 @@ function ShopSection({ activeColor }) {
   const crateFlavors = [
     { name: "Mojito", color: "#059669", graphic: "/mojito_perfect.png" },
     { name: "Original", color: "#DC2626", graphic: "/original_perfect.png" },
-    { name: "Sugar Free", color: "#475569", graphic: "/sugarfree_perfect.png" }
+    { name: "Sugar Free", color: "#475569", graphic: "/sugarfree_perfect.png?v=3" }
   ];
 
   const currentCrateFlavorInfo = crateFlavors.find(f => f.name === selectedCrateFlavor) || crateFlavors[0];
@@ -1412,7 +1412,7 @@ function App() {
       desc: "Pure power, completely unburdened by carbohydrates. Engineered for elite metabolic performance and sustained neural support without the glycemic crash.",
       fullIngredients: "Water, Sucralose, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/sugarfree_texture.png",
-      canFront: "/verify_final_Sugar_Free.png"
+      canFront: "/sugarfree_perfect.png?v=3"
     }
   ];
 
