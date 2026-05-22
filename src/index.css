@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fantome-black: #050508;
+  --color-fantome-cyan: #00F0FF;
+  --color-fantome-gold: #FFD700;
+  --color-fantome-glass: rgba(255, 255, 255, 0.05);
+  
+  --font-outfit: 'Outfit', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-fantome-black);
+    color: white;
+    font-family: var(--font-inter);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+@utility glass-panel {
+  background-color: var(--color-fantome-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+
+@utility text-gradient {
+  background: linear-gradient(90deg, #fff, #00F0FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.hero-ticker-track {
+  display: inline-flex;
+  animation: ticker-scroll 45s linear infinite;
+  will-change: transform;
+}

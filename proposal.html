@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fantome Platform — Technical Proposal & Cost Estimate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base Styles ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #4f46e5;        /* Indigo */
+      --primary-light: #6366f1;  /* Medium Indigo */
+      --primary-tint: #f5f3ff;   /* Light violet/indigo tint */
+      --primary-dark: #3730a3;   /* Dark Indigo */
+      --navy: #0f172a;           /* Dark Navy */
+      --slate: #1e293b;          /* Dark Slate */
+      --slate-light: #475569;    /* Medium Slate */
+      --text: #334155;           /* Body Text */
+      --muted: #64748b;          /* Muted Gray */
+      --border: #cbd5e1;         /* Border Gray */
+      --border-light: #e2e8f0;   /* Light Border Gray */
+      --bg-page: #ffffff;
+      --bg-screen: #f1f5f9;      /* Gray background for web view */
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    html {
+      font-size: 14px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-screen);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    /* ── A4 Page Container (Screen only) ── */
+    .a4-container {
+      max-width: 820px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* ── Single A4 Page Style ── */
+    .a4-page {
+      background: var(--bg-page);
+      width: 210mm;
+      height: 297mm;
+      padding: 24mm 20mm 20mm; /* standard margins */
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ── Cover Page Layout ── */
+    .a4-page.cover-page {
+      padding: 0;
+      background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 60%, #4338ca 100%);
+      color: #ffffff;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cover-content {
+      width: 100%;
+      height: 100%;
+      padding: 30mm 24mm 24mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Cover Background Graphics */
+    .cover-page::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0) 70%);
+      pointer-events: none;
+    }
+
+    .cover-page::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: -150px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0) 70%);
+      pointer-events: none;
+    }
+
+    .cover-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .confidential-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c7d2fe;
+    }
+
+    .cover-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cover-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #4f46e5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #ffffff;
+      font-size: 1.1rem;
+    }
+
+    .cover-title-group {
+      margin-top: 40px;
+    }
+
+    .cover-eyebrow {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #818cf8;
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-size: 2.7rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .cover-title span {
+      background: linear-gradient(to right, #818cf8, #c7d2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-subtitle {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #cbd5e1;
+      max-width: 500px;
+      line-height: 1.5;
+    }
+
+    .cover-divider {
+      width: 80px;
+      height: 4px;
+      background: #4f46e5;
+      border-radius: 2px;
+      margin-top: 30px;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .meta-box {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+
+    .meta-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #cbd5e1;
+    }
+
+    /* ── Standard Page Layout ── */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .page-title-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--primary-tint);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(79, 70, 229, 0.15);
+    }
+
+    .page-header-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .page-content {
+      flex-grow: 1;
+    }
+
+    .page-footer {
+      border-top: 1px solid var(--border-light);
+      padding-top: 12px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .page-number {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* ── Content Elements ── */
+    .section-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-number {
+      width: 28px;
+      height: 28px;
+      background: var(--navy);
+      color: #ffffff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      color: var(--navy);
+    }
+
+    .paragraph {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    /* Architecture Grid */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin: 14px 0 20px;
+    }
+
+    .arch-card {
+      background: var(--slate-light);
+      border-radius: 8px;
+      padding: 12px 10px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .arch-card.highlight {
+      background: var(--navy);
+      border-left: 3px solid var(--primary-light);
+    }
+
+    .arch-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin-bottom: 4px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .arch-value {
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .arch-desc {
+      font-size: 0.7rem;
+      color: #cbd5e1;
+      margin-top: 4px;
+      line-height: 1.25;
+    }
+
+    /* Module Grid */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .module-card {
+      border: 1px solid var(--border-light);
+      background: var(--bg-page);
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .module-card.span-2 {
+      grid-column: span 2;
+    }
+
+    .module-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 6px;
+    }
+
+    .module-icon {
+      width: 22px;
+      height: 22px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .module-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .bullet-list {
+      list-style: none;
+    }
+
+    .bullet-list li {
+      font-size: 0.8rem;
+      color: var(--text);
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .bullet-list li::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 6px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .module-two-col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    /* Outcomes List */
+    .outcome-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+      margin-bottom: 16px;
+    }
+
+    .outcome-pill {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .outcome-pill-icon {
+      color: var(--primary);
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+    }
+
+    .outcome-pill-text {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      line-height: 1.35;
+    }
+
+    /* Cost Table Styles */
+    .cost-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin: 12px 0;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cost-table th, .cost-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .cost-table th {
+      background: var(--navy);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .cost-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .cost-table tr.total-row td {
+      background: #f5f3ff !important;
+      font-weight: 700;
+      color: var(--primary-dark);
+      border-top: 2px solid var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .cost-table tr.total-row td:first-child::before {
+      content: '👉 ';
+    }
+
+    /* Checklist Group */
+    .checklist-container {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+    }
+
+    .checklist-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid #ddd6fe;
+      padding-bottom: 4px;
+    }
+
+    .checklist-title svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .checklist-list {
+      list-style: none;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .checklist-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .checklist-checkbox {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--primary-light);
+      border-radius: 3px;
+      background: #ffffff;
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+    }
+
+    /* Custom visual check mark representation */
+    .checklist-checkbox::after {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: -1px;
+      width: 3px;
+      height: 6px;
+      border: solid var(--primary);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0.2;
+    }
+
+    .checklist-item-text {
+      line-height: 1.35;
+    }
+
+    .checklist-item-subtext {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ── Print Styling ── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      html, body {
+        background: #ffffff !important;
+        font-size: 12.5px; /* scale slightly down for print safety */
+      }
+
+      .a4-container {
+        margin: 0 !important;
+        gap: 0 !important;
+      }
+
+      .a4-page {
+        box-shadow: none !important;
+        page-break-after: always !important;
+        border: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        padding: 20mm 18mm 18mm !important; /* adjustments for physical margins */
+      }
+
+      /* Force page breaks where needed */
+      .page-break-before {
+        page-break-before: always !important;
+      }
+
+      /* Avoid breaking inside layout items */
+      .arch-grid, .module-grid, .cost-table, .checklist-container, .outcome-box {
+        page-break-inside: avoid !important;
+      }
+
+      /* Edge/Chrome specific margins fix */
+      body {
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="a4-container">
+
+  <!-- ================= PAGE 1: COVER ================= -->
+  <div class="a4-page cover-page">
+    <div class="cover-content">
+      <div class="cover-header">
+        <div class="cover-logo">
+          <div class="cover-logo-icon">🛒</div>
+          <span style="font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; font-family: 'Plus Jakarta Sans', sans-serif;">FANTOME</span>
+        </div>
+        <div class="confidential-badge">
+          <svg style="width: 12px; height: 12px; fill: currentColor;" viewBox="0 0 24 24">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+          </svg>
+          Confidential Document
+        </div>
+      </div>
+
+      <div class="cover-title-group">
+        <div class="cover-eyebrow">Commerce Ecosystem</div>
+        <h1 class="cover-title">Fantome<br><span>Digital Platform</span></h1>
+        <p class="cover-subtitle">A scalable, production-ready e-commerce system with integrated social marketing pipelines, securely deployed with high availability.</p>
+        <div class="cover-divider"></div>
+      </div>
+
+      <div class="cover-footer">
+        <div class="meta-box">
+          <span class="meta-label">Prepared For</span>
+          <span class="meta-value" style="color: #ffffff; font-weight: 600;">Internal Review</span>
+        </div>
+        <div class="meta-box">
+          <span class="meta-label">Document Type</span>
+          <span class="meta-value" style="color: #ffffff; font-weight: 600;">Technical Proposal</span>
+        </div>
+        <div class="meta-box">
+          <span class="meta-label">Date &amp; Version</span>
+          <span class="meta-value" style="color: #ffffff; font-weight: 600;">May 20, 2026 / v1.0</span>
+        </div>
+        <div class="meta-box">
+          <span class="meta-label">Platform Stack</span>
+          <span class="meta-value" style="color: #ffffff; font-weight: 600;">E-Commerce + Social</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 2: TECH PROPOSAL & ARCHITECTURE ================= -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span class="page-title-badge">Section 01</span>
+      <span class="page-header-title">Technical Proposal — Fantome Platform</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-title-group">
+        <span class="section-number">01</span>
+        <h2 class="section-title">Technical Specification</h2>
+      </div>
+
+      <h3 style="font-size: 0.95rem; margin-top: 8px; margin-bottom: 4px; color: var(--navy);">1. Overview</h3>
+      <p class="paragraph" style="margin-bottom: 10px;">
+        The Fantome platform will be designed as a scalable, production-ready e-commerce system with integrated marketing capabilities. The solution will combine a modern storefront and backend system to support end-to-end digital commerce operations.
+      </p>
+
+      <h3 style="font-size: 0.95rem; margin-bottom: 4px; color: var(--navy);">2. System Architecture</h3>
+      <p class="paragraph" style="margin-bottom: 6px; font-size: 0.8rem;">
+        The system will follow a MERN-based scalable architecture:
+      </p>
+
+      <div class="arch-grid">
+        <div class="arch-card highlight">
+          <span class="arch-label">Frontend</span>
+          <span class="arch-value">React.js</span>
+          <p class="arch-desc">Responsive storefront layout.</p>
+        </div>
+        <div class="arch-card">
+          <span class="arch-label">Backend</span>
+          <span class="arch-value">Node &amp; Express</span>
+          <p class="arch-desc">REST APIs for transactions.</p>
+        </div>
+        <div class="arch-card">
+          <span class="arch-label">Database</span>
+          <span class="arch-value">MongoDB</span>
+          <p class="arch-desc">NoSQL flexible product catalog.</p>
+        </div>
+        <div class="arch-card">
+          <span class="arch-label">Hosting</span>
+          <span class="arch-value">Cloud Cluster</span>
+          <p class="arch-desc">Scalable instance hosting options.</p>
+        </div>
+        <div class="arch-card">
+          <span class="arch-label">Storage</span>
+          <span class="arch-value">Cloud S3</span>
+          <p class="arch-desc">Images, video &amp; 360° rotational files.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--navy);">3. Core Functional Modules</h3>
+      
+      <div class="module-grid">
+        <!-- 3.1 Digital Storefront -->
+        <div class="module-card">
+          <div class="module-card-header">
+            <span class="module-icon">🛍️</span>
+            <span class="module-title">3.1 Digital Storefront</span>
+          </div>
+          <ul class="bullet-list">
+            <li>Responsive e-commerce layouts (mobile + desktop)</li>
+            <li>Catalog listing with categories, filters, and searches</li>
+            <li>Details with images, variants, and pricing structures</li>
+            <li>Shopping cart operations and checkout flow</li>
+            <li>Coupon and promotional offer engines</li>
+            <li>Secure gateway integration (Razorpay / Stripe / UPI)</li>
+          </ul>
+        </div>
+
+        <!-- 3.2 Marketing & Social Integration -->
+        <div class="module-card">
+          <div class="module-card-header">
+            <span class="module-icon">📣</span>
+            <span class="module-title">3.2 Marketing &amp; Social</span>
+          </div>
+          <ul class="bullet-list">
+            <li>Facebook store integration with product page links</li>
+            <li>Instagram tagging capability for product catalog</li>
+            <li>YouTube video embedding for promotional clips</li>
+            <li>Social sharing modules on details and campaigns</li>
+            <li>UTM-based tracking links for campaign analytics</li>
+          </ul>
+        </div>
+
+        <!-- 3.3 Security & Performance -->
+        <div class="module-card span-2">
+          <div class="module-card-header">
+            <span class="module-icon">🛡️</span>
+            <span class="module-title">3.3 Security &amp; Performance Control</span>
+          </div>
+          <div class="module-two-col">
+            <ul class="bullet-list">
+              <li>JWT-based user session authentication system</li>
+              <li>Role-based access controls (Admin vs Customer roles)</li>
+              <li>API rate limits and request input validation layers</li>
+            </ul>
+            <ul class="bullet-list">
+              <li>Optimized lazy-loading of media + global CDN support</li>
+              <li>Encrypted database transactions for secure payment checks</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Fantome Platform</span>
+      <span class="page-number">2 / 4</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 3: DEPLOYMENT, OUTCOMES & COSTS ================= -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span class="page-title-badge">Section 02</span>
+      <span class="page-header-title">Hosting &amp; Infrastructure Cost Estimate</span>
+    </div>
+
+    <div class="page-content">
+      <h3 style="font-size: 0.95rem; margin-top: 4px; margin-bottom: 4px; color: var(--navy);">4. Deployment Strategy</h3>
+      <p class="paragraph" style="font-size: 0.8rem; margin-bottom: 8px;">
+        Rollout focuses on scaling, security checks, and continuous integration pipelines:
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px;">
+        <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 8px 12px; border-radius: 6px; font-size: 0.78rem;">
+          <strong>Development &amp; Staging</strong><br>
+          Dedicated isolated sandbox environment for feature preview, testing, and approval.
+        </div>
+        <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 8px 12px; border-radius: 6px; font-size: 0.78rem;">
+          <strong>Production Pipeline</strong><br>
+          Automated deployment workflows containing automated backups and CDN media edge routing.
+        </div>
+      </div>
+
+      <h3 style="font-size: 0.95rem; margin-bottom: 4px; color: var(--navy);">5. Outcome</h3>
+      <div class="outcome-box">
+        <div class="outcome-pill">
+          <span class="outcome-pill-icon">✨</span>
+          <div class="outcome-pill-text">Fully functional e-commerce platform</div>
+        </div>
+        <div class="outcome-pill">
+          <span class="outcome-pill-icon">✨</span>
+          <div class="outcome-pill-text">Integrated marketing/social ecosystem</div>
+        </div>
+        <div class="outcome-pill">
+          <span class="outcome-pill-icon">✨</span>
+          <div class="outcome-pill-text">Secure, scalable cloud architecture</div>
+        </div>
+      </div>
+
+      <h3 style="font-size: 0.95rem; margin-top: 12px; margin-bottom: 4px; color: var(--navy);">Hosting &amp; Infrastructure Cost Estimate (Baseline)</h3>
+      <p class="paragraph" style="font-size: 0.78rem; color: var(--muted); margin-bottom: 6px;">
+        The system requires a minimum 12-month hosting subscription to ensure stable deployment and production-grade performance:
+      </p>
+
+      <table class="cost-table" style="margin: 6px 0 10px;">
+        <thead>
+          <tr>
+            <th>Item Component</th>
+            <th>Monthly Cost</th>
+            <th>Annual Cost (12 Months)</th>
+            <th>Deployment Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cloud Hosting (Server)</strong></td>
+            <td>₹800 + GST</td>
+            <td>₹9,600 + GST</td>
+            <td>Baseline production instance tier.</td>
+          </tr>
+          <tr>
+            <td><strong>GST (18%)</strong></td>
+            <td>~₹144</td>
+            <td>~₹1,728</td>
+            <td>Standard service tax.</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>Total (Incl. GST)</strong></td>
+            <td>~₹944</td>
+            <td>~₹11,328</td>
+            <td>Approximate total operating baseline.</td>
+          </tr>
+          <tr style="background: #fffbeb;">
+            <td style="color: #b45309; font-weight: 600;">Estimated Range</td>
+            <td>—</td>
+            <td style="color: #b45309; font-weight: 700;">₹11,500 – ₹12,000</td>
+            <td>Usage spikes and scaling bandwidth buffer.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="font-size: 0.74rem; color: var(--muted); line-height: 1.3;">
+        Final hosting costs vary based on monthly active users, NoSQL database document sizes, image CDN storage levels, and auto-scaling events.
+        <span style="color: #b45309; font-weight: 600; display: block; margin-top: 2px;">Note: Developer service fees are not included in these infrastructure estimates.</span>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Fantome Platform</span>
+      <span class="page-number">3 / 4</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 4: INPUT CHECKLIST ================= -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span class="page-title-badge">Section 03</span>
+      <span class="page-header-title">Data &amp; Support Checklist</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-title-group">
+        <span class="section-number">03</span>
+        <h2 class="section-title">Requirements Checklist</h2>
+      </div>
+
+      <p class="paragraph" style="font-size: 0.82rem; margin-bottom: 12px;">
+        To begin layout modeling and API setup, please supply the following brand files and business configurations:
+      </p>
+
+      <!-- A -->
+      <div class="checklist-container">
+        <div class="checklist-title">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          A. Brand &amp; Business Assets
+        </div>
+        <ul class="checklist-list">
+          <li class="checklist-item">
+            <span class="checklist-checkbox"></span>
+            <div class="checklist-item-text">
+              Official brand name and high-resolution logo files
+              <span class="checklist-item-subtext">Preferred formats: transparent background PNG or vector SVG.</span>
+            </div>
+          </li>
+          <li class="checklist-item">
+            <span class="checklist-checkbox"></span>
+            <div class="checklist-item-text">
+              Brand style guidelines
+              <span class="checklist-item-subtext">Selected typography families, official hexadecimal hex codes, tone guides (if available).</span>
+            </div>
+          </li>
+          <li class="checklist-item">
+            <span class="checklist-checkbox"></span>
+            <div class="checklist-item-text">
+              Detailed product catalog spreadsheet
+              <span class="checklist-item-subtext">Full lists containing item names, flavor variations, pricing schemes, and description texts.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- B & C -->
+      <div class="checklist-container" style="background: #faf5ff; border-color: #ede9fe; margin-bottom: 0;">
+        <div class="checklist-title" style="color: #6b21a8; border-color: #ede9fe;">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          B. Product Media &amp; C. Digital / Social Media Assets
+        </div>
+        <ul class="checklist-list">
+          <li class="checklist-item">
+            <span class="checklist-checkbox" style="border-color: #c084fc;"></span>
+            <div class="checklist-item-text">
+              High-resolution product imagery for all stock items and flavors.
+            </div>
+          </li>
+          <li class="checklist-item">
+            <span class="checklist-checkbox" style="border-color: #c084fc;"></span>
+            <div class="checklist-item-text">
+              360° product photos or rotational viewing media assets
+              <span class="checklist-item-subtext">Preferred sequence folders or embedded frames for rotational views (if available).</span>
+            </div>
+          </li>
+          <li class="checklist-item">
+            <span class="checklist-checkbox" style="border-color: #c084fc;"></span>
+            <div class="checklist-item-text">
+              Packaging design sources and marketing graphic assets.
+            </div>
+          </li>
+          <li class="checklist-item">
+            <span class="checklist-checkbox" style="border-color: #c084fc;"></span>
+            <div class="checklist-item-text">
+              Official social links (Instagram, Facebook, YouTube, LinkedIn, X).
+            </div>
+          </li>
+          <li class="checklist-item">
+            <span class="checklist-checkbox" style="border-color: #c084fc;"></span>
+            <div class="checklist-item-text">
+              Access permissions for page integrations and tracking codes.
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="page-footer">
+      <span>Fantome Platform</span>
+      <span class="page-number">4 / 4</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
