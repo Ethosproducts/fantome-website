@@ -2,112 +2,67 @@ import os
 import numpy as np
 from PIL import Image
 
-def extract_can(input_path, output_path, bg_type='light'):
-    print(f"Processing {os.path.basename(input_path)}...")
-    img = Image.open(input_path).convert('RGB')
-    arr = np.array(img)
-    h, w, c = arr.shape
+def analyze_and_extract():
+    brain_dir = "C:/Users/prave/.gemini/antigravity/brain/54a3ace7-00b8-4622-ab3c-dafcc9e0d695/"
+    images = [f for f in os.listdir(brain_dir) if f.endswith('.png')]
+    images.sort()
     
-    # Create output RGBA array
-    out_arr = np.zeros((h, w, 4), dtype=np.uint8)
-    out_arr[:, :, :3] = arr
-    out_arr[:, :, 3] = 255 # default opaque
+    os.makedirs("scratch/extracted", exist_ok=True)
     
-    # Determine background color reference from corners
-    corner_colors = [
-        arr[0, 0], arr[0, w-1], arr[h-1, 0], arr[h-1, w-1]
-    ]
-    ref_bg = np.mean(corner_colors, axis=0)
-    print(f"  Reference background RGB: {ref_bg}")
-    
-    # Threshold for matching background color
-    # For light background, we look for pixels close to ref_bg or very bright
-    # For dark background, we look for pixels close to ref_bg or very dark
-    def is_bg(pixel):
-        diff = np.abs(pixel - ref_bg)
-        if bg_type == 'light':
-            # close to background color or very bright white
-            return np.max(diff) < 20 or np.all(pixel > 240)
-        else:
-            # close to background color or very dark black
-            return np.max(diff) < 20 or np.all(pixel < 25)
-
-    left_bounds = []
-    right_bounds = []
-    
-    for y in range(h):
-        # Scan from left
-        left = 0
-        while left < w and is_bg(arr[y, left]):
-            left += 1
-            
-        # Scan from right
-        right = w - 1
-        while right >= 0 and is_bg(arr[y, right]):
-            right -= 1
-            
-        if left <= right:
-            left_bounds.append(left)
-            right_bounds.append(right)
-            # Make pixels outside bounds transparent
-            out_arr[y, :left, 3] = 0
-            out_arr[y, right+1:, 3] = 0
-        else:
-            # Entire row is background
-            left_bounds.append(w)
-            right_bounds.append(-1)
-            out_arr[y, :, 3] = 0
-            
-    # Find bounding box of the non-transparent area
-    y_indices = np.where(np.any(out_arr[:, :, 3] > 0, axis=1))[0]
-    if len(y_indices) == 0:
-        print("  Error: No can detected!")
-        return
+    for filename in images:
+        path = os.path.join(brain_dir, filename)
+        img = Image.open(path)
+        arr = np.array(img.convert('RGBA'))
+        h, w, c = arr.shape
         
-    y_min, y_max = y_indices[0], y_indices[-1]
-    
-    # Find left and right bounds across the detected rows
-    x_lefts = [left_bounds[y] for y in range(y_min, y_max+1) if left_bounds[y] < w]
-    x_rights = [right_bounds[y] for y in range(y_min, y_max+1) if right_bounds[y] >= 0]
-    
-    if len(x_lefts) == 0 or len(x_rights) == 0:
-        print("  Error: No bounding box coordinates found!")
-        return
+        # Print general info
+        print(f"\nProcessing {filename} ({w}x{h})...")
         
-    x_min = min(x_lefts)
-    x_max = max(x_rights)
-    
-    # Add a small padding of 2 pixels if possible
-    y_min = max(0, y_min - 2)
-    y_max = min(h - 1, y_max + 2)
-    x_min = max(0, x_min - 2)
-    x_max = min(w - 1, x_max + 2)
-    
-    # Crop the image to the bounding box
-    cropped_arr = out_arr[y_min:y_max+1, x_min:x_max+1]
-    
-    # Save the output image
-    out_img = Image.fromarray(cropped_arr, 'RGBA')
-    out_img.save(output_path)
-    print(f"  Saved cropped transparent can to {output_path} (size: {out_img.size})")
-
-def main():
-    brain_dir = "C:/Users/prave/.gemini/antigravity/brain/2b36321b-11f4-4633-b325-a7f9bc07f059/"
-    
-    # Mojito
-    mojito_in = os.path.join(brain_dir, "media__1779425774136.png")
-    mojito_out = "public/mojito_front.png"
-    extract_can(mojito_in, mojito_out, bg_type='light')
-    
-    # Original
-    original_in = os.path.join(brain_dir, "media__1779432383533.png")
-    original_out = "public/original_front.png"
-    extract_can(original_in, original_out, bg_type='light')
-    
-    # Sugar Free
-    sugarfree_in = os.path.join(brain_dir, "media__1779431660693.png")
-    sugarfree_out = "public/sugarfree_front.png"
-    extract_can(sugarfree_in, sugarfree_out, bg_type='dark')
+        # Let's find the bounding box of non-white/non-background pixels.
+        # Often the background is white (255,255,255) or very light.
+        # Let's define background as pixels where R, G, B are all > 240 or all close to each other (gray).
+        # Or let's just find non-white pixels:
+        is_bg = (arr[:, :, 0] > 240) & (arr[:, :, 1] > 240) & (arr[:, :, 2] > 240)
+        # If it's a screenshot with dark background or different UI, let's just crop any non-constant area
+        # Find rows/columns with variance
+        row_var = np.var(arr[:, :, :3], axis=(1, 2))
+        col_var = np.var(arr[:, :, :3], axis=(0, 2))
+        
+        active_rows = np.where(row_var > 100)[0]
+        active_cols = np.where(col_var > 100)[0]
+        
+        if len(active_rows) > 0 and len(active_cols) > 0:
+            y0, y1 = active_rows[0], active_rows[-1]
+            x0, x1 = active_cols[0], active_cols[-1]
+            print(f"  Active bbox: y:({y0} to {y1}), x:({x0} to {x1})")
+            
+            # Let's also search for any distinct green bottle in the image.
+            # Green can has R < 100, G > 100, B < 100.
+            rgb = arr[:, :, :3]
+            green_pixels = (rgb[:, :, 1] > 80) & (rgb[:, :, 0] < 120) & (rgb[:, :, 2] < 120)
+            green_y, green_x = np.where(green_pixels)
+            if len(green_y) > 0:
+                gy0, gy1 = green_y.min(), green_y.max()
+                gx0, gx1 = green_x.min(), green_x.max()
+                print(f"  Green bottle bbox: y:({gy0} to {gy1}), x:({gx0} to {gx1})")
+                
+                # Save the green region with some padding
+                pad = 20
+                gy0_p = max(0, gy0 - pad)
+                gy1_p = min(h, gy1 + pad)
+                gx0_p = max(0, gx0 - pad)
+                gx1_p = min(w, gx1 + pad)
+                
+                green_crop = Image.fromarray(arr[gy0_p:gy1_p, gx0_p:gx1_p])
+                green_crop.save(f"scratch/extracted/green_crop_{filename}")
+                print(f"  Saved green crop to scratch/extracted/green_crop_{filename}")
+            
+            # Save the full active bbox crop
+            crop_img = Image.fromarray(arr[y0:y1, x0:x1])
+            crop_img.save(f"scratch/extracted/active_crop_{filename}")
+            print(f"  Saved active crop to scratch/extracted/active_crop_{filename}")
+        else:
+            print("  No active area found")
 
 if __name__ == "__main__":
-    main()
+    analyze_and_extract()

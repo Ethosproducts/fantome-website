@@ -256,7 +256,9 @@ function Hero({ activeColor, activeFlavor }) {
           <directionalLight position={[-5, 2, 4]} intensity={0.10} color="#ffffff" />
           <directionalLight position={[0, 5, -8]} intensity={0.15} color={activeColor} />
           
-          <Environment preset="studio" intensity={0.05} />
+          <Suspense fallback={null}>
+            <Environment preset="studio" intensity={0.05} />
+          </Suspense>
           
           <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
              <Suspense fallback={null}>

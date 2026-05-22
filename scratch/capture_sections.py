@@ -7,9 +7,9 @@ import urllib.request
 import base64
 from websocket import create_connection
 
-def take_screenshot(url, output_path, scroll_y=0):
+def capture_sections(url, output_dir):
     chrome_path = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-    user_data_dir = os.path.join(os.environ['TEMP'], "chrome_dev_profile_3d")
+    user_data_dir = os.path.join(os.environ['TEMP'], "chrome_dev_profile_scroll")
     
     print(f"Starting Chrome... URL: {url}", flush=True)
     chrome_proc = subprocess.Popen([
@@ -38,7 +38,7 @@ def take_screenshot(url, output_path, scroll_y=0):
         ws_url = target['webSocketDebuggerUrl']
         print(f"Connecting to: {ws_url}", flush=True)
         
-        ws = create_connection(ws_url, timeout=10.0)
+        ws = create_connection(ws_url, timeout=15.0)
         
         # Navigate to the page
         print(f"Navigating to {url}", flush=True)
@@ -48,7 +48,7 @@ def take_screenshot(url, output_path, scroll_y=0):
             "params": {"url": url}
         }))
         
-        # Wait for navigate response (id=1)
+        # Wait for navigation
         navigated = False
         start_time = time.time()
         while time.time() - start_time < 5.0:
@@ -58,50 +58,60 @@ def take_screenshot(url, output_path, scroll_y=0):
                 print("Navigation started successfully", flush=True)
                 break
         
-        if not navigated:
-            print("Warning: Navigation response (id=1) not received in 5s, proceeding anyway...", flush=True)
-            
-        # Wait 4 seconds for React / WebGL / Three.js loading & rendering
-        print("Waiting 4 seconds for canvas render...", flush=True)
+        print("Waiting 4 seconds for initial render...", flush=True)
         time.sleep(4)
         
-        if scroll_y > 0:
-            print(f"Scrolling to y={scroll_y}...", flush=True)
+        # Scroll positions to capture
+        scroll_offsets = [
+            ("hero", 0),
+            ("story_flavors", 900),
+            ("shop", 1950),
+            ("campaigns_footer", 3100)
+        ]
+        
+        os.makedirs(output_dir, exist_ok=True)
+        
+        for name, offset in scroll_offsets:
+            print(f"Scrolling to y={offset} for section '{name}'...", flush=True)
+            # Evaluate scrollTo in browser
             ws.send(json.dumps({
-                "id": 10,
+                "id": 100 + offset,
                 "method": "Runtime.evaluate",
-                "params": {"expression": f"window.scrollTo(0, {scroll_y});"}
+                "params": {"expression": f"window.scrollTo(0, {offset});"}
             }))
-            time.sleep(1.5)
-        
-        # Capture screenshot
-        print("Sending Page.captureScreenshot command...", flush=True)
-        ws.send(json.dumps({
-            "id": 2,
-            "method": "Page.captureScreenshot",
-            "params": {"format": "png"}
-        }))
-        
-        # Wait for screenshot response (id=2)
-        screenshot_saved = False
-        start_time = time.time()
-        while time.time() - start_time < 10.0:
-            msg = json.loads(ws.recv())
-            if msg.get('id') == 2:
-                if 'error' in msg:
-                    raise Exception(f"CDP captureScreenshot error: {msg['error']}")
-                
-                img_data_base64 = msg['result']['data']
-                img_data = base64.b64decode(img_data_base64)
-                with open(output_path, "wb") as f:
-                    f.write(img_data)
-                print(f"Screenshot successfully saved to {output_path}", flush=True)
-                screenshot_saved = True
-                break
-                
-        if not screenshot_saved:
-            raise Exception("Screenshot response (id=2) not received within 10 seconds")
             
+            # Wait for scroll to register and dynamic effects to settle
+            time.sleep(1.5)
+            
+            # Capture screenshot
+            print(f"Capturing screenshot for '{name}'...", flush=True)
+            ws.send(json.dumps({
+                "id": 200 + offset,
+                "method": "Page.captureScreenshot",
+                "params": {"format": "png"}
+            }))
+            
+            # Read response
+            screenshot_saved = False
+            start_time = time.time()
+            while time.time() - start_time < 10.0:
+                msg = json.loads(ws.recv())
+                if msg.get('id') == 200 + offset:
+                    if 'error' in msg:
+                        raise Exception(f"CDP captureScreenshot error: {msg['error']}")
+                    
+                    img_data_base64 = msg['result']['data']
+                    img_data = base64.b64decode(img_data_base64)
+                    output_path = os.path.join(output_dir, f"section_{name}.png")
+                    with open(output_path, "wb") as f:
+                        f.write(img_data)
+                    print(f"Saved section to {output_path}", flush=True)
+                    screenshot_saved = True
+                    break
+            
+            if not screenshot_saved:
+                raise Exception(f"Failed to capture screenshot for '{name}'")
+                
     except Exception as e:
         print(f"ERROR: {e}", file=sys.stderr, flush=True)
     finally:
@@ -119,7 +129,6 @@ def take_screenshot(url, output_path, scroll_y=0):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python capture_3d_can.py <url> <output_path> [scroll_y]")
+        print("Usage: python capture_sections.py <url> <output_dir>")
         sys.exit(1)
-    scroll_y = int(sys.argv[3]) if len(sys.argv) > 3 else 0
-    take_screenshot(sys.argv[1], sys.argv[2], scroll_y)
+    capture_sections(sys.argv[1], sys.argv[2])
