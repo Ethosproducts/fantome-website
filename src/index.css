@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-fantome-black: #050508;
+  --color-fantome-black: #FFFFFF;
   --color-fantome-cyan: #00F0FF;
   --color-fantome-gold: #FFD700;
-  --color-fantome-glass: rgba(255, 255, 255, 0.05);
+  --color-fantome-glass: rgba(10, 47, 29, 0.05);
   
   --font-outfit: 'Outfit', sans-serif;
   --font-inter: 'Inter', sans-serif;
@@ -13,7 +13,7 @@
 @layer base {
   body {
     background-color: var(--color-fantome-black);
-    color: white;
+    color: #0A2F1D;
     font-family: var(--font-inter);
     margin: 0;
     padding: 0;
@@ -24,7 +24,7 @@
 @utility glass-panel {
   background-color: var(--color-fantome-glass);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(10, 47, 29, 0.1);
   border-radius: 1rem;
 }
 
