@@ -5,6 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, Float, PresentationControls, useTexture, Sparkles, ContactShadows } from '@react-three/drei';
 import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send } from 'lucide-react';
 import * as THREE from 'three';
+import { Link } from 'react-router-dom';
 
 // ==========================================
 // 3D LIGHTNING BOLTS (SVG Revert)
@@ -975,6 +976,17 @@ function CampaignsSection({ activeColor }) {
             </div>
           </motion.div>
         ))}
+      </div>
+
+      {/* More Campaigns Button */}
+      <div className="text-center mt-16">
+        <Link
+          to="/campaigns"
+          className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg no-underline"
+        >
+          <span>More Campaigns</span>
+          <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
     </section>
   );
