@@ -1218,6 +1218,7 @@ function FantomeChatbot({ activeColor }) {
   ]);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
+  const promoSentRef = useRef(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -1251,6 +1252,17 @@ function FantomeChatbot({ activeColor }) {
       }
 
       setMessages(prev => [...prev, { id: Date.now() + 1, text: responseText, sender: "bot" }]);
+
+      if (!promoSentRef.current) {
+        promoSentRef.current = true;
+        setTimeout(() => {
+          setMessages(prev => [...prev, { 
+            id: Date.now() + 2, 
+            text: "Also, don't forget to follow our Instagram and subscribe to our YouTube channel!", 
+            sender: "bot" 
+          }]);
+        }, 1500);
+      }
     }, 800);
   };
 
