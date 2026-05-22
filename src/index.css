@@ -12,7 +12,7 @@
 
 @layer base {
   body {
-    background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 50%, #0284c7 100%);
+    background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 35%, #38bdf8 65%, #ffedd5 90%, #fed7aa 100%);
     background-attachment: fixed;
     color: #0F172A;
     font-family: var(--font-inter);
@@ -23,10 +23,10 @@
 }
 
 @utility glass-panel {
-  background: linear-gradient(135deg, rgba(186, 230, 253, 0.75) 0%, rgba(125, 211, 252, 0.45) 100%);
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.7) 0%, rgba(254, 215, 170, 0.25) 100%);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(14, 165, 233, 0.45);
-  box-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.15);
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.1);
   border-radius: 1rem;
 }
 

@@ -209,7 +209,7 @@ function Hero({ activeColor, activeFlavor }) {
       <div 
         className="absolute inset-0 z-0" 
         style={{ 
-          background: 'radial-gradient(circle at center, rgba(186, 230, 253, 0.3) 0%, rgba(125, 211, 252, 0.6) 60%, rgba(56, 189, 248, 0.8) 100%)' 
+          background: 'radial-gradient(circle at 50% 30%, rgba(224, 242, 254, 0.7) 0%, rgba(125, 211, 252, 0.4) 50%, rgba(254, 215, 170, 0.45) 100%)' 
         }} 
       />
 
@@ -976,7 +976,7 @@ function CampaignsSection({ activeColor }) {
 // ==========================================
 function FounderSection({ activeColor }) {
   return (
-    <section className="relative py-32 px-6 border-t border-sky-400/30 bg-sky-300/10 z-20 overflow-hidden">
+    <section className="relative py-32 px-6 border-t border-sky-400/30 bg-[linear-gradient(135deg,rgba(125,211,252,0.1)_0%,rgba(254,215,170,0.1)_100%)] z-20 overflow-hidden">
       {/* Background ambient glow */}
       
       
