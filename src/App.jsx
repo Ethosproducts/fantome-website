@@ -1380,8 +1380,8 @@ function FantomeChatbot({ activeColor }) {
 // ==========================================
 function App() {
   const queryParams = new URLSearchParams(window.location.search);
-  const defaultFlavor = queryParams.get('flavor') || 'Mojito';
-  const [activeFlavor, setActiveFlavor] = useState(defaultFlavor); // Default core Mojito flavor
+  const defaultFlavor = queryParams.get('flavor') || 'Sugar Free';
+  const [activeFlavor, setActiveFlavor] = useState(defaultFlavor); // Default core Sugar Free flavor
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCheckoutSuccess, setShowCheckoutSuccess] = useState(false);
