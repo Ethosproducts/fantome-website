@@ -605,7 +605,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 <motion.img 
                   src={flavors[currentIdx].canFront} 
                   alt={flavors[currentIdx].title}
-                  className="h-56 sm:h-64 lg:h-72 object-contain relative z-20"
+                  className="w-full h-4/5 object-contain relative z-20"
                   animate={{ y: [0, -8, 0] }}
                   transition={{ 
                     duration: 4, 
@@ -692,7 +692,7 @@ function ShopSection({ activeColor }) {
   }, []);
 
   const crateFlavors = [
-    { name: "Mojito", color: "#059669", graphic: "/mojito_perfect.png?v=5" },
+    { name: "Mojito", color: "#059669", graphic: "/mojito_perfect.png?v=6" },
     { name: "Original", color: "#DC2626", graphic: "/original_perfect.png" },
     { name: "Sugar Free", color: "#475569", graphic: "/sugarfree_perfect.png?v=3" }
   ];
@@ -1394,7 +1394,7 @@ function App() {
       desc: "The absolute standard of premium carbonated energy. Infused with natural wild Mint and zesty Lime juice, structured precisely around B-Complex catalysts to break sensory thresholds.",
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (Green Colour INS 102 & INS 150), Permitted Food Flavour (Mint Flavour), Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour (Natural & Nature Identical Flavouring Substances).",
       canGraphic: "/mojito_texture.png",
-      canFront: "/mojito_perfect.png?v=5"
+      canFront: "/mojito_perfect.png?v=6"
     },
     { 
       title: "Original", 
