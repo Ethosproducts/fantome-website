@@ -111,7 +111,7 @@ function FantomeCan({ activeFlavor }) {
       <group ref={canRef}>
         {/* 1. Main cylindrical body with printed wrap texture (open-ended to fit tapered ends) */}
         <mesh>
-          <cylinderGeometry args={[0.85, 0.85, 4.5, 64, 1, true]} />
+          <cylinderGeometry args={[1.0, 1.0, 4.5, 64, 1, true]} />
           <meshStandardMaterial 
             map={currentTexture} 
             metalness={activeFlavor === 'Sugar Free' ? 0.85 : 0.85} 
@@ -122,7 +122,7 @@ function FantomeCan({ activeFlavor }) {
 
         {/* 2. Top Tapered Shoulder (dark black aluminum for black cans, silver for sugar free) */}
         <mesh position={[0, 2.375, 0]}>
-          <cylinderGeometry args={[0.75, 0.85, 0.25, 64, 1, true]} />
+          <cylinderGeometry args={[0.88, 1.0, 0.25, 64, 1, true]} />
           <meshStandardMaterial 
             color={activeFlavor === 'Sugar Free' ? "#ffffff" : "#121212"} 
             metalness={activeFlavor === 'Sugar Free' ? 1.0 : 0.85} 
@@ -132,13 +132,13 @@ function FantomeCan({ activeFlavor }) {
 
         {/* 3. Top Rim / Rolled Collar (silver metal) */}
         <mesh position={[0, 2.53, 0]}>
-          <cylinderGeometry args={[0.77, 0.75, 0.06, 64]} />
+          <cylinderGeometry args={[0.90, 0.88, 0.06, 64]} />
           <meshStandardMaterial color="#ffffff" metalness={1.0} roughness={0.10} />
         </mesh>
 
         {/* 4. Sunken Lid Disc (brushed silver metal) */}
         <mesh position={[0, 2.51, 0]}>
-          <cylinderGeometry args={[0.74, 0.74, 0.02, 64]} />
+          <cylinderGeometry args={[0.87, 0.87, 0.02, 64]} />
           <meshStandardMaterial color="#e8e8e8" metalness={1.0} roughness={0.18} />
         </mesh>
 
