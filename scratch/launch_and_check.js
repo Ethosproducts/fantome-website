@@ -53,12 +53,12 @@ async function main() {
     ws.send(JSON.stringify({ id: 3, method: "Page.enable" }));
     ws.send(JSON.stringify({ id: 5, method: "Network.enable" }));
     
-    // Navigate to dev server
-    console.log("Navigating to https://fantome.egv.co.in/...");
+    // Navigate to preview server
+    console.log("Navigating to http://localhost:4173/...");
     ws.send(JSON.stringify({
       id: 4,
       method: "Page.navigate",
-      params: { url: "https://fantome.egv.co.in/" }
+      params: { url: "http://localhost:4173/" }
     }));
   };
   
@@ -71,9 +71,9 @@ async function main() {
       console.error("*********************************\n");
     }
     
-    if (data.method === 'Console.messageAdded') {
-      const msg = data.params.message;
-      console.log(`BROWSER CONSOLE [${msg.level}]: ${msg.text}`);
+    if (data.method === 'Runtime.consoleAPICalled') {
+      const msg = data.params.args.map(a => a.value || a.description || '').join(' ');
+      console.log(`BROWSER CONSOLE [${data.params.type}]: ${msg}`);
     }
 
     if (data.method === 'Network.loadingFailed') {

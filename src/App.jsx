@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { ErrorBoundary } from 'react-error-boundary';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, Float, PresentationControls, useTexture, Sparkles, ContactShadows } from '@react-three/drei';
 import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send } from 'lucide-react';
@@ -248,30 +249,36 @@ function Hero({ activeColor, activeFlavor }) {
       
       {/* 3D Canvas */}
       <div className="absolute inset-0 z-10 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 10], fov: 45 }} style={{ pointerEvents: 'auto' }} gl={{ preserveDrawingBuffer: true }}>
-          <ambientLight intensity={0.06} />
-          
-          {/* Moody, low-brightness three-point lighting setup to completely eliminate glare */}
-          <directionalLight position={[5, 4, 5]} intensity={0.15} color="#ffffff" />
-          <directionalLight position={[-5, 2, 4]} intensity={0.10} color="#ffffff" />
-          <directionalLight position={[0, 5, -8]} intensity={0.15} color={activeColor} />
-          
-          <Suspense fallback={null}>
-            <Environment preset="studio" intensity={0.05} />
-          </Suspense>
-          
-          <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
-             <Suspense fallback={null}>
-               <FantomeCan activeFlavor={activeFlavor} />
-             </Suspense>
-          </PresentationControls>
-          
-          <Sparkles count={150} scale={12} size={4} speed={0.4} opacity={0.6} color={activeColor} />
-          <Sparkles count={50} scale={10} size={10} speed={1} opacity={0.2} color="#ffffff" />
-          
-          {/* Soft ambient floor shadow beneath the floating can */}
-          <ContactShadows position={[0, -3.8, 0]} opacity={0.4} scale={8} blur={2.0} far={4} />
-        </Canvas>
+        <ErrorBoundary fallback={
+          <div className="w-full h-full flex items-center justify-center pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <img src={activeFlavor === 'Original Mojito' ? '/mojito_perfect.png' : '/sugarfree_perfect.png'} alt={activeFlavor} className="h-2/3 object-contain drop-shadow-2xl" />
+          </div>
+        }>
+          <Canvas camera={{ position: [0, 0, 10], fov: 45 }} style={{ pointerEvents: 'auto' }} gl={{ preserveDrawingBuffer: true }}>
+            <ambientLight intensity={0.06} />
+            
+            {/* Moody, low-brightness three-point lighting setup to completely eliminate glare */}
+            <directionalLight position={[5, 4, 5]} intensity={0.15} color="#ffffff" />
+            <directionalLight position={[-5, 2, 4]} intensity={0.10} color="#ffffff" />
+            <directionalLight position={[0, 5, -8]} intensity={0.15} color={activeColor} />
+            
+            <Suspense fallback={null}>
+              <Environment preset="studio" intensity={0.05} />
+            </Suspense>
+            
+            <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
+               <Suspense fallback={null}>
+                 <FantomeCan activeFlavor={activeFlavor} />
+               </Suspense>
+            </PresentationControls>
+            
+            <Sparkles count={150} scale={12} size={4} speed={0.4} opacity={0.6} color={activeColor} />
+            <Sparkles count={50} scale={10} size={10} speed={1} opacity={0.2} color="#ffffff" />
+            
+            {/* Soft ambient floor shadow beneath the floating can */}
+            <ContactShadows position={[0, -3.8, 0]} opacity={0.4} scale={8} blur={2.0} far={4} />
+          </Canvas>
+        </ErrorBoundary>
       </div>
 
       {/* Ticker Strip — sits at the bottom edge */}
