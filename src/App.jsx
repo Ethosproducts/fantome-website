@@ -222,20 +222,20 @@ function HeroTicker({ activeColor }) {
       style={{
         borderTop: `1px solid ${activeColor}33`,
         borderBottom: `1px solid ${activeColor}33`,
-        background: `linear-gradient(90deg, black, ${activeColor}08, black)`,
+        background: `linear-gradient(90deg, #f8fafc, ${activeColor}10, #f8fafc)`,
       }}
     >
       {/* Left / right fade masks */}
       <div className="absolute left-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, black, transparent)' }} />
+        style={{ background: 'linear-gradient(to right, #f8fafc, transparent)' }} />
       <div className="absolute right-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left, black, transparent)' }} />
+        style={{ background: 'linear-gradient(to left, #f8fafc, transparent)' }} />
 
       <div className="flex whitespace-nowrap hero-ticker-track">
         {items.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-12 mx-12">
             <span
-              className="text-[11px] font-bold uppercase tracking-[0.25em] font-sans"
+              className="text-[11px] font-bold tracking-wide font-sans"
               style={{ color: activeColor, textShadow: "none" }}
             >
               {item}
