@@ -254,7 +254,7 @@ function Hero({ activeColor, activeFlavor }) {
             <img src={activeFlavor === 'Original Mojito' ? '/mojito_perfect.png' : '/sugarfree_perfect.png'} alt={activeFlavor} className="h-2/3 object-contain drop-shadow-2xl" />
           </div>
         }>
-          <Canvas camera={{ position: [0, 0, 10], fov: 45 }} style={{ pointerEvents: 'auto' }} gl={{ preserveDrawingBuffer: true }}>
+          <Canvas camera={{ position: [0, 0, 10], fov: 45 }} style={{ pointerEvents: 'auto' }}>
             <ambientLight intensity={0.06} />
             
             {/* Moody, low-brightness three-point lighting setup to completely eliminate glare */}
@@ -263,7 +263,7 @@ function Hero({ activeColor, activeFlavor }) {
             <directionalLight position={[0, 5, -8]} intensity={0.15} color={activeColor} />
             
             <Suspense fallback={null}>
-              <Environment preset="studio" intensity={0.05} />
+              <Environment files="/studio_small_03_1k.hdr" intensity={0.05} />
             </Suspense>
             
             <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
