@@ -1286,7 +1286,7 @@ function FantomeChatbot({ activeColor }) {
       } else if (query.includes("flavor") || query.includes("flavour") || query.includes("taste")) {
         responseText = "We have three premium flavors available: Mojito (Green), Original (Red), and Sugar Free (Silver).";
       } else if (query.includes("buy") || query.includes("price") || query.includes("cost") || query.includes("shop") || query.includes("order")) {
-        responseText = "Our premium 24-can crate is priced at ₹1,440. You can place your order directly from the Shop section above.";
+        responseText = "Our online shop is coming soon! For now, you can purchase Fantôme Energy from your nearest supermarkets.";
       }
 
       setMessages(prev => [...prev, { id: Date.now() + 1, text: responseText, sender: "bot" }]);
