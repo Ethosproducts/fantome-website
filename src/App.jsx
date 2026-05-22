@@ -120,66 +120,7 @@ function FantomeCan({ activeFlavor }) {
           />
         </mesh>
 
-        {/* 2. Top Tapered Shoulder (dark black aluminum for black cans, silver for sugar free) */}
-        <mesh position={[0, 2.375, 0]}>
-          <cylinderGeometry args={[0.88, 1.0, 0.25, 64, 1, true]} />
-          <meshStandardMaterial 
-            color={activeFlavor === 'Sugar Free' ? "#ffffff" : "#121212"} 
-            metalness={activeFlavor === 'Sugar Free' ? 1.0 : 0.85} 
-            roughness={activeFlavor === 'Sugar Free' ? 0.12 : 0.25} 
-          />
-        </mesh>
 
-        {/* 3. Top Rim / Rolled Collar (silver metal) */}
-        <mesh position={[0, 2.53, 0]}>
-          <cylinderGeometry args={[0.90, 0.88, 0.06, 64]} />
-          <meshStandardMaterial color="#ffffff" metalness={1.0} roughness={0.10} />
-        </mesh>
-
-        {/* 4. Sunken Lid Disc (brushed silver metal) */}
-        <mesh position={[0, 2.51, 0]}>
-          <cylinderGeometry args={[0.87, 0.87, 0.02, 64]} />
-          <meshStandardMaterial color="#e8e8e8" metalness={1.0} roughness={0.18} />
-        </mesh>
-
-
-        {/* ── CAN TOP ASSEMBLY (Reference-accurate pull-tab sitting on sunken lid) ── */}
-
-        {/* D-shaped score groove */}
-        <mesh position={[0, 2.533, 0.03]} rotation={[Math.PI / 2, 0.55, 0]}>
-          <torusGeometry args={[0.20, 0.012, 6, 44, Math.PI * 1.55]} />
-          <meshStandardMaterial color="#888" metalness={0.85} roughness={0.55} />
-        </mesh>
-
-        {/* Straight closing segment of the D */}
-        <mesh position={[0, 2.533, 0.20]}>
-          <boxGeometry args={[0.40, 0.012, 0.012]} />
-          <meshStandardMaterial color="#888" metalness={0.85} roughness={0.55} />
-        </mesh>
-
-        {/* Rivet (tiny hemisphere dome) */}
-        <mesh position={[0, 2.536, 0.175]}>
-          <sphereGeometry args={[0.038, 16, 10, 0, Math.PI * 2, 0, Math.PI * 0.55]} />
-          <meshStandardMaterial color="#e0e0e0" metalness={1.0} roughness={0.06} />
-        </mesh>
-
-        {/* Tab arm (slim, flat lever) */}
-        <mesh position={[0, 2.530, 0.03]}>
-          <boxGeometry args={[0.085, 0.014, 0.31]} />
-          <meshStandardMaterial color="#c8c8c8" metalness={1.0} roughness={0.1} />
-        </mesh>
-
-        {/* Rounded nose of arm */}
-        <mesh position={[0, 2.530, 0.18]}>
-          <cylinderGeometry args={[0.042, 0.042, 0.014, 16]} />
-          <meshStandardMaterial color="#c8c8c8" metalness={1.0} roughness={0.1} />
-        </mesh>
-
-        {/* Pull ring */}
-        <mesh position={[0, 2.540, -0.125]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.075, 0.018, 8, 24]} />
-          <meshStandardMaterial color="#e2e2e2" metalness={1.0} roughness={0.07} />
-        </mesh>
       </group>
     </Float>
   );
