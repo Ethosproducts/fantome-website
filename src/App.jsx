@@ -583,29 +583,38 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-5xl px-12"
           >
             {/* Visual Preview displaying respective Can artwork background texture */}
-            <div className="relative w-full aspect-square rounded-3xl glass-panel bg-gradient-to-br from-white/5 to-transparent border border-slate-200 flex items-center justify-center overflow-hidden">
+            <div className="relative w-full aspect-square rounded-3xl glass-panel p-12 bg-gradient-to-br from-white/5 to-transparent border border-slate-200 flex items-center justify-center overflow-hidden">
               <div 
                 className="absolute inset-0 blur-3xl opacity-25 transition-all duration-500"
                 style={{ background: `radial-gradient(circle, ${flavors[currentIdx].color} 0%, transparent 70%)` }}
               />
-              {/* 3D Can Canvas */}
-              <div className="w-full h-full relative z-10">
-                <Canvas
-                  camera={{ position: [0, 0, 7], fov: 35 }}
-                  gl={{ antialias: true, alpha: true }}
-                  style={{ background: 'transparent' }}
-                >
-                  <ambientLight intensity={0.6} />
-                  <directionalLight position={[5, 5, 5]} intensity={0.8} />
-                  <directionalLight position={[-3, 2, 4]} intensity={0.3} />
-                  <spotLight position={[0, 8, 0]} intensity={0.4} angle={0.5} penumbra={0.5} />
-                  <Environment preset="studio" />
-                  <Suspense fallback={null}>
-                    <FantomeCan activeFlavor={flavors[currentIdx].title} />
-                  </Suspense>
-                  <ContactShadows position={[0, -2.1, 0]} opacity={0.5} blur={2.5} far={4} />
-                </Canvas>
-              </div>
+              {/* Sleek mockup card containing the floating transparent can */}
+              <motion.div 
+                initial={{ scale: 0.8, rotate: -5, y: 10 }}
+                animate={{ scale: 1, rotate: 0, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-48 h-72 sm:w-52 sm:h-80 lg:w-56 lg:h-88 rounded-2xl border border-slate-200 bg-slate-50/80 shadow-2xl relative z-10 flex flex-col items-center justify-center p-4 lg:p-6 overflow-hidden backdrop-blur-md"
+              >
+                {/* Radial glow specific to flavor inside the card */}
+                <div 
+                  className="absolute inset-0 blur-3xl opacity-20 transition-all duration-500 rounded-full w-32 h-32 m-auto"
+                  style={{ background: flavors[currentIdx].color }}
+                />
+                
+                {/* Center floating transparent can */}
+                <motion.img 
+                  src={flavors[currentIdx].canFront} 
+                  alt={flavors[currentIdx].title}
+                  className="w-full h-4/5 object-contain relative z-20"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                  style={{ filter: "drop-shadow(0 15px 25px rgba(0,0,0,0.65))" }}
+                />
+              </motion.div>
             </div>
 
             {/* Flavors Details */}
