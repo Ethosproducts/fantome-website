@@ -692,9 +692,9 @@ function ShopSection({ activeColor }) {
   }, []);
 
   const crateFlavors = [
-    { name: "Mojito", color: "#00FF00", graphic: "/mojito_front.png" },
-    { name: "Original", color: "#FF0000", graphic: "/original_front.png" },
-    { name: "Sugar Free", color: "#FFFFFF", graphic: "/sugarfree_front.png" }
+    { name: "Mojito", color: "#059669", graphic: "/mojito_front.png" },
+    { name: "Original", color: "#DC2626", graphic: "/original_front.png" },
+    { name: "Sugar Free", color: "#475569", graphic: "/sugarfree_front.png" }
   ];
 
   const currentCrateFlavorInfo = crateFlavors.find(f => f.name === selectedCrateFlavor) || crateFlavors[0];
@@ -1243,7 +1243,7 @@ function Footer({ activeColor }) {
             <span className="text-slate-800 font-bold">Instagram</span>
           </a>
           <span className="w-1 h-1 rounded-full bg-slate-50"></span>
-          <span style={{ color: activeColor }} className="transition-colors duration-500">UNSEEN POWER</span>
+          <span style={{ color: activeColor }} className="font-bold transition-colors duration-500">UNSEEN POWER</span>
         </div>
       </div>
     </footer>
@@ -1395,7 +1395,7 @@ function App() {
     { 
       title: "Mojito", 
       flavor: "Ready to Drink", 
-      color: "#00FF00",
+      color: "#059669",
       desc: "The absolute standard of premium carbonated energy. Infused with natural wild Mint and zesty Lime juice, structured precisely around B-Complex catalysts to break sensory thresholds.",
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (Green Colour INS 102 & INS 150), Permitted Food Flavour (Mint Flavour), Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour (Natural & Nature Identical Flavouring Substances).",
       canGraphic: "/mojito_texture.png",
@@ -1404,7 +1404,7 @@ function App() {
     { 
       title: "Original", 
       flavor: "Unseen Power", 
-      color: "#FF0000",
+      color: "#DC2626",
       desc: "Our classic adaptation. A violent shockwave of mental clarity and cognitive ignition, utilizing high taurine metrics and immediate energy release regulators.",
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 122 & INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/original_texture.png",
@@ -1413,7 +1413,7 @@ function App() {
     { 
       title: "Sugar Free", 
       flavor: "Unleash The Power", 
-      color: "#FFFFFF",
+      color: "#475569",
       desc: "Pure power, completely unburdened by carbohydrates. Engineered for elite metabolic performance and sustained neural support without the glycemic crash.",
       fullIngredients: "Water, Sucralose, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/sugarfree_texture.png",
@@ -1421,7 +1421,7 @@ function App() {
     }
   ];
 
-  const activeColor = flavors.find(f => f.title === activeFlavor)?.color || '#00FF00';
+  const activeColor = flavors.find(f => f.title === activeFlavor)?.color || '#059669';
 
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
