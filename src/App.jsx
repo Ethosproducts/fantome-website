@@ -1456,17 +1456,7 @@ function App() {
     <div className="min-h-screen relative bg-fantome-black text-white overflow-hidden">
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
-        {/* Announcement Banner */}
-        <div 
-          className="relative w-full py-2 flex justify-center items-center overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-colors duration-500"
-          style={{ backgroundColor: activeColor, color: '#000' }}
-        >
-          {/* Subtle pulse overlay for attention */}
-          <div className="absolute inset-0 bg-white/20 animate-pulse pointer-events-none mix-blend-overlay" />
-          <p className="relative z-10 font-black text-[10px] md:text-xs uppercase tracking-[0.25em] text-center px-4">
-            ⚡ SURVIVAL PROTOCOL ACTIVATED: BUY 1 CRATE, GET 3 FREE! ⚡
-          </p>
-        </div>
+
 
         {/* Navigation Bar */}
         <nav className="w-full p-4 md:p-6 pt-2 md:pt-4">
