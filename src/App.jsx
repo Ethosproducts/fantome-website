@@ -317,7 +317,7 @@ function Hero({ activeColor, activeFlavor }) {
       </div>
 
       {/* Foreground UI */}
-      <div className="absolute bottom-16 w-full flex flex-col items-center justify-center z-20 pointer-events-none">
+      <div className="absolute bottom-28 sm:bottom-16 w-full flex flex-col items-center justify-center z-20 pointer-events-none">
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
