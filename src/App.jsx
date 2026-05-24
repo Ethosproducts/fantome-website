@@ -41,7 +41,7 @@ function LightningBolts({ color }) {
 // ==========================================
 // 3D CAN COMPONENT (Multi-Texture Mapping & Variable Rotation Speed)
 // ==========================================
-function FantomeCan({ activeFlavor }) {
+function FantomeCan({ activeFlavor, scale = 1 }) {
   const canRef = useRef();
   const angleRef = useRef(0);
   
@@ -111,7 +111,7 @@ function FantomeCan({ activeFlavor }) {
       {/* Dynamic lightning point light */}
       <pointLight ref={lightRef} position={[2, 3, 2]} color={tintColor} intensity={0.15} distance={15} decay={2} />
       
-      <group ref={canRef}>
+      <group ref={canRef} scale={scale}>
         {/* 1. Main cylindrical body with printed wrap texture (open-ended to fit tapered ends) */}
         <mesh>
           <cylinderGeometry args={[1.0, 1.0, 4.5, 32, 1, true]} />
@@ -194,6 +194,28 @@ function HeroTicker({ activeColor }) {
 // HERO SECTION
 // ==========================================
 function Hero({ activeColor, activeFlavor }) {
+  const [canScale, setCanScale] = useState(() => {
+    if (window.innerWidth < 640) return 0.58;
+    if (window.innerWidth < 1024) return 0.76;
+    return 1;
+  });
+
+  useEffect(() => {
+    const updateCanScale = () => {
+      if (window.innerWidth < 640) {
+        setCanScale(0.58);
+      } else if (window.innerWidth < 1024) {
+        setCanScale(0.76);
+      } else {
+        setCanScale(1);
+      }
+    };
+
+    updateCanScale();
+    window.addEventListener('resize', updateCanScale);
+    return () => window.removeEventListener('resize', updateCanScale);
+  }, []);
+
   const flashVariants = {
     animate: {
       opacity: [0, 0, 0.8, 0, 1, 0.2, 0, 0],
@@ -275,7 +297,7 @@ function Hero({ activeColor, activeFlavor }) {
               
               <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
                  <Suspense fallback={null}>
-                   <FantomeCan activeFlavor={activeFlavor} />
+                   <FantomeCan activeFlavor={activeFlavor} scale={canScale} />
                  </Suspense>
               </PresentationControls>
               
