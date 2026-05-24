@@ -554,7 +554,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 initial={{ scale: 0.8, rotate: -5, y: 10 }}
                 animate={{ scale: 1, rotate: 0, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="w-48 h-72 sm:w-52 sm:h-80 lg:w-56 lg:h-88 rounded-2xl border border-sky-400/30 bg-sky-300/50 shadow-2xl relative z-10 flex flex-col items-center justify-center p-4 lg:p-6 overflow-hidden backdrop-blur-md"
+                className={`${flavors[currentIdx].formulaWide ? 'w-72 h-48 sm:w-80 sm:h-56 lg:w-96 lg:h-64 bg-white/90 p-0' : 'w-48 h-72 sm:w-52 sm:h-80 lg:w-56 lg:h-88 bg-sky-300/50 p-4 lg:p-6'} rounded-2xl border border-sky-400/30 shadow-2xl relative z-10 flex flex-col items-center justify-center overflow-hidden backdrop-blur-md`}
               >
                 {/* Radial glow specific to flavor inside the card */}
                 <div 
@@ -566,7 +566,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 <motion.img 
                   src={flavors[currentIdx].canFront} 
                   alt={flavors[currentIdx].title}
-                  className="w-full h-4/5 object-contain relative z-20"
+                  className={`${flavors[currentIdx].formulaWide ? 'w-full h-full' : 'w-full h-4/5'} object-contain relative z-20`}
                   animate={{ y: [0, -8, 0] }}
                   transition={{ 
                     duration: 4, 
@@ -1376,7 +1376,8 @@ function App() {
       desc: "Our classic adaptation. A violent shockwave of mental clarity and cognitive ignition, utilizing high taurine metrics and immediate energy release regulators.",
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 122 & INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/original_texture.png",
-      canFront: "/original_perfect.png?v=7"
+      canFront: "/formula_black_can.png",
+      formulaWide: true
     },
     { 
       title: "Sugar Free", 
@@ -1385,7 +1386,8 @@ function App() {
       desc: "Pure power, completely unburdened by carbohydrates. Engineered for elite metabolic performance and sustained neural support without the glycemic crash.",
       fullIngredients: "Water, Sucralose, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/sugarfree_texture.png",
-      canFront: "/sugarfree_perfect.png?v=8"
+      canFront: "/formula_black_can.png",
+      formulaWide: true
     }
   ];
 
