@@ -84,7 +84,7 @@ function FantomeCan({ activeFlavor, scale = 1 }) {
 
     // ── Rotation Logic (Smooth spin-in and stop facing front) ────────
     // Align front logo ("FANTÔME" and Wolf Face) exactly to the center of the viewport
-    let FRONT_OFFSET = activeFlavor === 'Sugar Free' ? 240 * Math.PI / 180 : 65 * Math.PI / 180;
+    let FRONT_OFFSET = activeFlavor === 'Sugar Free' ? 240 * Math.PI / 180 : activeFlavor === 'Mojito' ? 92 * Math.PI / 180 : 65 * Math.PI / 180;
     if (urlAngle !== null) {
       FRONT_OFFSET = parseFloat(urlAngle);
     }
@@ -117,9 +117,9 @@ function FantomeCan({ activeFlavor, scale = 1 }) {
           <cylinderGeometry args={[1.0, 1.0, 4.5, 32, 1, true]} />
           <meshStandardMaterial 
             map={currentTexture} 
-            metalness={activeFlavor === 'Sugar Free' ? 0.85 : 0.85} 
-            roughness={activeFlavor === 'Sugar Free' ? 0.15 : 0.20} 
-            envMapIntensity={activeFlavor === 'Sugar Free' ? 0.9 : 0.10}
+            metalness={activeFlavor === 'Mojito' ? 0.58 : 0.85} 
+            roughness={activeFlavor === 'Mojito' ? 0.42 : activeFlavor === 'Sugar Free' ? 0.15 : 0.20} 
+            envMapIntensity={activeFlavor === 'Mojito' ? 0.03 : activeFlavor === 'Sugar Free' ? 0.9 : 0.10}
           />
         </mesh>
 
