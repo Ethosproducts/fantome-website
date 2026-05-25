@@ -117,8 +117,9 @@ function FantomeCan({ activeFlavor, scale = 1 }) {
           <cylinderGeometry args={[1.0, 1.0, 4.5, 32, 1, true]} />
           <meshStandardMaterial 
             map={currentTexture} 
-            metalness={activeFlavor === 'Mojito' ? 0.12 : 0.85} 
-            roughness={activeFlavor === 'Mojito' ? 0.92 : activeFlavor === 'Sugar Free' ? 0.15 : 0.20} 
+            color={activeFlavor === 'Mojito' ? '#064e3b' : '#ffffff'}
+            metalness={activeFlavor === 'Mojito' ? 0.02 : 0.85} 
+            roughness={activeFlavor === 'Mojito' ? 1.0 : activeFlavor === 'Sugar Free' ? 0.15 : 0.20} 
             envMapIntensity={activeFlavor === 'Mojito' ? 0.0 : activeFlavor === 'Sugar Free' ? 0.9 : 0.10}
           />
         </mesh>
