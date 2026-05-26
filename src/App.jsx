@@ -41,7 +41,7 @@ function LightningBolts({ color }) {
 // ==========================================
 // 3D CAN COMPONENT (Multi-Texture Mapping & Variable Rotation Speed)
 // ==========================================
-function FantomeCan({ activeFlavor, scale = 1 }) {
+function FantomeCan({ activeFlavor, scale = 1, xOffset = 0 }) {
   const canRef = useRef();
   const angleRef = useRef(0);
   
@@ -111,7 +111,7 @@ function FantomeCan({ activeFlavor, scale = 1 }) {
       {/* Dynamic lightning point light */}
       <pointLight ref={lightRef} position={[2, 3, 2]} color={tintColor} intensity={0.15} distance={15} decay={2} />
       
-      <group ref={canRef} scale={scale}>
+      <group ref={canRef} scale={scale} position={[xOffset, 0, 0]}>
         {/* 1. Main cylindrical body with printed wrap texture (open-ended to fit tapered ends) */}
         <mesh>
           <cylinderGeometry args={[1.0, 1.0, 4.5, 32, 1, true]} />
@@ -200,15 +200,23 @@ function Hero({ activeColor, activeFlavor }) {
     if (window.innerWidth < 1024) return 0.76;
     return 1;
   });
+  const [canXOffset, setCanXOffset] = useState(() => {
+    if (window.innerWidth < 640) return 0.1;
+    if (window.innerWidth < 1024) return 0.35;
+    return 0.6;
+  });
 
   useEffect(() => {
     const updateCanScale = () => {
       if (window.innerWidth < 640) {
         setCanScale(0.58);
+        setCanXOffset(0.1);
       } else if (window.innerWidth < 1024) {
         setCanScale(0.76);
+        setCanXOffset(0.35);
       } else {
         setCanScale(1);
+        setCanXOffset(0.6);
       }
     };
 
@@ -299,7 +307,7 @@ function Hero({ activeColor, activeFlavor }) {
               
               <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
                  <Suspense fallback={null}>
-                   <FantomeCan activeFlavor={activeFlavor} scale={canScale} />
+                   <FantomeCan activeFlavor={activeFlavor} scale={canScale} xOffset={canXOffset} />
                  </Suspense>
               </PresentationControls>
               
