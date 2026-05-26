@@ -201,22 +201,22 @@ function Hero({ activeColor, activeFlavor }) {
     return 1;
   });
   const [canXOffset, setCanXOffset] = useState(() => {
-    if (window.innerWidth < 640) return 0.1;
-    if (window.innerWidth < 1024) return 0.35;
-    return 0.6;
+    if (window.innerWidth < 640) return 0;
+    if (window.innerWidth < 1024) return 0.15;
+    return 0.25;
   });
 
   useEffect(() => {
     const updateCanScale = () => {
       if (window.innerWidth < 640) {
         setCanScale(0.58);
-        setCanXOffset(0.1);
+        setCanXOffset(0);
       } else if (window.innerWidth < 1024) {
         setCanScale(0.76);
-        setCanXOffset(0.35);
+        setCanXOffset(0.15);
       } else {
         setCanScale(1);
-        setCanXOffset(0.6);
+        setCanXOffset(0.25);
       }
     };
 
@@ -272,7 +272,7 @@ function Hero({ activeColor, activeFlavor }) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-[12vw] md:text-[10vw] font-bold font-sans uppercase tracking-tighter leading-none whitespace-nowrap opacity-90 select-none flex items-center justify-center gap-[20vw] md:gap-[13vw]"
+          className="text-[12vw] md:text-[10vw] font-bold font-sans uppercase tracking-tighter leading-none whitespace-nowrap opacity-90 select-none flex items-center justify-center gap-[24vw] md:gap-[16vw]"
         >
           <span style={{ color: activeColor, textShadow: "none" }}>UNSEEN</span>
           <span>POWER</span>
