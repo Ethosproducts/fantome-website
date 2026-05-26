@@ -264,9 +264,10 @@ function Hero({ activeColor, activeFlavor }) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-[12vw] md:text-[10vw] font-bold font-sans uppercase tracking-tighter leading-none whitespace-nowrap opacity-90 select-none"
+          className="text-[12vw] md:text-[10vw] font-bold font-sans uppercase tracking-tighter leading-none whitespace-nowrap opacity-90 select-none flex items-center justify-center gap-[20vw] md:gap-[13vw]"
         >
-          <span style={{ color: activeColor, textShadow: "none" }}>UNSEEN</span> POWER
+          <span style={{ color: activeColor, textShadow: "none" }}>UNSEEN</span>
+          <span>POWER</span>
         </motion.h1>
       </div>
       
