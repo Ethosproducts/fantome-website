@@ -1475,9 +1475,10 @@ function App() {
           {/* Navigation Links */}
           <div className="hidden md:flex gap-10 text-xs font-bold tracking-[0.15em] uppercase text-slate-600">
             {['Flavors', 'Story', 'Shop', 'Campaigns'].map((item) => (
-              <a 
+              <button
                 key={item} 
-                href={`#${item.toLowerCase()}`} 
+                type="button"
+                onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
                 className="relative group transition-colors hover:text-slate-800 py-2"
               >
                 {item}
@@ -1485,7 +1486,7 @@ function App() {
                   className="absolute left-1/2 bottom-0 w-0 h-[2px] bg-transparent transition-all duration-300 group-hover:w-full group-hover:left-0" 
                   style={{ backgroundColor: activeColor, boxShadow: "none" }}
                 />
-              </a>
+              </button>
             ))}
           </div>
           
