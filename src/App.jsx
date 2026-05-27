@@ -139,11 +139,35 @@ function FantomeCan({ activeFlavor, scale = 1, xOffset = 0 }) {
         <mesh position={[0, 2.25, 0]}>
           <cylinderGeometry args={[1.0, 1.0, 0.01, 32]} />
           <meshStandardMaterial 
-            color="#c0c0c0" 
+            color="#b8b8b8" 
             metalness={0.9} 
-            roughness={0.2} 
+            roughness={0.28} 
           />
         </mesh>
+
+        {/* Realistic pull-tab lid detail */}
+        <mesh position={[0, 2.285, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.74, 0.025, 12, 80]} />
+          <meshStandardMaterial color="#d7d7d7" metalness={1} roughness={0.22} />
+        </mesh>
+        <mesh position={[0, 2.292, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.48, 0.012, 8, 64]} />
+          <meshStandardMaterial color="#9f9f9f" metalness={1} roughness={0.34} />
+        </mesh>
+        <group position={[0.02, 2.33, 0.12]} rotation={[0, 0.15, -0.18]}>
+          <mesh>
+            <boxGeometry args={[0.46, 0.028, 0.18]} />
+            <meshStandardMaterial color="#d0d0d0" metalness={1} roughness={0.18} />
+          </mesh>
+          <mesh position={[0.14, 0.018, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[0.07, 0.014, 10, 32]} />
+            <meshStandardMaterial color="#8f8f8f" metalness={1} roughness={0.24} />
+          </mesh>
+          <mesh position={[-0.15, 0.018, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[0.105, 0.014, 10, 32]} />
+            <meshStandardMaterial color="#eeeeee" metalness={1} roughness={0.18} />
+          </mesh>
+        </group>
       </group>
     </Float>
   );
