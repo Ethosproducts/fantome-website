@@ -74,6 +74,76 @@ function HeroTicker({ activeColor }) {
   );
 }
 
+function BackgroundEffects() {
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    let frame = 0;
+    const handlePointerMove = (event) => {
+      if (window.innerWidth < 768) return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        setPointer({
+          x: (event.clientX / window.innerWidth - 0.5).toFixed(3),
+          y: (event.clientY / window.innerHeight - 0.5).toFixed(3)
+        });
+      });
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('pointermove', handlePointerMove);
+    };
+  }, []);
+
+  const particles = Array.from({ length: 22 }, (_, index) => ({
+    left: `${12 + ((index * 37) % 78)}%`,
+    top: `${16 + ((index * 29) % 68)}%`,
+    size: `${2 + (index % 4)}px`,
+    delay: `${(index % 7) * 0.55}s`,
+    drift: 8 + (index % 6) * 5,
+    force: index % 2 === 0 ? 34 : -28
+  }));
+
+  return (
+    <div
+      className="fantome-background-effects"
+      style={{ '--mx': pointer.x, '--my': pointer.y }}
+      aria-hidden="true"
+    >
+      <div className="light-beam beam-one" />
+      <div className="light-beam beam-two" />
+      <div className="light-beam beam-three" />
+
+      <div className="wolf-trails">
+        <span />
+        <span />
+        <span />
+      </div>
+
+      <div className="mist-layer mist-one" />
+      <div className="mist-layer mist-two" />
+      <div className="mist-layer mist-three" />
+
+      <div className="energy-particles">
+        {particles.map((particle, index) => (
+          <span
+            key={index}
+            style={{
+              '--x': particle.left,
+              '--y': particle.top,
+              '--size': particle.size,
+              '--delay': particle.delay,
+              transform: `translate(${Number(pointer.x) * particle.force}px, ${Number(pointer.y) * particle.force + particle.drift}px)`
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ==========================================
 // HERO SECTION
 // ==========================================
@@ -107,6 +177,7 @@ function Hero({ activeColor, activeFlavor }) {
     <section className="relative min-h-screen overflow-hidden pt-32 text-white" style={{ background: `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` }}>
       <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` }} />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+      <BackgroundEffects />
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl grid-cols-1 items-center gap-8 px-6 pb-20 md:grid-cols-[0.9fr_1.1fr] md:px-10 lg:px-12">
         <motion.div

@@ -62,6 +62,201 @@
   will-change: transform;
 }
 
+.fantome-background-effects {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  --mx: 0;
+  --my: 0;
+}
+
+.light-beam {
+  position: absolute;
+  top: -18%;
+  height: 142%;
+  width: 11vw;
+  min-width: 90px;
+  border-radius: 999px;
+  filter: blur(26px);
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  transform: rotate(12deg);
+  animation: beam-sway 13s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.beam-one {
+  right: 22%;
+  background: linear-gradient(to bottom, transparent, rgba(148, 193, 222, 0.55), rgba(29, 78, 116, 0.32), transparent);
+}
+
+.beam-two {
+  right: 10%;
+  width: 7vw;
+  opacity: 0.12;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.45), rgba(58, 98, 130, 0.2), transparent);
+  animation-duration: 16s;
+  animation-delay: -5s;
+  transform: rotate(-8deg);
+}
+
+.beam-three {
+  right: 38%;
+  width: 8vw;
+  opacity: 0.1;
+  background: linear-gradient(to bottom, transparent, rgba(37, 99, 145, 0.45), transparent);
+  animation-duration: 18s;
+  animation-delay: -9s;
+  transform: rotate(18deg);
+}
+
+.wolf-trails {
+  position: absolute;
+  inset: 0;
+  transform: translate(calc(var(--mx) * -10px), calc(var(--my) * -6px));
+}
+
+.wolf-trails span {
+  position: absolute;
+  right: 15%;
+  top: 42%;
+  width: clamp(120px, 18vw, 280px);
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 36, 48, 0.9), transparent);
+  box-shadow: 0 0 16px rgba(255, 32, 42, 0.55);
+  opacity: 0.28;
+  transform: rotate(-16deg);
+  animation: wolf-pulse 4.8s ease-in-out infinite;
+}
+
+.wolf-trails span:nth-child(2) {
+  top: 51%;
+  right: 9%;
+  width: clamp(90px, 13vw, 210px);
+  opacity: 0.2;
+  transform: rotate(11deg);
+  animation-delay: -1.8s;
+}
+
+.wolf-trails span:nth-child(3) {
+  top: 34%;
+  right: 18%;
+  width: clamp(70px, 10vw, 160px);
+  opacity: 0.16;
+  transform: rotate(4deg);
+  animation-delay: -3s;
+}
+
+.mist-layer {
+  position: absolute;
+  width: 58vw;
+  height: 28vh;
+  min-width: 360px;
+  border-radius: 999px;
+  filter: blur(42px);
+  opacity: 0.13;
+  background: radial-gradient(circle, rgba(167, 190, 210, 0.28), rgba(54, 79, 105, 0.14) 42%, transparent 72%);
+  animation: mist-drift 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.mist-one {
+  left: -18%;
+  top: 28%;
+}
+
+.mist-two {
+  right: -16%;
+  top: 18%;
+  opacity: 0.11;
+  animation-duration: 28s;
+  animation-delay: -7s;
+}
+
+.mist-three {
+  left: 28%;
+  bottom: 4%;
+  height: 22vh;
+  opacity: 0.09;
+  animation-duration: 31s;
+  animation-delay: -13s;
+}
+
+.energy-particles span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 999px;
+  background: rgba(178, 224, 255, 0.8);
+  box-shadow: 0 0 12px rgba(70, 184, 255, 0.55);
+  opacity: 0.36;
+  animation: particle-float 7s ease-in-out infinite;
+  animation-delay: var(--delay);
+  transition: transform 240ms ease-out;
+  will-change: transform, opacity;
+}
+
+@keyframes beam-sway {
+  0% { transform: translateX(-18px) rotate(10deg); }
+  100% { transform: translateX(28px) rotate(15deg); }
+}
+
+@keyframes wolf-pulse {
+  0%, 100% { opacity: 0.08; transform: translateX(-8px) scaleX(0.72) rotate(-16deg); }
+  45% { opacity: 0.3; transform: translateX(10px) scaleX(1) rotate(-16deg); }
+}
+
+@keyframes mist-drift {
+  0% { transform: translate3d(-4%, 1%, 0) scale(1); }
+  100% { transform: translate3d(7%, -6%, 0) scale(1.08); }
+}
+
+@keyframes particle-float {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 0.5; }
+}
+
+@media (max-width: 767px) {
+  .light-beam {
+    width: 18vw;
+    opacity: 0.1;
+    filter: blur(20px);
+  }
+
+  .wolf-trails span {
+    right: 4%;
+    opacity: 0.16;
+  }
+
+  .mist-layer {
+    opacity: 0.08;
+    filter: blur(34px);
+  }
+
+  .energy-particles span:nth-child(n + 11) {
+    display: none;
+  }
+
+  .energy-particles span {
+    opacity: 0.2;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .light-beam,
+  .wolf-trails span,
+  .mist-layer,
+  .energy-particles span {
+    animation: none;
+  }
+}
+
 .fantome-dark .text-slate-800,
 .fantome-dark .text-slate-700,
 .fantome-dark .text-sky-950 {
