@@ -82,21 +82,21 @@ function Hero({ activeColor, activeFlavor }) {
     'Sugar Free': {
       eyebrow: 'ZERO SUGAR. FULL POWER.',
       title: 'Fantome Sugar Free',
-      image: '/sugarfree_perfect.png?v=9',
+      image: '/hero_original.png?v=1',
       bg: '#0798d0',
       copy: 'A sharper, lighter charge with the same unseen punch.'
     },
     'Mojito': {
       eyebrow: 'MINT. LIME. NIGHT DRIVE.',
       title: 'Fantome Mojito',
-      image: '/mojito_perfect.png?v=9',
+      image: '/hero_mojito.png?v=1',
       bg: '#059669',
       copy: 'Refreshing green energy with a clean ready-to-drink finish.'
     },
     'Original': {
       eyebrow: 'PREMIUM ENERGY CATALYST',
       title: 'Fantome Original',
-      image: '/original_perfect.png?v=9',
+      image: '/hero_original.png?v=1',
       bg: '#0ea5e9',
       copy: 'The core Fantome hit: bold taste, clean can, instant brand recall.'
     }
