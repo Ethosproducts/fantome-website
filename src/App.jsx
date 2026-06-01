@@ -174,6 +174,7 @@ function BackgroundEffects({ activeColor }) {
 // HERO SECTION
 // ==========================================
 function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
+  const [slideDirection, setSlideDirection] = useState(1);
   const heroData = {
     'Sugar Free': {
       eyebrow: 'ZERO SUGAR. FULL POWER.',
@@ -202,8 +203,21 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
   const currentIndex = Math.max(0, flavors.findIndex((flavor) => flavor.title === activeFlavor));
   const changeHeroFlavor = (direction) => {
     if (!flavors.length || !setActiveFlavor) return;
+    setSlideDirection(direction);
     const nextIndex = (currentIndex + direction + flavors.length) % flavors.length;
     setActiveFlavor(flavors[nextIndex].title);
+  };
+
+  const textSlide = {
+    enter: (direction) => ({ opacity: 0, x: direction * 42, filter: 'blur(10px)' }),
+    center: { opacity: 1, x: 0, filter: 'blur(0px)' },
+    exit: (direction) => ({ opacity: 0, x: direction * -34, filter: 'blur(8px)' })
+  };
+
+  const canSlide = {
+    enter: (direction) => ({ opacity: 0, x: direction * 90, rotate: direction * 2.5, scale: 0.94, filter: 'blur(12px)' }),
+    center: { opacity: 1, x: 0, rotate: 0, scale: 1, filter: 'blur(0px)' },
+    exit: (direction) => ({ opacity: 0, x: direction * -70, rotate: direction * -2, scale: 0.97, filter: 'blur(8px)' })
   };
 
   return (
@@ -213,32 +227,41 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <BackgroundEffects activeColor={activeColor} />
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl grid-cols-1 items-center gap-8 px-6 pb-20 md:grid-cols-[0.9fr_1.1fr] md:px-10 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-          className="max-w-xl pt-10 md:pt-0"
-        >
-          <p className="mb-7 text-sm font-black uppercase tracking-[0.18em] text-white/70 md:text-base">
-            {currentHero.eyebrow}
-          </p>
-          <h1 className="font-sans text-6xl font-black leading-[0.92] tracking-normal text-white sm:text-7xl lg:text-8xl">
-            {currentHero.title.split(' ').slice(0, -1).join(' ')}
-            <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
-          </h1>
-          <p className="mt-7 max-w-md text-base font-semibold leading-7 text-white/78 md:text-lg">
-            {currentHero.copy}
-          </p>
-          <button
+        <div className="max-w-xl pt-10 md:pt-0">
+          <AnimatePresence mode="wait" custom={slideDirection}>
+            <motion.div
+              key={activeFlavor}
+              custom={slideDirection}
+              variants={textSlide}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p className="mb-7 text-sm font-black uppercase tracking-[0.18em] text-white/70 md:text-base">
+                {currentHero.eyebrow}
+              </p>
+              <h1 className="font-sans text-6xl font-black leading-[0.92] tracking-normal text-white sm:text-7xl lg:text-8xl">
+                {currentHero.title.split(' ').slice(0, -1).join(' ')}
+                <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
+              </h1>
+              <p className="mt-7 max-w-md text-base font-semibold leading-7 text-white/78 md:text-lg">
+                {currentHero.copy}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+          <motion.button
             type="button"
             onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
-            className="mt-9 inline-flex items-center gap-4 rounded-full border px-9 py-4 text-base font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] transition-transform duration-300 hover:-translate-y-1 cursor-pointer"
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            className="mt-9 inline-flex items-center gap-4 rounded-full border px-9 py-4 text-base font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer"
             style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
           >
             Buy now
             <ChevronRight className="h-5 w-5" />
-          </button>
-        </motion.div>
+          </motion.button>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
@@ -246,7 +269,11 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="relative flex min-h-[52vh] items-end justify-center md:min-h-[calc(100vh-11rem)] md:justify-end"
         >
-          <div className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl" style={{ backgroundColor: `${activeColor}55` }} />
+          <motion.div
+            className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
+            animate={{ backgroundColor: `${activeColor}55`, scale: [1, 1.08, 1] }}
+            transition={{ backgroundColor: { duration: 0.5 }, scale: { duration: 1.2, ease: 'easeInOut' } }}
+          />
           <button
             type="button"
             onClick={() => changeHeroFlavor(-1)}
@@ -255,11 +282,20 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <img
-            src={currentHero.image}
-            alt={`${activeFlavor} Fantome can`}
-            className="relative z-10 h-[56vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] sm:h-[64vh] md:h-[82vh]"
-          />
+          <AnimatePresence mode="wait" custom={slideDirection}>
+            <motion.img
+              key={activeFlavor}
+              custom={slideDirection}
+              variants={canSlide}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
+              src={currentHero.image}
+              alt={`${activeFlavor} Fantome can`}
+              className="relative z-10 h-[56vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] sm:h-[64vh] md:h-[82vh]"
+            />
+          </AnimatePresence>
           <button
             type="button"
             onClick={() => changeHeroFlavor(1)}
