@@ -179,7 +179,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
     'Sugar Free': {
       eyebrow: 'ZERO SUGAR. FULL POWER.',
       title: 'Fantome Sugar Free',
-      image: '/hero_original.png?v=1',
+      image: '/hero_sugarfree.png?v=1',
       bg: '#0798d0',
       copy: 'A sharper, lighter charge with the same unseen punch.'
     },
