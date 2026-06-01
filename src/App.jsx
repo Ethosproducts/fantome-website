@@ -1324,16 +1324,37 @@ function FantomeChatbot({ activeColor }) {
 
   return (
     <>
-      {/* Floating Button */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-sm z-[100] cursor-pointer transition-colors duration-500 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-        style={{ backgroundColor: activeColor, color: '#000' }}
+      {/* Floating Assistant */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: isOpen ? 0 : 1, y: isOpen ? 12 : 0 }}
+        transition={{ duration: 0.35 }}
+        className={`fixed bottom-6 right-6 z-[100] flex flex-col items-center gap-2 ${isOpen ? 'pointer-events-none' : 'pointer-events-auto'}`}
       >
-        <MessageCircle className="w-6 h-6" />
-      </motion.button>
+        <div className="relative rounded-full bg-white/90 border border-sky-400/40 px-3 py-1 text-[11px] font-bold tracking-wide text-slate-800 shadow-md">
+          Ask me
+          <span className="absolute left-1/2 -bottom-1 h-2 w-2 -translate-x-1/2 rotate-45 bg-white border-b border-r border-sky-400/40" />
+        </div>
+
+        <div className="relative flex flex-col items-center">
+          <div className="absolute -top-1 left-1/2 h-3 w-0.5 -translate-x-1/2 bg-slate-700" />
+          <div className="absolute -top-4 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full border border-slate-700 bg-white" style={{ boxShadow: `0 0 10px ${activeColor}80` }} />
+          <button
+            type="button"
+            onClick={() => setIsOpen(true)}
+            className="relative h-16 w-16 rounded-2xl border border-sky-500/40 bg-sky-100 shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer"
+            style={{ boxShadow: `0 10px 28px ${activeColor}30` }}
+          >
+            <span className="absolute left-2 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-slate-700" />
+            <span className="absolute right-2 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-slate-700" />
+            <span className="absolute left-1/2 top-3 flex h-7 w-10 -translate-x-1/2 items-center justify-center rounded-xl bg-slate-800">
+              <span className="mx-1 h-2 w-2 rounded-full" style={{ backgroundColor: activeColor }} />
+              <span className="mx-1 h-2 w-2 rounded-full" style={{ backgroundColor: activeColor }} />
+            </span>
+            <span className="absolute bottom-3 left-1/2 h-2 w-5 -translate-x-1/2 rounded-full border-b-2 border-slate-700" />
+          </button>
+        </div>
+      </motion.div>
 
       {/* Chat Window */}
       <AnimatePresence>
