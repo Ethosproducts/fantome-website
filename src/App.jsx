@@ -1432,7 +1432,7 @@ function App() {
             <button
               type="button"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="group flex w-fit items-center gap-3 rounded-[1.35rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer md:absolute md:left-0 md:top-0"
+              className="group flex w-fit items-center gap-3 rounded-[1.35rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer md:absolute md:left-[-14px] md:top-0 lg:left-[-92px]"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 20px ${activeColor}18` }}
             >
               <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
@@ -1445,7 +1445,7 @@ function App() {
               </span>
             </button>
 
-            <div className="mx-auto w-full max-w-4xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl md:ml-[320px] md:w-[calc(100%-320px)] lg:ml-auto lg:w-full">
+            <div className="mx-auto w-full max-w-4xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl md:ml-[340px] md:w-[calc(100%-340px)] lg:ml-[410px] lg:w-[calc(100%-500px)] xl:ml-[430px] xl:w-[900px]">
               <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, transparent, ${activeColor}, #38bdf8, transparent)` }} />
               <div className="grid grid-cols-1 gap-3 px-4 py-3 sm:grid-cols-[1fr_auto] sm:items-center lg:px-5">
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
