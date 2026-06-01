@@ -234,7 +234,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       <BackgroundEffects activeColor={activeColor} />
 
-      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl grid-cols-1 items-center gap-1 px-5 pb-4 text-center sm:gap-8 sm:px-6 sm:pb-16 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:px-10 md:pb-20 md:text-left lg:px-12">
+      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl grid-cols-1 items-center gap-0 px-5 pb-2 text-center sm:gap-8 sm:px-6 sm:pb-16 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:px-10 md:pb-20 md:text-left lg:px-12">
         <div className="mx-auto max-w-xl pt-0 sm:pt-8 md:mx-0 md:pt-0">
           <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.div
@@ -249,11 +249,11 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 sm:mb-7 sm:text-sm md:text-base">
                 {currentHero.eyebrow}
               </p>
-              <h1 className="mx-auto max-w-[22rem] font-sans text-[3.35rem] font-black leading-[0.88] tracking-normal text-white min-[390px]:text-[3.6rem] sm:max-w-none sm:text-7xl md:mx-0 lg:text-8xl">
+              <h1 className="mx-auto max-w-[22rem] font-sans text-[3.15rem] font-black leading-[0.88] tracking-normal text-white min-[390px]:text-[3.35rem] sm:max-w-none sm:text-7xl md:mx-0 lg:text-8xl">
                 {currentHero.title.split(' ').slice(0, -1).join(' ')}
                 <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
               </h1>
-              <p className="mx-auto mt-4 max-w-[20rem] text-[15px] font-semibold leading-6 text-white/78 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:mx-0 md:text-lg">
+              <p className="mx-auto mt-3 max-w-[20rem] text-sm font-semibold leading-6 text-white/78 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:mx-0 md:text-lg">
                 {currentHero.copy}
               </p>
             </motion.div>
@@ -275,7 +275,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="relative -mt-4 flex min-h-[25vh] items-center justify-center sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] md:justify-end"
+          className="relative -mt-6 flex min-h-[23vh] items-center justify-center sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] md:justify-end"
         >
           <motion.div
             className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
@@ -301,7 +301,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
               src={currentHero.image}
               alt={`${activeFlavor} Fantome can`}
-              className="relative z-10 h-[32vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[35vh] sm:h-[64vh] md:h-[82vh]"
+              className="relative z-10 h-[29vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[31vh] sm:h-[64vh] md:h-[82vh]"
             />
           </AnimatePresence>
           <button
@@ -318,7 +318,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           type="button"
           onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
           whileTap={{ scale: 0.98 }}
-          className="mx-auto -mt-3 inline-flex items-center gap-3 rounded-full border px-8 py-3.5 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer md:hidden"
+          className="mx-auto -mt-6 inline-flex items-center gap-3 rounded-full border px-8 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer md:hidden"
           style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
         >
           Buy now
@@ -1546,7 +1546,7 @@ function App() {
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="group flex w-fit max-w-full items-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-2.5 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer lg:justify-self-start"
+              className="group flex h-14 w-fit max-w-full items-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer lg:justify-self-start"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 20px ${activeColor}18` }}
             >
               <span>
@@ -1557,7 +1557,7 @@ function App() {
 
             <button
               onClick={() => setShowComingSoon(true)}
-              className="absolute right-0 top-0 flex items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] cursor-pointer lg:hidden"
+              className="absolute right-0 top-0 flex h-14 items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] cursor-pointer lg:hidden"
               style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
             >
               <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
