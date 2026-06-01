@@ -1080,74 +1080,6 @@ function CampaignsSection({ activeColor }) {
 }
 
 // ==========================================
-// SOCIAL PROOF SECTION
-// ==========================================
-function SocialProofSection({ activeColor }) {
-  const reels = [
-    {
-      title: "Launch Energy",
-      tag: "Nightlife / campus buzz",
-      type: "video",
-      src: "/launching.mp4"
-    },
-    {
-      title: "Action Campaign",
-      tag: "Fitness / high-performance mood",
-      type: "video",
-      src: "/adcampaign.mp4"
-    },
-    {
-      title: "Retail Hype",
-      tag: "Community and local discovery",
-      type: "image",
-      src: "/campaign_pack_arena.png"
-    }
-  ];
-
-  return (
-    <section id="social-proof" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-sky-400/30">
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12">
-        <div>
-          <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
-            Community Proof
-          </span>
-          <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
-            Real Hype Signals
-          </h2>
-        </div>
-        <p className="max-w-xl text-slate-600 leading-relaxed">
-          Short-form campaign moments help new buyers see Fantome as active, social, and already moving through high-energy spaces like campuses, gyms, gaming nights, and retail counters.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {reels.map((item) => (
-          <motion.div
-            key={item.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="group overflow-hidden rounded-2xl border border-sky-400/25 bg-slate-950/70 shadow-xl"
-          >
-            <div className="aspect-[4/5] overflow-hidden bg-black">
-              {item.type === "video" ? (
-                <video src={item.src} className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" autoPlay muted loop playsInline />
-              ) : (
-                <img src={item.src} alt={item.title} className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
-              )}
-            </div>
-            <div className="p-5">
-              <h3 className="text-xl font-bold uppercase text-white">{item.title}</h3>
-              <p className="mt-2 text-sm text-slate-400">{item.tag}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ==========================================
 // FOUNDER SECTION
 // ==========================================
 function FounderSection({ activeColor }) {
@@ -1747,9 +1679,6 @@ function App() {
 
       {/* Campaigns Section */}
       <CampaignsSection activeColor={activeColor} />
-
-      {/* Social Proof Section */}
-      <SocialProofSection activeColor={activeColor} />
 
       {/* Founder Section */}
       <FounderSection activeColor={activeColor} />
