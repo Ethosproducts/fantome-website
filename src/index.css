@@ -185,6 +185,65 @@
   animation-delay: -13s;
 }
 
+.rising-smoke {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to top, transparent 0%, #000 14%, #000 78%, transparent 100%);
+}
+
+.rising-smoke span {
+  position: absolute;
+  bottom: -18%;
+  right: 13%;
+  width: clamp(180px, 22vw, 340px);
+  height: clamp(180px, 24vw, 380px);
+  border-radius: 45% 55% 60% 40%;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(218, 232, 244, 0.22), transparent 34%),
+    radial-gradient(circle at 65% 62%, rgba(86, 116, 145, 0.2), transparent 42%),
+    radial-gradient(circle at 45% 72%, rgba(255, 255, 255, 0.12), transparent 46%);
+  filter: blur(28px);
+  opacity: 0;
+  mix-blend-mode: screen;
+  animation: smoke-rise 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.rising-smoke span:nth-child(2) {
+  right: 23%;
+  width: clamp(150px, 18vw, 290px);
+  height: clamp(160px, 20vw, 320px);
+  animation-delay: -3s;
+  animation-duration: 14s;
+  opacity: 0;
+}
+
+.rising-smoke span:nth-child(3) {
+  right: 5%;
+  width: clamp(130px, 16vw, 260px);
+  height: clamp(140px, 18vw, 290px);
+  animation-delay: -6s;
+  animation-duration: 13s;
+}
+
+.rising-smoke span:nth-child(4) {
+  right: 31%;
+  width: clamp(120px, 14vw, 240px);
+  height: clamp(130px, 16vw, 260px);
+  animation-delay: -8.5s;
+  animation-duration: 15s;
+}
+
+.rising-smoke span:nth-child(5) {
+  right: 18%;
+  width: clamp(220px, 26vw, 420px);
+  height: clamp(160px, 18vw, 300px);
+  animation-delay: -10s;
+  animation-duration: 16s;
+}
+
 .energy-particles span {
   position: absolute;
   left: var(--x);
@@ -273,6 +332,23 @@
   100% { transform: translate3d(7%, -6%, 0) scale(1.08); }
 }
 
+@keyframes smoke-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.78) rotate(0deg);
+  }
+  16% {
+    opacity: 0.3;
+  }
+  58% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-8vw, -88vh, 0) scale(1.42) rotate(18deg);
+  }
+}
+
 @keyframes particle-float {
   0%, 100% { opacity: 0.18; }
   50% { opacity: 0.5; }
@@ -307,6 +383,18 @@
     filter: blur(34px);
   }
 
+  .rising-smoke span {
+    right: -4%;
+    width: 190px;
+    height: 230px;
+    filter: blur(24px);
+    animation-duration: 15s;
+  }
+
+  .rising-smoke span:nth-child(n + 4) {
+    display: none;
+  }
+
   .energy-particles span:nth-child(n + 11) {
     display: none;
   }
@@ -329,6 +417,7 @@
   .light-beam,
   .wolf-trails span,
   .mist-layer,
+  .rising-smoke span,
   .energy-particles span {
     animation: none;
   }

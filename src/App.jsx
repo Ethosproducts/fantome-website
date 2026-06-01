@@ -132,6 +132,14 @@ function BackgroundEffects({ activeColor }) {
       <div className="mist-layer mist-two" />
       <div className="mist-layer mist-three" />
 
+      <div className="rising-smoke">
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+
       <div className="sparkle-field">
         {sparkles.map((sparkle, index) => (
           <span
