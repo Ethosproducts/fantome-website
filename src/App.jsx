@@ -1431,16 +1431,12 @@ function App() {
             <button
               type="button"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="group flex w-fit max-w-full items-center gap-2.5 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-3 py-2.5 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer lg:justify-self-start"
+              className="group flex w-fit max-w-full items-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-2.5 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer lg:justify-self-start"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 20px ${activeColor}18` }}
             >
-              <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                <span className="absolute inset-1 rounded-xl opacity-30 blur-md" style={{ backgroundColor: activeColor }} />
-                <span className="relative font-sans text-base font-black text-white">F</span>
-              </span>
               <span>
                 <span className="block font-sans text-base font-black tracking-[0.24em] text-white transition-colors group-hover:text-sky-200 sm:text-lg">FANTOME</span>
-                <span className="hidden text-[8px] font-bold uppercase tracking-[0.2em] text-slate-400 sm:block">Unseen Power System</span>
+                <span className="hidden text-[8px] font-bold uppercase tracking-[0.2em] text-slate-400 sm:block">Unseen Power</span>
               </span>
             </button>
 
