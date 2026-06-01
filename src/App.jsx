@@ -229,13 +229,13 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden pt-32 text-white" style={{ background: `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` }}>
+    <section className="relative min-h-screen overflow-hidden pt-24 text-white sm:pt-28 md:pt-32" style={{ background: `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` }}>
       <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` }} />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       <BackgroundEffects activeColor={activeColor} />
 
-      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl grid-cols-1 items-center gap-8 px-6 pb-20 md:grid-cols-[0.9fr_1.1fr] md:px-10 lg:px-12">
-        <div className="max-w-xl pt-10 md:pt-0">
+      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl grid-cols-1 items-center gap-4 px-5 pb-8 sm:gap-8 sm:px-6 sm:pb-16 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:px-10 md:pb-20 lg:px-12">
+        <div className="max-w-xl pt-2 sm:pt-8 md:pt-0">
           <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.div
               key={activeFlavor}
@@ -246,14 +246,14 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               exit="exit"
               transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="mb-7 text-sm font-black uppercase tracking-[0.18em] text-white/70 md:text-base">
+              <p className="mb-4 text-[11px] font-black uppercase tracking-[0.16em] text-white/70 sm:mb-7 sm:text-sm md:text-base">
                 {currentHero.eyebrow}
               </p>
-              <h1 className="font-sans text-6xl font-black leading-[0.92] tracking-normal text-white sm:text-7xl lg:text-8xl">
+              <h1 className="font-sans text-[3.4rem] font-black leading-[0.9] tracking-normal text-white min-[390px]:text-[3.85rem] sm:text-7xl lg:text-8xl">
                 {currentHero.title.split(' ').slice(0, -1).join(' ')}
                 <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
               </h1>
-              <p className="mt-7 max-w-md text-base font-semibold leading-7 text-white/78 md:text-lg">
+              <p className="mt-5 max-w-sm text-sm font-semibold leading-6 text-white/78 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:text-lg">
                 {currentHero.copy}
               </p>
             </motion.div>
@@ -263,7 +263,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
-            className="mt-9 inline-flex items-center gap-4 rounded-full border px-9 py-4 text-base font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer"
+            className="mt-6 inline-flex items-center gap-3 rounded-full border px-7 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer sm:mt-9 sm:gap-4 sm:px-9 sm:py-4 sm:text-base"
             style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
           >
             Buy now
@@ -275,7 +275,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="relative flex min-h-[52vh] items-end justify-center md:min-h-[calc(100vh-11rem)] md:justify-end"
+          className="relative flex min-h-[30vh] items-end justify-center sm:min-h-[48vh] md:min-h-[calc(100vh-11rem)] md:justify-end"
         >
           <motion.div
             className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
@@ -285,7 +285,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           <button
             type="button"
             onClick={() => changeHeroFlavor(-1)}
-            className="absolute left-0 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:left-4"
+            className="absolute left-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:left-4 sm:h-11 sm:w-11"
             aria-label="Previous flavor"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -301,13 +301,13 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
               src={currentHero.image}
               alt={`${activeFlavor} Fantome can`}
-              className="relative z-10 h-[56vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] sm:h-[64vh] md:h-[82vh]"
+              className="relative z-10 h-[34vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[38vh] sm:h-[64vh] md:h-[82vh]"
             />
           </AnimatePresence>
           <button
             type="button"
             onClick={() => changeHeroFlavor(1)}
-            className="absolute right-0 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:right-4"
+            className="absolute right-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:right-4 sm:h-11 sm:w-11"
             aria-label="Next flavor"
           >
             <ChevronRight className="h-5 w-5" />
@@ -1516,6 +1516,7 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [showCheckoutSuccess, setShowCheckoutSuccess] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const flavors = [
     { 
@@ -1595,7 +1596,13 @@ function App() {
           <div className="mx-auto flex w-full max-w-[1720px] flex-col gap-3 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-5">
             <button
               type="button"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => {
+                if (window.innerWidth < 1024) {
+                  setIsMobileMenuOpen(true);
+                  return;
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className="group flex w-fit max-w-full items-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-2.5 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer lg:justify-self-start"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 20px ${activeColor}18` }}
             >
@@ -1605,7 +1612,7 @@ function App() {
               </span>
             </button>
 
-            <div className="w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:mx-auto lg:max-w-[660px] xl:max-w-[760px]">
+            <div className="hidden w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:mx-auto lg:block lg:max-w-[660px] xl:max-w-[760px]">
               <div className="px-3 py-2.5 sm:px-4">
                 <div className="grid grid-cols-3 gap-2">
                   {navItems.map((item) => (
@@ -1623,7 +1630,7 @@ function App() {
               </div>
             </div>
             
-            <div className="flex w-full gap-2 lg:w-auto lg:justify-self-end">
+            <div className="hidden w-full gap-2 lg:flex lg:w-auto lg:justify-self-end">
               <button
                 onClick={() => setShowComingSoon(true)}
                 className="flex flex-1 items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-5 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white/[0.10] cursor-pointer lg:flex-none"
@@ -1643,6 +1650,74 @@ function App() {
         flavors={flavors}
         setActiveFlavor={setActiveFlavor}
       />
+
+      {/* Mobile Navigation Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-[90] lg:hidden">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            />
+            <motion.aside
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'tween', duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 flex h-full w-[82vw] max-w-xs flex-col border-r border-white/10 bg-slate-950/95 p-5 shadow-[24px_0_80px_rgba(0,0,0,0.55)]"
+              style={{ boxShadow: `24px 0 80px rgba(0,0,0,0.55), inset 0 0 28px ${activeColor}18` }}
+            >
+              <div className="flex items-center justify-between border-b border-white/10 pb-5">
+                <div>
+                  <div className="font-sans text-xl font-black tracking-[0.24em] text-white">FANTOME</div>
+                  <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.22em] text-slate-400">Unseen Power</div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="rounded-full border border-white/10 bg-white/[0.05] p-2 text-white cursor-pointer"
+                  aria-label="Close menu"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                {navItems.map((item) => (
+                  <button
+                    key={item.target}
+                    type="button"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="group relative flex w-full items-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-left text-sm font-black uppercase tracking-[0.16em] text-white cursor-pointer"
+                  >
+                    <span className="absolute inset-y-0 left-0 w-1 opacity-80 transition-all duration-300 group-hover:w-full group-hover:opacity-15" style={{ backgroundColor: activeColor }} />
+                    <span className="relative">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setShowComingSoon(true);
+                }}
+                className="mt-auto flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-4 text-sm font-black uppercase tracking-wide text-white cursor-pointer"
+                style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
+              >
+                <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
+                <span>Bag ({cartCount})</span>
+              </button>
+            </motion.aside>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Brand Story */}
       <StorySection activeColor={activeColor} activeFlavor={activeFlavor} />
