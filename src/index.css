@@ -16,9 +16,9 @@
   }
 
   body {
-    background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 35%, #38bdf8 65%, #ffedd5 90%, #fed7aa 100%);
+    background: radial-gradient(circle at 50% 0%, #123a4a 0%, #071116 42%, #020405 100%);
     background-attachment: fixed;
-    color: #0F172A;
+    color: #E5F7FF;
     font-family: var(--font-inter);
     margin: 0;
     padding: 0;
@@ -38,10 +38,10 @@
 }
 
 @utility glass-panel {
-  background: linear-gradient(135deg, rgba(224, 242, 254, 0.7) 0%, rgba(254, 215, 170, 0.25) 100%);
+  background: linear-gradient(135deg, rgba(8, 18, 24, 0.76) 0%, rgba(14, 41, 52, 0.54) 100%);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(14, 165, 233, 0.35);
-  box-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  box-shadow: 0 12px 42px 0 rgba(0, 0, 0, 0.28);
   border-radius: 1rem;
 }
 
@@ -60,4 +60,60 @@
   display: inline-flex;
   animation: ticker-scroll 45s linear infinite;
   will-change: transform;
+}
+
+.fantome-dark .text-slate-800,
+.fantome-dark .text-slate-700,
+.fantome-dark .text-sky-950 {
+  color: #e5f7ff !important;
+}
+
+.fantome-dark .text-slate-600,
+.fantome-dark .text-slate-500,
+.fantome-dark .text-sky-800,
+.fantome-dark .text-sky-700 {
+  color: #a9c7d5 !important;
+}
+
+.fantome-dark .bg-sky-300\/30,
+.fantome-dark .bg-sky-300\/40,
+.fantome-dark .bg-sky-300\/50,
+.fantome-dark .bg-sky-200\/40 {
+  background-color: rgba(8, 30, 40, 0.55) !important;
+}
+
+.fantome-dark .border-sky-400\/30,
+.fantome-dark .border-sky-400\/20,
+.fantome-dark .border-sky-400\/10 {
+  border-color: rgba(56, 189, 248, 0.22) !important;
+}
+
+.condensation-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.28;
+}
+
+.condensation-field span {
+  position: absolute;
+  top: -16%;
+  width: 1px;
+  height: 90px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.68), transparent);
+  animation: condensation-drop 5.5s linear infinite;
+}
+
+.condensation-field span:nth-child(1) { left: 18%; animation-delay: 0s; }
+.condensation-field span:nth-child(2) { left: 34%; animation-delay: 1.2s; height: 120px; }
+.condensation-field span:nth-child(3) { left: 51%; animation-delay: 0.6s; height: 70px; }
+.condensation-field span:nth-child(4) { left: 68%; animation-delay: 2.1s; height: 110px; }
+.condensation-field span:nth-child(5) { left: 82%; animation-delay: 3s; height: 85px; }
+
+@keyframes condensation-drop {
+  0% { transform: translateY(0); opacity: 0; }
+  18% { opacity: 1; }
+  100% { transform: translateY(130vh); opacity: 0; }
 }

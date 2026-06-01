@@ -267,9 +267,16 @@ function Hero({ activeColor, activeFlavor }) {
       <div 
         className="absolute inset-0 z-0" 
         style={{ 
-          background: 'radial-gradient(circle at 50% 30%, rgba(224, 242, 254, 0.7) 0%, rgba(125, 211, 252, 0.4) 50%, rgba(254, 215, 170, 0.45) 100%)' 
+          background: 'radial-gradient(circle at 50% 28%, rgba(56, 189, 248, 0.34) 0%, rgba(8, 47, 73, 0.72) 42%, rgba(2, 6, 12, 0.98) 100%)' 
         }} 
       />
+      <div className="condensation-field z-0">
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
 
       {/* Background flashes */}
       <motion.div 
@@ -287,7 +294,7 @@ function Hero({ activeColor, activeFlavor }) {
         }}
         animate="animate"
         className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
-        style={{ background: '#e0f2fe' }}
+        style={{ background: '#020617' }}
       />
       
       {/* BACKGROUND TEXT */}
@@ -550,6 +557,8 @@ function StorySection({ activeColor, activeFlavor }) {
 // ==========================================
 function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFlavor, flavors }) {
   const currentIdx = flavors.findIndex(f => f.title === activeFlavor);
+  const [isFormulaOpen, setIsFormulaOpen] = useState(false);
+  const activeNutrition = NUTRITION_DATA[flavors[currentIdx].title] || NUTRITION_DATA.Mojito;
 
   const nextSlide = () => {
     const next = (currentIdx + 1) % flavors.length;
@@ -646,7 +655,17 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
               </p>
               
               <div className="space-y-4">
-                <h4 className="text-sm font-bold tracking-wide text-slate-800">Full Ingredient Manifest:</h4>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <h4 className="text-sm font-bold tracking-wide text-slate-800">Full Ingredient Manifest:</h4>
+                  <button
+                    type="button"
+                    onClick={() => setIsFormulaOpen(true)}
+                    className="w-fit rounded-full border px-4 py-2 text-xs font-bold tracking-wide transition-colors hover:bg-sky-300/30 cursor-pointer"
+                    style={{ borderColor: flavors[currentIdx].color, color: flavors[currentIdx].color }}
+                  >
+                    View Premium Formula
+                  </button>
+                </div>
                 <p className="text-xs text-slate-600 leading-relaxed bg-sky-300/30 border border-sky-400/30 p-4 rounded-2xl font-light">
                   {flavors[currentIdx].fullIngredients}
                 </p>
@@ -655,6 +674,65 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
           </motion.div>
         </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {isFormulaOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-black/70 p-6 backdrop-blur-md"
+            onClick={() => setIsFormulaOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.92, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.92, y: 20 }}
+              className="w-full max-w-2xl rounded-2xl border border-sky-400/30 bg-slate-950/95 p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-6 border-b border-sky-400/20 pb-4">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: flavors[currentIdx].color }}>
+                    Fully Disclosed
+                  </span>
+                  <h3 className="mt-2 text-3xl font-bold uppercase text-white">{flavors[currentIdx].title} Formula</h3>
+                </div>
+                <button type="button" onClick={() => setIsFormulaOpen(false)} className="rounded-full p-2 text-slate-300 hover:bg-white/10 cursor-pointer">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="rounded-xl border border-sky-400/20 bg-white/5 p-4">
+                  <span className="text-xs uppercase tracking-wide text-slate-400">Caffeine</span>
+                  <strong className="mt-2 block text-2xl text-white">75 mg</strong>
+                  <p className="mt-1 text-xs text-slate-400">Per 250 ml can</p>
+                </div>
+                <div className="rounded-xl border border-sky-400/20 bg-white/5 p-4">
+                  <span className="text-xs uppercase tracking-wide text-slate-400">Sugar</span>
+                  <strong className="mt-2 block text-2xl text-white">{flavors[currentIdx].title === 'Sugar Free' ? '0 g' : '22.6 g'}</strong>
+                  <p className="mt-1 text-xs text-slate-400">Clearly labeled per can</p>
+                </div>
+                <div className="rounded-xl border border-sky-400/20 bg-white/5 p-4">
+                  <span className="text-xs uppercase tracking-wide text-slate-400">Taurine</span>
+                  <strong className="mt-2 block text-2xl text-white">{flavors[currentIdx].title === 'Sugar Free' ? '400 mg' : '800 mg'}</strong>
+                  <p className="mt-1 text-xs text-slate-400">Performance support</p>
+                </div>
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                {activeNutrition.bioElements.map((item) => (
+                  <div key={item.name} className="flex justify-between gap-4 border-b border-sky-400/10 py-2 text-slate-300">
+                    <span>{item.name}</span>
+                    <strong className="text-white">{item.val}</strong>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
@@ -1051,6 +1129,74 @@ function CampaignsSection({ activeColor }) {
           <span>More Campaigns</span>
           <ArrowRight className="w-4 h-4" />
         </Link>
+      </div>
+    </section>
+  );
+}
+
+// ==========================================
+// SOCIAL PROOF SECTION
+// ==========================================
+function SocialProofSection({ activeColor }) {
+  const reels = [
+    {
+      title: "Launch Energy",
+      tag: "Nightlife / campus buzz",
+      type: "video",
+      src: "/launching.mp4"
+    },
+    {
+      title: "Action Campaign",
+      tag: "Fitness / high-performance mood",
+      type: "video",
+      src: "/adcampaign.mp4"
+    },
+    {
+      title: "Retail Hype",
+      tag: "Community and local discovery",
+      type: "image",
+      src: "/campaign_pack_arena.png"
+    }
+  ];
+
+  return (
+    <section id="social-proof" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-sky-400/30">
+      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12">
+        <div>
+          <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
+            Community Proof
+          </span>
+          <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
+            Real Hype Signals
+          </h2>
+        </div>
+        <p className="max-w-xl text-slate-600 leading-relaxed">
+          Short-form campaign moments help new buyers see Fantome as active, social, and already moving through high-energy spaces like campuses, gyms, gaming nights, and retail counters.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {reels.map((item) => (
+          <motion.div
+            key={item.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="group overflow-hidden rounded-2xl border border-sky-400/25 bg-slate-950/70 shadow-xl"
+          >
+            <div className="aspect-[4/5] overflow-hidden bg-black">
+              {item.type === "video" ? (
+                <video src={item.src} className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" autoPlay muted loop playsInline />
+              ) : (
+                <img src={item.src} alt={item.title} className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
+              )}
+            </div>
+            <div className="p-5">
+              <h3 className="text-xl font-bold uppercase text-white">{item.title}</h3>
+              <p className="mt-2 text-sm text-slate-400">{item.tag}</p>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
@@ -1501,7 +1647,7 @@ function App() {
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen relative text-slate-800 overflow-hidden bg-transparent">
+    <div className="fantome-dark min-h-screen relative text-slate-800 overflow-hidden bg-transparent">
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
 
@@ -1571,6 +1717,9 @@ function App() {
 
       {/* Campaigns Section */}
       <CampaignsSection activeColor={activeColor} />
+
+      {/* Social Proof Section */}
+      <SocialProofSection activeColor={activeColor} />
 
       {/* Founder Section */}
       <FounderSection activeColor={activeColor} />
