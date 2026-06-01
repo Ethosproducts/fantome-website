@@ -1418,8 +1418,7 @@ function App() {
   const navItems = [
     { label: 'Flavors', target: 'flavors', code: '01' },
     { label: 'Story', target: 'story', code: '02' },
-    { label: 'Shop', target: 'shop', code: '03' },
-    { label: 'Campaigns', target: 'campaigns', code: '04' }
+    { label: 'Campaigns', target: 'campaigns', code: '03' }
   ];
 
   return (
@@ -1427,51 +1426,62 @@ function App() {
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
         {/* Navigation Bar */}
-        <nav className="w-full px-3 pt-3 md:px-6 md:pt-5">
-          <div className="relative mx-auto flex w-full max-w-[1600px] flex-col gap-3 md:block">
+        <nav className="w-full px-2 pt-3 sm:px-4 md:px-5 md:pt-5">
+          <div className="mx-auto flex w-full max-w-[1720px] flex-col gap-3 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-5">
             <button
               type="button"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="group flex w-fit items-center gap-3 rounded-[1.35rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer md:absolute md:left-[-14px] md:top-0 lg:left-[-92px]"
+              className="group flex w-fit max-w-full items-center gap-2.5 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-3 py-2.5 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer lg:justify-self-start"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 20px ${activeColor}18` }}
             >
-              <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+              <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5">
                 <span className="absolute inset-1 rounded-xl opacity-30 blur-md" style={{ backgroundColor: activeColor }} />
-                <span className="relative font-sans text-xl font-black text-white">F</span>
+                <span className="relative font-sans text-base font-black text-white">F</span>
               </span>
               <span>
-                <span className="block font-sans text-xl font-black tracking-[0.28em] text-white transition-colors group-hover:text-sky-200">FANTOME</span>
-                <span className="hidden text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400 sm:block">Unseen Power System</span>
+                <span className="block font-sans text-base font-black tracking-[0.24em] text-white transition-colors group-hover:text-sky-200 sm:text-lg">FANTOME</span>
+                <span className="hidden text-[8px] font-bold uppercase tracking-[0.2em] text-slate-400 sm:block">Unseen Power System</span>
               </span>
             </button>
 
-            <div className="mx-auto w-full max-w-4xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl md:ml-[340px] md:w-[calc(100%-340px)] lg:ml-[410px] lg:w-[calc(100%-500px)] xl:ml-[430px] xl:w-[900px]">
+            <div className="w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:mx-auto lg:max-w-[660px] xl:max-w-[760px]">
               <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, transparent, ${activeColor}, #38bdf8, transparent)` }} />
-              <div className="grid grid-cols-1 gap-3 px-4 py-3 sm:grid-cols-[1fr_auto] sm:items-center lg:px-5">
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              <div className="px-3 py-2.5 sm:px-4">
+                <div className="grid grid-cols-3 gap-2">
                   {navItems.map((item) => (
                     <button
                       key={item.target}
                       type="button"
                       onClick={() => document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' })}
-                      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/50 hover:bg-white/[0.08] cursor-pointer lg:min-w-28"
+                      className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/50 hover:bg-white/[0.08] cursor-pointer"
                     >
                       <span className="absolute inset-y-0 left-0 w-1 opacity-80 transition-all duration-300 group-hover:w-full group-hover:opacity-15" style={{ backgroundColor: activeColor }} />
-                      <span className="relative block text-[9px] font-black tracking-[0.2em]" style={{ color: activeColor }}>{item.code}</span>
-                      <span className="relative block text-xs font-black uppercase tracking-[0.16em] text-slate-100">{item.label}</span>
+                      <span className="relative block text-[8px] font-black tracking-[0.18em]" style={{ color: activeColor }}>{item.code}</span>
+                      <span className="relative block text-[10px] font-black uppercase tracking-[0.14em] text-slate-100 sm:text-xs">{item.label}</span>
                     </button>
                   ))}
                 </div>
-
+              </div>
+            </div>
+            
+            <div className="flex w-full gap-2 lg:w-auto lg:justify-self-end">
+              <button
+                type="button"
+                onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group relative flex flex-1 items-center justify-center overflow-hidden rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/50 lg:flex-none"
+                style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 18px ${activeColor}20` }}
+              >
+                <span className="absolute inset-y-0 left-0 w-1 opacity-80 transition-all duration-300 group-hover:w-full group-hover:opacity-15" style={{ backgroundColor: activeColor }} />
+                <span className="relative">Shop</span>
+              </button>
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-xs font-black uppercase tracking-wide text-white transition-all duration-300 hover:scale-105 hover:bg-white/[0.10] cursor-pointer sm:justify-self-end"
+                className="flex flex-1 items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white/[0.10] cursor-pointer lg:flex-none"
                 style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
               >
                 <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
                 <span>Bag ({cartCount})</span>
               </button>
-              </div>
             </div>
           </div>
         </nav>
