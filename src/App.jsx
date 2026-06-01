@@ -234,8 +234,8 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       <BackgroundEffects activeColor={activeColor} />
 
-      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl grid-cols-1 items-center gap-4 px-5 pb-8 sm:gap-8 sm:px-6 sm:pb-16 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:px-10 md:pb-20 lg:px-12">
-        <div className="max-w-xl pt-2 sm:pt-8 md:pt-0">
+      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl grid-cols-1 items-center gap-3 px-5 pb-8 text-center sm:gap-8 sm:px-6 sm:pb-16 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:px-10 md:pb-20 md:text-left lg:px-12">
+        <div className="mx-auto max-w-xl pt-2 sm:pt-8 md:mx-0 md:pt-0">
           <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.div
               key={activeFlavor}
@@ -246,14 +246,14 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               exit="exit"
               transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="mb-4 text-[11px] font-black uppercase tracking-[0.16em] text-white/70 sm:mb-7 sm:text-sm md:text-base">
+              <p className="mb-4 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 sm:mb-7 sm:text-sm md:text-base">
                 {currentHero.eyebrow}
               </p>
-              <h1 className="font-sans text-[3.4rem] font-black leading-[0.9] tracking-normal text-white min-[390px]:text-[3.85rem] sm:text-7xl lg:text-8xl">
+              <h1 className="mx-auto max-w-[21rem] font-sans text-[3rem] font-black leading-[0.9] tracking-normal text-white min-[390px]:text-[3.25rem] sm:max-w-none sm:text-7xl md:mx-0 lg:text-8xl">
                 {currentHero.title.split(' ').slice(0, -1).join(' ')}
                 <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
               </h1>
-              <p className="mt-5 max-w-sm text-sm font-semibold leading-6 text-white/78 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:text-lg">
+              <p className="mx-auto mt-5 max-w-[19rem] text-sm font-semibold leading-6 text-white/78 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:mx-0 md:text-lg">
                 {currentHero.copy}
               </p>
             </motion.div>
@@ -263,7 +263,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
-            className="mt-6 inline-flex items-center gap-3 rounded-full border px-7 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer sm:mt-9 sm:gap-4 sm:px-9 sm:py-4 sm:text-base"
+            className="mt-6 hidden items-center gap-3 rounded-full border px-7 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer sm:mt-9 sm:gap-4 sm:px-9 sm:py-4 sm:text-base md:inline-flex"
             style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
           >
             Buy now
@@ -275,7 +275,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="relative flex min-h-[30vh] items-end justify-center sm:min-h-[48vh] md:min-h-[calc(100vh-11rem)] md:justify-end"
+          className="relative -mt-1 flex min-h-[27vh] items-center justify-center sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] md:justify-end"
         >
           <motion.div
             className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
@@ -301,7 +301,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
               src={currentHero.image}
               alt={`${activeFlavor} Fantome can`}
-              className="relative z-10 h-[34vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[38vh] sm:h-[64vh] md:h-[82vh]"
+              className="relative z-10 h-[35vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[39vh] sm:h-[64vh] md:h-[82vh]"
             />
           </AnimatePresence>
           <button
@@ -313,6 +313,17 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             <ChevronRight className="h-5 w-5" />
           </button>
         </motion.div>
+
+        <motion.button
+          type="button"
+          onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+          whileTap={{ scale: 0.98 }}
+          className="mx-auto -mt-1 inline-flex items-center gap-3 rounded-full border px-8 py-3.5 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer md:hidden"
+          style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
+        >
+          Buy now
+          <ChevronRight className="h-5 w-5" />
+        </motion.button>
       </div>
     </section>
   );
