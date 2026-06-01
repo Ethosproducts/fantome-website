@@ -1,14 +1,8 @@
-import React, { useRef, useState, useEffect, Suspense, lazy, memo, useMemo, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ErrorBoundary } from 'react-error-boundary';
 import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Lazy load heavy 3D dependencies - these won't block initial paint
-const Canvas3D = lazy(() => import('@react-three/fiber').then(m => ({ default: m.Canvas })));
-import { useFrame } from '@react-three/fiber';
-import { Environment, Float, PresentationControls, useTexture, Sparkles, ContactShadows } from '@react-three/drei';
-import { RepeatWrapping, ClampToEdgeWrapping, MathUtils } from 'three';
 
 // ==========================================
 // 3D LIGHTNING BOLTS (SVG Revert)
@@ -35,141 +29,6 @@ function LightningBolts({ color }) {
         <path d="M 50 -10 L 45 20 L 55 40 L 40 60 L 60 80 L 50 110" fill="none" stroke="#fff" strokeWidth="0.2" style={{ filter: "none" }} />
       </svg>
     </motion.div>
-  );
-}
-
-// ==========================================
-// 3D CAN COMPONENT (Multi-Texture Mapping & Variable Rotation Speed)
-// ==========================================
-function FantomeCan({ activeFlavor, scale = 1, xOffset = 0 }) {
-  const canRef = useRef();
-  const angleRef = useRef(0);
-  
-  // Pre-load all three textures
-  const originalTexture = useTexture('/original_texture.png');
-  const mojitoTexture = useTexture('/mojito_texture.png');
-  const sugarFreeTexture = useTexture('/sugarfree_texture.png');
-  
-  // Configure textures to wrap perfectly around the cylinder with high-definition anisotropic filtering.
-  [originalTexture, mojitoTexture, sugarFreeTexture].forEach(tex => {
-    tex.wrapS = RepeatWrapping;
-    tex.wrapT = ClampToEdgeWrapping;
-    tex.repeat.set(1.0, 1.0); 
-    if (tex !== sugarFreeTexture) {
-      tex.offset.set(0.5, 0.0);
-    } else {
-      tex.offset.set(0.0, 0.0);
-    }
-    tex.anisotropy = 8;
-  });
-  
-  let currentTexture = mojitoTexture;
-  let tintColor = "#00ff00"; // Default Mojito Green
-
-  if (activeFlavor === 'Original') {
-    currentTexture = originalTexture;
-    tintColor = "#ff0000"; // Red
-  } else if (activeFlavor === 'Sugar Free') {
-    currentTexture = sugarFreeTexture;
-    tintColor = "#ffffff"; // Silver/White
-  }
-
-  const lightRef = useRef();
-  
-  // Check for debug query parameters (memoized to avoid re-parsing on every frame)
-  const urlAngle = useMemo(() => new URLSearchParams(window.location.search).get('angle'), []);
-  
-  useFrame((state, delta) => {
-    const t = state.clock.getElapsedTime();
-
-    // ── Rotation Logic (Smooth spin-in and stop facing front) ────────
-    // Align front logo ("FANTÔME" and Wolf Face) exactly to the center of the viewport
-    let FRONT_OFFSET = activeFlavor === 'Sugar Free' ? 240 * Math.PI / 180 : 65 * Math.PI / 180;
-    if (urlAngle !== null) {
-      FRONT_OFFSET = parseFloat(urlAngle);
-    }
-    
-    // Smoothly interpolate the can't rotation to the front offset
-    const lerpFactor = urlAngle !== null ? 1.0 : (1 - Math.exp(-4 * delta));
-    angleRef.current = MathUtils.lerp(angleRef.current, FRONT_OFFSET, lerpFactor);
-
-    if (canRef.current) {
-      canRef.current.rotation.y = angleRef.current;
-    }
-
-    if (lightRef.current) {
-      lightRef.current.intensity = 0.1 + Math.random() * (Math.sin(t * 10) > 0.8 ? 0.2 : 0);
-    }
-  });
-
-  return (
-    <Float 
-      speed={urlAngle !== null ? 0 : 3} 
-      rotationIntensity={urlAngle !== null ? 0 : 0.8} 
-      floatIntensity={urlAngle !== null ? 0 : 2}
-    >
-      {/* Dynamic lightning point light */}
-      <pointLight ref={lightRef} position={[2, 3, 2]} color={tintColor} intensity={0.15} distance={15} decay={2} />
-      
-      <group ref={canRef} scale={scale} position={[xOffset, 0, 0]}>
-        {/* 1. Main cylindrical body with printed wrap texture (open-ended to fit tapered ends) */}
-        <mesh>
-          <cylinderGeometry args={[1.0, 1.0, 4.5, 32, 1, true]} />
-          <meshStandardMaterial 
-            map={currentTexture} 
-            color={activeFlavor === 'Mojito' ? '#064e3b' : '#ffffff'}
-            metalness={activeFlavor === 'Mojito' ? 0.02 : 0.85} 
-            roughness={activeFlavor === 'Mojito' ? 1.0 : activeFlavor === 'Sugar Free' ? 0.15 : 0.20} 
-            envMapIntensity={activeFlavor === 'Mojito' ? 0.0 : activeFlavor === 'Sugar Free' ? 0.9 : 0.10}
-          />
-        </mesh>
-
-
-        {/* Thin Silver Collar / Rim at the top edge */}
-        <mesh position={[0, 2.25 + 0.02, 0]}>
-          <cylinderGeometry args={[1.005, 1.005, 0.04, 32]} />
-          <meshStandardMaterial 
-            color="#dcdcdc" 
-            metalness={1.0} 
-            roughness={0.15} 
-          />
-        </mesh>
-
-        {/* Flat lid disc to close the top of the cylinder */}
-        <mesh position={[0, 2.25, 0]}>
-          <cylinderGeometry args={[1.0, 1.0, 0.01, 32]} />
-          <meshStandardMaterial 
-            color="#b8b8b8" 
-            metalness={0.9} 
-            roughness={0.28} 
-          />
-        </mesh>
-
-        {/* Realistic pull-tab lid detail */}
-        <mesh position={[0, 2.285, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.74, 0.025, 12, 80]} />
-          <meshStandardMaterial color="#d7d7d7" metalness={1} roughness={0.22} />
-        </mesh>
-        <mesh position={[0, 2.292, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.48, 0.012, 8, 64]} />
-          <meshStandardMaterial color="#9f9f9f" metalness={1} roughness={0.34} />
-        </mesh>
-        <group position={[0.02, 2.33, 0.12]} rotation={[0, 0.15, -0.18]}>
-          <mesh>
-            <boxGeometry args={[0.46, 0.028, 0.18]} />
-            <meshStandardMaterial color="#d0d0d0" metalness={1} roughness={0.18} />
-          </mesh>
-          <mesh position={[0.14, 0.018, 0]} rotation={[Math.PI / 2, 0, 0]}>
-            <torusGeometry args={[0.07, 0.014, 10, 32]} />
-            <meshStandardMaterial color="#8f8f8f" metalness={1} roughness={0.24} />
-          </mesh>
-          <mesh position={[-0.15, 0.018, 0]} rotation={[Math.PI / 2, 0, 0]}>
-            <torusGeometry args={[0.105, 0.014, 10, 32]} />
-            <meshStandardMaterial color="#eeeeee" metalness={1} roughness={0.18} />
-          </mesh>
-        </group>
-      </group>
-    </Float>
   );
 }
 
@@ -219,170 +78,82 @@ function HeroTicker({ activeColor }) {
 // HERO SECTION
 // ==========================================
 function Hero({ activeColor, activeFlavor }) {
-  const [canScale, setCanScale] = useState(() => {
-    if (window.innerWidth < 640) return 0.58;
-    if (window.innerWidth < 1024) return 0.76;
-    return 1;
-  });
-  const [canXOffset, setCanXOffset] = useState(() => {
-    if (window.innerWidth < 640) return 0;
-    if (window.innerWidth < 1024) return 0.15;
-    return 0.25;
-  });
-
-  useEffect(() => {
-    const updateCanScale = () => {
-      if (window.innerWidth < 640) {
-        setCanScale(0.58);
-        setCanXOffset(0);
-      } else if (window.innerWidth < 1024) {
-        setCanScale(0.76);
-        setCanXOffset(0.15);
-      } else {
-        setCanScale(1);
-        setCanXOffset(0.25);
-      }
-    };
-
-    updateCanScale();
-    window.addEventListener('resize', updateCanScale);
-    return () => window.removeEventListener('resize', updateCanScale);
-  }, []);
-
-  const flashVariants = {
-    animate: {
-      opacity: [0, 0, 0.8, 0, 1, 0.2, 0, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        repeatType: "loop",
-        times: [0, 0.8, 0.82, 0.83, 0.85, 0.88, 0.9, 1],
-        ease: "linear"
-      }
+  const heroData = {
+    'Sugar Free': {
+      eyebrow: 'ZERO SUGAR. FULL POWER.',
+      title: 'Fantome Sugar Free',
+      image: '/sugarfree_perfect.png?v=9',
+      bg: '#0798d0',
+      copy: 'A sharper, lighter charge with the same unseen punch.'
+    },
+    'Mojito': {
+      eyebrow: 'MINT. LIME. NIGHT DRIVE.',
+      title: 'Fantome Mojito',
+      image: '/mojito_perfect.png?v=9',
+      bg: '#059669',
+      copy: 'Refreshing green energy with a clean ready-to-drink finish.'
+    },
+    'Original': {
+      eyebrow: 'PREMIUM ENERGY CATALYST',
+      title: 'Fantome Original',
+      image: '/original_perfect.png?v=9',
+      bg: '#0ea5e9',
+      copy: 'The core Fantome hit: bold taste, clean can, instant brand recall.'
     }
   };
 
+  const currentHero = heroData[activeFlavor] || heroData['Sugar Free'];
+  const heroBg = activeFlavor === 'Sugar Free' ? '#0798d0' : currentHero.bg;
+
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
-      <div 
-        className="absolute inset-0 z-0" 
-        style={{ 
-          background: 'radial-gradient(circle at 50% 28%, rgba(56, 189, 248, 0.34) 0%, rgba(8, 47, 73, 0.72) 42%, rgba(2, 6, 12, 0.98) 100%)' 
-        }} 
-      />
-      <div className="condensation-field z-0">
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-      </div>
+    <section className="relative min-h-screen overflow-hidden pt-32 text-white" style={{ backgroundColor: heroBg }}>
+      <div className="absolute inset-0 pointer-events-none opacity-35" style={{ background: `radial-gradient(circle at 78% 38%, rgba(255,255,255,0.42), transparent 34%), radial-gradient(circle at 8% 92%, ${activeColor}99, transparent 36%)` }} />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
 
-      {/* Background flashes */}
-      <motion.div 
-        variants={flashVariants}
-        animate="animate"
-        className="absolute inset-0 z-0 pointer-events-none mix-blend-screen"
-        style={{ background: `radial-gradient(circle at 50% -20%, ${activeColor}88 0%, transparent 70%)` }}
-      />
-      <motion.div 
-        variants={{
-          animate: {
-            opacity: [0, 0, 1, 0, 0.5, 0, 0],
-            transition: { duration: 4, repeat: Infinity, times: [0, 0.8, 0.82, 0.85, 0.88, 0.92, 1] }
-          }
-        }}
-        animate="animate"
-        className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
-        style={{ background: '#020617' }}
-      />
-      
-      {/* BACKGROUND TEXT */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-5 pointer-events-none">
-        <motion.h1 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="text-[12vw] md:text-[10vw] font-bold font-sans uppercase tracking-tighter leading-none whitespace-nowrap opacity-90 select-none flex items-center justify-center gap-[24vw] md:gap-[16vw]"
+      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl grid-cols-1 items-center gap-8 px-6 pb-20 md:grid-cols-[0.9fr_1.1fr] md:px-10 lg:px-12">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          className="max-w-xl pt-10 md:pt-0"
         >
-          <span style={{ color: activeColor, textShadow: "none" }}>UNSEEN</span>
-          <span>POWER</span>
-        </motion.h1>
-      </div>
-      
-      <LightningBolts color={activeColor} />
-      
-      {/* 3D Canvas */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <ErrorBoundary fallback={
-          <div className="w-full h-full flex items-center justify-center pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-            <img src={activeFlavor === 'Original Mojito' ? '/mojito_perfect.png' : '/sugarfree_perfect.png'} alt={activeFlavor} className="h-2/3 object-contain drop-shadow-2xl" />
-          </div>
-        }>
-          <Suspense fallback={
-            <div className="w-full h-full flex items-center justify-center pointer-events-none">
-              <img src={activeFlavor === 'Mojito' ? '/mojito_perfect.png?v=7' : activeFlavor === 'Original' ? '/original_perfect.png?v=7' : '/sugarfree_perfect.png?v=8'} alt={activeFlavor} className="h-2/3 object-contain drop-shadow-2xl animate-pulse" />
-            </div>
-          }>
-            <Canvas3D camera={{ position: [0, 0, 10], fov: 45 }} style={{ pointerEvents: 'auto' }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-              <ambientLight intensity={0.06} />
-              
-              {/* Moody, low-brightness three-point lighting setup to completely eliminate glare */}
-              <directionalLight position={[5, 4, 5]} intensity={0.15} color="#ffffff" />
-              <directionalLight position={[-5, 2, 4]} intensity={0.10} color="#ffffff" />
-              <directionalLight position={[0, 5, -8]} intensity={0.15} color={activeColor} />
-              
-              <Suspense fallback={null}>
-                <Environment files="/studio_small_03_1k.hdr" intensity={0.05} />
-              </Suspense>
-              
-              <PresentationControls global snap={true} rotation={[0, -Math.PI / 4, 0]}>
-                 <Suspense fallback={null}>
-                   <FantomeCan activeFlavor={activeFlavor} scale={canScale} xOffset={canXOffset} />
-                 </Suspense>
-              </PresentationControls>
-              
-              <Sparkles count={60} scale={12} size={4} speed={0.4} opacity={0.6} color={activeColor} />
-              <Sparkles count={20} scale={10} size={10} speed={1} opacity={0.2} color="#ffffff" />
-              
-              {/* Soft ambient floor shadow beneath the floating can */}
-              <ContactShadows position={[0, -3.8, 0]} opacity={0.4} scale={8} blur={2.0} far={4} frames={1} />
-            </Canvas3D>
-          </Suspense>
-        </ErrorBoundary>
-      </div>
+          <p className="mb-7 text-sm font-black uppercase tracking-[0.18em] text-white/70 md:text-base">
+            {currentHero.eyebrow}
+          </p>
+          <h1 className="font-sans text-6xl font-black leading-[0.92] tracking-normal text-white sm:text-7xl lg:text-8xl">
+            {currentHero.title.split(' ').slice(0, -1).join(' ')}
+            <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
+          </h1>
+          <p className="mt-7 max-w-md text-base font-semibold leading-7 text-white/78 md:text-lg">
+            {currentHero.copy}
+          </p>
+          <button
+            type="button"
+            onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+            className="mt-9 inline-flex items-center gap-4 rounded-full bg-white px-9 py-4 text-base font-black text-slate-950 shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-transform duration-300 hover:-translate-y-1 cursor-pointer"
+          >
+            Buy now
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </motion.div>
 
-      {/* Ticker Strip — sits at the bottom edge */}
-      <div className="absolute bottom-0 w-full z-20">
-        <HeroTicker activeColor={activeColor} />
-      </div>
-
-      {/* Foreground UI */}
-      <div className="absolute bottom-28 sm:bottom-16 w-full flex flex-col items-center justify-center z-20 pointer-events-none">
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="text-xl md:text-2xl text-slate-800 font-semibold tracking-[0.3em] uppercase drop-shadow-lg"
+        <motion.div
+          initial={{ opacity: 0, x: 35, scale: 0.98 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="relative flex min-h-[52vh] items-end justify-center md:min-h-[calc(100vh-11rem)] md:justify-end"
         >
-          Premium Energy Catalyst
-        </motion.p>
-        <motion.button 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 1 }}
-          whileHover={{ scale: 1.05, boxShadow: "none" }}
-          onClick={() => document.getElementById('connect').scrollIntoView({ behavior: 'smooth' })}
-          className="mt-8 px-12 py-4 bg-gradient-to-r from-sky-400/80 to-sky-500/80 hover:from-sky-500/90 hover:to-sky-600/90 backdrop-blur-md border-2 text-slate-800 font-bold tracking-wide rounded-full pointer-events-auto transition-colors duration-300 shadow-md"
-          style={{ borderColor: activeColor }}
-        >
-          Connect Us
-        </motion.button>
+          <div className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full bg-black/22 blur-2xl" />
+          <img
+            src={currentHero.image}
+            alt={`${activeFlavor} Fantome can`}
+            className="relative z-10 h-[56vh] max-h-[760px] w-auto max-w-none object-contain mix-blend-multiply drop-shadow-[0_32px_45px_rgba(0,0,0,0.28)] sm:h-[64vh] md:h-[82vh]"
+          />
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
-
 // ==========================================
 // BRAND STORY & FORMULATION
 // ==========================================
@@ -1900,4 +1671,5 @@ function App() {
 }
 
 export default App;
+
 
