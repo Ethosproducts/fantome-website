@@ -103,12 +103,10 @@ function Hero({ activeColor, activeFlavor }) {
   };
 
   const currentHero = heroData[activeFlavor] || heroData['Sugar Free'];
-  const heroBg = activeFlavor === 'Sugar Free' ? '#0798d0' : currentHero.bg;
-
   return (
-    <section className="relative min-h-screen overflow-hidden pt-32 text-white" style={{ backgroundColor: heroBg }}>
-      <div className="absolute inset-0 pointer-events-none opacity-35" style={{ background: `radial-gradient(circle at 78% 38%, rgba(255,255,255,0.42), transparent 34%), radial-gradient(circle at 8% 92%, ${activeColor}99, transparent 36%)` }} />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+    <section className="relative min-h-screen overflow-hidden pt-32 text-white" style={{ background: `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` }}>
+      <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` }} />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl grid-cols-1 items-center gap-8 px-6 pb-20 md:grid-cols-[0.9fr_1.1fr] md:px-10 lg:px-12">
         <motion.div
@@ -130,7 +128,8 @@ function Hero({ activeColor, activeFlavor }) {
           <button
             type="button"
             onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
-            className="mt-9 inline-flex items-center gap-4 rounded-full bg-white px-9 py-4 text-base font-black text-slate-950 shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-transform duration-300 hover:-translate-y-1 cursor-pointer"
+            className="mt-9 inline-flex items-center gap-4 rounded-full border px-9 py-4 text-base font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] transition-transform duration-300 hover:-translate-y-1 cursor-pointer"
+            style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
           >
             Buy now
             <ChevronRight className="h-5 w-5" />
@@ -143,11 +142,11 @@ function Hero({ activeColor, activeFlavor }) {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="relative flex min-h-[52vh] items-end justify-center md:min-h-[calc(100vh-11rem)] md:justify-end"
         >
-          <div className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full bg-black/22 blur-2xl" />
+          <div className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl" style={{ backgroundColor: `${activeColor}55` }} />
           <img
             src={currentHero.image}
             alt={`${activeFlavor} Fantome can`}
-            className="relative z-10 h-[56vh] max-h-[760px] w-auto max-w-none object-contain mix-blend-multiply drop-shadow-[0_32px_45px_rgba(0,0,0,0.28)] sm:h-[64vh] md:h-[82vh]"
+            className="relative z-10 h-[56vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] sm:h-[64vh] md:h-[82vh]"
           />
         </motion.div>
       </div>

@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-fantome-black: #bae6fd;
-  --color-fantome-cyan: #0284c7;
-  --color-fantome-gold: #b45309;
-  --color-fantome-glass: rgba(125, 211, 252, 0.6);
+  --color-fantome-black: #020305;
+  --color-fantome-cyan: #00d5ff;
+  --color-fantome-gold: #f59e0b;
+  --color-fantome-glass: rgba(8, 12, 18, 0.82);
   
   --font-outfit: 'Outfit', sans-serif;
   --font-inter: 'Inter', sans-serif;
@@ -16,9 +16,9 @@
   }
 
   body {
-    background: radial-gradient(circle at 50% 0%, #123a4a 0%, #071116 42%, #020405 100%);
+    background: radial-gradient(circle at 50% 0%, #18202a 0%, #07090d 38%, #000000 100%);
     background-attachment: fixed;
-    color: #E5F7FF;
+    color: #f8fbff;
     font-family: var(--font-inter);
     margin: 0;
     padding: 0;
@@ -38,10 +38,10 @@
 }
 
 @utility glass-panel {
-  background: linear-gradient(135deg, rgba(8, 18, 24, 0.76) 0%, rgba(14, 41, 52, 0.54) 100%);
+  background: linear-gradient(135deg, rgba(5, 8, 13, 0.9) 0%, rgba(12, 17, 25, 0.74) 100%);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  box-shadow: 0 12px 42px 0 rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 18px 56px 0 rgba(0, 0, 0, 0.55);
   border-radius: 1rem;
 }
 
@@ -65,27 +65,47 @@
 .fantome-dark .text-slate-800,
 .fantome-dark .text-slate-700,
 .fantome-dark .text-sky-950 {
-  color: #e5f7ff !important;
+  color: #f8fbff !important;
 }
 
 .fantome-dark .text-slate-600,
 .fantome-dark .text-slate-500,
 .fantome-dark .text-sky-800,
 .fantome-dark .text-sky-700 {
-  color: #a9c7d5 !important;
+  color: #b9c7d6 !important;
+}
+
+.fantome-dark section,
+.fantome-dark footer {
+  background-color: #000000;
+}
+
+.fantome-dark h1,
+.fantome-dark h2,
+.fantome-dark h3,
+.fantome-dark h4 {
+  color: #ffffff;
 }
 
 .fantome-dark .bg-sky-300\/30,
 .fantome-dark .bg-sky-300\/40,
 .fantome-dark .bg-sky-300\/50,
 .fantome-dark .bg-sky-200\/40 {
-  background-color: rgba(8, 30, 40, 0.55) !important;
+  background-color: rgba(8, 12, 18, 0.78) !important;
 }
 
 .fantome-dark .border-sky-400\/30,
 .fantome-dark .border-sky-400\/20,
 .fantome-dark .border-sky-400\/10 {
-  border-color: rgba(56, 189, 248, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.fantome-dark .bg-sky-600 {
+  background-color: #05080d !important;
+}
+
+.fantome-dark .hover\:bg-sky-700:hover {
+  background-color: #111827 !important;
 }
 
 .condensation-field {
