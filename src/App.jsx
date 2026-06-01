@@ -74,7 +74,7 @@ function HeroTicker({ activeColor }) {
   );
 }
 
-function BackgroundEffects() {
+function BackgroundEffects({ activeColor }) {
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -105,11 +105,17 @@ function BackgroundEffects() {
     drift: 8 + (index % 6) * 5,
     force: index % 2 === 0 ? 34 : -28
   }));
+  const sparkles = Array.from({ length: 34 }, (_, index) => ({
+    left: `${8 + ((index * 31) % 86)}%`,
+    top: `${10 + ((index * 43) % 76)}%`,
+    delay: `${(index % 9) * 0.38}s`,
+    duration: `${3.4 + (index % 5) * 0.7}s`
+  }));
 
   return (
     <div
       className="fantome-background-effects"
-      style={{ '--mx': pointer.x, '--my': pointer.y }}
+      style={{ '--mx': pointer.x, '--my': pointer.y, '--accent': activeColor }}
       aria-hidden="true"
     >
       <div className="light-beam beam-one" />
@@ -125,6 +131,26 @@ function BackgroundEffects() {
       <div className="mist-layer mist-one" />
       <div className="mist-layer mist-two" />
       <div className="mist-layer mist-three" />
+
+      <div className="sparkle-field">
+        {sparkles.map((sparkle, index) => (
+          <span
+            key={index}
+            style={{
+              '--sx': sparkle.left,
+              '--sy': sparkle.top,
+              '--spark-delay': sparkle.delay,
+              '--spark-duration': sparkle.duration
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="shooting-lights">
+        <span />
+        <span />
+        <span />
+      </div>
 
       <div className="energy-particles">
         {particles.map((particle, index) => (
@@ -147,7 +173,7 @@ function BackgroundEffects() {
 // ==========================================
 // HERO SECTION
 // ==========================================
-function Hero({ activeColor, activeFlavor }) {
+function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
   const heroData = {
     'Sugar Free': {
       eyebrow: 'ZERO SUGAR. FULL POWER.',
@@ -173,11 +199,18 @@ function Hero({ activeColor, activeFlavor }) {
   };
 
   const currentHero = heroData[activeFlavor] || heroData['Sugar Free'];
+  const currentIndex = Math.max(0, flavors.findIndex((flavor) => flavor.title === activeFlavor));
+  const changeHeroFlavor = (direction) => {
+    if (!flavors.length || !setActiveFlavor) return;
+    const nextIndex = (currentIndex + direction + flavors.length) % flavors.length;
+    setActiveFlavor(flavors[nextIndex].title);
+  };
+
   return (
     <section className="relative min-h-screen overflow-hidden pt-32 text-white" style={{ background: `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` }}>
       <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` }} />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
-      <BackgroundEffects />
+      <BackgroundEffects activeColor={activeColor} />
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl grid-cols-1 items-center gap-8 px-6 pb-20 md:grid-cols-[0.9fr_1.1fr] md:px-10 lg:px-12">
         <motion.div
@@ -214,11 +247,27 @@ function Hero({ activeColor, activeFlavor }) {
           className="relative flex min-h-[52vh] items-end justify-center md:min-h-[calc(100vh-11rem)] md:justify-end"
         >
           <div className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl" style={{ backgroundColor: `${activeColor}55` }} />
+          <button
+            type="button"
+            onClick={() => changeHeroFlavor(-1)}
+            className="absolute left-0 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:left-4"
+            aria-label="Previous flavor"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
           <img
             src={currentHero.image}
             alt={`${activeFlavor} Fantome can`}
             className="relative z-10 h-[56vh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] sm:h-[64vh] md:h-[82vh]"
           />
+          <button
+            type="button"
+            onClick={() => changeHeroFlavor(1)}
+            className="absolute right-0 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:right-4"
+            aria-label="Next flavor"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
         </motion.div>
       </div>
     </section>
@@ -1544,7 +1593,12 @@ function App() {
         </nav>
       </div>
       {/* Hero */}
-      <Hero activeColor={activeColor} activeFlavor={activeFlavor} />
+      <Hero
+        activeColor={activeColor}
+        activeFlavor={activeFlavor}
+        flavors={flavors}
+        setActiveFlavor={setActiveFlavor}
+      />
 
       {/* Brand Story */}
       <StorySection activeColor={activeColor} activeFlavor={activeFlavor} />
