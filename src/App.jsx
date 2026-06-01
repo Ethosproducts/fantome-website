@@ -1645,57 +1645,63 @@ function App() {
 
   const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const navItems = [
+    { label: 'Flavors', target: 'flavors', code: '01' },
+    { label: 'Story', target: 'story', code: '02' },
+    { label: 'Shop', target: 'shop', code: '03' },
+    { label: 'Campaigns', target: 'campaigns', code: '04' }
+  ];
 
   return (
     <div className="fantome-dark min-h-screen relative text-slate-800 overflow-hidden bg-transparent">
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
-
-
         {/* Navigation Bar */}
-        <nav className="w-full p-4 md:p-6 pt-2 md:pt-4">
-          <div className="max-w-7xl mx-auto glass-panel px-6 py-3 flex justify-between items-center rounded-full shadow-lg">
-          {/* Logo with dynamic glow */}
-          <div 
-            className="font-sans font-bold text-2xl tracking-[0.2em] text-sky-950 select-none cursor-pointer transition-all duration-500"
-            style={{ textShadow: "none" }}
-          >
-            FANTÔME
-          </div>
-          
-          {/* Navigation Links */}
-          <div className="hidden md:flex gap-10 text-xs font-bold tracking-[0.15em] uppercase text-slate-600">
-            {['Flavors', 'Story', 'Shop', 'Campaigns'].map((item) => (
+        <nav className="w-full px-3 pt-3 md:px-6 md:pt-5">
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+            <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, transparent, ${activeColor}, #38bdf8, transparent)` }} />
+            <div className="grid grid-cols-[1fr_auto] gap-3 px-4 py-3 lg:grid-cols-[260px_1fr_180px] lg:items-center lg:px-5">
               <button
-                key={item} 
                 type="button"
-                onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
-                className="relative group transition-colors hover:text-slate-800 py-2"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="group flex items-center gap-3 text-left cursor-pointer"
               >
-                {item}
-                <span 
-                  className="absolute left-1/2 bottom-0 w-0 h-[2px] bg-transparent transition-all duration-300 group-hover:w-full group-hover:left-0" 
-                  style={{ backgroundColor: activeColor, boxShadow: "none" }}
-                />
+                <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+                  <span className="absolute inset-1 rounded-xl opacity-30 blur-md" style={{ backgroundColor: activeColor }} />
+                  <span className="relative font-sans text-xl font-black text-white">F</span>
+                </span>
+                <span>
+                  <span className="block font-sans text-xl font-black tracking-[0.28em] text-white transition-colors group-hover:text-sky-200">FANTOME</span>
+                  <span className="hidden text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400 sm:block">Unseen Power System</span>
+                </span>
               </button>
-            ))}
+
+              <div className="order-3 col-span-2 grid grid-cols-2 gap-2 pt-3 sm:grid-cols-4 lg:order-none lg:col-span-1 lg:flex lg:justify-center lg:pt-0">
+                {navItems.map((item) => (
+                  <button
+                    key={item.target}
+                    type="button"
+                    onClick={() => document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' })}
+                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/50 hover:bg-white/[0.08] cursor-pointer lg:min-w-28"
+                  >
+                    <span className="absolute inset-y-0 left-0 w-1 opacity-80 transition-all duration-300 group-hover:w-full group-hover:opacity-15" style={{ backgroundColor: activeColor }} />
+                    <span className="relative block text-[9px] font-black tracking-[0.2em]" style={{ color: activeColor }}>{item.code}</span>
+                    <span className="relative block text-xs font-black uppercase tracking-[0.16em] text-slate-100">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="justify-self-end flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-xs font-black uppercase tracking-wide text-white transition-all duration-300 hover:scale-105 hover:bg-white/[0.10] cursor-pointer"
+                style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
+              >
+                <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
+                <span>Bag ({cartCount})</span>
+              </button>
+            </div>
           </div>
-          
-          {/* Bag Button */}
-          <button 
-            onClick={() => setIsCartOpen(true)}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full border font-bold text-xs tracking-wide transition-all duration-300 cursor-pointer hover:scale-105"
-            style={{ 
-              backgroundColor: `${activeColor}15`, 
-              borderColor: `${activeColor}50`,
-              boxShadow: "none"
-            }}
-          >
-            <ShoppingBag className="w-4 h-4" style={{ color: activeColor }} />
-            <span className="text-slate-800">Bag ({cartCount})</span>
-          </button>
-        </div>
-      </nav>
+        </nav>
       </div>
       {/* Hero */}
       <Hero activeColor={activeColor} activeFlavor={activeFlavor} />
@@ -1894,3 +1900,4 @@ function App() {
 }
 
 export default App;
+
