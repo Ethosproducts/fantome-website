@@ -1416,9 +1416,9 @@ function App() {
   const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   const navItems = [
-    { label: 'Flavors', target: 'flavors', code: '01' },
-    { label: 'Story', target: 'story', code: '02' },
-    { label: 'Campaigns', target: 'campaigns', code: '03' }
+    { label: 'Flavors', target: 'flavors' },
+    { label: 'Story', target: 'story' },
+    { label: 'Campaigns', target: 'campaigns' }
   ];
 
   return (
@@ -1441,7 +1441,6 @@ function App() {
             </button>
 
             <div className="w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:mx-auto lg:max-w-[660px] xl:max-w-[760px]">
-              <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, transparent, ${activeColor}, #38bdf8, transparent)` }} />
               <div className="px-3 py-2.5 sm:px-4">
                 <div className="grid grid-cols-3 gap-2">
                   {navItems.map((item) => (
@@ -1452,7 +1451,6 @@ function App() {
                       className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/50 hover:bg-white/[0.08] cursor-pointer"
                     >
                       <span className="absolute inset-y-0 left-0 w-1 opacity-80 transition-all duration-300 group-hover:w-full group-hover:opacity-15" style={{ backgroundColor: activeColor }} />
-                      <span className="relative block text-[8px] font-black tracking-[0.18em]" style={{ color: activeColor }}>{item.code}</span>
                       <span className="relative block text-[10px] font-black uppercase tracking-[0.14em] text-slate-100 sm:text-xs">{item.label}</span>
                     </button>
                   ))}
