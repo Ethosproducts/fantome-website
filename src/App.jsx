@@ -1623,6 +1623,15 @@ function App() {
               </span>
             </button>
 
+            <button
+              onClick={() => setShowComingSoon(true)}
+              className="absolute right-0 top-0 flex items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] cursor-pointer lg:hidden"
+              style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
+            >
+              <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
+              <span>Bag ({cartCount})</span>
+            </button>
+
             <div className="hidden w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:mx-auto lg:block lg:max-w-[660px] xl:max-w-[760px]">
               <div className="px-3 py-2.5 sm:px-4">
                 <div className="grid grid-cols-3 gap-2">
@@ -1713,18 +1722,9 @@ function App() {
                 ))}
               </div>
 
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setShowComingSoon(true);
-                }}
-                className="mt-auto flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-4 text-sm font-black uppercase tracking-wide text-white cursor-pointer"
-                style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
-              >
-                <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
-                <span>Bag ({cartCount})</span>
-              </button>
+              <p className="mt-auto rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-xs font-semibold leading-5 text-slate-400">
+                Bag is now available from the top-right corner.
+              </p>
             </motion.aside>
           </div>
         )}
