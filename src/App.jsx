@@ -1350,6 +1350,7 @@ function App() {
   const [activeFlavor, setActiveFlavor] = useState(defaultFlavor); // Default core Sugar Free flavor
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const [showCheckoutSuccess, setShowCheckoutSuccess] = useState(false);
 
   const flavors = [
@@ -1460,17 +1461,8 @@ function App() {
             
             <div className="flex w-full gap-2 lg:w-auto lg:justify-self-end">
               <button
-                type="button"
-                onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group relative flex flex-1 items-center justify-center overflow-hidden rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/50 lg:flex-none"
-                style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 18px ${activeColor}20` }}
-              >
-                <span className="absolute inset-y-0 left-0 w-1 opacity-80 transition-all duration-300 group-hover:w-full group-hover:opacity-15" style={{ backgroundColor: activeColor }} />
-                <span className="relative">Shop</span>
-              </button>
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="flex flex-1 items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white/[0.10] cursor-pointer lg:flex-none"
+                onClick={() => setShowComingSoon(true)}
+                className="flex flex-1 items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-5 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white/[0.10] cursor-pointer lg:flex-none"
                 style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
               >
                 <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
@@ -1618,6 +1610,43 @@ function App() {
                   </button>
                 </div>
               )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Coming Soon Modal */}
+      <AnimatePresence>
+        {showComingSoon && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowComingSoon(false)}
+              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0, y: 16 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.94, opacity: 0, y: 16 }}
+              className="relative z-10 w-full max-w-sm overflow-hidden rounded-3xl border border-white/10 bg-slate-950/95 p-8 text-center shadow-[0_24px_80px_rgba(0,0,0,0.65)]"
+              style={{ boxShadow: `0 24px 80px rgba(0,0,0,0.65), inset 0 0 28px ${activeColor}20` }}
+            >
+              <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05]">
+                <ShoppingBag className="h-6 w-6" style={{ color: activeColor }} />
+              </div>
+              <h3 className="font-sans text-3xl font-black uppercase tracking-wide text-white">Coming Soon</h3>
+              <p className="mt-3 text-sm font-semibold leading-6 text-slate-400">
+                Fantome online ordering is getting ready. The bag will open when the store goes live.
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowComingSoon(false)}
+                className="mt-7 w-full rounded-2xl border border-white/10 bg-white/[0.06] px-5 py-3 text-xs font-black uppercase tracking-[0.16em] text-white transition-colors hover:bg-white/[0.1] cursor-pointer"
+              >
+                Got it
+              </button>
             </motion.div>
           </div>
         )}
