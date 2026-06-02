@@ -2,6 +2,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send, Volume2, VolumeX } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ==========================================
 // HERO TICKER STRIP
@@ -499,126 +503,157 @@ function StorySection({ activeColor, activeFlavor }) {
 }
 
 // ==========================================
-// FLAVORS INTERACTIVE CAROUSEL
+// FLAVORS SCROLL SHOWCASE
 // ==========================================
 function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFlavor, flavors }) {
-  const currentIdx = flavors.findIndex(f => f.title === activeFlavor);
+  const sectionRef = useRef(null);
+  const bgRef = useRef(null);
+  const canRefs = useRef([]);
+  const activeScrollIndexRef = useRef(Math.max(0, flavors.findIndex(f => f.title === activeFlavor)));
+  const [scrollIndex, setScrollIndex] = useState(activeScrollIndexRef.current);
   const [isFormulaOpen, setIsFormulaOpen] = useState(false);
-  const activeNutrition = NUTRITION_DATA[flavors[currentIdx].title] || NUTRITION_DATA.Mojito;
+  const currentIdx = Math.min(Math.max(scrollIndex, 0), flavors.length - 1);
+  const currentFlavor = flavors[currentIdx] || flavors[0];
+  const activeNutrition = NUTRITION_DATA[currentFlavor.title] || NUTRITION_DATA.Mojito;
 
-  const nextSlide = () => {
-    const next = (currentIdx + 1) % flavors.length;
-    setActiveFlavor(flavors[next].title);
-    setActiveColor(flavors[next].color);
-  };
+  useEffect(() => {
+    if (!sectionRef.current || !bgRef.current || !flavors.length) return;
 
-  const prevSlide = () => {
-    const prev = (currentIdx - 1 + flavors.length) % flavors.length;
-    setActiveFlavor(flavors[prev].title);
-    setActiveColor(flavors[prev].color);
-  };
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ctx = gsap.context(() => {
+      const colors = flavors.map((flavor) => flavor.color);
+      const last = Math.max(1, flavors.length - 1);
+
+      canRefs.current.forEach((can, index) => {
+        if (!can) return;
+        gsap.set(can, {
+          xPercent: index === 0 ? 0 : 118,
+          scale: index === 0 ? 1 : 0.86,
+          opacity: index === 0 ? 1 : 0,
+          zIndex: flavors.length - index,
+          force3D: true
+        });
+      });
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: reduceMotion ? false : 0.85,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const easedProgress = gsap.parseEase('power2.inOut')(self.progress);
+          const raw = easedProgress * last;
+          const nextIndex = Math.min(flavors.length - 1, Math.max(0, Math.round(raw)));
+          const floor = Math.min(flavors.length - 2, Math.floor(raw));
+          const local = Math.min(1, Math.max(0, raw - floor));
+          const mixedColor = flavors.length > 1
+            ? gsap.utils.interpolate(colors[floor], colors[floor + 1], local)
+            : colors[0];
+
+          gsap.set(bgRef.current, {
+            background: `radial-gradient(circle at 50% 38%, ${mixedColor}70 0%, ${mixedColor}26 34%, rgba(4,7,12,0.98) 74%), linear-gradient(135deg, ${mixedColor} 0%, #070a10 46%, #020305 100%)`
+          });
+
+          canRefs.current.forEach((can, index) => {
+            if (!can) return;
+            const distance = index - raw;
+            const absDistance = Math.abs(distance);
+            gsap.set(can, {
+              xPercent: distance * 118,
+              yPercent: absDistance * 2,
+              scale: 1 - Math.min(absDistance, 1) * 0.16,
+              opacity: Math.max(0.28, 1 - absDistance * 0.58),
+              filter: `blur(${Math.min(absDistance * 6, 8)}px)`,
+              zIndex: Math.round(100 - absDistance * 10),
+              force3D: true
+            });
+          });
+
+          if (nextIndex !== activeScrollIndexRef.current) {
+            activeScrollIndexRef.current = nextIndex;
+            setScrollIndex(nextIndex);
+            setActiveFlavor(flavors[nextIndex].title);
+            setActiveColor(flavors[nextIndex].color);
+          }
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [flavors.length]);
 
   return (
-    <section id="flavors" className="py-32 px-6 max-w-7xl mx-auto relative z-20">
-      <div className="text-center mb-20">
-        <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
-          Chemical Breakdown
-        </span>
-        <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
-          Formula Variations
-        </h2>
-      </div>
+    <section id="flavors" ref={sectionRef} className="relative z-20 h-[300vh] overflow-visible">
+      <div ref={bgRef} className="sticky top-0 flex h-screen min-h-[620px] items-center overflow-hidden text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,rgba(255,255,255,0.16),transparent_34%)] opacity-70" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
+        <div className="absolute left-1/2 top-[16%] h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-white/10 blur-[90px]" />
 
-      <div className="relative flex flex-col lg:flex-row gap-16 items-center justify-center">
-        {/* Navigation Arrows */}
-        <button 
-          onClick={prevSlide}
-          className="absolute left-0 lg:left-8 z-30 p-4 rounded-full glass-panel hover:bg-sky-300/60 transition-colors cursor-pointer"
-        >
-          <ChevronLeft className="w-6 h-6 text-slate-800" />
-        </button>
-        <button 
-          onClick={nextSlide}
-          className="absolute right-0 lg:right-8 z-30 p-4 rounded-full glass-panel hover:bg-sky-300/60 transition-colors cursor-pointer"
-        >
-          <ChevronRight className="w-6 h-6 text-slate-800" />
-        </button>
-
-        {/* Carousel Content */}
-        <AnimatePresence mode="wait">
-          <motion.div 
-            key={currentIdx}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-5xl px-12"
-          >
-            {/* Visual Preview displaying respective Can artwork background texture */}
-            <div className="relative w-full aspect-square rounded-3xl glass-panel p-12 bg-gradient-to-br from-sky-300/40 to-sky-400/20 flex items-center justify-center overflow-hidden">
-              <div 
-                className="absolute inset-0 blur-3xl opacity-25 transition-all duration-500"
-                style={{ background: `radial-gradient(circle, ${flavors[currentIdx].color} 0%, transparent 70%)` }}
+        <div className="relative mx-auto grid h-full w-full max-w-7xl grid-cols-1 items-center gap-4 px-5 py-20 sm:px-8 md:grid-cols-[1fr_0.95fr] md:gap-10 md:py-24 lg:px-12">
+          <div className="relative order-2 flex h-[45vh] min-h-[280px] items-center justify-center md:order-1 md:h-[72vh]">
+            <div className="absolute bottom-[10%] left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-72" />
+            {flavors.map((flavor, index) => (
+              <img
+                key={flavor.title}
+                ref={(node) => {
+                  canRefs.current[index] = node;
+                }}
+                src={flavor.canFront}
+                alt={`${flavor.title} Fantome can`}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                className="absolute left-1/2 top-1/2 h-[36vh] max-h-[430px] w-auto max-w-[92vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[46vh] md:h-[68vh] md:max-h-[680px]"
               />
-              {/* Sleek mockup card containing the floating transparent can */}
-              <motion.div 
-                initial={{ scale: 0.8, rotate: -5, y: 10 }}
-                animate={{ scale: 1, rotate: 0, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className={`${flavors[currentIdx].formulaWide ? 'w-72 h-48 sm:w-80 sm:h-56 lg:w-96 lg:h-64 bg-white/90 p-0' : 'w-48 h-72 sm:w-52 sm:h-80 lg:w-56 lg:h-88 bg-sky-300/50 p-4 lg:p-6'} rounded-2xl border border-sky-400/30 shadow-2xl relative z-10 flex flex-col items-center justify-center overflow-hidden backdrop-blur-md`}
-              >
-                {/* Radial glow specific to flavor inside the card */}
-                <div 
-                  className="absolute inset-0 blur-3xl opacity-20 transition-all duration-500 rounded-full w-32 h-32 m-auto"
-                  style={{ background: flavors[currentIdx].color }}
-                />
-                
-                {/* Center floating transparent can */}
-                <motion.img 
-                  src={flavors[currentIdx].canFront} 
-                  alt={flavors[currentIdx].title}
-                  className={`${flavors[currentIdx].formulaWide ? 'w-full h-full' : 'w-full h-4/5'} object-contain relative z-20`}
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                />
-              </motion.div>
-            </div>
+            ))}
+          </div>
 
-            {/* Flavors Details */}
-            <div className="space-y-8">
-              <span className="px-4 py-1 text-xs font-bold tracking-wide rounded-full border" style={{ borderColor: flavors[currentIdx].color, color: flavors[currentIdx].color }}>
-                {flavors[currentIdx].flavor}
-              </span>
-              <h3 className="text-4xl md:text-5xl font-bold font-sans uppercase">
-                {flavors[currentIdx].title} Formulation
-              </h3>
-              <p className="text-slate-600 font-light leading-relaxed">
-                {flavors[currentIdx].desc}
-              </p>
-              
-              <div className="space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                  <h4 className="text-sm font-bold tracking-wide text-slate-800">Full Ingredient Manifest:</h4>
-                  <button
-                    type="button"
-                    onClick={() => setIsFormulaOpen(true)}
-                    className="w-fit rounded-full border px-4 py-2 text-xs font-bold tracking-wide transition-colors hover:bg-sky-300/30 cursor-pointer"
-                    style={{ borderColor: flavors[currentIdx].color, color: flavors[currentIdx].color }}
-                  >
-                    View Premium Formula
-                  </button>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed bg-sky-300/30 border border-sky-400/30 p-4 rounded-2xl font-light">
-                  {flavors[currentIdx].fullIngredients}
+          <div className="order-1 mx-auto max-w-xl text-center md:order-2 md:mx-0 md:text-left">
+            <span className="text-xs font-black uppercase tracking-[0.32em] text-white/72">
+              Chemical Breakdown
+            </span>
+            <h2 className="mt-2 font-sans text-4xl font-black uppercase leading-[0.95] text-white sm:text-5xl md:text-6xl">
+              Formula Variations
+            </h2>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentFlavor.title}
+                initial={{ opacity: 0, y: 26, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
+                transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-8 space-y-5"
+              >
+                <span className="inline-flex rounded-full border border-white/25 bg-black/28 px-4 py-1 text-xs font-black uppercase tracking-[0.16em] backdrop-blur-md" style={{ color: currentFlavor.color }}>
+                  {currentFlavor.flavor}
+                </span>
+                <h3 className="font-sans text-4xl font-black uppercase leading-none sm:text-5xl md:text-6xl">
+                  {currentFlavor.title}
+                  <span className="block" style={{ color: currentFlavor.color }}>Formulation</span>
+                </h3>
+                <p className="mx-auto max-w-md text-sm font-semibold leading-6 text-white/78 sm:text-base md:mx-0">
+                  {currentFlavor.desc}
                 </p>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+                <div className="rounded-2xl border border-white/12 bg-black/24 p-4 text-left backdrop-blur-md">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <h4 className="text-xs font-black uppercase tracking-[0.16em] text-white/84">Full Ingredient Manifest</h4>
+                    <button
+                      type="button"
+                      onClick={() => setIsFormulaOpen(true)}
+                      className="w-fit rounded-full border px-4 py-2 text-xs font-black uppercase tracking-wide text-white transition-colors hover:bg-white/10 cursor-pointer"
+                      style={{ borderColor: currentFlavor.color, boxShadow: `0 0 18px ${currentFlavor.color}35` }}
+                    >
+                      View Formula
+                    </button>
+                  </div>
+                  <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-white/62">
+                    {currentFlavor.fullIngredients}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
 
       <AnimatePresence>
