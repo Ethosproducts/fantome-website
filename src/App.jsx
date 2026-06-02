@@ -1135,20 +1135,10 @@ function FounderSection({ activeColor }) {
           <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border border-sky-400/40" style={{ boxShadow: `0 24px 70px rgba(0,0,0,0.35), 0 0 34px ${activeColor}22` }}>
             <div className="relative mx-auto w-full max-w-md aspect-[9/16] rounded-2xl overflow-hidden bg-black">
               <img 
-                src="/founder.png" 
+                src="/founder_exact.png" 
                 alt="Shri Ankit Khandelwal - Founder" 
                 loading="lazy"
-                className="w-full h-[74%] object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
-              />
-              <div className="absolute inset-x-0 top-[45%] h-[55%] bg-gradient-to-b from-transparent via-black/82 to-black pointer-events-none" />
-              <div className="absolute bottom-0 left-0 right-0 h-[34%] bg-[radial-gradient(circle_at_50%_82%,rgba(220,38,38,0.38),rgba(0,0,0,0)_46%)] pointer-events-none" />
-              <div className="absolute bottom-6 left-1/2 h-16 w-44 -translate-x-1/2 rounded-full border border-red-500/45 opacity-90 blur-[1px]" style={{ boxShadow: '0 0 28px rgba(220,38,38,0.55), inset 0 0 22px rgba(220,38,38,0.25)' }} />
-              <div className="absolute bottom-10 left-1/2 h-10 w-32 -translate-x-1/2 rounded-full border border-red-400/35 opacity-80" style={{ boxShadow: '0 0 22px rgba(220,38,38,0.45)' }} />
-              <img
-                src="/formula_black_can.png"
-                alt="Fantome Energy Drink can"
-                loading="lazy"
-                className="absolute bottom-4 left-1/2 z-10 h-[38%] w-auto -translate-x-1/2 object-contain drop-shadow-[0_24px_34px_rgba(0,0,0,0.72)]"
+                className="h-full w-full object-cover object-center transition-all duration-700 hover:scale-[1.015]"
               />
             </div>
           </div>
