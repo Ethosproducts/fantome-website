@@ -43,22 +43,23 @@ function HeroTicker({ activeColor }) {
   const items = [...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
     <div
-      className="relative z-20 w-full overflow-hidden py-3 pointer-events-none backdrop-blur-md"
+      className="relative z-20 w-full overflow-hidden py-3 pointer-events-none backdrop-blur-xl"
       style={{
-        borderTop: `1px solid ${activeColor}33`,
-        borderBottom: `1px solid ${activeColor}33`,
-        background: `linear-gradient(90deg, rgba(125, 211, 252, 0.48), ${activeColor}24, rgba(255, 244, 214, 0.34))`,
+        borderTop: `1px solid ${activeColor}55`,
+        borderBottom: `1px solid ${activeColor}55`,
+        background: `linear-gradient(90deg, rgba(2, 6, 12, 0.92), ${activeColor}22, rgba(2, 6, 12, 0.92))`,
+        boxShadow: `0 0 34px ${activeColor}22, inset 0 0 24px rgba(255,255,255,0.035)`,
       }}
     >
       <div className="absolute left-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, rgba(125, 211, 252, 0.72), transparent)' }} />
+        style={{ background: 'linear-gradient(to right, rgba(2, 6, 12, 0.98), transparent)' }} />
       <div className="absolute right-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left, rgba(255, 244, 214, 0.52), transparent)' }} />
+        style={{ background: 'linear-gradient(to left, rgba(2, 6, 12, 0.98), transparent)' }} />
 
       <div className="flex whitespace-nowrap hero-ticker-track">
         {items.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-10 mx-10 sm:gap-12 sm:mx-12">
-            <span className="text-[10px] font-black uppercase tracking-wide font-sans text-slate-900/70 sm:text-[11px]">
+            <span className="text-[10px] font-black uppercase tracking-wide font-sans text-white/80 sm:text-[11px]">
               {item}
             </span>
             <span className="text-[8px] font-black opacity-45" style={{ color: activeColor }}>◆</span>
@@ -319,7 +320,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           <ChevronRight className="h-5 w-5" />
         </motion.button>
       </div>
-      <div className="absolute inset-x-0 bottom-0 z-20">
+      <div className="absolute inset-x-0 bottom-8 z-20 sm:bottom-6">
         <HeroTicker activeColor={activeColor} />
       </div>
     </section>
