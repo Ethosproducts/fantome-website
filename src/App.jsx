@@ -597,9 +597,18 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute left-1/2 top-[16%] h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-white/10 blur-[90px]" />
 
-        <div className="relative mx-auto grid h-full w-full max-w-7xl grid-cols-1 items-center gap-4 px-5 py-20 sm:px-8 md:grid-cols-[1fr_0.95fr] md:gap-10 md:py-24 lg:px-12">
-          <div className="relative order-2 flex h-[42vh] min-h-[260px] items-center justify-center md:order-1 md:h-[64vh]">
-            <div className="absolute bottom-[10%] left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-72" />
+        <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center px-5 pb-8 pt-28 text-center sm:px-8 sm:pt-32 md:pb-10 lg:px-12">
+          <div className="relative z-20">
+            <span className="text-xs font-black uppercase tracking-[0.32em] text-white/72">
+              Chemical Breakdown
+            </span>
+            <h2 className="mt-2 font-sans text-4xl font-black uppercase leading-[0.95] text-white sm:text-5xl md:text-6xl">
+              Formula Variations
+            </h2>
+          </div>
+
+          <div className="relative z-10 mt-4 flex h-[36vh] min-h-[250px] w-full items-center justify-center sm:h-[40vh] md:mt-2 md:h-[43vh]">
+            <div className="absolute bottom-[7%] left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-72" />
             {flavors.map((flavor, index) => (
               <img
                 key={flavor.title}
@@ -609,19 +618,12 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 src={flavor.showcaseImage || flavor.canFront}
                 alt={`${flavor.title} Fantome can`}
                 loading={index === 0 ? 'eager' : 'lazy'}
-                className="absolute left-1/2 top-1/2 h-[31vh] max-h-[360px] w-auto max-w-[78vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[40vh] md:h-[56vh] md:max-h-[560px]"
+                className="absolute left-1/2 top-1/2 h-[31vh] max-h-[340px] w-auto max-w-[78vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[38vh] md:h-[43vh] md:max-h-[450px]"
               />
             ))}
           </div>
 
-          <div className="order-1 mx-auto max-w-xl text-center md:order-2 md:mx-0 md:text-left">
-            <span className="text-xs font-black uppercase tracking-[0.32em] text-white/72">
-              Chemical Breakdown
-            </span>
-            <h2 className="mt-2 font-sans text-4xl font-black uppercase leading-[0.95] text-white sm:text-5xl md:text-6xl">
-              Formula Variations
-            </h2>
-
+          <div className="relative z-20 mx-auto w-full max-w-3xl text-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFlavor.title}
@@ -629,16 +631,16 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
                 transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-8 space-y-5"
+                className="space-y-4"
               >
                 <span className="inline-flex rounded-full border border-white/25 bg-black/28 px-4 py-1 text-xs font-black uppercase tracking-[0.16em] backdrop-blur-md" style={{ color: currentFlavor.color }}>
                   {currentFlavor.flavor}
                 </span>
-                <h3 className="font-sans text-4xl font-black uppercase leading-none sm:text-5xl md:text-6xl">
+                <h3 className="font-sans text-3xl font-black uppercase leading-none sm:text-4xl md:text-5xl">
                   {currentFlavor.title}
                   <span className="block" style={{ color: currentFlavor.color }}>Formulation</span>
                 </h3>
-                <p className="mx-auto max-w-md text-sm font-semibold leading-6 text-white/78 sm:text-base md:mx-0">
+                <p className="mx-auto max-w-2xl text-sm font-semibold leading-6 text-white/78 sm:text-base">
                   {currentFlavor.desc}
                 </p>
                 <div className="rounded-2xl border border-white/12 bg-black/24 p-4 text-left backdrop-blur-md">
