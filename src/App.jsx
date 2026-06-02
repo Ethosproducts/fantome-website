@@ -527,9 +527,9 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
       canRefs.current.forEach((can, index) => {
         if (!can) return;
         gsap.set(can, {
-          xPercent: index === 0 ? 0 : 118,
-          scale: index === 0 ? 1 : 0.86,
-          opacity: index === 0 ? 1 : 0,
+          xPercent: index === 0 ? 0 : 82,
+          scale: index === 0 ? 1 : 0.88,
+          opacity: index === 0 ? 1 : 0.42,
           zIndex: flavors.length - index,
           force3D: true
         });
@@ -538,7 +538,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
-        end: 'bottom bottom',
+        end: '+=200%',
         scrub: reduceMotion ? false : 0.85,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
@@ -560,11 +560,11 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             const distance = index - raw;
             const absDistance = Math.abs(distance);
             gsap.set(can, {
-              xPercent: distance * 118,
-              yPercent: absDistance * 2,
+              xPercent: distance * 82,
+              yPercent: absDistance * 1.5,
               scale: 1 - Math.min(absDistance, 1) * 0.16,
-              opacity: Math.max(0.28, 1 - absDistance * 0.58),
-              filter: `blur(${Math.min(absDistance * 6, 8)}px)`,
+              opacity: Math.max(0.42, 1 - absDistance * 0.52),
+              filter: `blur(${Math.min(absDistance * 2.4, 3)}px)`,
               zIndex: Math.round(100 - absDistance * 10),
               force3D: true
             });
@@ -585,13 +585,13 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 
   return (
     <section id="flavors" ref={sectionRef} className="relative z-20 h-[300vh] overflow-visible">
-      <div ref={bgRef} className="sticky top-0 flex h-screen min-h-[620px] items-center overflow-hidden text-white">
+      <div ref={bgRef} className="sticky top-0 flex h-[100svh] min-h-[560px] items-center overflow-hidden text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,rgba(255,255,255,0.16),transparent_34%)] opacity-70" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute left-1/2 top-[16%] h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-white/10 blur-[90px]" />
 
         <div className="relative mx-auto grid h-full w-full max-w-7xl grid-cols-1 items-center gap-4 px-5 py-20 sm:px-8 md:grid-cols-[1fr_0.95fr] md:gap-10 md:py-24 lg:px-12">
-          <div className="relative order-2 flex h-[45vh] min-h-[280px] items-center justify-center md:order-1 md:h-[72vh]">
+          <div className="relative order-2 flex h-[42vh] min-h-[260px] items-center justify-center md:order-1 md:h-[64vh]">
             <div className="absolute bottom-[10%] left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-72" />
             {flavors.map((flavor, index) => (
               <img
@@ -599,10 +599,10 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 ref={(node) => {
                   canRefs.current[index] = node;
                 }}
-                src={flavor.canFront}
+                src={flavor.showcaseImage || flavor.canFront}
                 alt={`${flavor.title} Fantome can`}
                 loading={index === 0 ? 'eager' : 'lazy'}
-                className="absolute left-1/2 top-1/2 h-[36vh] max-h-[430px] w-auto max-w-[92vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[46vh] md:h-[68vh] md:max-h-[680px]"
+                className="absolute left-1/2 top-1/2 h-[31vh] max-h-[360px] w-auto max-w-[78vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[40vh] md:h-[56vh] md:max-h-[560px]"
               />
             ))}
           </div>
@@ -1529,6 +1529,7 @@ function App() {
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (Green Colour INS 102 & INS 150), Permitted Food Flavour (Mint Flavour), Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour (Natural & Nature Identical Flavouring Substances).",
       canGraphic: "/mojito_texture.png",
       canFront: "/formula_mojito_can.png",
+      showcaseImage: "/hero_mojito.png?v=1",
       formulaWide: true
     },
     { 
@@ -1539,6 +1540,7 @@ function App() {
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 122 & INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/original_texture.png",
       canFront: "/formula_black_can.png",
+      showcaseImage: "/hero_original.png?v=1",
       formulaWide: true
     },
     { 
@@ -1549,6 +1551,7 @@ function App() {
       fullIngredients: "Water, Sucralose, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/sugarfree_texture.png",
       canFront: "/formula_black_can.png",
+      showcaseImage: "/hero_sugarfree.png?v=1",
       formulaWide: true
     }
   ];
