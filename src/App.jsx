@@ -1569,10 +1569,11 @@ function App() {
               className="group flex h-14 w-fit max-w-full items-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer lg:justify-self-start"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 20px ${activeColor}18` }}
             >
-              <span>
-                <span className="block font-sans text-base font-black tracking-[0.24em] text-white transition-colors group-hover:text-sky-200 sm:text-lg">FANTOME</span>
-                <span className="hidden text-[8px] font-bold uppercase tracking-[0.2em] text-slate-400 sm:block">Unseen Power</span>
-              </span>
+              <img
+                src="/fantome_unseen_power_logo.jpeg"
+                alt="Fantome Unseen Power"
+                className="h-11 w-32 rounded-xl object-cover object-[50%_100%] brightness-110 contrast-110 sm:w-36"
+              />
             </button>
 
             <button
