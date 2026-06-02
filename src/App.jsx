@@ -219,7 +219,13 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               <p className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 min-[390px]:mb-3 sm:mb-7 sm:text-sm md:text-base">
                 {currentHero.eyebrow}
               </p>
-              <h1 className="mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal text-white min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl md:mx-0 lg:text-8xl">
+              <h1
+                className="mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl md:mx-0 lg:text-8xl"
+                style={{
+                  color: currentHero.bg,
+                  textShadow: `0 0 28px ${currentHero.bg}44, 0 8px 36px rgba(0,0,0,0.45)`
+                }}
+              >
                 {currentHero.title.split(' ').slice(0, -1).join(' ')}
                 <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
               </h1>
