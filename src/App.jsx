@@ -1592,10 +1592,12 @@ function App() {
                       key={item.target}
                       type="button"
                       onClick={() => document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' })}
-                      className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/50 hover:bg-white/[0.08] cursor-pointer"
+                      className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.08] cursor-pointer"
+                      style={{ boxShadow: `inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 0 transparent` }}
                     >
-                      <span className="absolute inset-y-0 left-0 w-1 opacity-80 transition-all duration-300 group-hover:w-full group-hover:opacity-15" style={{ backgroundColor: activeColor }} />
-                      <span className="relative block text-[10px] font-black uppercase tracking-[0.14em] text-slate-100 sm:text-xs">{item.label}</span>
+                      <span className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: `radial-gradient(circle at 50% 0%, ${activeColor}24, transparent 62%)` }} />
+                      <span className="absolute inset-x-4 bottom-0 h-px scale-x-0 rounded-full opacity-0 transition-all duration-300 group-hover:scale-x-100 group-hover:opacity-100" style={{ backgroundColor: activeColor, boxShadow: `0 0 14px ${activeColor}` }} />
+                      <span className="relative block text-[10px] font-black uppercase tracking-[0.14em] text-slate-100 transition-colors duration-300 group-hover:text-white sm:text-xs">{item.label}</span>
                     </button>
                   ))}
                 </div>
