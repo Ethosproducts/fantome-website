@@ -318,7 +318,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           type="button"
           onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
           whileTap={{ scale: 0.98 }}
-          className="mx-auto -mt-8 inline-flex items-center gap-3 rounded-full border px-8 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer min-[390px]:-mt-10 md:hidden"
+          className="mx-auto mt-2 inline-flex items-center gap-3 rounded-full border px-8 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer min-[390px]:mt-3 md:hidden"
           style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
         >
           Buy now
