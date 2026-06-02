@@ -154,55 +154,6 @@ function BackgroundEffects({ activeColor }) {
   );
 }
 
-function MusicToggle({ activeColor }) {
-  const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.34;
-    }
-  }, []);
-
-  const toggleMusic = async () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-      return;
-    }
-
-    try {
-      await audio.play();
-      setIsPlaying(true);
-    } catch {
-      setIsPlaying(false);
-    }
-  };
-
-  return (
-    <>
-      <audio ref={audioRef} src="/fantome-bg-music.mp3" loop preload="auto" />
-      <button
-        type="button"
-        onClick={toggleMusic}
-        className="fixed bottom-5 left-4 z-[80] flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/85 px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-white shadow-[0_18px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.08] sm:bottom-7 sm:left-7"
-        style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.5), 0 0 26px ${activeColor}24` }}
-        aria-label={isPlaying ? 'Pause background music' : 'Play background music'}
-      >
-        {isPlaying ? (
-          <Volume2 className="h-4 w-4" style={{ color: activeColor }} />
-        ) : (
-          <VolumeX className="h-4 w-4 text-slate-400" />
-        )}
-        <span className="hidden sm:inline">{isPlaying ? 'Music On' : 'Music'}</span>
-      </button>
-    </>
-  );
-}
-
 // ==========================================
 // HERO SECTION
 // ==========================================
@@ -1529,6 +1480,14 @@ function App() {
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [showCheckoutSuccess, setShowCheckoutSuccess] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const audioRef = useRef(null);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.34;
+    }
+  }, []);
 
   const flavors = [
     { 
@@ -1591,8 +1550,25 @@ function App() {
     setCart((prevCart) => prevCart.filter(item => item.id !== id));
   };
 
+  const toggleMusic = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isMusicPlaying) {
+      audio.pause();
+      setIsMusicPlaying(false);
+      return;
+    }
+
+    try {
+      await audio.play();
+      setIsMusicPlaying(true);
+    } catch {
+      setIsMusicPlaying(false);
+    }
+  };
+
   const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   const navItems = [
     { label: 'Flavors', target: 'flavors' },
     { label: 'Story', target: 'story' },
@@ -1601,6 +1577,7 @@ function App() {
 
   return (
     <div className="fantome-dark min-h-screen relative text-slate-800 overflow-hidden bg-transparent">
+      <audio ref={audioRef} src="/fantome-bg-music.mp3" loop preload="auto" />
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
         {/* Navigation Bar */}
@@ -1626,12 +1603,17 @@ function App() {
             </button>
 
             <button
-              onClick={() => setShowComingSoon(true)}
-              className="flex h-14 items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-4 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] cursor-pointer lg:hidden"
-              style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
+              type="button"
+              onClick={toggleMusic}
+              className="flex h-16 w-16 items-center justify-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.10] cursor-pointer sm:h-20 sm:w-20 lg:hidden"
+              style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
+              aria-label={isMusicPlaying ? 'Pause background music' : 'Play background music'}
             >
-              <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
-              <span>Bag ({cartCount})</span>
+              {isMusicPlaying ? (
+                <Volume2 className="h-6 w-6" style={{ color: activeColor }} />
+              ) : (
+                <VolumeX className="h-6 w-6 text-slate-300" />
+              )}
             </button>
 
             <div className="hidden w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:mx-auto lg:block lg:max-w-[660px] xl:max-w-[760px]">
@@ -1656,12 +1638,17 @@ function App() {
             
             <div className="hidden w-full gap-2 lg:flex lg:w-auto lg:justify-self-end">
               <button
-                onClick={() => setShowComingSoon(true)}
-                className="flex flex-1 items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-slate-950/90 px-5 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white/[0.10] cursor-pointer lg:flex-none"
-                style={{ boxShadow: `inset 0 0 18px ${activeColor}20` }}
+                type="button"
+                onClick={toggleMusic}
+                className="flex h-20 w-20 items-center justify-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.10] cursor-pointer"
+                style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
+                aria-label={isMusicPlaying ? 'Pause background music' : 'Play background music'}
               >
-                <ShoppingBag className="h-4 w-4" style={{ color: activeColor }} />
-                <span>Bag ({cartCount})</span>
+                {isMusicPlaying ? (
+                  <Volume2 className="h-7 w-7" style={{ color: activeColor }} />
+                ) : (
+                  <VolumeX className="h-7 w-7 text-slate-300" />
+                )}
               </button>
             </div>
           </div>
@@ -1957,7 +1944,6 @@ function App() {
       </AnimatePresence>
 
       <FantomeChatbot activeColor={activeColor} />
-      <MusicToggle activeColor={activeColor} />
     </div>
   );
 }
