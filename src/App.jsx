@@ -159,6 +159,9 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       title: 'Fantome Sugar Free',
       image: '/hero_sugarfree.png?v=1',
       bg: '#c7ccd3',
+      titleColor: '#d6d9de',
+      eyebrowColor: '#a9afb8',
+      copyColor: '#b7bdc6',
       copy: 'A sharper, lighter charge with the same unseen punch.'
     },
     'Mojito': {
@@ -166,13 +169,19 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       title: 'Fantome Mojito',
       image: '/hero_mojito.png?v=1',
       bg: '#059669',
+      titleColor: '#22c55e',
+      eyebrowColor: '#b9f6d2',
+      copyColor: '#d7ffe7',
       copy: 'Refreshing green energy with a clean ready-to-drink finish.'
     },
     'Original': {
       eyebrow: 'PREMIUM ENERGY CATALYST',
       title: 'Fantome Original',
       image: '/hero_original.png?v=1',
-      bg: '#ef233c',
+      bg: '#b91c1c',
+      titleColor: '#c81e2b',
+      eyebrowColor: '#f1b3b8',
+      copyColor: '#e5c3c6',
       copy: 'The core Fantome hit: bold taste, clean can, instant brand recall.'
     }
   };
@@ -216,20 +225,26 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               exit="exit"
               transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 min-[390px]:mb-3 sm:mb-7 sm:text-sm md:text-base">
+              <p
+                className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] min-[390px]:mb-3 sm:mb-7 sm:text-sm md:text-base"
+                style={{ color: currentHero.eyebrowColor || 'rgba(255,255,255,0.7)' }}
+              >
                 {currentHero.eyebrow}
               </p>
               <h1
                 className="mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl md:mx-0 lg:text-8xl"
                 style={{
-                  color: currentHero.bg,
-                  textShadow: `0 0 28px ${currentHero.bg}44, 0 8px 36px rgba(0,0,0,0.45)`
+                  color: currentHero.titleColor || currentHero.bg,
+                  textShadow: `0 0 28px ${(currentHero.titleColor || currentHero.bg)}3a, 0 8px 36px rgba(0,0,0,0.45)`
                 }}
               >
                 {currentHero.title.split(' ').slice(0, -1).join(' ')}
                 <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
               </h1>
-              <p className="mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 text-white/78 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:mx-0 md:text-lg">
+              <p
+                className="mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:mx-0 md:text-lg"
+                style={{ color: currentHero.copyColor || 'rgba(255,255,255,0.78)' }}
+              >
                 {currentHero.copy}
               </p>
             </motion.div>
