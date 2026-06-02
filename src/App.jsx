@@ -320,7 +320,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           <ChevronRight className="h-5 w-5" />
         </motion.button>
       </div>
-      <div className="absolute inset-x-0 top-[calc(100svh-2.75rem)] z-[5] -translate-y-full sm:top-[calc(100svh-2rem)]">
+      <div className="absolute inset-x-0 top-[calc(100svh-2.25rem)] z-[5] -translate-y-full sm:top-[calc(100svh-1.5rem)]">
         <HeroTicker activeColor={activeColor} />
       </div>
     </section>
