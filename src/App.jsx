@@ -1566,13 +1566,13 @@ function App() {
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="group flex h-14 w-14 max-w-full items-center justify-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 p-1.5 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer sm:h-16 sm:w-16 lg:justify-self-start"
-              style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), inset 0 0 20px ${activeColor}18` }}
+              className="group flex h-16 w-16 max-w-full items-center justify-center rounded-[1.1rem] border border-white/15 bg-white p-1 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer sm:h-20 sm:w-20 lg:justify-self-start"
+              style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}28` }}
             >
               <img
                 src="/fantome_unseen_power_logo_square.png"
                 alt="Fantome Unseen Power"
-                className="h-full w-full object-contain brightness-125 contrast-125 mix-blend-multiply"
+                className="h-full w-full object-contain brightness-105 contrast-110"
               />
             </button>
 
