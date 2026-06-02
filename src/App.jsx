@@ -526,8 +526,9 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 
       canRefs.current.forEach((can, index) => {
         if (!can) return;
+        const travel = Math.min(window.innerWidth * 0.38, 520);
         gsap.set(can, {
-          xPercent: index === 0 ? 0 : 82,
+          x: index === 0 ? 0 : travel,
           scale: index === 0 ? 1 : 0.88,
           opacity: index === 0 ? 1 : 0.42,
           zIndex: flavors.length - index,
@@ -538,7 +539,10 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
-        end: '+=200%',
+        end: 'bottom bottom',
+        pin: bgRef.current,
+        pinSpacing: false,
+        anticipatePin: 1,
         scrub: reduceMotion ? false : 0.85,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
@@ -559,8 +563,9 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             if (!can) return;
             const distance = index - raw;
             const absDistance = Math.abs(distance);
+            const travel = Math.min(window.innerWidth * 0.38, 520);
             gsap.set(can, {
-              xPercent: distance * 82,
+              x: distance * travel,
               yPercent: absDistance * 1.5,
               scale: 1 - Math.min(absDistance, 1) * 0.16,
               opacity: Math.max(0.42, 1 - absDistance * 0.52),
@@ -578,6 +583,8 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
           }
         }
       });
+
+      window.setTimeout(() => ScrollTrigger.refresh(), 250);
     }, sectionRef);
 
     return () => ctx.revert();
@@ -585,7 +592,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 
   return (
     <section id="flavors" ref={sectionRef} className="relative z-20 h-[300vh] overflow-visible">
-      <div ref={bgRef} className="sticky top-0 flex h-[100svh] min-h-[560px] items-center overflow-hidden text-white">
+      <div ref={bgRef} className="relative flex h-[100svh] min-h-[560px] items-center overflow-hidden text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,rgba(255,255,255,0.16),transparent_34%)] opacity-70" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute left-1/2 top-[16%] h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-white/10 blur-[90px]" />
@@ -1610,7 +1617,7 @@ function App() {
   ];
 
   return (
-    <div className="fantome-dark min-h-screen relative text-slate-800 overflow-hidden bg-transparent">
+    <div className="fantome-dark min-h-screen relative text-slate-800 overflow-x-hidden bg-transparent">
       <audio ref={audioRef} src="/fantome-bg-music.mp3" loop preload="auto" />
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
