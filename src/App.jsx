@@ -40,40 +40,34 @@ const TICKER_ITEMS = [
 ];
 
 function HeroTicker({ activeColor }) {
-  // Duplicate items more times since we have fewer words to ensure seamless loop
   const items = [...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
     <div
-      className="relative w-full overflow-hidden py-3 z-20 pointer-events-none"
+      className="relative z-20 w-full overflow-hidden py-3 pointer-events-none backdrop-blur-md"
       style={{
         borderTop: `1px solid ${activeColor}33`,
         borderBottom: `1px solid ${activeColor}33`,
-        background: `linear-gradient(90deg, transparent, ${activeColor}10, transparent)`,
+        background: `linear-gradient(90deg, rgba(125, 211, 252, 0.48), ${activeColor}24, rgba(255, 244, 214, 0.34))`,
       }}
     >
-      {/* Left / right fade masks */}
       <div className="absolute left-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, #7dd3fc, transparent)' }} />
+        style={{ background: 'linear-gradient(to right, rgba(125, 211, 252, 0.72), transparent)' }} />
       <div className="absolute right-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left, #7dd3fc, transparent)' }} />
+        style={{ background: 'linear-gradient(to left, rgba(255, 244, 214, 0.52), transparent)' }} />
 
       <div className="flex whitespace-nowrap hero-ticker-track">
         {items.map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-12 mx-12">
-            <span
-              className="text-[11px] font-bold tracking-wide font-sans"
-              style={{ color: activeColor, textShadow: "none" }}
-            >
+          <span key={i} className="inline-flex items-center gap-10 mx-10 sm:gap-12 sm:mx-12">
+            <span className="text-[10px] font-black uppercase tracking-wide font-sans text-slate-900/70 sm:text-[11px]">
               {item}
             </span>
-            <span className="text-[8px] opacity-40" style={{ color: activeColor }}>◆</span>
+            <span className="text-[8px] font-black opacity-45" style={{ color: activeColor }}>◆</span>
           </span>
         ))}
       </div>
     </div>
   );
 }
-
 function BackgroundEffects({ activeColor }) {
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
@@ -234,7 +228,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       <BackgroundEffects activeColor={activeColor} />
 
-      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-2 text-center sm:gap-8 sm:px-6 sm:pb-16 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:items-center md:px-10 md:pb-20 md:text-left lg:px-12">
+      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:items-center md:px-10 md:pb-20 md:text-left lg:px-12">
         <div className="mx-auto max-w-xl pt-0 sm:pt-8 md:mx-0 md:pt-0">
           <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.div
@@ -324,6 +318,9 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           Buy now
           <ChevronRight className="h-5 w-5" />
         </motion.button>
+      </div>
+      <div className="absolute inset-x-0 bottom-0 z-20">
+        <HeroTicker activeColor={activeColor} />
       </div>
     </section>
   );
@@ -1890,5 +1887,6 @@ function App() {
 }
 
 export default App;
+
 
 
