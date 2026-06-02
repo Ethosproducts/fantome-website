@@ -515,6 +515,9 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
   const currentIdx = Math.min(Math.max(scrollIndex, 0), flavors.length - 1);
   const currentFlavor = flavors[currentIdx] || flavors[0];
   const activeNutrition = NUTRITION_DATA[currentFlavor.title] || NUTRITION_DATA.Mojito;
+  const shortFlavorDesc = currentFlavor.desc.length > 132
+    ? `${currentFlavor.desc.slice(0, 132).replace(/\s+\S*$/, '')}.`
+    : currentFlavor.desc;
 
   useEffect(() => {
     if (!sectionRef.current || !bgRef.current || !flavors.length) return;
@@ -564,12 +567,14 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             const distance = index - raw;
             const absDistance = Math.abs(distance);
             const travel = Math.min(window.innerWidth * 0.38, 520);
+            const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
             gsap.set(can, {
               x: distance * travel,
-              yPercent: absDistance * 1.5,
-              scale: 1 - Math.min(absDistance, 1) * 0.16,
-              opacity: Math.max(0.42, 1 - absDistance * 0.52),
-              filter: `blur(${Math.min(absDistance * 2.4, 3)}px)`,
+              y: -24 - centerPull * 14,
+              yPercent: absDistance * 1.2,
+              scale: 1.08 - Math.min(absDistance, 1) * 0.18,
+              opacity: Math.max(0.5, 1 - absDistance * 0.44),
+              filter: `blur(${absDistance < 0.22 ? 0 : Math.min((absDistance - 0.22) * 1.15, 1.1)}px)`,
               zIndex: Math.round(100 - absDistance * 10),
               force3D: true
             });
@@ -597,7 +602,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute left-1/2 top-[16%] h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-white/10 blur-[90px]" />
 
-        <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center px-5 pb-8 pt-28 text-center sm:px-8 sm:pt-32 md:pb-10 lg:px-12">
+        <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-start px-5 pb-8 pt-24 text-center sm:px-8 sm:pt-28 md:pb-10 md:pt-[7.5rem] lg:px-12">
           <div className="relative z-20">
             <span className="text-xs font-black uppercase tracking-[0.32em] text-white/72">
               Chemical Breakdown
@@ -607,7 +612,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             </h2>
           </div>
 
-          <div className="relative z-10 mt-4 flex h-[36vh] min-h-[250px] w-full items-center justify-center sm:h-[40vh] md:mt-2 md:h-[43vh]">
+          <div className="relative z-10 mt-5 flex h-[36vh] min-h-[255px] w-full items-center justify-center sm:h-[38vh] md:mt-5 md:h-[40vh]">
             <div className="absolute bottom-[7%] left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-72" />
             {flavors.map((flavor, index) => (
               <img
@@ -618,12 +623,12 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 src={flavor.showcaseImage || flavor.canFront}
                 alt={`${flavor.title} Fantome can`}
                 loading={index === 0 ? 'eager' : 'lazy'}
-                className="absolute left-1/2 top-1/2 h-[31vh] max-h-[340px] w-auto max-w-[78vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[38vh] md:h-[43vh] md:max-h-[450px]"
+                className="absolute left-1/2 top-1/2 h-[33vh] max-h-[365px] w-auto max-w-[78vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[37vh] md:h-[39vh] md:max-h-[430px]"
               />
             ))}
           </div>
 
-          <div className="relative z-20 mx-auto w-full max-w-3xl text-center">
+          <div className="relative z-20 mx-auto mt-2 w-full max-w-3xl text-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFlavor.title}
@@ -631,19 +636,19 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
                 transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                className="space-y-4"
+                className="space-y-3"
               >
-                <span className="inline-flex rounded-full border border-white/25 bg-black/28 px-4 py-1 text-xs font-black uppercase tracking-[0.16em] backdrop-blur-md" style={{ color: currentFlavor.color }}>
+                <span className="inline-flex rounded-full border border-white/25 bg-black/28 px-4 py-1 text-[0.68rem] font-black uppercase tracking-[0.16em] backdrop-blur-md" style={{ color: currentFlavor.color }}>
                   {currentFlavor.flavor}
                 </span>
-                <h3 className="font-sans text-3xl font-black uppercase leading-none sm:text-4xl md:text-5xl">
+                <h3 className="font-sans text-3xl font-black uppercase leading-[0.92] sm:text-4xl md:text-[2.8rem]">
                   {currentFlavor.title}
                   <span className="block" style={{ color: currentFlavor.color }}>Formulation</span>
                 </h3>
-                <p className="mx-auto max-w-2xl text-sm font-semibold leading-6 text-white/78 sm:text-base">
-                  {currentFlavor.desc}
+                <p className="mx-auto max-w-xl text-xs font-semibold leading-5 text-white/76 sm:text-sm">
+                  {shortFlavorDesc}
                 </p>
-                <div className="rounded-2xl border border-white/12 bg-black/24 p-4 text-left backdrop-blur-md">
+                <div className="rounded-2xl border border-white/12 bg-black/24 p-3 text-left backdrop-blur-md sm:p-4">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <h4 className="text-xs font-black uppercase tracking-[0.16em] text-white/84">Full Ingredient Manifest</h4>
                     <button
