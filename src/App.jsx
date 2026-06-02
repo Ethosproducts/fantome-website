@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send } from 'lucide-react';
+import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send, Volume2, VolumeX } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // ==========================================
@@ -151,6 +151,55 @@ function BackgroundEffects({ activeColor }) {
         ))}
       </div>
     </div>
+  );
+}
+
+function MusicToggle({ activeColor }) {
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.34;
+    }
+  }, []);
+
+  const toggleMusic = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+      return;
+    }
+
+    try {
+      await audio.play();
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
+    }
+  };
+
+  return (
+    <>
+      <audio ref={audioRef} src="/fantome-bg-music.mp3" loop preload="auto" />
+      <button
+        type="button"
+        onClick={toggleMusic}
+        className="fixed bottom-5 left-4 z-[80] flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/85 px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-white shadow-[0_18px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.08] sm:bottom-7 sm:left-7"
+        style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.5), 0 0 26px ${activeColor}24` }}
+        aria-label={isPlaying ? 'Pause background music' : 'Play background music'}
+      >
+        {isPlaying ? (
+          <Volume2 className="h-4 w-4" style={{ color: activeColor }} />
+        ) : (
+          <VolumeX className="h-4 w-4 text-slate-400" />
+        )}
+        <span className="hidden sm:inline">{isPlaying ? 'Music On' : 'Music'}</span>
+      </button>
+    </>
   );
 }
 
@@ -1908,6 +1957,7 @@ function App() {
       </AnimatePresence>
 
       <FantomeChatbot activeColor={activeColor} />
+      <MusicToggle activeColor={activeColor} />
     </div>
   );
 }
