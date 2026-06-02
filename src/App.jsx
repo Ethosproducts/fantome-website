@@ -549,8 +549,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         scrub: reduceMotion ? false : 0.85,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          const easedProgress = gsap.parseEase('power2.inOut')(self.progress);
-          const raw = easedProgress * last;
+          const raw = Math.min(last, self.progress * (last + 0.18));
           const nextIndex = Math.min(flavors.length - 1, Math.max(0, Math.round(raw)));
           const floor = Math.min(flavors.length - 2, Math.floor(raw));
           const local = Math.min(1, Math.max(0, raw - floor));
@@ -570,7 +569,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
             gsap.set(can, {
               x: distance * travel,
-              y: -24 - centerPull * 14,
+              y: -96 - centerPull * 18,
               yPercent: absDistance * 1.2,
               scale: 1.08 - Math.min(absDistance, 1) * 0.18,
               opacity: Math.max(0.5, 1 - absDistance * 0.44),
@@ -602,7 +601,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute left-1/2 top-[16%] h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-white/10 blur-[90px]" />
 
-        <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-start px-5 pb-8 pt-24 text-center sm:px-8 sm:pt-28 md:pb-10 md:pt-[7.5rem] lg:px-12">
+        <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-start px-5 pb-8 pt-24 text-center sm:px-8 sm:pt-28 md:pb-10 md:pt-[7.25rem] lg:px-12">
           <div className="relative z-20">
             <span className="text-xs font-black uppercase tracking-[0.32em] text-white/72">
               Chemical Breakdown
@@ -612,8 +611,8 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             </h2>
           </div>
 
-          <div className="relative z-10 mt-5 flex h-[36vh] min-h-[255px] w-full items-center justify-center sm:h-[38vh] md:mt-5 md:h-[40vh]">
-            <div className="absolute bottom-[7%] left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-72" />
+          <div className="relative z-10 mt-1 flex h-[37vh] min-h-[270px] w-full items-start justify-center sm:h-[39vh] md:mt-2 md:h-[42vh]">
+            <div className="absolute top-[58%] left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-72" />
             {flavors.map((flavor, index) => (
               <img
                 key={flavor.title}
@@ -623,12 +622,12 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 src={flavor.showcaseImage || flavor.canFront}
                 alt={`${flavor.title} Fantome can`}
                 loading={index === 0 ? 'eager' : 'lazy'}
-                className="absolute left-1/2 top-1/2 h-[33vh] max-h-[365px] w-auto max-w-[78vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[37vh] md:h-[39vh] md:max-h-[430px]"
+                className="absolute left-1/2 top-[62%] h-[33vh] max-h-[365px] w-auto max-w-[78vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[37vh] md:h-[39vh] md:max-h-[430px]"
               />
             ))}
           </div>
 
-          <div className="relative z-20 mx-auto mt-2 w-full max-w-3xl text-center">
+          <div className="relative z-20 mx-auto -mt-4 w-full max-w-3xl text-center md:-mt-8">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFlavor.title}
