@@ -1354,20 +1354,15 @@ function FantomeChatbot({ activeColor }) {
         transition={{ duration: 0.35 }}
         className={`fixed bottom-6 right-6 z-[100] flex flex-col items-center gap-2 ${isOpen ? 'pointer-events-none' : 'pointer-events-auto'}`}
       >
-        <motion.div
-          animate={{ y: [0, -5, 0], scale: [1, 1.04, 1] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-          className="relative rounded-full bg-white/90 border border-sky-400/40 px-3 py-1 text-[11px] font-bold tracking-wide text-slate-800 shadow-md md:px-4 md:py-1.5 md:text-xs"
+        <div
+          className="relative rounded-full border px-3 py-1 text-[11px] font-black tracking-wide text-white shadow-[0_10px_30px_rgba(0,0,0,0.42)] md:px-4 md:py-1.5 md:text-xs"
+          style={{ backgroundColor: '#05080d', borderColor: `${activeColor}80`, boxShadow: `0 10px 30px rgba(0,0,0,0.42), 0 0 22px ${activeColor}55` }}
         >
           Hi, ask me
-          <span className="absolute left-1/2 -bottom-1 h-2 w-2 -translate-x-1/2 rotate-45 bg-white border-b border-r border-sky-400/40" />
-        </motion.div>
+          <span className="absolute left-1/2 -bottom-1 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r" style={{ backgroundColor: '#05080d', borderColor: `${activeColor}80` }} />
+        </div>
 
-        <motion.div
-          animate={{ y: [0, -4, 0], rotate: [0, -2, 2, 0] }}
-          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-          className="relative flex flex-col items-center"
-        >
+        <div className="relative flex flex-col items-center">
           <div className="absolute -top-1 left-1/2 h-3 w-0.5 -translate-x-1/2 bg-slate-700 md:h-4" />
           <div className="absolute -top-4 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full border border-slate-700 bg-white md:-top-5 md:h-4 md:w-4" style={{ boxShadow: `0 0 10px ${activeColor}80` }} />
           <motion.button
@@ -1375,12 +1370,16 @@ function FantomeChatbot({ activeColor }) {
             onClick={() => setIsOpen(true)}
             animate={{ boxShadow: [`0 10px 28px ${activeColor}30`, `0 14px 42px ${activeColor}58`, `0 10px 28px ${activeColor}30`] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative h-16 w-16 rounded-2xl border border-sky-500/40 bg-sky-100 shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer md:h-20 md:w-20 md:rounded-3xl lg:h-24 lg:w-24"
-            style={{ boxShadow: `0 10px 28px ${activeColor}30` }}
+            className="relative h-16 w-16 rounded-[42%_42%_34%_34%/44%_44%_46%_46%] border shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer md:h-20 md:w-20 lg:h-24 lg:w-24"
+            style={{
+              background: `radial-gradient(circle at 50% 18%, rgba(255,255,255,0.95), #d9f4ff 42%, #aee7ff 100%)`,
+              borderColor: `${activeColor}80`,
+              boxShadow: `0 10px 28px ${activeColor}30`
+            }}
           >
-            <span className="absolute left-2 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-slate-700 md:left-2.5 md:h-7 lg:h-8" />
-            <span className="absolute right-2 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-slate-700 md:right-2.5 md:h-7 lg:h-8" />
-            <span className="absolute left-1/2 top-3 flex h-7 w-10 -translate-x-1/2 items-center justify-center rounded-xl bg-slate-800 md:top-4 md:h-9 md:w-14 lg:top-5 lg:h-10 lg:w-16">
+            <span className="absolute -left-1 top-1/2 h-6 w-2 -translate-y-1/2 rounded-full bg-slate-700 md:h-8 lg:h-9" />
+            <span className="absolute -right-1 top-1/2 h-6 w-2 -translate-y-1/2 rounded-full bg-slate-700 md:h-8 lg:h-9" />
+            <span className="absolute left-1/2 top-3 flex h-7 w-11 -translate-x-1/2 items-center justify-center rounded-[999px_999px_16px_16px] bg-slate-800 md:top-4 md:h-9 md:w-16 lg:top-5 lg:h-10 lg:w-[4.35rem]">
               <motion.span
                 animate={{ opacity: [1, 1, 0.25, 1] }}
                 transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
@@ -1394,9 +1393,10 @@ function FantomeChatbot({ activeColor }) {
                 style={{ backgroundColor: activeColor }}
               />
             </span>
-            <span className="absolute bottom-3 left-1/2 h-2 w-5 -translate-x-1/2 rounded-full border-b-2 border-slate-700 md:bottom-4 md:w-7 lg:bottom-5" />
+            <span className="absolute bottom-3 left-1/2 h-2 w-6 -translate-x-1/2 rounded-full border-b-2 border-slate-700 md:bottom-4 md:w-8 lg:bottom-5" />
+            <span className="absolute bottom-1.5 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-slate-700/40 md:w-10 lg:w-12" />
           </motion.button>
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Chat Window */}
