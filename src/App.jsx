@@ -229,7 +229,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       <BackgroundEffects activeColor={activeColor} />
 
-      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:items-center md:px-10 md:pb-20 md:text-left lg:px-12">
+      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:-mt-10 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:items-center md:px-10 md:pb-20 md:text-left lg:-mt-14 lg:px-12">
         <div className="mx-auto max-w-xl pt-0 sm:pt-8 md:mx-0 md:pt-0">
           <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.div
@@ -320,7 +320,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           <ChevronRight className="h-5 w-5" />
         </motion.button>
       </div>
-      <div className="absolute inset-x-0 top-[calc(100svh-4.25rem)] z-20 -translate-y-full sm:top-[calc(100svh-3.75rem)]">
+      <div className="absolute inset-x-0 top-[calc(100svh-2.75rem)] z-[5] -translate-y-full sm:top-[calc(100svh-2rem)]">
         <HeroTicker activeColor={activeColor} />
       </div>
     </section>
