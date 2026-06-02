@@ -275,7 +275,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="relative -mt-4 flex min-h-[28svh] items-center justify-center min-[390px]:-mt-5 min-[390px]:min-h-[31svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] md:justify-end"
+          className="relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] md:justify-end"
         >
           <motion.div
             className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
@@ -301,7 +301,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
               src={currentHero.image}
               alt={`${activeFlavor} Fantome can`}
-              className="relative z-10 h-[33svh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[36svh] sm:h-[64vh] md:h-[82vh]"
+              className="relative z-10 h-[41svh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[44svh] sm:h-[64vh] md:h-[82vh]"
             />
           </AnimatePresence>
           <button
@@ -318,7 +318,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           type="button"
           onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
           whileTap={{ scale: 0.98 }}
-          className="mx-auto -mt-5 inline-flex items-center gap-3 rounded-full border px-8 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer min-[390px]:-mt-6 md:hidden"
+          className="mx-auto -mt-8 inline-flex items-center gap-3 rounded-full border px-8 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer min-[390px]:-mt-10 md:hidden"
           style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
         >
           Buy now
