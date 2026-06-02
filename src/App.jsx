@@ -3,35 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-
-// ==========================================
-// 3D LIGHTNING BOLTS (SVG Revert)
-// ==========================================
-function LightningBolts({ color }) {
-  const flashVariants = {
-    animate: {
-      opacity: [0, 0, 1, 0, 1, 0, 0, 0],
-      transition: { duration: 4, repeat: Infinity, times: [0, 0.8, 0.82, 0.85, 0.88, 0.92, 1] }
-    }
-  };
-
-  return (
-    <motion.div 
-      className="absolute inset-0 z-0 pointer-events-none opacity-50 mix-blend-screen"
-      variants={flashVariants}
-      animate="animate"
-    >
-      <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M 10 0 L 15 20 L 5 40 L 20 60 L 10 80 L 15 100" fill="none" stroke={color} strokeWidth="0.5" style={{ filter: "none" }} />
-        <path d="M 90 0 L 85 15 L 95 30 L 80 50 L 90 75 L 85 100" fill="none" stroke={color} strokeWidth="0.5" style={{ filter: "none" }} />
-        <path d="M 15 20 L 30 35 L 20 50" fill="none" stroke={color} strokeWidth="0.3" style={{ filter: "none" }} />
-        <path d="M 85 15 L 70 25 L 75 40" fill="none" stroke={color} strokeWidth="0.3" style={{ filter: "none" }} />
-        <path d="M 50 -10 L 45 20 L 55 40 L 40 60 L 60 80 L 50 110" fill="none" stroke="#fff" strokeWidth="0.2" style={{ filter: "none" }} />
-      </svg>
-    </motion.div>
-  );
-}
-
 // ==========================================
 // HERO TICKER STRIP
 // ==========================================
@@ -113,18 +84,9 @@ function BackgroundEffects({ activeColor }) {
       style={{ '--mx': pointer.x, '--my': pointer.y, '--accent': activeColor }}
       aria-hidden="true"
     >
-      <LightningBolts color={activeColor} />
-
       <div className="light-beam beam-one" />
       <div className="light-beam beam-two" />
       <div className="light-beam beam-three" />
-
-      <div className="electric-arcs">
-        <span />
-        <span />
-        <span />
-        <span />
-      </div>
 
       <div className="wolf-trails">
         <span />
@@ -295,7 +257,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             <ChevronLeft className="h-5 w-5" />
           </button>
           <AnimatePresence mode="wait" custom={slideDirection}>
-            <motion.img
+            <motion.div
               key={activeFlavor}
               custom={slideDirection}
               variants={canSlide}
@@ -303,10 +265,16 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               animate="center"
               exit="exit"
               transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
-              src={currentHero.image}
-              alt={`${activeFlavor} Fantome can`}
-              className="relative z-10 h-[41svh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[44svh] sm:h-[64vh] md:h-[82vh]"
-            />
+              className="hero-can-wrap relative z-10 h-[41svh] max-h-[760px] w-fit min-[390px]:h-[44svh] sm:h-[64vh] md:h-[82vh]"
+              style={{ '--can-accent': activeColor }}
+            >
+              <img
+                src={currentHero.image}
+                alt={`${activeFlavor} Fantome can`}
+                className="hero-can-img h-full w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)]"
+              />
+              <span className="hero-can-shine" />
+            </motion.div>
           </AnimatePresence>
           <button
             type="button"

@@ -112,56 +112,6 @@
   transform: rotate(18deg);
 }
 
-.electric-arcs {
-  position: absolute;
-  inset: 0;
-  mix-blend-mode: screen;
-  transform: translate(calc(var(--mx) * -16px), calc(var(--my) * -10px));
-}
-
-.electric-arcs span {
-  position: absolute;
-  right: 16%;
-  top: 28%;
-  width: clamp(160px, 24vw, 420px);
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), var(--accent), rgba(255, 34, 44, 0.9), transparent);
-  box-shadow: 0 0 24px var(--accent), 0 0 46px rgba(255, 42, 54, 0.62), 0 0 70px rgba(255,255,255,0.22);
-  opacity: 0;
-  transform: rotate(-18deg) scaleX(0.35);
-  animation: electric-strike 4.2s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-.electric-arcs span:nth-child(2) {
-  --strike-rotate: 13deg;
-  top: 39%;
-  right: 6%;
-  width: clamp(120px, 18vw, 320px);
-  transform: rotate(13deg) scaleX(0.35);
-  animation-delay: -1.2s;
-}
-
-.electric-arcs span:nth-child(3) {
-  --strike-rotate: -9deg;
-  top: 63%;
-  right: 20%;
-  width: clamp(140px, 20vw, 360px);
-  transform: rotate(-9deg) scaleX(0.35);
-  animation-delay: -2.4s;
-}
-
-.electric-arcs span:nth-child(4) {
-  --strike-rotate: 19deg;
-  top: 52%;
-  right: 42%;
-  width: clamp(90px, 13vw, 230px);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), var(--accent), transparent);
-  transform: rotate(19deg) scaleX(0.35);
-  animation-delay: -3.1s;
-}
-
 .wolf-trails {
   position: absolute;
   inset: 0;
@@ -367,6 +317,33 @@
   transform: rotate(18deg);
 }
 
+.hero-can-wrap {
+  overflow: hidden;
+  border-radius: 999px;
+  filter: drop-shadow(0 0 22px color-mix(in srgb, var(--can-accent) 42%, transparent));
+}
+
+.hero-can-img {
+  animation: can-spotlight-shine 4.8s ease-in-out infinite;
+  will-change: filter;
+}
+
+.hero-can-shine {
+  position: absolute;
+  inset: 2% 12%;
+  border-radius: 999px;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    linear-gradient(100deg, transparent 12%, rgba(255, 255, 255, 0.04) 34%, rgba(255, 255, 255, 0.62) 46%, rgba(255, 255, 255, 0.12) 56%, transparent 72%),
+    radial-gradient(circle at 45% 22%, color-mix(in srgb, var(--can-accent) 35%, white 38%), transparent 38%);
+  filter: blur(2px);
+  opacity: 0;
+  transform: translateX(-72%) skewX(-10deg);
+  animation: can-gloss-sweep 4.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
 @keyframes beam-sway {
   0% { transform: translateX(-42px) rotate(8deg) scaleY(1); }
   50% { transform: translateX(18px) rotate(14deg) scaleY(1.04); }
@@ -383,18 +360,24 @@
   78% { opacity: 0.42; filter: blur(20px) brightness(1); }
 }
 
-@keyframes electric-strike {
-  0%, 68%, 100% { opacity: 0; transform: translateX(34px) rotate(var(--strike-rotate, -18deg)) scaleX(0.25); }
-  72% { opacity: 0.9; transform: translateX(0) rotate(var(--strike-rotate, -18deg)) scaleX(1); }
-  76% { opacity: 0.16; transform: translateX(-18px) rotate(var(--strike-rotate, -18deg)) scaleX(0.72); }
-  80% { opacity: 0.72; transform: translateX(-34px) rotate(var(--strike-rotate, -18deg)) scaleX(1.08); }
-  86% { opacity: 0; transform: translateX(-70px) rotate(var(--strike-rotate, -18deg)) scaleX(0.45); }
-}
-
 @keyframes wolf-pulse {
   0%, 100% { opacity: 0.08; transform: translateX(-18px) scaleX(0.45) rotate(-16deg); }
   38% { opacity: 0.68; transform: translateX(20px) scaleX(1.12) rotate(-16deg); }
   58% { opacity: 0.22; transform: translateX(42px) scaleX(0.7) rotate(-16deg); }
+}
+
+@keyframes can-spotlight-shine {
+  0%, 100% { filter: brightness(1) contrast(1.02) saturate(1); }
+  32% { filter: brightness(1.08) contrast(1.08) saturate(1.04); }
+  46% { filter: brightness(1.22) contrast(1.12) saturate(1.08); }
+  62% { filter: brightness(1.06) contrast(1.05) saturate(1.03); }
+}
+
+@keyframes can-gloss-sweep {
+  0%, 28%, 100% { opacity: 0; transform: translateX(-78%) skewX(-10deg); }
+  40% { opacity: 0.55; }
+  54% { opacity: 0.78; transform: translateX(10%) skewX(-10deg); }
+  68% { opacity: 0; transform: translateX(82%) skewX(-10deg); }
 }
 
 @keyframes mist-drift {
@@ -441,12 +424,6 @@
     width: 18vw;
     opacity: 0.34;
     filter: blur(20px);
-  }
-
-  .electric-arcs span {
-    width: 150px;
-    opacity: 0;
-    animation-duration: 5.8s;
   }
 
   .wolf-trails span {
