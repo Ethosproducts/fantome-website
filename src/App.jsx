@@ -90,6 +90,12 @@ function BackgroundEffects({ activeColor }) {
       <div className="light-beam beam-two" />
       <div className="light-beam beam-three" />
 
+      <div className="aurora-waves">
+        <span />
+        <span />
+        <span />
+      </div>
+
       <div className="wolf-trails">
         <span />
         <span />

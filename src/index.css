@@ -112,6 +112,59 @@
   transform: rotate(18deg);
 }
 
+.aurora-waves {
+  position: absolute;
+  inset: -18% -12%;
+  opacity: 0.78;
+  mix-blend-mode: screen;
+  filter: saturate(1.2);
+  transform: translate(calc(var(--mx) * -20px), calc(var(--my) * -12px));
+}
+
+.aurora-waves span {
+  position: absolute;
+  left: -18%;
+  width: 136%;
+  height: 34vh;
+  min-height: 260px;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 30% 50%, color-mix(in srgb, var(--accent) 72%, white 18%), transparent 44%),
+    linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--accent) 70%, white 16%) 24%, rgba(255,255,255,0.34) 48%, color-mix(in srgb, var(--accent) 62%, black 10%) 72%, transparent 100%);
+  filter: blur(42px);
+  opacity: 0.46;
+  transform: rotate(-10deg) translate3d(-8%, 0, 0);
+  animation: aurora-flow 14s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.aurora-waves span:nth-child(1) {
+  top: 12%;
+}
+
+.aurora-waves span:nth-child(2) {
+  top: 38%;
+  height: 42vh;
+  opacity: 0.36;
+  filter: blur(54px);
+  transform: rotate(7deg) translate3d(8%, 0, 0);
+  animation-duration: 18s;
+  animation-delay: -6s;
+}
+
+.aurora-waves span:nth-child(3) {
+  top: 64%;
+  height: 30vh;
+  opacity: 0.32;
+  filter: blur(48px);
+  background:
+    radial-gradient(ellipse at 68% 50%, rgba(255,255,255,0.42), transparent 42%),
+    linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--accent) 54%, white 12%) 30%, rgba(255,255,255,0.2) 54%, transparent 100%);
+  transform: rotate(-4deg) translate3d(-6%, 0, 0);
+  animation-duration: 16s;
+  animation-delay: -10s;
+}
+
 .wolf-trails {
   position: absolute;
   inset: 0;
@@ -344,6 +397,25 @@
   78% { opacity: 0.22; filter: blur(23px) brightness(0.85); }
 }
 
+@keyframes aurora-flow {
+  0% {
+    opacity: 0.24;
+    transform: rotate(-10deg) translate3d(-12%, 4%, 0) scaleX(0.94) scaleY(0.92);
+  }
+  35% {
+    opacity: 0.58;
+    transform: rotate(-6deg) translate3d(2%, -3%, 0) scaleX(1.04) scaleY(1.08);
+  }
+  70% {
+    opacity: 0.42;
+    transform: rotate(4deg) translate3d(12%, 3%, 0) scaleX(1.12) scaleY(0.96);
+  }
+  100% {
+    opacity: 0.64;
+    transform: rotate(8deg) translate3d(4%, -5%, 0) scaleX(1.02) scaleY(1.12);
+  }
+}
+
 @keyframes wolf-pulse {
   0%, 100% { opacity: 0.08; transform: translateX(-18px) scaleX(0.45) rotate(-16deg); }
   38% { opacity: 0.68; transform: translateX(20px) scaleX(1.12) rotate(-16deg); }
@@ -423,6 +495,18 @@
   .mist-layer {
     opacity: 0.34;
     filter: blur(30px);
+  }
+
+  .aurora-waves {
+    inset: -10% -38%;
+    opacity: 0.58;
+  }
+
+  .aurora-waves span {
+    height: 28vh;
+    min-height: 190px;
+    filter: blur(34px);
+    animation-duration: 18s;
   }
 
   .rising-smoke span {
