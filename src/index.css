@@ -152,14 +152,14 @@
 
 .mist-layer {
   position: absolute;
-  width: 68vw;
-  height: 34vh;
+  width: 82vw;
+  height: 44vh;
   min-width: 360px;
   border-radius: 999px;
-  filter: blur(38px);
-  opacity: 0.36;
-  background: radial-gradient(circle, rgba(205, 224, 238, 0.34), rgba(75, 104, 132, 0.2) 42%, transparent 72%);
-  animation: mist-drift 12s ease-in-out infinite alternate;
+  filter: blur(32px);
+  opacity: 0.58;
+  background: radial-gradient(circle, rgba(220, 234, 245, 0.52), rgba(92, 124, 154, 0.34) 42%, rgba(26, 42, 58, 0.18) 62%, transparent 78%);
+  animation: mist-drift 9s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -171,17 +171,17 @@
 .mist-two {
   right: -16%;
   top: 18%;
-  opacity: 0.26;
-  animation-duration: 16s;
+  opacity: 0.46;
+  animation-duration: 11s;
   animation-delay: -7s;
 }
 
 .mist-three {
   left: 28%;
   bottom: 4%;
-  height: 22vh;
-  opacity: 0.22;
-  animation-duration: 18s;
+  height: 30vh;
+  opacity: 0.38;
+  animation-duration: 13s;
   animation-delay: -13s;
 }
 
@@ -197,51 +197,51 @@
   position: absolute;
   bottom: -18%;
   right: 13%;
-  width: clamp(180px, 22vw, 340px);
-  height: clamp(180px, 24vw, 380px);
+  width: clamp(240px, 30vw, 500px);
+  height: clamp(240px, 34vw, 560px);
   border-radius: 45% 55% 60% 40%;
   background:
-    radial-gradient(circle at 35% 35%, rgba(225, 236, 246, 0.34), transparent 34%),
-    radial-gradient(circle at 65% 62%, rgba(100, 130, 158, 0.28), transparent 42%),
-    radial-gradient(circle at 45% 72%, rgba(255, 255, 255, 0.18), transparent 46%);
-  filter: blur(24px);
+    radial-gradient(circle at 35% 35%, rgba(235, 244, 250, 0.52), transparent 34%),
+    radial-gradient(circle at 65% 62%, rgba(116, 148, 178, 0.42), transparent 42%),
+    radial-gradient(circle at 45% 72%, rgba(255, 255, 255, 0.3), transparent 46%);
+  filter: blur(20px);
   opacity: 0;
   mix-blend-mode: screen;
-  animation: smoke-rise 10s ease-in-out infinite;
+  animation: smoke-rise 8s ease-in-out infinite;
   will-change: transform, opacity;
 }
 
 .rising-smoke span:nth-child(2) {
   right: 23%;
-  width: clamp(150px, 18vw, 290px);
-  height: clamp(160px, 20vw, 320px);
+  width: clamp(220px, 26vw, 440px);
+  height: clamp(230px, 28vw, 470px);
   animation-delay: -3s;
-  animation-duration: 14s;
+  animation-duration: 9.5s;
   opacity: 0;
 }
 
 .rising-smoke span:nth-child(3) {
   right: 5%;
-  width: clamp(130px, 16vw, 260px);
-  height: clamp(140px, 18vw, 290px);
+  width: clamp(210px, 24vw, 410px);
+  height: clamp(220px, 27vw, 450px);
   animation-delay: -6s;
-  animation-duration: 13s;
+  animation-duration: 9s;
 }
 
 .rising-smoke span:nth-child(4) {
   right: 31%;
-  width: clamp(120px, 14vw, 240px);
-  height: clamp(130px, 16vw, 260px);
+  width: clamp(190px, 22vw, 380px);
+  height: clamp(200px, 24vw, 420px);
   animation-delay: -8.5s;
-  animation-duration: 15s;
+  animation-duration: 10s;
 }
 
 .rising-smoke span:nth-child(5) {
   right: 18%;
-  width: clamp(220px, 26vw, 420px);
-  height: clamp(160px, 18vw, 300px);
+  width: clamp(300px, 34vw, 580px);
+  height: clamp(220px, 28vw, 480px);
   animation-delay: -10s;
-  animation-duration: 16s;
+  animation-duration: 11s;
 }
 
 .energy-particles span {
@@ -351,10 +351,10 @@
     transform: translate3d(0, 0, 0) scale(0.78) rotate(0deg);
   }
   16% {
-    opacity: 0.48;
+    opacity: 0.78;
   }
   58% {
-    opacity: 0.32;
+    opacity: 0.56;
   }
   100% {
     opacity: 0;
@@ -392,16 +392,16 @@
   }
 
   .mist-layer {
-    opacity: 0.18;
-    filter: blur(34px);
+    opacity: 0.34;
+    filter: blur(30px);
   }
 
   .rising-smoke span {
     right: -4%;
-    width: 190px;
-    height: 230px;
-    filter: blur(24px);
-    animation-duration: 15s;
+    width: 260px;
+    height: 320px;
+    filter: blur(22px);
+    animation-duration: 10s;
   }
 
   .rising-smoke span:nth-child(n + 4) {
