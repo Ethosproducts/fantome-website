@@ -193,6 +193,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
   };
 
   const currentHero = heroData[activeFlavor] || heroData['Sugar Free'];
+  const isMojitoHero = activeFlavor === 'Mojito';
   const currentIndex = Math.max(0, flavors.findIndex((flavor) => flavor.title === activeFlavor));
   const changeHeroFlavor = (direction) => {
     if (!flavors.length || !setActiveFlavor) return;
@@ -219,8 +220,8 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       <BackgroundEffects activeColor={activeColor} />
 
-      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:-mt-10 md:min-h-[calc(100vh-8rem)] md:grid-cols-[0.9fr_1.1fr] md:items-center md:px-10 md:pb-20 md:text-left lg:-mt-14 lg:px-12">
-        <div className="mx-auto max-w-xl pt-0 sm:pt-8 md:mx-0 md:pt-0">
+      <div className={`relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:-mt-10 md:min-h-[calc(100vh-8rem)] md:items-center md:px-10 md:pb-20 lg:-mt-14 lg:px-12 ${isMojitoHero ? 'md:grid-cols-[1.08fr_0.92fr] md:text-right' : 'md:grid-cols-[0.9fr_1.1fr] md:text-left'}`}>
+        <div className={`mx-auto max-w-xl pt-0 sm:pt-8 md:pt-0 ${isMojitoHero ? 'md:col-start-2 md:mx-0 md:ml-auto' : 'md:mx-0'}`}>
           <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.div
               key={activeFlavor}
@@ -238,7 +239,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
                 {currentHero.eyebrow}
               </p>
               <h1
-                className="mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl md:mx-0 lg:text-8xl"
+                className={`mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl lg:text-8xl ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
                 style={{
                   color: currentHero.titleColor || currentHero.bg,
                   textShadow: `0 0 28px ${(currentHero.titleColor || currentHero.bg)}3a, 0 8px 36px rgba(0,0,0,0.45)`
@@ -248,7 +249,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
                 <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
               </h1>
               <p
-                className="mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:mx-0 md:text-lg"
+                className={`mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:text-lg ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
                 style={{ color: currentHero.copyColor || 'rgba(255,255,255,0.78)' }}
               >
                 {currentHero.copy}
@@ -260,7 +261,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             onClick={() => document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' })}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
-            className="mt-6 hidden items-center gap-3 rounded-full border px-7 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer sm:mt-9 sm:gap-4 sm:px-9 sm:py-4 sm:text-base md:inline-flex"
+            className={`mt-6 hidden items-center gap-3 rounded-full border px-7 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer sm:mt-9 sm:gap-4 sm:px-9 sm:py-4 sm:text-base md:inline-flex ${isMojitoHero ? 'md:ml-auto' : ''}`}
             style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
           >
             Connect Us
@@ -272,7 +273,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] md:justify-end"
+          className={`relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] ${isMojitoHero ? 'md:col-start-1 md:row-start-1 md:justify-start' : 'md:justify-end'}`}
         >
           <motion.div
             className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
@@ -1605,15 +1606,16 @@ function App() {
             <button
               type="button"
               onClick={toggleMusic}
-              className="flex h-16 w-16 items-center justify-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.10] cursor-pointer sm:h-20 sm:w-20 lg:hidden"
+              className="flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-[1.1rem] border border-white/10 bg-slate-950/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.10] cursor-pointer sm:h-20 sm:w-20 lg:hidden"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
               aria-label={isMusicPlaying ? 'Pause background music' : 'Play background music'}
             >
               {isMusicPlaying ? (
-                <Volume2 className="h-6 w-6" style={{ color: activeColor }} />
+                <Volume2 className="h-5 w-5" style={{ color: activeColor }} />
               ) : (
-                <VolumeX className="h-6 w-6 text-slate-300" />
+                <VolumeX className="h-5 w-5 text-slate-300" />
               )}
+              <span className="text-[8px] font-black uppercase leading-none tracking-[0.08em] text-slate-200">Vibe</span>
             </button>
 
             <div className="hidden w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:mx-auto lg:block lg:max-w-[660px] xl:max-w-[760px]">
@@ -1640,15 +1642,16 @@ function App() {
               <button
                 type="button"
                 onClick={toggleMusic}
-                className="flex h-20 w-20 items-center justify-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.10] cursor-pointer"
+                className="flex h-20 w-20 flex-col items-center justify-center gap-1.5 rounded-[1.1rem] border border-white/10 bg-slate-950/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.10] cursor-pointer"
                 style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
                 aria-label={isMusicPlaying ? 'Pause background music' : 'Play background music'}
               >
                 {isMusicPlaying ? (
-                  <Volume2 className="h-7 w-7" style={{ color: activeColor }} />
+                  <Volume2 className="h-6 w-6" style={{ color: activeColor }} />
                 ) : (
-                  <VolumeX className="h-7 w-7 text-slate-300" />
+                  <VolumeX className="h-6 w-6 text-slate-300" />
                 )}
+                <span className="text-[9px] font-black uppercase leading-none tracking-[0.09em] text-slate-200">On Vibe</span>
               </button>
             </div>
           </div>
