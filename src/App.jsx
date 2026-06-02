@@ -569,7 +569,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
             gsap.set(can, {
               x: distance * travel,
-              y: -96 - centerPull * 18,
+              y: -168 - centerPull * 26,
               yPercent: absDistance * 1.2,
               scale: 1.08 - Math.min(absDistance, 1) * 0.18,
               opacity: Math.max(0.5, 1 - absDistance * 0.44),
@@ -603,16 +603,16 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 
         <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-start px-5 pb-8 pt-24 text-center sm:px-8 sm:pt-28 md:pb-10 md:pt-[7.25rem] lg:px-12">
           <div className="relative z-20">
-            <span className="text-xs font-black uppercase tracking-[0.32em] text-white/72">
+            <span className="text-[0.68rem] font-black uppercase tracking-[0.3em] text-white/68">
               Chemical Breakdown
             </span>
-            <h2 className="mt-2 font-sans text-4xl font-black uppercase leading-[0.95] text-white sm:text-5xl md:text-6xl">
+            <h2 className="mt-1 font-sans text-3xl font-black uppercase leading-[0.95] text-white sm:text-4xl md:text-5xl">
               Formula Variations
             </h2>
           </div>
 
-          <div className="relative z-10 mt-1 flex h-[37vh] min-h-[270px] w-full items-start justify-center sm:h-[39vh] md:mt-2 md:h-[42vh]">
-            <div className="absolute top-[58%] left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-72" />
+          <div className="relative z-10 -mt-1 flex h-[40vh] min-h-[300px] w-full items-start justify-center sm:h-[42vh] md:mt-0 md:h-[45vh]">
+            <div className="absolute top-[50%] left-1/2 h-10 w-64 -translate-x-1/2 rounded-full bg-black/45 blur-xl md:h-12 md:w-80" />
             {flavors.map((flavor, index) => (
               <img
                 key={flavor.title}
@@ -622,12 +622,12 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 src={flavor.showcaseImage || flavor.canFront}
                 alt={`${flavor.title} Fantome can`}
                 loading={index === 0 ? 'eager' : 'lazy'}
-                className="absolute left-1/2 top-[62%] h-[33vh] max-h-[365px] w-auto max-w-[78vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_34px_45px_rgba(0,0,0,0.58)] will-change-transform sm:h-[37vh] md:h-[39vh] md:max-h-[430px]"
+                className="absolute left-1/2 top-[58%] h-[38vh] max-h-[430px] w-auto max-w-[82vw] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_38px_52px_rgba(0,0,0,0.62)] will-change-transform sm:h-[42vh] md:h-[46vh] md:max-h-[520px]"
               />
             ))}
           </div>
 
-          <div className="relative z-20 mx-auto -mt-4 w-full max-w-3xl text-center md:-mt-8">
+          <div className="relative z-20 mx-auto -mt-8 w-full max-w-3xl text-center md:-mt-12">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFlavor.title}
