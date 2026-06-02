@@ -549,8 +549,9 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         scrub: reduceMotion ? false : 0.85,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          const raw = Math.min(last, self.progress * (last + 0.38));
-          const nextIndex = Math.min(flavors.length - 1, Math.max(0, Math.round(raw)));
+          const rawProgress = Math.min(last, self.progress * (last + 0.75));
+          const nextIndex = Math.min(flavors.length - 1, Math.max(0, Math.round(rawProgress)));
+          const raw = nextIndex === flavors.length - 1 ? last : rawProgress;
           const floor = Math.min(flavors.length - 2, Math.floor(raw));
           const local = Math.min(1, Math.max(0, raw - floor));
           const mixedColor = flavors.length > 1
