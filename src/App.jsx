@@ -113,9 +113,18 @@ function BackgroundEffects({ activeColor }) {
       style={{ '--mx': pointer.x, '--my': pointer.y, '--accent': activeColor }}
       aria-hidden="true"
     >
+      <LightningBolts color={activeColor} />
+
       <div className="light-beam beam-one" />
       <div className="light-beam beam-two" />
       <div className="light-beam beam-three" />
+
+      <div className="electric-arcs">
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
 
       <div className="wolf-trails">
         <span />
