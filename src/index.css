@@ -80,10 +80,10 @@
   min-width: 90px;
   border-radius: 999px;
   filter: blur(18px);
-  opacity: 0.58;
+  opacity: 0.46;
   mix-blend-mode: screen;
   transform: rotate(12deg);
-  animation: beam-sway 8s ease-in-out infinite alternate, beam-flicker 2.8s ease-in-out infinite;
+  animation: beam-sway 9s ease-in-out infinite alternate, beam-blink 5.8s ease-in-out infinite;
   will-change: transform;
 }
 
@@ -98,7 +98,7 @@
   opacity: 0.48;
   background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.88), rgba(142, 204, 255, 0.36), transparent);
   animation-duration: 10s;
-  animation-delay: -5s;
+  animation-delay: -5s, -2s;
   transform: rotate(-8deg);
 }
 
@@ -108,7 +108,7 @@
   opacity: 0.42;
   background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--accent) 72%, white 34%), rgba(255,255,255,0.2), transparent);
   animation-duration: 11s;
-  animation-delay: -9s;
+  animation-delay: -9s, -3.5s;
   transform: rotate(18deg);
 }
 
@@ -152,14 +152,14 @@
 
 .mist-layer {
   position: absolute;
-  width: 58vw;
-  height: 28vh;
+  width: 68vw;
+  height: 34vh;
   min-width: 360px;
   border-radius: 999px;
-  filter: blur(42px);
-  opacity: 0.28;
-  background: radial-gradient(circle, rgba(167, 190, 210, 0.28), rgba(54, 79, 105, 0.14) 42%, transparent 72%);
-  animation: mist-drift 15s ease-in-out infinite alternate;
+  filter: blur(38px);
+  opacity: 0.36;
+  background: radial-gradient(circle, rgba(205, 224, 238, 0.34), rgba(75, 104, 132, 0.2) 42%, transparent 72%);
+  animation: mist-drift 12s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -171,8 +171,8 @@
 .mist-two {
   right: -16%;
   top: 18%;
-  opacity: 0.16;
-  animation-duration: 28s;
+  opacity: 0.26;
+  animation-duration: 16s;
   animation-delay: -7s;
 }
 
@@ -180,8 +180,8 @@
   left: 28%;
   bottom: 4%;
   height: 22vh;
-  opacity: 0.13;
-  animation-duration: 31s;
+  opacity: 0.22;
+  animation-duration: 18s;
   animation-delay: -13s;
 }
 
@@ -201,13 +201,13 @@
   height: clamp(180px, 24vw, 380px);
   border-radius: 45% 55% 60% 40%;
   background:
-    radial-gradient(circle at 35% 35%, rgba(218, 232, 244, 0.22), transparent 34%),
-    radial-gradient(circle at 65% 62%, rgba(86, 116, 145, 0.2), transparent 42%),
-    radial-gradient(circle at 45% 72%, rgba(255, 255, 255, 0.12), transparent 46%);
-  filter: blur(28px);
+    radial-gradient(circle at 35% 35%, rgba(225, 236, 246, 0.34), transparent 34%),
+    radial-gradient(circle at 65% 62%, rgba(100, 130, 158, 0.28), transparent 42%),
+    radial-gradient(circle at 45% 72%, rgba(255, 255, 255, 0.18), transparent 46%);
+  filter: blur(24px);
   opacity: 0;
   mix-blend-mode: screen;
-  animation: smoke-rise 12s ease-in-out infinite;
+  animation: smoke-rise 10s ease-in-out infinite;
   will-change: transform, opacity;
 }
 
@@ -317,47 +317,20 @@
   transform: rotate(18deg);
 }
 
-.hero-can-wrap {
-  overflow: hidden;
-  border-radius: 999px;
-  filter: drop-shadow(0 0 22px color-mix(in srgb, var(--can-accent) 42%, transparent));
-}
-
-.hero-can-img {
-  animation: can-spotlight-shine 4.8s ease-in-out infinite;
-  will-change: filter;
-}
-
-.hero-can-shine {
-  position: absolute;
-  inset: 2% 12%;
-  border-radius: 999px;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  background:
-    linear-gradient(100deg, transparent 12%, rgba(255, 255, 255, 0.04) 34%, rgba(255, 255, 255, 0.62) 46%, rgba(255, 255, 255, 0.12) 56%, transparent 72%),
-    radial-gradient(circle at 45% 22%, color-mix(in srgb, var(--can-accent) 35%, white 38%), transparent 38%);
-  filter: blur(2px);
-  opacity: 0;
-  transform: translateX(-72%) skewX(-10deg);
-  animation: can-gloss-sweep 4.8s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
 @keyframes beam-sway {
   0% { transform: translateX(-42px) rotate(8deg) scaleY(1); }
   50% { transform: translateX(18px) rotate(14deg) scaleY(1.04); }
   100% { transform: translateX(54px) rotate(18deg) scaleY(0.98); }
 }
 
-@keyframes beam-flicker {
-  0%, 100% { opacity: 0.38; filter: blur(20px) brightness(0.95); }
-  12% { opacity: 0.72; filter: blur(16px) brightness(1.45); }
-  19% { opacity: 0.46; filter: blur(19px) brightness(1.05); }
-  33% { opacity: 0.82; filter: blur(15px) brightness(1.7); }
-  47% { opacity: 0.5; filter: blur(18px) brightness(1.12); }
-  66% { opacity: 0.74; filter: blur(16px) brightness(1.55); }
-  78% { opacity: 0.42; filter: blur(20px) brightness(1); }
+@keyframes beam-blink {
+  0%, 18%, 100% { opacity: 0.18; filter: blur(24px) brightness(0.8); }
+  24% { opacity: 0.72; filter: blur(17px) brightness(1.55); }
+  30% { opacity: 0.28; filter: blur(22px) brightness(0.9); }
+  35% { opacity: 0.86; filter: blur(15px) brightness(1.85); }
+  42%, 66% { opacity: 0.32; filter: blur(22px) brightness(1); }
+  72% { opacity: 0.78; filter: blur(16px) brightness(1.7); }
+  78% { opacity: 0.22; filter: blur(23px) brightness(0.85); }
 }
 
 @keyframes wolf-pulse {
@@ -366,23 +339,10 @@
   58% { opacity: 0.22; transform: translateX(42px) scaleX(0.7) rotate(-16deg); }
 }
 
-@keyframes can-spotlight-shine {
-  0%, 100% { filter: brightness(1) contrast(1.02) saturate(1); }
-  32% { filter: brightness(1.08) contrast(1.08) saturate(1.04); }
-  46% { filter: brightness(1.22) contrast(1.12) saturate(1.08); }
-  62% { filter: brightness(1.06) contrast(1.05) saturate(1.03); }
-}
-
-@keyframes can-gloss-sweep {
-  0%, 28%, 100% { opacity: 0; transform: translateX(-78%) skewX(-10deg); }
-  40% { opacity: 0.55; }
-  54% { opacity: 0.78; transform: translateX(10%) skewX(-10deg); }
-  68% { opacity: 0; transform: translateX(82%) skewX(-10deg); }
-}
-
 @keyframes mist-drift {
-  0% { transform: translate3d(-4%, 1%, 0) scale(1); }
-  100% { transform: translate3d(7%, -6%, 0) scale(1.08); }
+  0% { transform: translate3d(-8%, 4%, 0) scale(1); }
+  50% { transform: translate3d(4%, -4%, 0) scale(1.12); }
+  100% { transform: translate3d(12%, -8%, 0) scale(1.18); }
 }
 
 @keyframes smoke-rise {
@@ -391,10 +351,10 @@
     transform: translate3d(0, 0, 0) scale(0.78) rotate(0deg);
   }
   16% {
-    opacity: 0.3;
+    opacity: 0.48;
   }
   58% {
-    opacity: 0.2;
+    opacity: 0.32;
   }
   100% {
     opacity: 0;
@@ -432,7 +392,7 @@
   }
 
   .mist-layer {
-    opacity: 0.08;
+    opacity: 0.18;
     filter: blur(34px);
   }
 

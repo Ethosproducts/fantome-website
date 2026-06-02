@@ -257,7 +257,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             <ChevronLeft className="h-5 w-5" />
           </button>
           <AnimatePresence mode="wait" custom={slideDirection}>
-            <motion.div
+            <motion.img
               key={activeFlavor}
               custom={slideDirection}
               variants={canSlide}
@@ -265,16 +265,10 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               animate="center"
               exit="exit"
               transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
-              className="hero-can-wrap relative z-10 h-[41svh] max-h-[760px] w-fit min-[390px]:h-[44svh] sm:h-[64vh] md:h-[82vh]"
-              style={{ '--can-accent': activeColor }}
-            >
-              <img
-                src={currentHero.image}
-                alt={`${activeFlavor} Fantome can`}
-                className="hero-can-img h-full w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)]"
-              />
-              <span className="hero-can-shine" />
-            </motion.div>
+              src={currentHero.image}
+              alt={`${activeFlavor} Fantome can`}
+              className="relative z-10 h-[41svh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[44svh] sm:h-[64vh] md:h-[82vh]"
+            />
           </AnimatePresence>
           <button
             type="button"
