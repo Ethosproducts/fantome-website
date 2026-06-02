@@ -79,24 +79,24 @@
   width: 11vw;
   min-width: 90px;
   border-radius: 999px;
-  filter: blur(22px);
-  opacity: 0.42;
+  filter: blur(18px);
+  opacity: 0.58;
   mix-blend-mode: screen;
   transform: rotate(12deg);
-  animation: beam-sway 8s ease-in-out infinite alternate;
+  animation: beam-sway 8s ease-in-out infinite alternate, beam-flicker 2.8s ease-in-out infinite;
   will-change: transform;
 }
 
 .beam-one {
   right: 22%;
-  background: linear-gradient(to bottom, transparent, rgba(196, 229, 255, 0.72), rgba(29, 78, 116, 0.42), transparent);
+  background: linear-gradient(to bottom, transparent, rgba(224, 244, 255, 0.92), rgba(92, 177, 255, 0.48), transparent);
 }
 
 .beam-two {
   right: 10%;
   width: 7vw;
-  opacity: 0.34;
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.68), rgba(58, 98, 130, 0.28), transparent);
+  opacity: 0.48;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.88), rgba(142, 204, 255, 0.36), transparent);
   animation-duration: 10s;
   animation-delay: -5s;
   transform: rotate(-8deg);
@@ -105,8 +105,8 @@
 .beam-three {
   right: 38%;
   width: 8vw;
-  opacity: 0.26;
-  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--accent) 62%, white 20%), transparent);
+  opacity: 0.42;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--accent) 72%, white 34%), rgba(255,255,255,0.2), transparent);
   animation-duration: 11s;
   animation-delay: -9s;
   transform: rotate(18deg);
@@ -127,7 +127,7 @@
   height: 2px;
   border-radius: 999px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), var(--accent), rgba(255, 34, 44, 0.9), transparent);
-  box-shadow: 0 0 18px var(--accent), 0 0 34px rgba(255, 42, 54, 0.45);
+  box-shadow: 0 0 24px var(--accent), 0 0 46px rgba(255, 42, 54, 0.62), 0 0 70px rgba(255,255,255,0.22);
   opacity: 0;
   transform: rotate(-18deg) scaleX(0.35);
   animation: electric-strike 4.2s ease-in-out infinite;
@@ -343,8 +343,8 @@
   width: 360px;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.86), var(--accent), transparent);
-  box-shadow: 0 0 22px rgba(255, 255, 255, 0.55), 0 0 36px var(--accent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.98), var(--accent), rgba(255, 42, 54, 0.82), transparent);
+  box-shadow: 0 0 28px rgba(255, 255, 255, 0.72), 0 0 52px var(--accent);
   opacity: 0;
   transform: rotate(-18deg);
   animation: shooting-light 4.8s ease-in-out infinite;
@@ -371,6 +371,16 @@
   0% { transform: translateX(-42px) rotate(8deg) scaleY(1); }
   50% { transform: translateX(18px) rotate(14deg) scaleY(1.04); }
   100% { transform: translateX(54px) rotate(18deg) scaleY(0.98); }
+}
+
+@keyframes beam-flicker {
+  0%, 100% { opacity: 0.38; filter: blur(20px) brightness(0.95); }
+  12% { opacity: 0.72; filter: blur(16px) brightness(1.45); }
+  19% { opacity: 0.46; filter: blur(19px) brightness(1.05); }
+  33% { opacity: 0.82; filter: blur(15px) brightness(1.7); }
+  47% { opacity: 0.5; filter: blur(18px) brightness(1.12); }
+  66% { opacity: 0.74; filter: blur(16px) brightness(1.55); }
+  78% { opacity: 0.42; filter: blur(20px) brightness(1); }
 }
 
 @keyframes electric-strike {
@@ -429,7 +439,7 @@
 @media (max-width: 767px) {
   .light-beam {
     width: 18vw;
-    opacity: 0.2;
+    opacity: 0.34;
     filter: blur(20px);
   }
 
