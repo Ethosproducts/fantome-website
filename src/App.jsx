@@ -549,7 +549,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         scrub: reduceMotion ? false : 0.85,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          const raw = Math.min(last, self.progress * (last + 0.18));
+          const raw = Math.min(last, self.progress * (last + 0.38));
           const nextIndex = Math.min(flavors.length - 1, Math.max(0, Math.round(raw)));
           const floor = Math.min(flavors.length - 2, Math.floor(raw));
           const local = Math.min(1, Math.max(0, raw - floor));
@@ -595,7 +595,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
   }, [flavors.length]);
 
   return (
-    <section id="flavors" ref={sectionRef} className="relative z-20 h-[300vh] overflow-visible">
+    <section id="flavors" ref={sectionRef} className="relative z-20 h-[340vh] overflow-visible">
       <div ref={bgRef} className="relative flex h-[100svh] min-h-[560px] items-center overflow-hidden text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,rgba(255,255,255,0.16),transparent_34%)] opacity-70" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
