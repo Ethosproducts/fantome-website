@@ -251,13 +251,24 @@
   width: var(--size);
   height: var(--size);
   border-radius: 999px;
-  background: rgba(213, 239, 255, 0.95);
-  box-shadow: 0 0 14px rgba(70, 184, 255, 0.75), 0 0 26px var(--accent);
-  opacity: 0.68;
-  animation: particle-float 4.5s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255,255,255,0.95) 0 18%, rgba(212, 239, 255, 0.72) 38%, color-mix(in srgb, var(--accent) 42%, transparent) 68%, transparent 100%);
+  box-shadow: 0 0 18px rgba(210, 240, 255, 0.82), 0 0 34px var(--accent), 0 0 58px color-mix(in srgb, var(--accent) 42%, transparent);
+  opacity: 0.72;
+  animation: particle-fluid 7.2s ease-in-out infinite;
   animation-delay: var(--delay);
-  transition: transform 240ms ease-out;
-  will-change: transform, opacity;
+  transition: transform 380ms ease-out;
+  will-change: transform, opacity, filter;
+}
+
+.energy-particles span:nth-child(3n) {
+  width: calc(var(--size) * 1.45);
+  height: calc(var(--size) * 1.45);
+  filter: blur(0.5px);
+}
+
+.energy-particles span:nth-child(4n) {
+  opacity: 0.52;
+  filter: blur(1.5px);
 }
 
 .sparkle-field span {
@@ -362,9 +373,27 @@
   }
 }
 
-@keyframes particle-float {
-  0%, 100% { opacity: 0.2; transform: translateY(0) scale(0.82); }
-  50% { opacity: 0.72; transform: translateY(-18px) scale(1.22); }
+@keyframes particle-fluid {
+  0%, 100% {
+    opacity: 0.18;
+    filter: blur(1.5px);
+    transform: translate3d(0, 0, 0) scale(0.72);
+  }
+  24% {
+    opacity: 0.72;
+    filter: blur(0.4px);
+    transform: translate3d(calc(var(--dx) * 0.35), calc(var(--dy) * 0.35), 0) scale(1.18);
+  }
+  58% {
+    opacity: 0.86;
+    filter: blur(0.8px);
+    transform: translate3d(var(--dx), var(--dy), 0) scale(1.36);
+  }
+  82% {
+    opacity: 0.38;
+    filter: blur(1.8px);
+    transform: translate3d(calc(var(--dx) * 1.35), calc(var(--dy) * 1.18), 0) scale(0.92);
+  }
 }
 
 @keyframes sparkle-pop {
@@ -408,7 +437,7 @@
     display: none;
   }
 
-  .energy-particles span:nth-child(n + 11) {
+  .energy-particles span:nth-child(n + 15) {
     display: none;
   }
 
@@ -421,7 +450,7 @@
   }
 
   .energy-particles span {
-    opacity: 0.2;
+    opacity: 0.32;
     transition: none;
   }
 }

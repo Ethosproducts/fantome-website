@@ -63,13 +63,15 @@ function BackgroundEffects({ activeColor }) {
     };
   }, []);
 
-  const particles = Array.from({ length: 22 }, (_, index) => ({
+  const particles = Array.from({ length: 28 }, (_, index) => ({
     left: `${12 + ((index * 37) % 78)}%`,
     top: `${16 + ((index * 29) % 68)}%`,
-    size: `${2 + (index % 4)}px`,
+    size: `${4 + (index % 5)}px`,
     delay: `${(index % 7) * 0.55}s`,
     drift: 8 + (index % 6) * 5,
-    force: index % 2 === 0 ? 34 : -28
+    force: index % 2 === 0 ? 34 : -28,
+    dx: `${index % 2 === 0 ? 22 + (index % 5) * 7 : -24 - (index % 4) * 8}px`,
+    dy: `${-26 - (index % 6) * 9}px`
   }));
   const sparkles = Array.from({ length: 34 }, (_, index) => ({
     left: `${8 + ((index * 31) % 86)}%`,
@@ -135,6 +137,8 @@ function BackgroundEffects({ activeColor }) {
               '--y': particle.top,
               '--size': particle.size,
               '--delay': particle.delay,
+              '--dx': particle.dx,
+              '--dy': particle.dy,
               transform: `translate(${Number(pointer.x) * particle.force}px, ${Number(pointer.y) * particle.force + particle.drift}px)`
             }}
           />
