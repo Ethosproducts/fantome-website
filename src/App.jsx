@@ -1133,12 +1133,12 @@ function FounderSection({ activeColor }) {
           className="w-full lg:w-5/12"
         >
           <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border border-sky-400/40" style={{ boxShadow: `0 24px 70px rgba(0,0,0,0.35), 0 0 34px ${activeColor}22` }}>
-            <div className="relative mx-auto w-full max-w-md aspect-[9/16] rounded-2xl overflow-hidden bg-black">
+            <div className="relative mx-auto w-full max-w-[22rem] aspect-[87/203] rounded-2xl overflow-hidden bg-black">
               <img 
-                src="/founder_exact.png" 
+                src="/founder_exact_hd.png" 
                 alt="Shri Ankit Khandelwal - Founder" 
                 loading="lazy"
-                className="h-full w-full object-cover object-center transition-all duration-700 hover:scale-[1.015]"
+                className="h-full w-full object-contain object-center transition-all duration-700 hover:scale-[1.01]"
               />
             </div>
           </div>
