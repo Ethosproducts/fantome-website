@@ -206,6 +206,19 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
     setActiveFlavor(flavors[nextIndex].title);
   };
 
+  useEffect(() => {
+    if (!flavors.length || !setActiveFlavor) return undefined;
+
+    const timer = window.setInterval(() => {
+      setSlideDirection(1);
+      const activeIndex = Math.max(0, flavors.findIndex((flavor) => flavor.title === activeFlavor));
+      const nextIndex = (activeIndex + 1) % flavors.length;
+      setActiveFlavor(flavors[nextIndex].title);
+    }, 7000);
+
+    return () => window.clearInterval(timer);
+  }, [activeFlavor, flavors, setActiveFlavor]);
+
   const textSlide = {
     enter: (direction) => ({ opacity: 0, x: direction * 42, filter: 'blur(10px)' }),
     center: { opacity: 1, x: 0, filter: 'blur(0px)' },
