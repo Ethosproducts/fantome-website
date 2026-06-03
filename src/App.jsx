@@ -509,8 +509,8 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
   const sectionRef = useRef(null);
   const bgRef = useRef(null);
   const canRefs = useRef([]);
-  const activeScrollIndexRef = useRef(Math.max(0, flavors.findIndex(f => f.title === activeFlavor)));
-  const [scrollIndex, setScrollIndex] = useState(activeScrollIndexRef.current);
+  const activeScrollIndexRef = useRef(0);
+  const [scrollIndex, setScrollIndex] = useState(0);
   const [isFormulaOpen, setIsFormulaOpen] = useState(false);
   const currentIdx = Math.min(Math.max(scrollIndex, 0), flavors.length - 1);
   const currentFlavor = flavors[currentIdx] || flavors[0];
@@ -549,9 +549,28 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         scrub: reduceMotion ? false : 0.85,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          const rawProgress = Math.min(last, self.progress * (last + 0.75));
-          const nextIndex = Math.min(flavors.length - 1, Math.max(0, Math.round(rawProgress)));
-          const raw = nextIndex === flavors.length - 1 ? last : rawProgress;
+          const holdSpan = 0.15;
+          const moveSpan = (1 - holdSpan * flavors.length) / last;
+          let cursor = 0;
+          let raw = 0;
+
+          for (let index = 0; index <= last; index += 1) {
+            if (self.progress <= cursor + holdSpan || index === last) {
+              raw = index;
+              break;
+            }
+
+            cursor += holdSpan;
+            const moveProgress = (self.progress - cursor) / moveSpan;
+            if (moveProgress <= 1) {
+              raw = index + gsap.parseEase('power2.inOut')(Math.max(0, Math.min(1, moveProgress)));
+              break;
+            }
+
+            cursor += moveSpan;
+          }
+
+          const nextIndex = Math.min(flavors.length - 1, Math.max(0, Math.round(raw)));
           const floor = Math.min(flavors.length - 2, Math.floor(raw));
           const local = Math.min(1, Math.max(0, raw - floor));
           const mixedColor = flavors.length > 1
@@ -1531,17 +1550,6 @@ function App() {
 
   const flavors = [
     { 
-      title: "Mojito", 
-      flavor: "Ready to Drink", 
-      color: "#059669",
-      desc: "The absolute standard of premium carbonated energy. Infused with natural wild Mint and zesty Lime juice, structured precisely around B-Complex catalysts to break sensory thresholds.",
-      fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (Green Colour INS 102 & INS 150), Permitted Food Flavour (Mint Flavour), Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour (Natural & Nature Identical Flavouring Substances).",
-      canGraphic: "/mojito_texture.png",
-      canFront: "/formula_mojito_can.png",
-      showcaseImage: "/hero_mojito.png?v=1",
-      formulaWide: true
-    },
-    { 
       title: "Original", 
       flavor: "Unseen Power", 
       color: "#DC2626",
@@ -1550,6 +1558,17 @@ function App() {
       canGraphic: "/original_texture.png",
       canFront: "/formula_black_can.png",
       showcaseImage: "/hero_original.png?v=1",
+      formulaWide: true
+    },
+    { 
+      title: "Mojito", 
+      flavor: "Ready to Drink", 
+      color: "#059669",
+      desc: "The absolute standard of premium carbonated energy. Infused with natural wild Mint and zesty Lime juice, structured precisely around B-Complex catalysts to break sensory thresholds.",
+      fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (Green Colour INS 102 & INS 150), Permitted Food Flavour (Mint Flavour), Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour (Natural & Nature Identical Flavouring Substances).",
+      canGraphic: "/mojito_texture.png",
+      canFront: "/formula_mojito_can.png",
+      showcaseImage: "/hero_mojito.png?v=1",
       formulaWide: true
     },
     { 
