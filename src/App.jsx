@@ -603,12 +603,9 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute left-1/2 top-[16%] h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-white/10 blur-[90px]" />
 
-        <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-start px-5 pb-8 pt-24 text-center sm:px-8 sm:pt-28 md:pb-10 md:pt-[7.25rem] lg:px-12">
+        <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-start px-5 pb-8 pt-20 text-center sm:px-8 sm:pt-24 md:pb-10 md:pt-[6.25rem] lg:px-12">
           <div className="relative z-20">
-            <span className="text-[0.68rem] font-black uppercase tracking-[0.3em] text-white/68">
-              Chemical Breakdown
-            </span>
-            <h2 className="mt-1 font-sans text-3xl font-black uppercase leading-[0.95] text-white sm:text-4xl md:text-5xl">
+            <h2 className="font-sans text-3xl font-black uppercase leading-[0.95] text-white sm:text-4xl md:text-5xl">
               Formula Variations
             </h2>
           </div>
@@ -639,9 +636,6 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                 transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                 className="space-y-3"
               >
-                <span className="inline-flex rounded-full border border-white/25 bg-black/28 px-4 py-1 text-[0.68rem] font-black uppercase tracking-[0.16em] backdrop-blur-md" style={{ color: currentFlavor.color }}>
-                  {currentFlavor.flavor}
-                </span>
                 <h3 className="font-sans text-3xl font-black uppercase leading-[0.92] sm:text-4xl md:text-[2.8rem]">
                   {currentFlavor.title}
                   <span className="block" style={{ color: currentFlavor.color }}>Formulation</span>
