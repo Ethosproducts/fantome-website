@@ -239,7 +239,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <button
         type="button"
         onClick={() => changeHeroFlavor(-1)}
-        className="absolute bottom-20 left-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:left-12"
+        className="absolute bottom-20 left-12 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:left-24 lg:left-44"
         aria-label="Previous flavor"
       >
         <ChevronLeft className="h-5 w-5" />
@@ -247,7 +247,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <button
         type="button"
         onClick={() => changeHeroFlavor(1)}
-        className="absolute bottom-20 right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:right-12"
+        className="absolute bottom-20 right-12 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:right-24 lg:right-44"
         aria-label="Next flavor"
       >
         <ChevronRight className="h-5 w-5" />
