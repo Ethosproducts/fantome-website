@@ -239,7 +239,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <button
         type="button"
         onClick={() => changeHeroFlavor(-1)}
-        className="absolute bottom-20 left-3 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:left-5"
+        className="absolute bottom-20 left-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:left-12"
         aria-label="Previous flavor"
       >
         <ChevronLeft className="h-5 w-5" />
@@ -247,7 +247,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <button
         type="button"
         onClick={() => changeHeroFlavor(1)}
-        className="absolute bottom-20 right-3 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:right-5"
+        className="absolute bottom-20 right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:right-12"
         aria-label="Next flavor"
       >
         <ChevronRight className="h-5 w-5" />
@@ -1442,31 +1442,31 @@ function FantomeChatbot({ activeColor }) {
             onClick={() => setIsOpen(true)}
             animate={{ boxShadow: [`0 10px 28px ${activeColor}30`, `0 14px 42px ${activeColor}58`, `0 10px 28px ${activeColor}30`] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative h-16 w-16 rounded-[42%_42%_34%_34%/44%_44%_46%_46%] border shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer md:h-20 md:w-20 lg:h-24 lg:w-24"
+            className="relative h-16 w-16 rounded-[42%_42%_34%_34%/44%_44%_46%_46%] border shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer md:h-[4.5rem] md:w-[4.5rem] lg:h-20 lg:w-20"
             style={{
               background: `radial-gradient(circle at 50% 18%, rgba(255,255,255,0.95), #d9f4ff 42%, #aee7ff 100%)`,
               borderColor: `${activeColor}80`,
               boxShadow: `0 10px 28px ${activeColor}30`
             }}
           >
-            <span className="absolute -left-1 top-1/2 h-6 w-2 -translate-y-1/2 rounded-full bg-slate-700 md:h-8 lg:h-9" />
-            <span className="absolute -right-1 top-1/2 h-6 w-2 -translate-y-1/2 rounded-full bg-slate-700 md:h-8 lg:h-9" />
-            <span className="absolute left-1/2 top-3 flex h-7 w-11 -translate-x-1/2 items-center justify-center rounded-[999px_999px_16px_16px] bg-slate-800 md:top-4 md:h-9 md:w-16 lg:top-5 lg:h-10 lg:w-[4.35rem]">
+            <span className="absolute -left-1 top-1/2 h-6 w-2 -translate-y-1/2 rounded-full bg-slate-700 md:h-7 lg:h-8" />
+            <span className="absolute -right-1 top-1/2 h-6 w-2 -translate-y-1/2 rounded-full bg-slate-700 md:h-7 lg:h-8" />
+            <span className="absolute left-1/2 top-3 flex h-7 w-11 -translate-x-1/2 items-center justify-center rounded-[999px_999px_16px_16px] bg-slate-800 md:top-4 md:h-8 md:w-14 lg:h-9 lg:w-16">
               <motion.span
                 animate={{ opacity: [1, 1, 0.25, 1] }}
                 transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-                className="mx-1 h-2 w-2 rounded-full md:h-2.5 md:w-2.5"
+                className="mx-1 h-2 w-2 rounded-full md:h-2 md:w-2 lg:h-2.5 lg:w-2.5"
                 style={{ backgroundColor: activeColor }}
               />
               <motion.span
                 animate={{ opacity: [1, 1, 0.25, 1] }}
                 transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 0.05 }}
-                className="mx-1 h-2 w-2 rounded-full md:h-2.5 md:w-2.5"
+                className="mx-1 h-2 w-2 rounded-full md:h-2 md:w-2 lg:h-2.5 lg:w-2.5"
                 style={{ backgroundColor: activeColor }}
               />
             </span>
-            <span className="absolute bottom-3 left-1/2 h-2 w-6 -translate-x-1/2 rounded-full border-b-2 border-slate-700 md:bottom-4 md:w-8 lg:bottom-5" />
-            <span className="absolute bottom-1.5 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-slate-700/40 md:w-10 lg:w-12" />
+            <span className="absolute bottom-3 left-1/2 h-2 w-6 -translate-x-1/2 rounded-full border-b-2 border-slate-700 md:bottom-3.5 md:w-7 lg:bottom-4 lg:w-8" />
+            <span className="absolute bottom-1.5 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-slate-700/40 md:w-9 lg:w-10" />
           </motion.button>
         </div>
       </motion.div>
