@@ -568,13 +568,14 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             const absDistance = Math.abs(distance);
             const travel = Math.min(window.innerWidth * 0.38, 520);
             const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
+            const visualCenterOffset = window.innerWidth >= 1024 ? -155 : 0;
             gsap.set(can, {
-              x: distance * travel,
+              x: visualCenterOffset + distance * travel,
               y: -168 - centerPull * 26,
               yPercent: absDistance * 1.2,
-              scale: 1.08 - Math.min(absDistance, 1) * 0.18,
+              scale: 1.1 - Math.min(absDistance, 1) * 0.18,
               opacity: Math.max(0.5, 1 - absDistance * 0.44),
-              filter: `blur(${absDistance < 0.22 ? 0 : Math.min((absDistance - 0.22) * 1.15, 1.1)}px)`,
+              filter: `blur(${absDistance < 0.45 ? 0 : Math.min((absDistance - 0.45) * 0.8, 0.7)}px)`,
               zIndex: Math.round(100 - absDistance * 10),
               force3D: true
             });
