@@ -223,6 +223,22 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` }} />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       <BackgroundEffects activeColor={activeColor} />
+      <button
+        type="button"
+        onClick={() => changeHeroFlavor(-1)}
+        className="absolute bottom-20 left-3 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:left-5"
+        aria-label="Previous flavor"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+      <button
+        type="button"
+        onClick={() => changeHeroFlavor(1)}
+        className="absolute bottom-20 right-3 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:right-5"
+        aria-label="Next flavor"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
 
       <div className={`relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:-mt-10 md:min-h-[calc(100vh-8rem)] md:items-center md:px-10 md:pb-20 lg:-mt-14 lg:px-12 ${isMojitoHero ? 'md:grid-cols-[1.08fr_0.92fr] md:text-right' : 'md:grid-cols-[0.9fr_1.1fr] md:text-left'}`}>
         <div className={`mx-auto max-w-xl pt-0 sm:pt-8 md:pt-0 ${isMojitoHero ? 'md:col-start-2 md:mx-0 md:ml-auto md:mr-8 lg:mr-14 xl:mr-20' : 'md:mx-0'}`}>
@@ -284,14 +300,6 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             animate={{ backgroundColor: `${activeColor}55`, scale: [1, 1.08, 1] }}
             transition={{ backgroundColor: { duration: 0.5 }, scale: { duration: 1.2, ease: 'easeInOut' } }}
           />
-          <button
-            type="button"
-            onClick={() => changeHeroFlavor(-1)}
-            className="absolute left-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:left-4 sm:h-11 sm:w-11"
-            aria-label="Previous flavor"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
           <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.img
               key={activeFlavor}
@@ -306,14 +314,6 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               className="relative z-10 h-[41svh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[44svh] sm:h-[64vh] md:h-[82vh]"
             />
           </AnimatePresence>
-          <button
-            type="button"
-            onClick={() => changeHeroFlavor(1)}
-            className="absolute right-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:right-4 sm:h-11 sm:w-11"
-            aria-label="Next flavor"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
         </motion.div>
 
         <motion.button
