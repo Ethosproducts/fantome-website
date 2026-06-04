@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send, Volume2, VolumeX } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -45,7 +45,7 @@ function HeroTicker({ activeColor }) {
   );
 }
 function BackgroundEffects({ activeColor }) {
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const effectsRef = useRef(null);
 
   useEffect(() => {
     let frame = 0;
@@ -53,10 +53,9 @@ function BackgroundEffects({ activeColor }) {
       if (window.innerWidth < 768) return;
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        setPointer({
-          x: (event.clientX / window.innerWidth - 0.5).toFixed(3),
-          y: (event.clientY / window.innerHeight - 0.5).toFixed(3)
-        });
+        if (!effectsRef.current) return;
+        effectsRef.current.style.setProperty('--mx', (event.clientX / window.innerWidth - 0.5).toFixed(3));
+        effectsRef.current.style.setProperty('--my', (event.clientY / window.innerHeight - 0.5).toFixed(3));
       });
     };
 
@@ -67,27 +66,26 @@ function BackgroundEffects({ activeColor }) {
     };
   }, []);
 
-  const particles = Array.from({ length: 28 }, (_, index) => ({
+  const particles = useMemo(() => Array.from({ length: 18 }, (_, index) => ({
     left: `${12 + ((index * 37) % 78)}%`,
     top: `${16 + ((index * 29) % 68)}%`,
     size: `${4 + (index % 5)}px`,
     delay: `${(index % 7) * 0.55}s`,
-    drift: 8 + (index % 6) * 5,
-    force: index % 2 === 0 ? 34 : -28,
     dx: `${index % 2 === 0 ? 22 + (index % 5) * 7 : -24 - (index % 4) * 8}px`,
     dy: `${-26 - (index % 6) * 9}px`
-  }));
-  const sparkles = Array.from({ length: 34 }, (_, index) => ({
+  })), []);
+  const sparkles = useMemo(() => Array.from({ length: 20 }, (_, index) => ({
     left: `${8 + ((index * 31) % 86)}%`,
     top: `${10 + ((index * 43) % 76)}%`,
     delay: `${(index % 9) * 0.38}s`,
     duration: `${3.4 + (index % 5) * 0.7}s`
-  }));
+  })), []);
 
   return (
     <div
+      ref={effectsRef}
       className="fantome-background-effects"
-      style={{ '--mx': pointer.x, '--my': pointer.y, '--accent': activeColor }}
+      style={{ '--accent': activeColor }}
       aria-hidden="true"
     >
       <div className="light-beam beam-one" />
@@ -148,8 +146,7 @@ function BackgroundEffects({ activeColor }) {
               '--size': particle.size,
               '--delay': particle.delay,
               '--dx': particle.dx,
-              '--dy': particle.dy,
-              transform: `translate(${Number(pointer.x) * particle.force}px, ${Number(pointer.y) * particle.force + particle.drift}px)`
+              '--dy': particle.dy
             }}
           />
         ))}
@@ -539,6 +536,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
     const ctx = gsap.context(() => {
       const colors = flavors.map((flavor) => flavor.color);
       const last = Math.max(1, flavors.length - 1);
+      bgRef.current.style.setProperty('--formula-color', colors[0]);
 
       canRefs.current.forEach((can, index) => {
         if (!can) return;
@@ -590,9 +588,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             ? gsap.utils.interpolate(colors[floor], colors[floor + 1], local)
             : colors[0];
 
-          gsap.set(bgRef.current, {
-            background: `radial-gradient(circle at 50% 38%, ${mixedColor}70 0%, ${mixedColor}26 34%, rgba(4,7,12,0.98) 74%), linear-gradient(135deg, ${mixedColor} 0%, #070a10 46%, #020305 100%)`
-          });
+          bgRef.current.style.setProperty('--formula-color', mixedColor);
 
           canRefs.current.forEach((can, index) => {
             if (!can) return;
@@ -611,7 +607,6 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
               yPercent: absDistance * 1.2,
               scale: 1.1 - Math.min(absDistance, 1) * 0.18,
               opacity: Math.max(0.5, 1 - absDistance * 0.44),
-              filter: `blur(${absDistance < 0.45 ? 0 : Math.min((absDistance - 0.45) * 0.8, 0.7)}px)`,
               zIndex: Math.round(100 - absDistance * 10),
               force3D: true
             });
@@ -634,7 +629,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 
   return (
     <section id="flavors" ref={sectionRef} className="relative z-20 h-[340vh] overflow-visible">
-      <div ref={bgRef} className="relative flex h-[100svh] min-h-[560px] items-center overflow-hidden text-white">
+      <div ref={bgRef} className="formula-scroll-stage relative flex h-[100svh] min-h-[560px] items-center overflow-hidden text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,rgba(255,255,255,0.16),transparent_34%)] opacity-70" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute left-1/2 top-[16%] h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-white/10 blur-[90px]" />
@@ -666,9 +661,9 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFlavor.title}
-                initial={{ opacity: 0, y: 26, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -18 }}
                 transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                 className="space-y-3"
               >

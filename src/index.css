@@ -62,6 +62,13 @@
   will-change: transform;
 }
 
+.formula-scroll-stage {
+  --formula-color: #059669;
+  background:
+    radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--formula-color) 44%, transparent) 0%, color-mix(in srgb, var(--formula-color) 15%, transparent) 34%, rgba(4,7,12,0.98) 74%),
+    linear-gradient(135deg, var(--formula-color) 0%, #070a10 46%, #020305 100%);
+}
+
 .fantome-background-effects {
   position: absolute;
   inset: 0;
@@ -79,11 +86,11 @@
   width: 11vw;
   min-width: 90px;
   border-radius: 999px;
-  filter: blur(18px);
-  opacity: 0.46;
+  filter: blur(14px);
+  opacity: 0.34;
   mix-blend-mode: screen;
   transform: rotate(12deg);
-  animation: beam-sway 9s ease-in-out infinite alternate, beam-blink 5.8s ease-in-out infinite;
+  animation: beam-sway 11s ease-in-out infinite alternate, beam-blink 7.5s ease-in-out infinite;
   will-change: transform;
 }
 
@@ -131,8 +138,8 @@
   background:
     radial-gradient(ellipse at 30% 50%, color-mix(in srgb, var(--accent) 72%, white 18%), transparent 44%),
     linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--accent) 70%, white 16%) 24%, rgba(255,255,255,0.34) 48%, color-mix(in srgb, var(--accent) 62%, black 10%) 72%, transparent 100%);
-  filter: blur(42px);
-  opacity: 0.46;
+  filter: blur(30px);
+  opacity: 0.38;
   transform: rotate(-10deg) translate3d(-8%, 0, 0);
   animation: aurora-flow 14s ease-in-out infinite alternate;
   will-change: transform, opacity;
@@ -146,7 +153,7 @@
   top: 38%;
   height: 42vh;
   opacity: 0.36;
-  filter: blur(54px);
+  filter: blur(36px);
   transform: rotate(7deg) translate3d(8%, 0, 0);
   animation-duration: 18s;
   animation-delay: -6s;
@@ -156,7 +163,7 @@
   top: 64%;
   height: 30vh;
   opacity: 0.32;
-  filter: blur(48px);
+  filter: blur(34px);
   background:
     radial-gradient(ellipse at 68% 50%, rgba(255,255,255,0.42), transparent 42%),
     linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--accent) 54%, white 12%) 30%, rgba(255,255,255,0.2) 54%, transparent 100%);
@@ -209,8 +216,8 @@
   height: 44vh;
   min-width: 360px;
   border-radius: 999px;
-  filter: blur(32px);
-  opacity: 0.58;
+  filter: blur(24px);
+  opacity: 0.42;
   background: radial-gradient(circle, rgba(220, 234, 245, 0.52), rgba(92, 124, 154, 0.34) 42%, rgba(26, 42, 58, 0.18) 62%, transparent 78%);
   animation: mist-drift 9s ease-in-out infinite alternate;
   will-change: transform;
@@ -257,7 +264,7 @@
     radial-gradient(circle at 35% 35%, rgba(235, 244, 250, 0.52), transparent 34%),
     radial-gradient(circle at 65% 62%, rgba(116, 148, 178, 0.42), transparent 42%),
     radial-gradient(circle at 45% 72%, rgba(255, 255, 255, 0.3), transparent 46%);
-  filter: blur(20px);
+  filter: blur(14px);
   opacity: 0;
   mix-blend-mode: screen;
   animation: smoke-rise 8s ease-in-out infinite;
@@ -307,21 +314,18 @@
   background: radial-gradient(circle, rgba(255,255,255,0.95) 0 18%, rgba(212, 239, 255, 0.72) 38%, color-mix(in srgb, var(--accent) 42%, transparent) 68%, transparent 100%);
   box-shadow: 0 0 18px rgba(210, 240, 255, 0.82), 0 0 34px var(--accent), 0 0 58px color-mix(in srgb, var(--accent) 42%, transparent);
   opacity: 0.72;
-  animation: particle-fluid 7.2s ease-in-out infinite;
+  animation: particle-fluid 8.5s ease-in-out infinite;
   animation-delay: var(--delay);
-  transition: transform 380ms ease-out;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 .energy-particles span:nth-child(3n) {
   width: calc(var(--size) * 1.45);
   height: calc(var(--size) * 1.45);
-  filter: blur(0.5px);
 }
 
 .energy-particles span:nth-child(4n) {
   opacity: 0.52;
-  filter: blur(1.5px);
 }
 
 .sparkle-field span {
@@ -388,13 +392,13 @@
 }
 
 @keyframes beam-blink {
-  0%, 18%, 100% { opacity: 0.18; filter: blur(24px) brightness(0.8); }
-  24% { opacity: 0.72; filter: blur(17px) brightness(1.55); }
-  30% { opacity: 0.28; filter: blur(22px) brightness(0.9); }
-  35% { opacity: 0.86; filter: blur(15px) brightness(1.85); }
-  42%, 66% { opacity: 0.32; filter: blur(22px) brightness(1); }
-  72% { opacity: 0.78; filter: blur(16px) brightness(1.7); }
-  78% { opacity: 0.22; filter: blur(23px) brightness(0.85); }
+  0%, 18%, 100% { opacity: 0.12; }
+  24% { opacity: 0.58; }
+  30% { opacity: 0.22; }
+  35% { opacity: 0.64; }
+  42%, 66% { opacity: 0.26; }
+  72% { opacity: 0.56; }
+  78% { opacity: 0.16; }
 }
 
 @keyframes aurora-flow {
@@ -448,22 +452,18 @@
 @keyframes particle-fluid {
   0%, 100% {
     opacity: 0.18;
-    filter: blur(1.5px);
     transform: translate3d(0, 0, 0) scale(0.72);
   }
   24% {
     opacity: 0.72;
-    filter: blur(0.4px);
     transform: translate3d(calc(var(--dx) * 0.35), calc(var(--dy) * 0.35), 0) scale(1.18);
   }
   58% {
     opacity: 0.86;
-    filter: blur(0.8px);
     transform: translate3d(var(--dx), var(--dy), 0) scale(1.36);
   }
   82% {
     opacity: 0.38;
-    filter: blur(1.8px);
     transform: translate3d(calc(var(--dx) * 1.35), calc(var(--dy) * 1.18), 0) scale(0.92);
   }
 }
@@ -481,10 +481,20 @@
 }
 
 @media (max-width: 767px) {
+  .fantome-background-effects {
+    opacity: 0.82;
+  }
+
   .light-beam {
     width: 18vw;
-    opacity: 0.34;
-    filter: blur(20px);
+    opacity: 0.22;
+    filter: blur(16px);
+  }
+
+  .beam-three,
+  .mist-three,
+  .shooting-lights span:nth-child(n + 2) {
+    display: none;
   }
 
   .wolf-trails span {
@@ -493,8 +503,8 @@
   }
 
   .mist-layer {
-    opacity: 0.34;
-    filter: blur(30px);
+    opacity: 0.24;
+    filter: blur(20px);
   }
 
   .aurora-waves {
@@ -505,7 +515,7 @@
   .aurora-waves span {
     height: 28vh;
     min-height: 190px;
-    filter: blur(34px);
+    filter: blur(24px);
     animation-duration: 18s;
   }
 
@@ -513,19 +523,19 @@
     right: -4%;
     width: 260px;
     height: 320px;
-    filter: blur(22px);
+    filter: blur(16px);
     animation-duration: 10s;
   }
 
-  .rising-smoke span:nth-child(n + 4) {
+  .rising-smoke span:nth-child(n + 3) {
     display: none;
   }
 
-  .energy-particles span:nth-child(n + 15) {
+  .energy-particles span:nth-child(n + 11) {
     display: none;
   }
 
-  .sparkle-field span:nth-child(n + 17) {
+  .sparkle-field span:nth-child(n + 13) {
     display: none;
   }
 
@@ -535,16 +545,18 @@
 
   .energy-particles span {
     opacity: 0.32;
-    transition: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .light-beam,
+  .aurora-waves span,
   .wolf-trails span,
   .mist-layer,
   .rising-smoke span,
-  .energy-particles span {
+  .energy-particles span,
+  .sparkle-field span,
+  .shooting-lights span {
     animation: none;
   }
 }
