@@ -239,7 +239,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <button
         type="button"
         onClick={() => changeHeroFlavor(-1)}
-        className="absolute bottom-32 left-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:left-12 lg:left-44"
+        className="absolute bottom-40 left-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:left-12 lg:left-44"
         aria-label="Previous flavor"
       >
         <ChevronLeft className="h-5 w-5" />
@@ -247,7 +247,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       <button
         type="button"
         onClick={() => changeHeroFlavor(1)}
-        className="absolute bottom-32 right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:right-12 lg:right-44"
+        className="absolute bottom-40 right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:right-12 lg:right-44"
         aria-label="Next flavor"
       >
         <ChevronRight className="h-5 w-5" />
@@ -1667,16 +1667,14 @@ function App() {
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="group flex h-16 w-16 max-w-full items-center justify-center rounded-[1.1rem] border border-white/10 bg-slate-950/90 p-1.5 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer sm:h-20 sm:w-20 lg:justify-self-start"
-              style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}18` }}
+              className="group flex h-16 w-16 max-w-full items-center justify-center rounded-[1.1rem] border border-white/40 bg-white p-1 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer sm:h-20 sm:w-20 lg:justify-self-start"
+              style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}28` }}
             >
-              <span className="flex h-full w-full items-center justify-center overflow-hidden rounded-[0.85rem] bg-slate-900/80 p-1 ring-1 ring-white/10">
-                <img
-                  src="/fantome_unseen_power_logo_square.png"
-                  alt="Fantome Unseen Power"
-                  className="h-full w-full object-contain brightness-110 contrast-125 mix-blend-screen"
-                />
-              </span>
+              <img
+                src="/fantome_unseen_power_logo_square.png"
+                alt="Fantome Unseen Power"
+                className="h-full w-full object-contain brightness-105 contrast-110"
+              />
             </button>
 
             <button
