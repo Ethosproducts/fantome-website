@@ -600,7 +600,11 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             const absDistance = Math.abs(distance);
             const travel = Math.min(window.innerWidth * 0.38, 520);
             const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
-            const visualCenterOffset = window.innerWidth >= 1024 ? -255 : window.innerWidth < 640 ? -180 : 0;
+            const visualCenterOffset = window.innerWidth >= 1024
+              ? -255
+              : window.innerWidth < 640
+                ? -Math.min(Math.max(window.innerWidth * 0.42, 140), 190)
+                : 0;
             gsap.set(can, {
               x: visualCenterOffset + distance * travel,
               y: -168 - centerPull * 26,
