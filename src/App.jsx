@@ -703,53 +703,55 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-black/70 p-6 backdrop-blur-md"
+            className="fixed inset-0 z-[120] flex items-start justify-center overflow-y-auto bg-black/80 px-3 pb-8 pt-24 backdrop-blur-md sm:items-center sm:p-6"
             onClick={() => setIsFormulaOpen(false)}
           >
             <motion.div
               initial={{ scale: 0.92, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.92, y: 20 }}
-              className="w-full max-w-2xl rounded-2xl border border-sky-400/30 bg-slate-950/95 p-6 shadow-2xl"
+              className="max-h-[calc(100svh-7.5rem)] w-full max-w-2xl overflow-hidden rounded-2xl border border-sky-400/30 bg-slate-950/95 shadow-2xl sm:max-h-[86vh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-start justify-between gap-6 border-b border-sky-400/20 pb-4">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: flavors[currentIdx].color }}>
+              <div className="flex items-start justify-between gap-3 border-b border-sky-400/20 p-4 sm:gap-6 sm:p-6 sm:pb-4">
+                <div className="min-w-0">
+                  <span className="text-[0.65rem] font-bold uppercase tracking-[0.22em] sm:text-xs sm:tracking-[0.3em]" style={{ color: flavors[currentIdx].color }}>
                     Fully Disclosed
                   </span>
-                  <h3 className="mt-2 text-3xl font-bold uppercase text-white">{flavors[currentIdx].title} Formula</h3>
+                  <h3 className="mt-1 max-w-[15rem] break-words text-2xl font-bold uppercase leading-[0.95] text-white min-[390px]:max-w-none sm:mt-2 sm:text-3xl">{flavors[currentIdx].title} Formula</h3>
                 </div>
-                <button type="button" onClick={() => setIsFormulaOpen(false)} className="rounded-full p-2 text-slate-300 hover:bg-white/10 cursor-pointer">
-                  <X className="h-5 w-5" />
+                <button type="button" onClick={() => setIsFormulaOpen(false)} className="shrink-0 rounded-full border border-white/10 bg-white/5 p-2 text-slate-300 hover:bg-white/10 cursor-pointer">
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="rounded-xl border border-sky-400/20 bg-white/5 p-4">
-                  <span className="text-xs uppercase tracking-wide text-slate-400">Caffeine</span>
-                  <strong className="mt-2 block text-2xl text-white">75 mg</strong>
-                  <p className="mt-1 text-xs text-slate-400">Per 250 ml can</p>
-                </div>
-                <div className="rounded-xl border border-sky-400/20 bg-white/5 p-4">
-                  <span className="text-xs uppercase tracking-wide text-slate-400">Sugar</span>
-                  <strong className="mt-2 block text-2xl text-white">{flavors[currentIdx].title === 'Sugar Free' ? '0 g' : '22.6 g'}</strong>
-                  <p className="mt-1 text-xs text-slate-400">Clearly labeled per can</p>
-                </div>
-                <div className="rounded-xl border border-sky-400/20 bg-white/5 p-4">
-                  <span className="text-xs uppercase tracking-wide text-slate-400">Taurine</span>
-                  <strong className="mt-2 block text-2xl text-white">{flavors[currentIdx].title === 'Sugar Free' ? '400 mg' : '800 mg'}</strong>
-                  <p className="mt-1 text-xs text-slate-400">Performance support</p>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                {activeNutrition.bioElements.map((item) => (
-                  <div key={item.name} className="flex justify-between gap-4 border-b border-sky-400/10 py-2 text-slate-300">
-                    <span>{item.name}</span>
-                    <strong className="text-white">{item.val}</strong>
+              <div className="max-h-[calc(100svh-15rem)] overflow-y-auto p-4 pt-5 sm:max-h-[64vh] sm:p-6">
+                <div className="grid grid-cols-1 gap-3 min-[430px]:grid-cols-3 sm:gap-4">
+                  <div className="rounded-xl border border-sky-400/20 bg-white/5 p-3 sm:p-4">
+                    <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Caffeine</span>
+                    <strong className="mt-1 block text-xl text-white sm:mt-2 sm:text-2xl">75 mg</strong>
+                    <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Per 250 ml can</p>
                   </div>
-                ))}
+                  <div className="rounded-xl border border-sky-400/20 bg-white/5 p-3 sm:p-4">
+                    <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Sugar</span>
+                    <strong className="mt-1 block text-xl text-white sm:mt-2 sm:text-2xl">{flavors[currentIdx].title === 'Sugar Free' ? '0 g' : '22.6 g'}</strong>
+                    <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Clearly labeled per can</p>
+                  </div>
+                  <div className="rounded-xl border border-sky-400/20 bg-white/5 p-3 sm:p-4">
+                    <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Taurine</span>
+                    <strong className="mt-1 block text-xl text-white sm:mt-2 sm:text-2xl">{flavors[currentIdx].title === 'Sugar Free' ? '400 mg' : '800 mg'}</strong>
+                    <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Performance support</p>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid grid-cols-1 gap-2 text-xs sm:mt-6 sm:grid-cols-2 sm:gap-3 sm:text-sm">
+                  {activeNutrition.bioElements.map((item) => (
+                    <div key={item.name} className="flex justify-between gap-4 border-b border-sky-400/10 py-2 text-slate-300">
+                      <span className="min-w-0 pr-2">{item.name}</span>
+                      <strong className="shrink-0 text-white">{item.val}</strong>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </motion.div>
