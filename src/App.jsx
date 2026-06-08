@@ -1326,7 +1326,7 @@ function Footer({ activeColor }) {
 
       <div className="max-w-7xl mx-auto border-t border-sky-400/30 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-sky-800 font-bold tracking-wide">
         <span>© 2026 FANTÔME ENERGY. ALL BIO-SYSTEMS RESERVED.</span>
-        <p className="text-sm font-bold tracking-[0.18em] text-white/70">
+        <p className="text-[0.68rem] font-bold tracking-[0.14em] text-white/65 sm:text-xs">
           Designed and Developed by Praveen
         </p>
       </div>
