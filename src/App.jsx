@@ -1326,35 +1326,9 @@ function Footer({ activeColor }) {
 
       <div className="max-w-7xl mx-auto border-t border-sky-400/30 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-sky-800 font-bold tracking-wide">
         <span>© 2026 FANTÔME ENERGY. ALL BIO-SYSTEMS RESERVED.</span>
-        <div className="flex items-center gap-6">
-          <a 
-            href="https://www.instagram.com/fantomeenergy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-sky-400/30 bg-sky-300/30 hover:bg-sky-300/50 transition-all group"
-          >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className="transition-transform group-hover:scale-110"
-              style={{ color: activeColor }}
-            >
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-            <span className="text-slate-800 font-bold">Instagram</span>
-          </a>
-          <span className="w-1 h-1 rounded-full bg-sky-100"></span>
-          <span style={{ color: activeColor }} className="font-bold transition-colors duration-500">UNSEEN POWER</span>
-        </div>
+        <p className="text-sm font-bold tracking-[0.18em] text-white/70">
+          Designed and Developed by Praveen
+        </p>
       </div>
     </footer>
   );
