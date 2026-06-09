@@ -1041,6 +1041,7 @@ function ShopSection({ activeColor }) {
 // CAMPAIGNS SECTION
 // ==========================================
 function CampaignsSection({ activeColor }) {
+  const [unmutedVideos, setUnmutedVideos] = useState({});
   const campaigns = [
     {
       id: "adcampaign",
@@ -1101,16 +1102,30 @@ function CampaignsSection({ activeColor }) {
 
             <div className="relative aspect-[16/10] overflow-hidden bg-sky-300/30 transform-gpu">
               {camp.video ? (
-                <video
-                  src={camp.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  className="w-full h-full object-cover transform-gpu"
-                  style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
-                />
+                <>
+                  <video
+                    src={camp.video}
+                    autoPlay
+                    muted={!unmutedVideos[camp.id]}
+                    loop
+                    playsInline
+                    preload="none"
+                    className="w-full h-full object-cover transform-gpu"
+                    style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setUnmutedVideos((current) => ({
+                      ...current,
+                      [camp.id]: !current[camp.id]
+                    }))}
+                    className="absolute bottom-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/70 text-white shadow-[0_0_28px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-black/85 cursor-pointer"
+                    aria-label={unmutedVideos[camp.id] ? `Mute ${camp.title}` : `Unmute ${camp.title}`}
+                    title={unmutedVideos[camp.id] ? "Mute" : "Unmute"}
+                  >
+                    {unmutedVideos[camp.id] ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+                  </button>
+                </>
               ) : (
                 <img
                   src={camp.image}
