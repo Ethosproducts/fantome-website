@@ -518,19 +518,42 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
     const ctx = gsap.context(() => {
       const colors = flavors.map((flavor) => flavor.color);
       const last = Math.max(1, flavors.length - 1);
-      bgRef.current.style.setProperty('--formula-color', colors[0]);
+      const getLayout = () => {
+        const width = window.innerWidth;
+        return {
+          travel: Math.min(width * 0.38, 520),
+          centerOffset: width >= 1024
+            ? -335
+            : width < 640
+              ? -Math.min(Math.max(width * 0.46, 150), 210)
+              : -40,
+          baseY: width >= 768 ? -152 : -116,
+          centerLift: width >= 768 ? 22 : 12
+        };
+      };
 
-      canRefs.current.forEach((can, index) => {
-        if (!can) return;
-        const travel = Math.min(window.innerWidth * 0.38, 520);
-        gsap.set(can, {
-          x: index === 0 ? 0 : travel,
-          scale: index === 0 ? 1 : 0.88,
-          opacity: index === 0 ? 1 : 0.42,
-          zIndex: flavors.length - index,
-          force3D: true
+      const placeCans = (raw = 0) => {
+        const { travel, centerOffset, baseY, centerLift } = getLayout();
+
+        canRefs.current.forEach((can, index) => {
+          if (!can) return;
+          const distance = index - raw;
+          const absDistance = Math.abs(distance);
+          const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
+          gsap.set(can, {
+            x: centerOffset + distance * travel,
+            y: baseY - centerPull * centerLift,
+            yPercent: absDistance * 1.2,
+            scale: 1.1 - Math.min(absDistance, 1) * 0.18,
+            opacity: Math.max(0.5, 1 - absDistance * 0.44),
+            zIndex: Math.round(100 - absDistance * 10),
+            force3D: true
+          });
         });
-      });
+      };
+
+      bgRef.current.style.setProperty('--formula-color', colors[0]);
+      placeCans(0);
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -576,16 +599,11 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             if (!can) return;
             const distance = index - raw;
             const absDistance = Math.abs(distance);
-            const travel = Math.min(window.innerWidth * 0.38, 520);
+            const { travel, centerOffset, baseY, centerLift } = getLayout();
             const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
-            const visualCenterOffset = window.innerWidth >= 1024
-              ? -255
-              : window.innerWidth < 640
-                ? -Math.min(Math.max(window.innerWidth * 0.42, 140), 190)
-                : 0;
             gsap.set(can, {
-              x: visualCenterOffset + distance * travel,
-              y: -168 - centerPull * 26,
+              x: centerOffset + distance * travel,
+              y: baseY - centerPull * centerLift,
               yPercent: absDistance * 1.2,
               scale: 1.1 - Math.min(absDistance, 1) * 0.18,
               opacity: Math.max(0.5, 1 - absDistance * 0.44),
