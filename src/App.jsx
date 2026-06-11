@@ -196,6 +196,15 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
   const currentHero = heroData[activeFlavor] || heroData['Sugar Free'];
   const isMojitoHero = activeFlavor === 'Mojito';
   const currentIndex = Math.max(0, flavors.findIndex((flavor) => flavor.title === activeFlavor));
+
+  useEffect(() => {
+    Object.values(heroData).forEach((hero) => {
+      const image = new Image();
+      image.src = hero.image;
+      image.decoding = 'async';
+    });
+  }, []);
+
   const changeHeroFlavor = (direction) => {
     if (!flavors.length || !setActiveFlavor) return;
     setSlideDirection(direction);
@@ -217,15 +226,15 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
   }, [activeFlavor, flavors, setActiveFlavor]);
 
   const textSlide = {
-    enter: (direction) => ({ opacity: 0, x: direction * 42, filter: 'blur(10px)' }),
-    center: { opacity: 1, x: 0, filter: 'blur(0px)' },
-    exit: (direction) => ({ opacity: 0, x: direction * -34, filter: 'blur(8px)' })
+    enter: (direction) => ({ opacity: 0, x: direction * 28 }),
+    center: { opacity: 1, x: 0 },
+    exit: (direction) => ({ opacity: 0, x: direction * -24 })
   };
 
   const canSlide = {
-    enter: (direction) => ({ opacity: 0, x: direction * 90, rotate: direction * 2.5, scale: 0.94, filter: 'blur(12px)' }),
-    center: { opacity: 1, x: 0, rotate: 0, scale: 1, filter: 'blur(0px)' },
-    exit: (direction) => ({ opacity: 0, x: direction * -70, rotate: direction * -2, scale: 0.97, filter: 'blur(8px)' })
+    enter: (direction) => ({ opacity: 0, x: direction * 52, rotate: direction * 1.2, scale: 0.985 }),
+    center: { opacity: 1, x: 0, rotate: 0, scale: 1 },
+    exit: (direction) => ({ opacity: 0, x: direction * -44, rotate: direction * -1, scale: 0.99 })
   };
 
   return (
@@ -252,7 +261,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
 
       <div className={`relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:-mt-10 md:min-h-[calc(100vh-8rem)] md:items-center md:px-10 md:pb-20 lg:-mt-14 lg:px-12 ${isMojitoHero ? 'md:grid-cols-[1.08fr_0.92fr] md:text-right' : 'md:grid-cols-[0.9fr_1.1fr] md:text-left'}`}>
         <div className={`mx-auto max-w-xl pt-0 sm:pt-8 md:pt-0 ${isMojitoHero ? 'md:col-start-2 md:mx-0 md:ml-auto md:mr-8 lg:mr-14 xl:mr-20' : 'md:mx-0'}`}>
-          <AnimatePresence mode="wait" custom={slideDirection}>
+          <AnimatePresence mode="sync" custom={slideDirection}>
             <motion.div
               key={activeFlavor}
               custom={slideDirection}
@@ -260,7 +269,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             >
               <p
                 className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] min-[390px]:mb-3 sm:mb-7 sm:text-sm md:text-base"
@@ -310,7 +319,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             animate={{ backgroundColor: `${activeColor}55`, scale: [1, 1.08, 1] }}
             transition={{ backgroundColor: { duration: 0.5 }, scale: { duration: 1.2, ease: 'easeInOut' } }}
           />
-          <AnimatePresence mode="wait" custom={slideDirection}>
+          <AnimatePresence mode="sync" custom={slideDirection}>
             <motion.img
               key={activeFlavor}
               custom={slideDirection}
@@ -318,9 +327,10 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
               src={currentHero.image}
               alt={`${activeFlavor} Fantome can`}
+              decoding="async"
               className="relative z-10 h-[41svh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[44svh] sm:h-[64vh] md:h-[82vh]"
             />
           </AnimatePresence>
