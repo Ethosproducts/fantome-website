@@ -159,7 +159,6 @@ function BackgroundEffects({ activeColor }) {
 // HERO SECTION
 // ==========================================
 function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
-  const [slideDirection, setSlideDirection] = useState(1);
   const heroData = {
     'Sugar Free': {
       eyebrow: 'ZERO SUGAR. FULL POWER.',
@@ -207,7 +206,6 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
 
   const changeHeroFlavor = (direction) => {
     if (!flavors.length || !setActiveFlavor) return;
-    setSlideDirection(direction);
     const nextIndex = (currentIndex + direction + flavors.length) % flavors.length;
     setActiveFlavor(flavors[nextIndex].title);
   };
@@ -216,7 +214,6 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
     if (!flavors.length || !setActiveFlavor) return undefined;
 
     const timer = window.setInterval(() => {
-      setSlideDirection(1);
       const activeIndex = Math.max(0, flavors.findIndex((flavor) => flavor.title === activeFlavor));
       const nextIndex = (activeIndex + 1) % flavors.length;
       setActiveFlavor(flavors[nextIndex].title);
@@ -224,18 +221,6 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
 
     return () => window.clearInterval(timer);
   }, [activeFlavor, flavors, setActiveFlavor]);
-
-  const textSlide = {
-    enter: (direction) => ({ opacity: 0, x: direction * 28 }),
-    center: { opacity: 1, x: 0 },
-    exit: (direction) => ({ opacity: 0, x: direction * -24 })
-  };
-
-  const canSlide = {
-    enter: (direction) => ({ opacity: 0, x: direction * 52, rotate: direction * 1.2, scale: 0.985 }),
-    center: { opacity: 1, x: 0, rotate: 0, scale: 1 },
-    exit: (direction) => ({ opacity: 0, x: direction * -44, rotate: direction * -1, scale: 0.99 })
-  };
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden pt-16 text-white min-[390px]:pt-18 sm:pt-28 md:pt-32" style={{ background: `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` }}>
@@ -261,40 +246,30 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
 
       <div className={`relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:-mt-10 md:min-h-[calc(100vh-8rem)] md:items-center md:px-10 md:pb-20 lg:-mt-14 lg:px-12 ${isMojitoHero ? 'md:grid-cols-[1.08fr_0.92fr] md:text-right' : 'md:grid-cols-[0.9fr_1.1fr] md:text-left'}`}>
         <div className={`mx-auto max-w-xl pt-0 sm:pt-8 md:pt-0 ${isMojitoHero ? 'md:col-start-2 md:mx-0 md:ml-auto md:mr-8 lg:mr-14 xl:mr-20' : 'md:mx-0'}`}>
-          <AnimatePresence mode="sync" custom={slideDirection}>
-            <motion.div
-              key={activeFlavor}
-              custom={slideDirection}
-              variants={textSlide}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          <div className="transition-colors duration-300">
+            <p
+              className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] min-[390px]:mb-3 sm:mb-7 sm:text-sm md:text-base"
+              style={{ color: currentHero.eyebrowColor || 'rgba(255,255,255,0.7)' }}
             >
-              <p
-                className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] min-[390px]:mb-3 sm:mb-7 sm:text-sm md:text-base"
-                style={{ color: currentHero.eyebrowColor || 'rgba(255,255,255,0.7)' }}
-              >
-                {currentHero.eyebrow}
-              </p>
-              <h1
-                className={`mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl lg:text-8xl ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
-                style={{
-                  color: currentHero.titleColor || currentHero.bg,
-                  textShadow: `0 0 28px ${(currentHero.titleColor || currentHero.bg)}3a, 0 8px 36px rgba(0,0,0,0.45)`
-                }}
-              >
-                {currentHero.title.split(' ').slice(0, -1).join(' ')}
-                <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
-              </h1>
-              <p
-                className={`mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:text-lg ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
-                style={{ color: currentHero.copyColor || 'rgba(255,255,255,0.78)' }}
-              >
-                {currentHero.copy}
-              </p>
-            </motion.div>
-          </AnimatePresence>
+              {currentHero.eyebrow}
+            </p>
+            <h1
+              className={`mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl lg:text-8xl ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
+              style={{
+                color: currentHero.titleColor || currentHero.bg,
+                textShadow: `0 0 28px ${(currentHero.titleColor || currentHero.bg)}3a, 0 8px 36px rgba(0,0,0,0.45)`
+              }}
+            >
+              {currentHero.title.split(' ').slice(0, -1).join(' ')}
+              <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
+            </h1>
+            <p
+              className={`mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:text-lg ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
+              style={{ color: currentHero.copyColor || 'rgba(255,255,255,0.78)' }}
+            >
+              {currentHero.copy}
+            </p>
+          </div>
           <motion.button
             type="button"
             onClick={() => document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' })}
@@ -319,21 +294,18 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
             animate={{ backgroundColor: `${activeColor}55`, scale: [1, 1.08, 1] }}
             transition={{ backgroundColor: { duration: 0.5 }, scale: { duration: 1.2, ease: 'easeInOut' } }}
           />
-          <AnimatePresence mode="sync" custom={slideDirection}>
-            <motion.img
-              key={activeFlavor}
-              custom={slideDirection}
-              variants={canSlide}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
-              src={currentHero.image}
-              alt={`${activeFlavor} Fantome can`}
-              decoding="async"
-              className="relative z-10 h-[41svh] max-h-[760px] w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] min-[390px]:h-[44svh] sm:h-[64vh] md:h-[82vh]"
-            />
-          </AnimatePresence>
+          <div className="relative z-10 h-[41svh] max-h-[760px] w-[78vw] max-w-[460px] min-[390px]:h-[44svh] sm:h-[64vh] sm:max-w-[560px] md:h-[82vh] md:max-w-[680px]">
+            {Object.entries(heroData).map(([flavorName, hero]) => (
+              <img
+                key={flavorName}
+                src={hero.image}
+                alt={`${flavorName} Fantome can`}
+                decoding="async"
+                loading="eager"
+                className={`absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] transition-[opacity,transform] duration-500 ease-out ${activeFlavor === flavorName ? 'opacity-100 scale-100' : 'opacity-0 scale-[0.985]'}`}
+              />
+            ))}
+          </div>
         </motion.div>
 
         <motion.button
