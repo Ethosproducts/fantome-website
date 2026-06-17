@@ -46,14 +46,14 @@ const activeColor = '#0284c7';
 
 function CampaignsPage() {
   return (
-    <div className="min-h-screen relative text-slate-800 overflow-hidden bg-transparent">
+    <div className="min-h-screen relative text-slate-200 overflow-hidden bg-transparent">
       {/* Fixed Header */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
         <nav className="w-full p-4 md:p-6 pt-2 md:pt-4">
           <div className="max-w-7xl mx-auto glass-panel px-6 py-3 flex justify-between items-center rounded-full shadow-lg">
             <Link
               to="/"
-              className="font-sans font-bold text-2xl tracking-[0.2em] text-sky-950 select-none cursor-pointer transition-all duration-500 no-underline"
+              className="font-sans font-bold text-2xl tracking-[0.2em] text-sky-400 select-none cursor-pointer transition-all duration-500 no-underline"
             >
               FANTÔME
             </Link>
@@ -66,7 +66,7 @@ function CampaignsPage() {
               }}
             >
               <ArrowLeft className="w-4 h-4" style={{ color: activeColor }} />
-              <span className="text-slate-800">Back to Home</span>
+              <span className="text-slate-200">Back to Home</span>
             </Link>
           </div>
         </nav>
@@ -90,7 +90,7 @@ function CampaignsPage() {
           <h1 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
             All Campaigns
           </h1>
-          <p className="text-sky-900 text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
+          <p className="text-sky-300 text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
             Explore all our brand activations, ad campaigns, and event highlights across platforms.
           </p>
         </motion.div>
@@ -107,7 +107,7 @@ function CampaignsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
               whileHover={{ y: -8 }}
-              className="rounded-3xl overflow-hidden glass-panel border border-sky-400/40 shadow-2xl relative group flex flex-col h-full transform-gpu cursor-pointer no-underline text-slate-800"
+              className="rounded-3xl overflow-hidden glass-panel border border-sky-400/40 shadow-2xl relative group flex flex-col h-full transform-gpu cursor-pointer no-underline text-slate-200"
               style={{ contain: 'content' }}
             >
               {/* Gradient overlay */}
@@ -164,10 +164,10 @@ function CampaignsPage() {
 
               {/* Text content */}
               <div className="p-6 relative z-20 space-y-3 flex-1 flex flex-col justify-between">
-                <h3 className="text-lg md:text-xl font-bold font-sans uppercase tracking-wide text-slate-800 group-hover:text-sky-700 transition-all duration-300">
+                <h3 className="text-lg md:text-xl font-bold font-sans uppercase tracking-wide text-slate-100 group-hover:text-sky-450 transition-all duration-300">
                   {camp.title}
                 </h3>
-                <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-sky-700 mt-auto pt-2">
+                <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-sky-400 mt-auto pt-2">
                   <ExternalLink className="w-3.5 h-3.5" />
                   <span>Watch on {camp.platform}</span>
                 </div>
@@ -180,10 +180,10 @@ function CampaignsPage() {
       {/* Footer */}
       <footer className="border-t border-sky-400/30 py-12 px-6 relative z-20">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="font-sans font-bold text-xl tracking-[0.2em] text-sky-950">
+          <div className="font-sans font-bold text-xl tracking-[0.2em] text-sky-400">
             FANTÔME
           </div>
-          <p className="text-xs text-slate-500 tracking-wide">
+          <p className="text-xs text-slate-400 tracking-wide">
             © {new Date().getFullYear()} Fantôme Energy. All rights reserved.
           </p>
         </div>

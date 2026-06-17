@@ -415,9 +415,9 @@ function StorySection({ activeColor, activeFlavor }) {
           </span>
           <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase leading-tight">
             Scientific <br />
-            <span className="text-sky-950">Formulation</span>
+            <span className="text-sky-300">Formulation</span>
           </h2>
-          <p className="text-sky-800 text-lg leading-relaxed font-light">
+          <p className="text-slate-350 text-lg leading-relaxed font-light">
             Engineered with high precision. Fantôme delivers a potent energy profile driven by B-Complex vitamins, pure Taurine, and exact Caffeine mapping. Crafted for zero fat accumulation and optimal metabolic acceleration.
           </p>
           
@@ -427,21 +427,21 @@ function StorySection({ activeColor, activeFlavor }) {
               <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '75 mg' : '75 mg'}
               </h4>
-              <p className="text-xs text-sky-700 tracking-wide mt-1">Caffeine / 250ml</p>
+              <p className="text-xs text-sky-300 tracking-wide mt-1">Caffeine / 250ml</p>
             </div>
             <div className="border-l border-sky-400/30" />
             <div>
               <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '15 kcal' : '93.75 kcal'}
               </h4>
-              <p className="text-xs text-sky-700 tracking-wide mt-1">Energy / 250ml</p>
+              <p className="text-xs text-sky-300 tracking-wide mt-1">Energy / 250ml</p>
             </div>
             <div className="border-l border-sky-400/30" />
             <div>
               <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '400 mg' : '800 mg'}
               </h4>
-              <p className="text-xs text-sky-700 tracking-wide mt-1">Taurine / 250ml</p>
+              <p className="text-xs text-sky-300 tracking-wide mt-1">Taurine / 250ml</p>
             </div>
           </div>
         </motion.div>
@@ -470,7 +470,7 @@ function StorySection({ activeColor, activeFlavor }) {
             <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm border-b border-sky-400/20 pb-4">
               {nutrition.values.map((item, idx) => (
                 <div key={idx} className="flex justify-between border-b border-sky-400/10 py-1">
-                  <span className="text-slate-600">{item.name}</span>
+                  <span className="text-slate-300">{item.name}</span>
                   <span className="font-bold">{item.val}</span>
                 </div>
               ))}
@@ -481,8 +481,8 @@ function StorySection({ activeColor, activeFlavor }) {
               <div className="grid grid-cols-2 gap-x-8 gap-y-2 mt-2 text-xs">
                 {nutrition.bioElements.map((item, idx) => (
                   <div key={idx} className={`flex justify-between py-0.5 border-b border-sky-400/10 ${item.name === 'Vitamin B12' ? 'col-span-2' : ''}`}>
-                    <span className="text-slate-600">{item.name}</span>
-                    <span className="font-bold text-slate-800">{item.val}</span>
+                    <span className="text-slate-300">{item.name}</span>
+                    <span className="font-bold text-slate-200">{item.val}</span>
                   </div>
                 ))}
               </div>
@@ -814,7 +814,7 @@ function ShopSection({ activeColor }) {
         <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Coming Soon
         </h2>
-        <p className="text-slate-600 text-sm md:text-base font-light tracking-wide mt-4">
+        <p className="text-slate-300 text-sm md:text-base font-light tracking-wide mt-4">
           The next-generation secure case drop is currently in synchronization
         </p>
       </div>
@@ -832,12 +832,12 @@ function ShopSection({ activeColor }) {
             <div>
               <div className="flex justify-between items-start">
                 <span className="text-xs tracking-wide font-bold" style={{ color: currentCrateFlavorInfo.color }}>24 + 3 Cans Free</span>
-                <span className="bg-sky-300/50 border border-sky-400/30 text-slate-800 text-[9px] font-bold tracking-wide px-3 py-1 rounded-full">
+                <span className="bg-sky-950/60 border border-sky-500/30 text-sky-200 text-[9px] font-bold tracking-wide px-3 py-1 rounded-full">
                   COMING SOON
                 </span>
               </div>
               
-              <h3 className="text-3xl font-bold font-sans uppercase mt-4 text-slate-800">
+              <h3 className="text-3xl font-bold font-sans uppercase mt-4 text-slate-100">
                 {selectedCrateFlavor} Case
               </h3>
               
@@ -858,16 +858,16 @@ function ShopSection({ activeColor }) {
 
                 {/* Vault Locked overlay */}
                 <div className="absolute inset-0 bg-sky-300/20 backdrop-blur-[2px] flex flex-col items-center justify-center gap-2 z-20">
-                  <div className="p-4 rounded-full bg-sky-300/50 border border-sky-400/30 text-slate-800 shadow-2xl">
+                  <div className="p-4 rounded-full bg-sky-950/80 border border-sky-500/40 text-sky-200 shadow-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" style={{ color: currentCrateFlavorInfo.color }}>
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                     </svg>
                   </div>
-                  <span className="text-[10px] font-bold tracking-wide text-slate-800 mt-2">TRANSMISSION LOCKED</span>
+                  <span className="text-[10px] font-bold tracking-wide text-slate-200 mt-2">TRANSMISSION LOCKED</span>
                 </div>
                 
-                <span className="text-xs font-bold uppercase tracking-[0.25em] text-slate-800/10 absolute bottom-12 z-10 font-sans">FANTÔME SECURE CASE</span>
+                <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/10 absolute bottom-12 z-10 font-sans">FANTÔME SECURE CASE</span>
                 <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[9px] font-bold bg-sky-300/50 border border-sky-400/30 z-30 tracking-widest uppercase">
                   27 Cans Total
                 </div>
@@ -875,7 +875,7 @@ function ShopSection({ activeColor }) {
 
               {/* Flavor Selector */}
               <div className="mt-6">
-                <span className="text-[10px] tracking-wide text-sky-850 block mb-2.5 font-bold">Preview Crate Flavor</span>
+                <span className="text-[10px] tracking-wide text-sky-300 block mb-2.5 font-bold">Preview Crate Flavor</span>
                 <div className="flex gap-2">
                   {crateFlavors.map(f => (
                     <button
@@ -884,7 +884,7 @@ function ShopSection({ activeColor }) {
                       className={`flex-1 py-2 px-3 text-[10px] rounded-xl border transition-all font-bold uppercase cursor-pointer text-center ${
                         selectedCrateFlavor === f.name 
                           ? 'bg-sky-600 text-white hover:bg-sky-700 border-sky-700' 
-                          : 'bg-sky-300/20 text-slate-700 border-sky-400/30 hover:bg-sky-300/50 hover:border-sky-400/50'
+                          : 'bg-slate-900/40 text-slate-350 border-white/10 hover:bg-slate-850/40 hover:border-white/20'
                       }`}
                       style={selectedCrateFlavor === f.name ? { boxShadow: "none" } : {}}
                     >
@@ -898,10 +898,10 @@ function ShopSection({ activeColor }) {
             <div className="mt-8 flex items-center justify-between pt-6 border-t border-sky-400/30">
               <div>
                 <span className="text-xs text-slate-500 tracking-wide">Target Price</span>
-                <h4 className="text-2xl font-bold font-sans text-slate-800 mt-1">{formatPrice(1440)}</h4>
+                <h4 className="text-2xl font-bold font-sans text-slate-100 mt-1">{formatPrice(1440)}</h4>
               </div>
               
-              <span className="text-xs font-bold tracking-wide text-slate-700 py-3 px-5 rounded-xl border border-sky-400/30 bg-sky-300/50">
+              <span className="text-xs font-bold tracking-wide text-slate-200 py-3 px-5 rounded-xl border border-sky-500/30 bg-sky-950/60">
                 LOCKED
               </span>
             </div>
@@ -918,18 +918,18 @@ function ShopSection({ activeColor }) {
             <div className="flex items-center justify-between border-b border-sky-400/30 pb-4 mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
-                <h3 className="font-sans font-bold text-xl tracking-widest uppercase text-slate-800">SECURE ACCESS LOCKOUT</h3>
+                <h3 className="font-sans font-bold text-xl tracking-widest uppercase text-slate-100">SECURE ACCESS LOCKOUT</h3>
               </div>
-              <span className="text-[9px] font-mono text-sky-900 bg-sky-300/50 px-2 py-1 rounded border border-sky-400/30">SYS.V_2.0</span>
+              <span className="text-[9px] font-mono text-sky-200 bg-sky-950/60 px-2 py-1 rounded border border-sky-400/30">SYS.V_2.0</span>
             </div>
 
-            <p className="text-slate-600 text-sm leading-relaxed font-light mb-8">
+            <p className="text-slate-300 text-sm leading-relaxed font-light mb-8">
               The official Fantôme secure case containing our premier energy catalyst variations is currently under orbital dispatch. The single bottle cans for sale are discontinued to prioritize high-capacity case deployments.
             </p>
 
             {/* Glowing Countdown */}
             <div className="space-y-3 mb-8">
-              <span className="text-[10px] tracking-wide text-sky-800 font-bold block">Transmission Synchronization Est. Time</span>
+              <span className="text-[10px] tracking-wide text-sky-300 font-bold block">Transmission Synchronization Est. Time</span>
               <div className="grid grid-cols-4 gap-3 text-center">
                 {[
                   { label: "DAYS", val: timeLeft.days },
@@ -938,10 +938,10 @@ function ShopSection({ activeColor }) {
                   { label: "SECONDS", val: timeLeft.seconds }
                 ].map((t, idx) => (
                   <div key={idx} className="p-3 rounded-2xl bg-sky-300/30 border border-sky-400/30 flex flex-col justify-center">
-                    <span className="text-2xl md:text-3xl font-bold font-sans tracking-tight text-sky-950" style={{ textShadow: "none" }}>
+                    <span className="text-2xl md:text-3xl font-bold font-sans tracking-tight text-slate-100" style={{ textShadow: "none" }}>
                       {String(t.val).padStart(2, '0')}
                     </span>
-                    <span className="text-[8px] text-sky-800 font-bold tracking-widest uppercase mt-1">{t.label}</span>
+                    <span className="text-[8px] text-sky-300 font-bold tracking-widest uppercase mt-1">{t.label}</span>
                   </div>
                 ))}
               </div>
@@ -959,7 +959,7 @@ function ShopSection({ activeColor }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <span className="text-[10px] tracking-wide text-sky-800 font-bold block">Register for launch authorization</span>
+                    <span className="text-[10px] tracking-wide text-sky-300 font-bold block">Register for launch authorization</span>
                     <div className="flex flex-col sm:flex-row gap-3">
                       <input 
                         type="email" 
@@ -967,7 +967,7 @@ function ShopSection({ activeColor }) {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="ENTER SECURE EMAIL ADDRESS"
-                        className="px-5 py-4 rounded-2xl glass-panel bg-sky-300/30 text-xs tracking-wide font-semibold border border-sky-400/30 flex-grow focus:outline-none focus:border-sky-500 transition-colors text-slate-800"
+                        className="px-5 py-4 rounded-2xl glass-panel bg-sky-300/30 text-xs tracking-wide font-semibold border border-sky-400/30 flex-grow focus:outline-none focus:border-sky-500 transition-colors text-slate-100"
                       />
                       <motion.button 
                         whileHover={{ scale: 1.02 }}
@@ -987,12 +987,12 @@ function ShopSection({ activeColor }) {
                     animate={{ scale: 1, opacity: 1 }}
                     className="p-5 rounded-2xl bg-sky-300/20 border border-sky-400/30 flex items-start gap-4"
                   >
-                    <div className="p-2 rounded-xl bg-sky-300/40 text-sky-900 mt-0.5 animate-pulse">
+                    <div className="p-2 rounded-xl bg-sky-300/40 text-sky-200 mt-0.5 animate-pulse">
                       <Check className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-sans font-bold text-sm tracking-wide text-slate-800">TRANSMISSION ESTABLISHED</h4>
-                      <p className="text-xs text-slate-650 mt-1 leading-relaxed">
+                      <h4 className="font-sans font-bold text-sm tracking-wide text-slate-100">TRANSMISSION ESTABLISHED</h4>
+                      <p className="text-xs text-slate-350 mt-1 leading-relaxed">
                         Security authorization verified. You will receive priority access notifications the microsecond the crate drops.
                       </p>
                     </div>
@@ -1004,13 +1004,13 @@ function ShopSection({ activeColor }) {
           
           {/* Subtle details bullet points */}
           <div className="grid grid-cols-2 gap-4 text-xs">
-            <div className="p-4 rounded-2xl border border-sky-400/30 bg-sky-300/30 space-y-1">
-              <span className="font-bold text-slate-800 block tracking-wide">Priority Distribution</span>
-              <p className="text-sky-900 font-light leading-relaxed">Secure Case orders receive automatic express distribution globally.</p>
+            <div className="p-4 rounded-2xl border border-sky-400/30 bg-sky-950/60 space-y-1">
+              <span className="font-bold text-slate-200 block tracking-wide">Priority Distribution</span>
+              <p className="text-sky-300 font-light leading-relaxed">Secure Case orders receive automatic express distribution globally.</p>
             </div>
-            <div className="p-4 rounded-2xl border border-sky-400/30 bg-sky-300/30 space-y-1">
-              <span className="font-bold text-slate-800 block tracking-wide">Discontinued Singles</span>
-              <p className="text-sky-900 font-light leading-relaxed">Individual cans removed to focus entirely on specialized 27-can crates.</p>
+            <div className="p-4 rounded-2xl border border-sky-400/30 bg-sky-950/60 space-y-1">
+              <span className="font-bold text-slate-200 block tracking-wide">Discontinued Singles</span>
+              <p className="text-sky-300 font-light leading-relaxed">Individual cans removed to focus entirely on specialized 27-can crates.</p>
             </div>
           </div>
         </div>
@@ -1063,7 +1063,7 @@ function CampaignsSection({ activeColor }) {
         <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Our Campaigns
         </h2>
-        <p className="text-sky-900 text-sm md:text-base font-light tracking-wide mt-4">
+        <p className="text-sky-350 text-sm md:text-base font-light tracking-wide mt-4">
           Tactical activations and planetary brand maneuvers
         </p>
       </div>
@@ -1129,10 +1129,10 @@ function CampaignsSection({ activeColor }) {
             </div>
 
             <div className="p-8 relative z-20 space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-slate-800 group-hover:text-sky-700 transition-all duration-300">
+              <h3 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-slate-100 group-hover:text-sky-450 transition-all duration-300">
                 {camp.title}
               </h3>
-              <p className="text-slate-700 font-light leading-relaxed text-sm md:text-base">
+              <p className="text-slate-300 font-light leading-relaxed text-sm md:text-base">
                 {camp.desc}
               </p>
             </div>
@@ -1191,19 +1191,19 @@ function FounderSection({ activeColor }) {
           className="w-full lg:w-7/12 space-y-10"
         >
           <div className="space-y-6">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-wide text-slate-800 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-wide text-slate-100 leading-tight">
               The Visionary <br />
-              <span className="text-slate-800">The Power</span>
+              <span className="text-slate-200">The Power</span>
             </h2>
             <div className="h-1 w-24 rounded-full" style={{ backgroundColor: activeColor, boxShadow: "none" }} />
           </div>
           
-          <div className="space-y-8 text-slate-600 font-light leading-relaxed text-lg lg:text-xl">
+          <div className="space-y-8 text-slate-300 font-light leading-relaxed text-lg lg:text-xl">
             <p>
-              A first-generation entrepreneur, <strong className="text-slate-800 font-bold">Shri Ankit Khandelwal</strong> has built a diversified global business enterprise from the ground up. Driven by a relentless pursuit of excellence and an unyielding work ethic, his journey is a testament to what absolute dedication can achieve.
+              A first-generation entrepreneur, <strong className="text-slate-100 font-bold">Shri Ankit Khandelwal</strong> has built a diversified global business enterprise from the ground up. Driven by a relentless pursuit of excellence and an unyielding work ethic, his journey is a testament to what absolute dedication can achieve.
             </p>
             <p>
-              Recognizing a critical gap in the market for a truly premium, scientifically backed energy catalyst, he conceptualized <strong className="text-slate-800 font-bold tracking-wider">FANTÔME</strong>. It was designed not merely as a beverage, but as a lifestyle symbol for the relentless, the ambitious, and the unstoppable.
+              Recognizing a critical gap in the market for a truly premium, scientifically backed energy catalyst, he conceptualized <strong className="text-slate-100 font-bold tracking-wider">FANTÔME</strong>. It was designed not merely as a beverage, but as a lifestyle symbol for the relentless, the ambitious, and the unstoppable.
             </p>
             <p>
               Under his visionary leadership, Fantôme Energy merges cutting-edge formulation with dark, sophisticated aesthetics, redefining the boundaries of physical and cognitive performance on a global scale.
@@ -1233,7 +1233,7 @@ function ConnectSection({ activeColor }) {
         <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Connect Us
         </h2>
-        <p className="text-sky-900 text-sm md:text-base font-light tracking-wide mt-4">
+        <p className="text-sky-305 text-sm md:text-base font-light tracking-wide mt-4">
           Join the planetary energy transmission
         </p>
       </div>
@@ -1250,12 +1250,12 @@ function ConnectSection({ activeColor }) {
             style={{ minWidth: "160px" }}
           >
             <div 
-              className="text-slate-800 group-hover:text-slate-800 transition-colors duration-500"
+              className="text-slate-200 group-hover:text-white transition-colors duration-500"
               style={{ filter: "none" }}
             >
               {social.icon}
             </div>
-            <span className="font-bold tracking-wide text-sm text-slate-700 group-hover:text-slate-800">
+            <span className="font-bold tracking-wide text-sm text-slate-300 group-hover:text-white">
               {social.name}
             </span>
           </motion.a>
@@ -1275,15 +1275,15 @@ function Footer({ activeColor }) {
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-6">
-          <h2 className="text-3xl font-bold font-sans tracking-wide text-slate-800">FANTÔME</h2>
-          <p className="text-slate-700 font-light max-w-sm">
+          <h2 className="text-3xl font-bold font-sans tracking-wide text-slate-100">FANTÔME</h2>
+          <p className="text-slate-300 font-light max-w-sm">
             Receive transmission updates on biological formula upgrades, new flavor drops, and exclusive team merchandise releases.
           </p>
           <div className="flex gap-4">
             <input 
               type="email" 
               placeholder="ENTER EMAIL TRANSMISSION"
-              className="px-6 py-4 rounded-xl glass-panel bg-sky-300/30 text-sm tracking-wide font-semibold border border-sky-400/30 w-full focus:outline-none focus:border-sky-500 transition-colors text-slate-800"
+              className="px-6 py-4 rounded-xl glass-panel bg-sky-300/30 text-sm tracking-wide font-semibold border border-sky-400/30 w-full focus:outline-none focus:border-sky-500 transition-colors text-slate-100"
             />
             <button className="p-4 rounded-xl bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide flex items-center justify-center cursor-pointer transition-colors">
               <ArrowRight className="w-5 h-5" />
@@ -1292,30 +1292,30 @@ function Footer({ activeColor }) {
         </div>
 
         {/* Legal Grid Compliance (Real Addresses & FSSAI Lic) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-sky-900 font-medium">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-sky-300 font-medium">
           <div className="p-5 rounded-2xl glass-panel border border-sky-400/40 space-y-3 bg-sky-300/20">
-            <h4 className="text-[10px] font-bold tracking-wide text-slate-800">Manufactured By</h4>
-            <p className="font-bold text-slate-900">KOLADIYA INDUSTRIES PVT. LTD.</p>
-            <p className="leading-relaxed">
+            <h4 className="text-[10px] font-bold tracking-wide text-slate-200">Manufactured By</h4>
+            <p className="font-bold text-slate-100">KOLADIYA INDUSTRIES PVT. LTD.</p>
+            <p className="leading-relaxed text-slate-300">
               Plot no. 21 to 26, 3rd Phase Industrial Estate, Navagam, Bhavnagar, Gujarat – 364110
             </p>
-            <p className="font-bold tracking-wide text-sky-900">
-              FSSAI Lic. No: <span className="text-slate-900">10722999000112</span>
+            <p className="font-bold tracking-wide text-sky-300">
+              FSSAI Lic. No: <span className="text-slate-100">10722999000112</span>
             </p>
           </div>
 
           <div className="p-5 rounded-2xl glass-panel border border-sky-400/40 space-y-3 bg-sky-300/20">
-            <h4 className="text-[10px] font-bold tracking-wide text-slate-800">Marketed By</h4>
-            <p className="font-bold text-slate-900">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
-            <p className="leading-relaxed">
+            <h4 className="text-[10px] font-bold tracking-wide text-slate-200">Marketed By</h4>
+            <p className="font-bold text-slate-100">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
+            <p className="leading-relaxed text-slate-300">
               Plot No. 10, Nayapalli, Bhubaneswar, Odisha – 751014
             </p>
             <div className="space-y-1">
-              <p className="font-bold tracking-wide text-sky-900">
-                FSSAI Lic. No: <span className="text-slate-900">10016031000631</span>
+              <p className="font-bold tracking-wide text-sky-300">
+                FSSAI Lic. No: <span className="text-slate-100">10016031000631</span>
               </p>
-              <p>Email: <a href="mailto:info@ethosglobal.in" className="text-sky-900/80 hover:text-sky-900 underline">info@ethosglobal.in</a></p>
-              <p>Customer Care: <span className="text-slate-900">9090355570</span></p>
+              <p>Email: <a href="mailto:info@ethosglobal.in" className="text-sky-300/80 hover:text-sky-200 underline">info@ethosglobal.in</a></p>
+              <p>Customer Care: <span className="text-slate-100">9090355570</span></p>
             </div>
           </div>
         </div>
@@ -1461,13 +1461,13 @@ function FantomeChatbot({ activeColor }) {
                   <span className="font-sans font-bold text-xs">F</span>
                 </div>
                 <div>
-                  <h3 className="text-slate-800 font-sans font-bold uppercase text-sm tracking-wider">Fantôme AI</h3>
-                  <p className="text-[10px] text-slate-650 tracking-wide flex items-center gap-1">
+                  <h3 className="text-slate-100 font-sans font-bold uppercase text-sm tracking-wider">Fantôme AI</h3>
+                  <p className="text-[10px] text-slate-350 tracking-wide flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: activeColor }}></span> Online
                   </p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="text-slate-600 hover:text-slate-800 transition-colors p-1 cursor-pointer">
+              <button onClick={() => setIsOpen(false)} className="text-slate-300 hover:text-white transition-colors p-1 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -1477,8 +1477,7 @@ function FantomeChatbot({ activeColor }) {
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div 
-                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-sky-600 text-white rounded-tr-sm border border-sky-700/30' : 'bg-sky-300/30 border border-sky-400/30 text-slate-800 rounded-tl-sm'}`}
-                    style={msg.sender === 'bot' ? { borderColor: `${activeColor}30`, boxShadow: `inset 0 0 10px ${activeColor}10` } : {}}
+                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-sky-600 text-white rounded-tr-sm border border-sky-700/30' : 'bg-sky-950/60 border border-sky-500/20 text-slate-100 rounded-tl-sm'}`}
                   >
                     {msg.text}
                   </div>
@@ -1488,13 +1487,13 @@ function FantomeChatbot({ activeColor }) {
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSend} className="p-4 border-t bg-sky-300/30 flex gap-2" style={{ borderColor: `${activeColor}20` }}>
+            <form onSubmit={handleSend} className="p-4 border-t flex gap-2" style={{ borderColor: `${activeColor}20` }}>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Transmit query..."
-                className="flex-1 bg-sky-300/40 border border-sky-400/30 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 transition-colors"
+                className="flex-1 bg-sky-300/40 border border-sky-400/30 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-sky-500 transition-colors"
               />
               <button
                 type="submit"
@@ -1623,7 +1622,7 @@ function App() {
   ];
 
   return (
-    <div className="fantome-dark min-h-screen relative text-slate-800 overflow-x-hidden bg-transparent">
+    <div className="fantome-dark min-h-screen relative text-slate-200 overflow-x-hidden bg-transparent">
       <audio ref={audioRef} src="/fantome-bg-music.mp3" loop preload="auto" />
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
@@ -1806,21 +1805,21 @@ function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsCartOpen(false)}
-              className="absolute inset-0 bg-sky-200/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             />
             <motion.div 
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="relative w-full max-w-md h-full bg-sky-300/90 backdrop-blur-md border-l border-sky-400/30 p-8 flex flex-col justify-between z-10"
+              className="relative w-full max-w-md h-full bg-slate-950/95 border-l border-white/10 p-8 flex flex-col justify-between z-10"
             >
               <div>
                 <div className="flex justify-between items-center border-b border-sky-400/30 pb-6">
                   <h3 className="text-2xl font-bold font-sans uppercase">Shopping Bag</h3>
                   <button 
                     onClick={() => setIsCartOpen(false)}
-                    className="text-xs font-bold tracking-wide text-slate-500 hover:text-slate-800 cursor-pointer"
+                    className="text-xs font-bold tracking-wide text-slate-400 hover:text-white cursor-pointer"
                   >
                     Close
                   </button>
@@ -1828,7 +1827,7 @@ function App() {
 
                 <div className="mt-8 space-y-6 overflow-y-auto max-h-[60vh] pr-2">
                   {cart.length === 0 ? (
-                    <div className="text-center py-20 text-slate-500 tracking-wide font-bold text-sm">
+                    <div className="text-center py-20 text-slate-400 tracking-wide font-bold text-sm">
                       Your bag is empty
                     </div>
                   ) : (
@@ -1847,25 +1846,25 @@ function App() {
                           />
                           <div>
                             <span className="text-[10px] tracking-wide font-bold" style={{ color: item.color }}>{item.pack}</span>
-                            <h4 className="text-sm font-bold font-sans uppercase text-slate-800 mt-0.5">{item.title}</h4>
-                            <span className="text-xs font-bold text-slate-600 mt-1 block">
+                            <h4 className="text-sm font-bold font-sans uppercase text-slate-100 mt-0.5">{item.title}</h4>
+                            <span className="text-xs font-bold text-slate-350 mt-1 block">
                               {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(item.price)} each
                             </span>
                           </div>
                         </div>
 
                         <div className="flex flex-col items-end gap-2">
-                          <div className="flex items-center gap-2 bg-sky-300/40 border border-sky-400/30 rounded-lg p-1">
+                          <div className="flex items-center gap-2 bg-white/[0.06] border border-white/10 rounded-lg p-1">
                             <button 
                               onClick={() => handleUpdateQuantity(item.id, -1)}
-                              className="p-1 hover:bg-sky-300/40 rounded text-slate-600 hover:text-slate-800 transition-colors cursor-pointer"
+                              className="p-1 hover:bg-sky-300/40 rounded text-slate-350 hover:text-white transition-colors cursor-pointer"
                             >
                               <Minus className="w-3.5 h-3.5" />
                             </button>
                             <span className="text-xs font-bold w-4 text-center">{item.quantity}</span>
                             <button 
                               onClick={() => handleUpdateQuantity(item.id, 1)}
-                              className="p-1 hover:bg-sky-300/40 rounded text-slate-600 hover:text-slate-800 transition-colors cursor-pointer"
+                              className="p-1 hover:bg-sky-300/40 rounded text-slate-350 hover:text-white transition-colors cursor-pointer"
                             >
                               <Plus className="w-3.5 h-3.5" />
                             </button>
@@ -1953,7 +1952,7 @@ function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowCheckoutSuccess(false)}
-              className="absolute inset-0 bg-sky-200/40 backdrop-blur-md"
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             />
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
@@ -1961,22 +1960,19 @@ function App() {
               exit={{ scale: 0.9, opacity: 0 }}
               className="relative w-full max-w-md glass-panel border border-sky-400/35 p-8 text-center shadow-2xl z-10 overflow-hidden"
             >
-              {/* Radial glow */}
-              
-              
               <div className="w-16 h-16 rounded-full bg-sky-300/50 border border-sky-400/30 flex items-center justify-center mx-auto mb-6">
                 <Check className="w-8 h-8" style={{ color: activeColor, filter: `drop-shadow(0 0 8px ${activeColor})` }} />
               </div>
               
-              <h3 className="text-3xl font-bold font-sans tracking-wide text-slate-800">
+              <h3 className="text-3xl font-bold font-sans tracking-wide text-slate-100">
                 Transmission Received
               </h3>
               
-              <p className="text-sm text-slate-600 font-light leading-relaxed mt-4 max-w-xs mx-auto">
+              <p className="text-sm text-slate-350 font-light leading-relaxed mt-4 max-w-xs mx-auto">
                 Your premium catalyst order has been verified. Your shipment is being prepared for rapid deployment.
               </p>
               
-              <div className="mt-8 p-4 rounded-2xl bg-sky-300/30 border border-sky-400/30 text-[10px] text-sky-900 tracking-wider font-bold flex items-center justify-center gap-2 uppercase">
+              <div className="mt-8 p-4 rounded-2xl bg-sky-300/30 border border-sky-400/30 text-[10px] text-sky-300 tracking-wider font-bold flex items-center justify-center gap-2 uppercase">
                 <ShieldAlert className="w-4 h-4 text-fantome-gold" />
                 <span>SECURE BIO-QUANTUM ENCRYPTED CHECKOUT</span>
               </div>
