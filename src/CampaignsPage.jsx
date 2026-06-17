@@ -51,6 +51,7 @@ function CampaignsPage() {
   });
 
   React.useEffect(() => {
+    document.documentElement.style.setProperty('--active-color', '#0284c7');
     if (isDarkMode) {
       document.documentElement.classList.remove('light-mode');
     } else {

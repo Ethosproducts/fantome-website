@@ -662,7 +662,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
                   <span className="block" style={{ color: currentFlavor.color }}>Formulation</span>
                 </h3>
                 <p className="mx-auto max-w-xl text-xs font-semibold leading-5 text-white/76 sm:text-sm">
-                  {shortFlavorDesc}
+                  {currentFlavor.desc}
                 </p>
                 <div className="rounded-2xl border border-white/12 bg-black/24 p-3 text-left backdrop-blur-md sm:p-4">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -1395,7 +1395,7 @@ function FantomeChatbot({ activeColor }) {
         className={`fixed bottom-6 right-6 z-[100] flex flex-col items-center gap-2 ${isOpen ? 'pointer-events-none' : 'pointer-events-auto'}`}
       >
         <div
-          className="relative rounded-full border px-3 py-1 text-[11px] font-black tracking-wide text-white shadow-[0_10px_30px_rgba(0,0,0,0.42)] md:px-4 md:py-1.5 md:text-xs"
+          className="chatbot-bubble relative rounded-full border px-3 py-1 text-[11px] font-black tracking-wide text-white shadow-[0_10px_30px_rgba(0,0,0,0.42)] md:px-4 md:py-1.5 md:text-xs"
           style={{ backgroundColor: '#05080d', borderColor: `${activeColor}80`, boxShadow: `0 10px 30px rgba(0,0,0,0.42), 0 0 22px ${activeColor}55` }}
         >
           Hi, ask me
@@ -1579,6 +1579,10 @@ function App() {
   ];
 
   const activeColor = flavors.find(f => f.title === activeFlavor)?.color || '#059669';
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--active-color', activeColor);
+  }, [activeColor]);
 
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
