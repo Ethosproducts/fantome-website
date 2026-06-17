@@ -1281,10 +1281,17 @@ function Footer({ activeColor }) {
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-6">
-          <h2 className="text-3xl font-bold font-sans tracking-wide text-slate-100">FANTÔME</h2>
-          <p className="text-slate-300 font-light max-w-sm">
-            Receive transmission updates on biological formula upgrades, new flavor drops, and exclusive team merchandise releases.
-          </p>
+          <div className="flex items-center gap-4">
+            <img 
+              src="/fantome_unseen_power_logo_square.png" 
+              alt="Fantôme Logo" 
+              className="h-16 w-16 rounded-[1.1rem] border border-white/40 bg-white p-1 shadow-[0_12px_36px_rgba(0,0,0,0.5)] brightness-105 contrast-110"
+            />
+            <div>
+              <h2 className="text-3xl font-black font-sans tracking-wider text-slate-100 leading-none">FANTÔME</h2>
+              <span className="text-[10px] font-black uppercase tracking-[0.16em] text-sky-400">Unseen Power</span>
+            </div>
+          </div>
           <div className="flex gap-4">
             <input 
               type="email" 
