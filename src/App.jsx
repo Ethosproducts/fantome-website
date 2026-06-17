@@ -1008,17 +1008,7 @@ function ShopSection({ activeColor }) {
             </div>
           </div>
           
-          {/* Subtle details bullet points */}
-          <div className="grid grid-cols-2 gap-4 text-xs">
-            <div className="p-4 rounded-2xl border border-sky-400/30 bg-sky-950/60 space-y-1">
-              <span className="font-bold text-slate-200 block tracking-wide">Priority Distribution</span>
-              <p className="text-sky-300 font-light leading-relaxed">Secure Case orders receive automatic express distribution globally.</p>
-            </div>
-            <div className="p-4 rounded-2xl border border-sky-400/30 bg-sky-950/60 space-y-1">
-              <span className="font-bold text-slate-200 block tracking-wide">Discontinued Singles</span>
-              <p className="text-sky-300 font-light leading-relaxed">Individual cans removed to focus entirely on specialized 27-can crates.</p>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
@@ -1292,16 +1282,7 @@ function Footer({ activeColor }) {
               <span className="text-[10px] font-black uppercase tracking-[0.16em] text-sky-400">Unseen Power</span>
             </div>
           </div>
-          <div className="flex gap-4">
-            <input 
-              type="email" 
-              placeholder="ENTER EMAIL TRANSMISSION"
-              className="px-6 py-4 rounded-xl glass-panel bg-sky-300/30 text-sm tracking-wide font-semibold border border-sky-400/30 w-full focus:outline-none focus:border-sky-500 transition-colors text-slate-100"
-            />
-            <button className="p-4 rounded-xl bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide flex items-center justify-center cursor-pointer transition-colors">
-              <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
+
         </div>
 
         {/* Legal Grid Compliance (Real Addresses & FSSAI Lic) */}
@@ -1335,7 +1316,7 @@ function Footer({ activeColor }) {
       </div>
 
       <div className="max-w-7xl mx-auto border-t border-sky-400/30 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-sky-800 font-bold tracking-wide">
-        <span>© 2026 FANTÔME ENERGY. ALL BIO-SYSTEMS RESERVED.</span>
+        <span>© 2026 FANTÔME ENERGY.</span>
         <p className="text-[0.68rem] font-bold tracking-[0.14em] text-white/65 sm:text-xs">
           Designed and Developed by Praveen
         </p>
