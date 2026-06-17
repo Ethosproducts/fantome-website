@@ -184,10 +184,10 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       eyebrow: 'PREMIUM ENERGY CATALYST',
       title: 'Fantome Original',
       image: '/hero_original.png?v=1',
-      bg: '#b91c1c',
-      titleColor: '#c81e2b',
-      eyebrowColor: '#f1b3b8',
-      copyColor: '#e5c3c6',
+      bg: '#722525',
+      titleColor: '#CD5C5C',
+      eyebrowColor: '#E6B8B8',
+      copyColor: '#E6CECE',
       copy: 'The core Fantome hit: bold taste, clean can, instant brand recall.'
     }
   };
@@ -787,7 +787,7 @@ function ShopSection({ activeColor }) {
 
   const crateFlavors = [
     { name: "Mojito", color: "#059669", graphic: "/mojito_perfect.png?v=7" },
-    { name: "Original", color: "#DC2626", graphic: "/original_perfect.png?v=7" },
+    { name: "Original", color: "#B54848", graphic: "/original_perfect.png?v=7" },
     { name: "Sugar Free", color: "#475569", graphic: "/sugarfree_perfect.png?v=8" }
   ];
 
@@ -1542,7 +1542,7 @@ function App() {
     { 
       title: "Original", 
       flavor: "Unseen Power", 
-      color: "#DC2626",
+      color: "#B54848",
       desc: "Our classic adaptation. A violent shockwave of mental clarity and cognitive ignition, utilizing high taurine metrics and immediate energy release regulators.",
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 122 & INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/original_texture.png",
