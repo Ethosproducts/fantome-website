@@ -45,8 +45,21 @@ const campaigns = [
 const activeColor = '#0284c7';
 
 function CampaignsPage() {
+  const [isDarkMode] = React.useState(() => {
+    const saved = localStorage.getItem('fantome-theme');
+    return saved !== null ? saved === 'dark' : true;
+  });
+
+  React.useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove('light-mode');
+    } else {
+      document.documentElement.classList.add('light-mode');
+    }
+  }, [isDarkMode]);
+
   return (
-    <div className="min-h-screen relative text-slate-200 overflow-hidden bg-transparent">
+    <div className={`${isDarkMode ? 'fantome-dark' : 'fantome-light'} min-h-screen relative text-slate-200 overflow-hidden bg-transparent`}>
       {/* Fixed Header */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
         <nav className="w-full p-4 md:p-6 pt-2 md:pt-4">

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send, Volume2, VolumeX } from 'lucide-react';
+import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send, Volume2, VolumeX, Sun, Moon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -158,16 +158,16 @@ function BackgroundEffects({ activeColor }) {
 // ==========================================
 // HERO SECTION
 // ==========================================
-function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
+function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDarkMode }) {
   const heroData = {
     'Sugar Free': {
       eyebrow: 'ZERO SUGAR. FULL POWER.',
       title: 'Fantome Sugar Free',
       image: '/hero_sugarfree.png?v=1',
       bg: '#c7ccd3',
-      titleColor: '#d6d9de',
-      eyebrowColor: '#a9afb8',
-      copyColor: '#b7bdc6',
+      titleColor: isDarkMode ? '#d6d9de' : '#1e293b',
+      eyebrowColor: isDarkMode ? '#a9afb8' : '#475569',
+      copyColor: isDarkMode ? '#b7bdc6' : '#334155',
       copy: 'A sharper, lighter charge with the same unseen punch.'
     },
     'Mojito': {
@@ -175,9 +175,9 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       title: 'Fantome Mojito',
       image: '/hero_mojito.png?v=1',
       bg: '#059669',
-      titleColor: '#22c55e',
-      eyebrowColor: '#b9f6d2',
-      copyColor: '#d7ffe7',
+      titleColor: isDarkMode ? '#22c55e' : '#047857',
+      eyebrowColor: isDarkMode ? '#b9f6d2' : '#065f46',
+      copyColor: isDarkMode ? '#d7ffe7' : '#065f46',
       copy: 'Refreshing green energy with a clean ready-to-drink finish.'
     },
     'Original': {
@@ -185,9 +185,9 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       title: 'Fantome Original',
       image: '/hero_original.png?v=1',
       bg: '#0F2C4A',
-      titleColor: '#7DD3FC',
-      eyebrowColor: '#BAE6FD',
-      copyColor: '#E0F2FE',
+      titleColor: isDarkMode ? '#7DD3FC' : '#0369a1',
+      eyebrowColor: isDarkMode ? '#BAE6FD' : '#075985',
+      copyColor: isDarkMode ? '#E0F2FE' : '#075985',
       copy: 'The core Fantome hit: bold taste, clean can, instant brand recall.'
     }
   };
@@ -223,9 +223,9 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
   }, [activeFlavor, flavors, setActiveFlavor]);
 
   return (
-    <section className="relative min-h-[100svh] overflow-hidden pt-16 text-white min-[390px]:pt-18 sm:pt-28 md:pt-32" style={{ background: `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` }}>
-      <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` }} />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+    <section className="relative min-h-[100svh] overflow-hidden pt-16 text-white min-[390px]:pt-18 sm:pt-28 md:pt-32" style={{ background: isDarkMode ? `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` : `radial-gradient(circle at 78% 42%, ${activeColor}15 0%, rgba(0,0,0,0) 34%), var(--bg-gradient)` }}>
+      <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: isDarkMode ? `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` : `linear-gradient(90deg, ${activeColor}08 0%, transparent 34%, ${activeColor}05 100%)` }} />
+      <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none" style={{ backgroundImage: 'linear-gradient(to top, var(--bg-solid), transparent)' }} />
       <BackgroundEffects activeColor={activeColor} />
       <button
         type="button"
@@ -257,7 +257,9 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
               className={`mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl lg:text-8xl ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
               style={{
                 color: currentHero.titleColor || currentHero.bg,
-                textShadow: `0 0 28px ${(currentHero.titleColor || currentHero.bg)}3a, 0 8px 36px rgba(0,0,0,0.45)`
+                textShadow: isDarkMode 
+                  ? `0 0 28px ${(currentHero.titleColor || currentHero.bg)}3a, 0 8px 36px rgba(0,0,0,0.45)`
+                  : `0 2px 10px rgba(15, 23, 42, 0.08)`
               }}
             >
               {currentHero.title.split(' ').slice(0, -1).join(' ')}
@@ -1229,7 +1231,7 @@ function ConnectSection({ activeColor }) {
         <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Connect Us
         </h2>
-        <p className="text-sky-305 text-sm md:text-base font-light tracking-wide mt-4">
+        <p className="text-sky-300 text-sm md:text-base font-light tracking-wide mt-4">
           Join the planetary energy transmission
         </p>
       </div>
@@ -1512,6 +1514,20 @@ function App() {
   const queryParams = new URLSearchParams(window.location.search);
   const defaultFlavor = queryParams.get('flavor') || 'Sugar Free';
   const [activeFlavor, setActiveFlavor] = useState(defaultFlavor); // Default core Sugar Free flavor
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('fantome-theme');
+    return saved !== null ? saved === 'dark' : true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('fantome-theme', isDarkMode ? 'dark' : 'light');
+    if (isDarkMode) {
+      document.documentElement.classList.remove('light-mode');
+    } else {
+      document.documentElement.classList.add('light-mode');
+    }
+  }, [isDarkMode]);
+
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
@@ -1616,7 +1632,7 @@ function App() {
   ];
 
   return (
-    <div className="fantome-dark min-h-screen relative text-slate-200 overflow-x-hidden bg-transparent">
+    <div className={`${isDarkMode ? 'fantome-dark' : 'fantome-light'} min-h-screen relative text-slate-200 overflow-x-hidden bg-transparent`}>
       <audio ref={audioRef} src="/fantome-bg-music.mp3" loop preload="auto" />
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
@@ -1642,22 +1658,39 @@ function App() {
               />
             </button>
 
-            <button
-              type="button"
-              onClick={toggleMusic}
-              className="flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-[1.1rem] border border-white/10 bg-slate-950/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.10] cursor-pointer sm:h-20 sm:w-20 lg:hidden"
-              style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
-              aria-label={isMusicPlaying ? 'Pause background music' : 'Play background music'}
-            >
-              {isMusicPlaying ? (
-                <Volume2 className="h-5 w-5" style={{ color: activeColor }} />
-              ) : (
-                <VolumeX className="h-5 w-5 text-slate-300" />
-              )}
-              <span className="text-[8px] font-black uppercase leading-none tracking-[0.08em] text-slate-200">Vibe</span>
-            </button>
+            <div className="flex gap-2 lg:hidden">
+              <button
+                type="button"
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-[1.1rem] theme-header-btn cursor-pointer sm:h-20 sm:w-20"
+                style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
+                aria-label="Toggle visual theme"
+              >
+                {isDarkMode ? (
+                  <Sun className="h-5 w-5" style={{ color: activeColor }} />
+                ) : (
+                  <Moon className="h-5 w-5 text-slate-300" style={{ color: activeColor }} />
+                )}
+                <span className="text-[8px] font-black uppercase leading-none tracking-[0.08em] text-slate-200" style={{ color: 'var(--text-sub)' }}>Theme</span>
+              </button>
 
-            <div className="hidden w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/85 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:mx-auto lg:block lg:max-w-[660px] xl:max-w-[760px]">
+              <button
+                type="button"
+                onClick={toggleMusic}
+                className="flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-[1.1rem] theme-header-btn cursor-pointer sm:h-20 sm:w-20"
+                style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
+                aria-label={isMusicPlaying ? 'Pause background music' : 'Play background music'}
+              >
+                {isMusicPlaying ? (
+                  <Volume2 className="h-5 w-5" style={{ color: activeColor }} />
+                ) : (
+                  <VolumeX className="h-5 w-5 text-slate-300" style={{ color: 'var(--text-muted)' }} />
+                )}
+                <span className="text-[8px] font-black uppercase leading-none tracking-[0.08em] text-slate-200" style={{ color: 'var(--text-sub)' }}>Vibe</span>
+              </button>
+            </div>
+
+            <div className="hidden w-full overflow-hidden rounded-[1.35rem] theme-nav-bar lg:mx-auto lg:block lg:max-w-[660px] xl:max-w-[760px]">
               <div className="px-3 py-2.5 sm:px-4">
                 <div className="grid grid-cols-3 gap-2">
                   {navItems.map((item) => (
@@ -1670,7 +1703,7 @@ function App() {
                     >
                       <span className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: `radial-gradient(circle at 50% 0%, ${activeColor}24, transparent 62%)` }} />
                       <span className="absolute inset-x-4 bottom-0 h-px scale-x-0 rounded-full opacity-0 transition-all duration-300 group-hover:scale-x-100 group-hover:opacity-100" style={{ backgroundColor: activeColor, boxShadow: `0 0 14px ${activeColor}` }} />
-                      <span className="relative block text-[10px] font-black uppercase tracking-[0.14em] text-slate-100 transition-colors duration-300 group-hover:text-white sm:text-xs">{item.label}</span>
+                      <span className="relative block text-[10px] font-black uppercase tracking-[0.14em] text-slate-100 transition-colors duration-300 group-hover:text-white sm:text-xs" style={{ color: 'var(--text-main)' }}>{item.label}</span>
                     </button>
                   ))}
                 </div>
@@ -1680,17 +1713,32 @@ function App() {
             <div className="hidden w-full gap-2 lg:flex lg:w-auto lg:justify-self-end">
               <button
                 type="button"
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="flex h-20 w-20 flex-col items-center justify-center gap-1.5 rounded-[1.1rem] theme-header-btn cursor-pointer"
+                style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
+                aria-label="Toggle visual theme"
+              >
+                {isDarkMode ? (
+                  <Sun className="h-6 w-6" style={{ color: activeColor }} />
+                ) : (
+                  <Moon className="h-6 w-6 text-slate-300" style={{ color: activeColor }} />
+                )}
+                <span className="text-[9px] font-black uppercase leading-none tracking-[0.09em] text-slate-200" style={{ color: 'var(--text-sub)' }}>Theme</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={toggleMusic}
-                className="flex h-20 w-20 flex-col items-center justify-center gap-1.5 rounded-[1.1rem] border border-white/10 bg-slate-950/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.10] cursor-pointer"
+                className="flex h-20 w-20 flex-col items-center justify-center gap-1.5 rounded-[1.1rem] theme-header-btn cursor-pointer"
                 style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
                 aria-label={isMusicPlaying ? 'Pause background music' : 'Play background music'}
               >
                 {isMusicPlaying ? (
                   <Volume2 className="h-6 w-6" style={{ color: activeColor }} />
                 ) : (
-                  <VolumeX className="h-6 w-6 text-slate-300" />
+                  <VolumeX className="h-6 w-6 text-slate-300" style={{ color: 'var(--text-muted)' }} />
                 )}
-                <span className="text-[9px] font-black uppercase leading-none tracking-[0.09em] text-slate-200">On Vibe</span>
+                <span className="text-[9px] font-black uppercase leading-none tracking-[0.09em] text-slate-200" style={{ color: 'var(--text-sub)' }}>On Vibe</span>
               </button>
             </div>
           </div>
@@ -1702,6 +1750,7 @@ function App() {
         activeFlavor={activeFlavor}
         flavors={flavors}
         setActiveFlavor={setActiveFlavor}
+        isDarkMode={isDarkMode}
       />
 
       {/* Mobile Navigation Drawer */}
