@@ -164,10 +164,10 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       eyebrow: 'ZERO SUGAR. FULL POWER.',
       title: 'Fantome Sugar Free',
       image: '/hero_sugarfree.png?v=1',
-      bg: '#0F2C4A',
-      titleColor: '#7DD3FC',
-      eyebrowColor: '#BAE6FD',
-      copyColor: '#E0F2FE',
+      bg: '#c7ccd3',
+      titleColor: '#d6d9de',
+      eyebrowColor: '#a9afb8',
+      copyColor: '#b7bdc6',
       copy: 'A sharper, lighter charge with the same unseen punch.'
     },
     'Mojito': {
@@ -184,10 +184,10 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor }) {
       eyebrow: 'PREMIUM ENERGY CATALYST',
       title: 'Fantome Original',
       image: '/hero_original.png?v=1',
-      bg: '#722525',
-      titleColor: '#CD5C5C',
-      eyebrowColor: '#E6B8B8',
-      copyColor: '#E6CECE',
+      bg: '#0F2C4A',
+      titleColor: '#7DD3FC',
+      eyebrowColor: '#BAE6FD',
+      copyColor: '#E0F2FE',
       copy: 'The core Fantome hit: bold taste, clean can, instant brand recall.'
     }
   };
@@ -787,8 +787,8 @@ function ShopSection({ activeColor }) {
 
   const crateFlavors = [
     { name: "Mojito", color: "#059669", graphic: "/mojito_perfect.png?v=7" },
-    { name: "Original", color: "#B54848", graphic: "/original_perfect.png?v=7" },
-    { name: "Sugar Free", color: "#0284C7", graphic: "/sugarfree_perfect.png?v=8" }
+    { name: "Original", color: "#0284C7", graphic: "/original_perfect.png?v=7" },
+    { name: "Sugar Free", color: "#475569", graphic: "/sugarfree_perfect.png?v=8" }
   ];
 
   const currentCrateFlavorInfo = crateFlavors.find(f => f.name === selectedCrateFlavor) || crateFlavors[0];
@@ -1382,7 +1382,7 @@ function FantomeChatbot({ activeColor }) {
       if (query.match(/\b(h+i+|h+e+l+o+|h+e+y+|greetings)\b/i)) {
         responseText = "Hello! Welcome to Fantôme Energy. How can I assist you today?";
       } else if (query.includes("flavor") || query.includes("flavour") || query.includes("taste")) {
-        responseText = "We have three premium flavors available: Mojito (Green), Original (Red), and Sugar Free (Blue).";
+        responseText = "We have three premium flavors available: Mojito (Green), Original (Blue), and Sugar Free (Silver).";
       } else if (query.includes("buy") || query.includes("price") || query.includes("cost") || query.includes("shop") || query.includes("order")) {
         responseText = "Our online shop is coming soon! For now, you can purchase Fantôme Energy from your nearest supermarkets.";
       }
@@ -1549,7 +1549,7 @@ function App() {
     { 
       title: "Original", 
       flavor: "Unseen Power", 
-      color: "#B54848",
+      color: "#0284C7",
       desc: "Our classic adaptation. A violent shockwave of mental clarity and cognitive ignition, utilizing high taurine metrics and immediate energy release regulators.",
       fullIngredients: "Water, Sugar, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 122 & INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/original_texture.png",
@@ -1571,7 +1571,7 @@ function App() {
     { 
       title: "Sugar Free", 
       flavor: "Unleash The Power", 
-      color: "#0284C7",
+      color: "#475569",
       desc: "Pure power, completely unburdened by carbohydrates. Engineered for elite metabolic performance and sustained neural support without the glycemic crash.",
       fullIngredients: "Water, Sucralose, Acidity Regulator (INS 330), Carbonated Water, Acidity Regulator (INS 331), Caffeine, Permitted Synthetic Food Colour (INS 150), Permitted Food Flavour, Taurine (0.03%), Inositol (0.02%), Niacinamide (Vit B3), Calcium D-Pantothenate (Vit B5), Pyridoxine Hydrochloride (Vit B6), Cyanocobalamin (Vit B12). Contains Added Flavour.",
       canGraphic: "/sugarfree_texture.png",
