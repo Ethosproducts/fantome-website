@@ -420,11 +420,18 @@ const NUTRITION_DATA = {
   }
 };
 
-function StorySection({ activeColor, activeFlavor }) {
+function StorySection({ activeColor, activeFlavor, isDarkMode }) {
   const nutrition = NUTRITION_DATA[activeFlavor] || NUTRITION_DATA['Mojito'];
+  const themedBorder = isDarkMode ? 'rgba(255,255,255,0.1)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))`;
   
   return (
-    <section id="story" className="py-32 px-6 max-w-7xl mx-auto relative overflow-hidden">
+    <section 
+      id="story" 
+      className="py-32 px-6 max-w-7xl mx-auto relative overflow-hidden transition-all duration-300"
+      style={{
+        background: isDarkMode ? 'transparent' : `radial-gradient(circle at 10% 30%, ${activeColor}0f 0%, rgba(255,255,255,0) 70%), radial-gradient(circle at 90% 70%, ${activeColor}14 0%, rgba(255,255,255,0) 60%)`
+      }}
+    >
       
       
 
@@ -455,14 +462,14 @@ function StorySection({ activeColor, activeFlavor }) {
               </h4>
               <p className="text-xs text-sky-300 tracking-wide mt-1">Caffeine / 250ml</p>
             </div>
-            <div className="border-l border-sky-400/30" />
+            <div className="border-l" style={{ borderColor: themedBorder }} />
             <div>
               <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '15 kcal' : '93.75 kcal'}
               </h4>
               <p className="text-xs text-sky-300 tracking-wide mt-1">Energy / 250ml</p>
             </div>
-            <div className="border-l border-sky-400/30" />
+            <div className="border-l" style={{ borderColor: themedBorder }} />
             <div>
               <h4 className="text-3xl font-bold font-sans" style={{ color: activeColor }}>
                 {activeFlavor === 'Sugar Free' ? '400 mg' : '800 mg'}
@@ -479,23 +486,27 @@ function StorySection({ activeColor, activeFlavor }) {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
           className="p-8 rounded-3xl glass-panel shadow-2xl relative overflow-hidden"
+          style={{
+            background: isDarkMode ? '' : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 8%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 3%, #ffffff) 100%)`,
+            borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
+          }}
         >
           
           
-          <div className="flex items-center gap-3 border-b border-sky-400/30 pb-4 mb-6">
+          <div className="flex items-center gap-3 border-b pb-4 mb-6" style={{ borderColor: themedBorder }}>
             <FlaskConical className="w-6 h-6" style={{ color: activeColor }} />
             <h3 className="font-sans font-bold text-2xl tracking-widest uppercase">LABORATORY SPECIFICATION</h3>
           </div>
 
           <div className="space-y-4">
-            <div className="border-b border-sky-400/30 pb-2">
+            <div className="border-b pb-2" style={{ borderColor: themedBorder }}>
               <span className="text-xs text-slate-500 tracking-wide">Typical Values</span>
               <h4 className="text-lg font-bold font-sans uppercase mt-0.5">{nutrition.servingSize}</h4>
             </div>
 
-            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm border-b border-sky-400/20 pb-4">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm border-b pb-4" style={{ borderColor: themedBorder }}>
               {nutrition.values.map((item, idx) => (
-                <div key={idx} className="flex justify-between border-b border-sky-400/10 py-1">
+                <div key={idx} className="flex justify-between border-b py-1" style={{ borderColor: themedBorder }}>
                   <span className="text-slate-300">{item.name}</span>
                   <span className="font-bold">{item.val}</span>
                 </div>
@@ -506,7 +517,7 @@ function StorySection({ activeColor, activeFlavor }) {
               <span className="text-xs text-slate-500 tracking-wide">Active Bio-Elements & Vitamins</span>
               <div className="grid grid-cols-2 gap-x-8 gap-y-2 mt-2 text-xs">
                 {nutrition.bioElements.map((item, idx) => (
-                  <div key={idx} className={`flex justify-between py-0.5 border-b border-sky-400/10 ${item.name === 'Vitamin B12' ? 'col-span-2' : ''}`}>
+                  <div key={idx} className={`flex justify-between py-0.5 border-b ${item.name === 'Vitamin B12' ? 'col-span-2' : ''}`} style={{ borderColor: themedBorder }}>
                     <span className="text-slate-300">{item.name}</span>
                     <span className="font-bold text-slate-200">{item.val}</span>
                   </div>
@@ -523,7 +534,7 @@ function StorySection({ activeColor, activeFlavor }) {
 // ==========================================
 // FLAVORS SCROLL SHOWCASE
 // ==========================================
-function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFlavor, flavors }) {
+function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFlavor, flavors, isDarkMode }) {
   const sectionRef = useRef(null);
   const bgRef = useRef(null);
   const canRefs = useRef([]);
@@ -721,15 +732,21 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
               initial={{ scale: 0.92, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.92, y: 20 }}
-              className="max-h-[calc(100svh-7.5rem)] w-full max-w-2xl overflow-hidden rounded-2xl border border-sky-400/30 bg-slate-950/95 shadow-2xl sm:max-h-[86vh]"
+              className="max-h-[calc(100svh-7.5rem)] w-full max-w-2xl overflow-hidden rounded-2xl border shadow-2xl sm:max-h-[86vh]"
+              style={{
+                backgroundColor: isDarkMode ? 'rgba(2,3,5,0.95)' : `color-mix(in srgb, ${flavors[currentIdx].color} 8%, #ffffff)`,
+                borderColor: isDarkMode ? 'rgba(56,189,248,0.3)' : `color-mix(in srgb, ${flavors[currentIdx].color} 30%, var(--border-glass))`
+              }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-start justify-between gap-3 border-b border-sky-400/20 p-4 sm:gap-6 sm:p-6 sm:pb-4">
+              <div className="flex items-start justify-between gap-3 border-b p-4 sm:gap-6 sm:p-6 sm:pb-4"
+                style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${flavors[currentIdx].color} 20%, rgba(15, 23, 42, 0.1))` }}
+              >
                 <div className="min-w-0">
                   <span className="text-[0.65rem] font-bold uppercase tracking-[0.22em] sm:text-xs sm:tracking-[0.3em]" style={{ color: flavors[currentIdx].color }}>
                     Fully Disclosed
                   </span>
-                  <h3 className="mt-1 max-w-[15rem] break-words text-2xl font-bold uppercase leading-[0.95] text-white min-[390px]:max-w-none sm:mt-2 sm:text-3xl">{flavors[currentIdx].title} Formula</h3>
+                  <h3 className="mt-1 max-w-[15rem] break-words text-2xl font-bold uppercase leading-[0.95] text-[var(--text-main)] min-[390px]:max-w-none sm:mt-2 sm:text-3xl">{flavors[currentIdx].title} Formula</h3>
                 </div>
                 <button type="button" onClick={() => setIsFormulaOpen(false)} className="shrink-0 rounded-full border border-white/10 bg-white/5 p-2 text-slate-300 hover:bg-white/10 cursor-pointer">
                   <X className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -738,28 +755,45 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 
               <div className="max-h-[calc(100svh-15rem)] overflow-y-auto p-4 pt-5 sm:max-h-[64vh] sm:p-6">
                 <div className="grid grid-cols-1 gap-3 min-[430px]:grid-cols-3 sm:gap-4">
-                  <div className="rounded-xl border border-sky-400/20 bg-white/5 p-3 sm:p-4">
+                  <div className="rounded-xl border p-3 sm:p-4"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : `color-mix(in srgb, ${flavors[currentIdx].color} 4%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${flavors[currentIdx].color} 25%, var(--border-glass))`
+                    }}
+                  >
                     <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Caffeine</span>
-                    <strong className="mt-1 block text-xl text-white sm:mt-2 sm:text-2xl">75 mg</strong>
+                    <strong className="mt-1 block text-xl text-[var(--text-main)] sm:mt-2 sm:text-2xl">75 mg</strong>
                     <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Per 250 ml can</p>
                   </div>
-                  <div className="rounded-xl border border-sky-400/20 bg-white/5 p-3 sm:p-4">
+                  <div className="rounded-xl border p-3 sm:p-4"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : `color-mix(in srgb, ${flavors[currentIdx].color} 4%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${flavors[currentIdx].color} 25%, var(--border-glass))`
+                    }}
+                  >
                     <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Sugar</span>
-                    <strong className="mt-1 block text-xl text-white sm:mt-2 sm:text-2xl">{flavors[currentIdx].title === 'Sugar Free' ? '0 g' : '22.6 g'}</strong>
+                    <strong className="mt-1 block text-xl text-[var(--text-main)] sm:mt-2 sm:text-2xl">{flavors[currentIdx].title === 'Sugar Free' ? '0 g' : '22.6 g'}</strong>
                     <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Clearly labeled per can</p>
                   </div>
-                  <div className="rounded-xl border border-sky-400/20 bg-white/5 p-3 sm:p-4">
+                  <div className="rounded-xl border p-3 sm:p-4"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : `color-mix(in srgb, ${flavors[currentIdx].color} 4%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${flavors[currentIdx].color} 25%, var(--border-glass))`
+                    }}
+                  >
                     <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Taurine</span>
-                    <strong className="mt-1 block text-xl text-white sm:mt-2 sm:text-2xl">{flavors[currentIdx].title === 'Sugar Free' ? '400 mg' : '800 mg'}</strong>
+                    <strong className="mt-1 block text-xl text-[var(--text-main)] sm:mt-2 sm:text-2xl">{flavors[currentIdx].title === 'Sugar Free' ? '400 mg' : '800 mg'}</strong>
                     <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Performance support</p>
                   </div>
                 </div>
 
                 <div className="mt-5 grid grid-cols-1 gap-2 text-xs sm:mt-6 sm:grid-cols-2 sm:gap-3 sm:text-sm">
                   {activeNutrition.bioElements.map((item) => (
-                    <div key={item.name} className="flex justify-between gap-4 border-b border-sky-400/10 py-2 text-slate-300">
+                    <div key={item.name} className="flex justify-between gap-4 border-b py-2 text-[var(--text-sub)]"
+                      style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.1)' : `color-mix(in srgb, ${flavors[currentIdx].color} 15%, rgba(15, 23, 42, 0.08))` }}
+                    >
                       <span className="min-w-0 pr-2">{item.name}</span>
-                      <strong className="shrink-0 text-white">{item.val}</strong>
+                      <strong className="shrink-0 text-[var(--text-main)]">{item.val}</strong>
                     </div>
                   ))}
                 </div>
@@ -775,7 +809,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
 // ==========================================
 // SHOP SECTION (Coming Soon)
 // ==========================================
-function ShopSection({ activeColor }) {
+function ShopSection({ activeColor, isDarkMode }) {
   const [selectedCrateFlavor, setSelectedCrateFlavor] = useState("Mojito");
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -854,7 +888,13 @@ function ShopSection({ activeColor }) {
         <div className="lg:col-span-6 flex justify-center">
           <motion.div
             whileHover={{ y: -10 }}
-            className="w-full max-w-md p-8 rounded-3xl glass-panel flex flex-col justify-between group bg-gradient-to-br from-sky-300/30 to-sky-400/10 relative overflow-hidden"
+            className="w-full max-w-md p-8 rounded-3xl glass-panel flex flex-col justify-between group relative overflow-hidden"
+            style={{
+              background: isDarkMode 
+                ? 'linear-gradient(135deg, rgba(8,12,18,0.6) 0%, rgba(5,8,13,0.8) 100%)' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 12%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 4%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 30%, var(--border-glass))`
+            }}
           >
             {/* Glowing activeColor aura */}
             
@@ -862,7 +902,13 @@ function ShopSection({ activeColor }) {
             <div>
               <div className="flex justify-between items-start">
                 <span className="text-xs tracking-wide font-bold" style={{ color: currentCrateFlavorInfo.color }}>24 + 3 Cans Free</span>
-                <span className="bg-sky-950/60 border border-sky-500/30 text-sky-200 text-[9px] font-bold tracking-wide px-3 py-1 rounded-full">
+                <span className="text-[9px] font-bold tracking-wide px-3 py-1 rounded-full border"
+                  style={{
+                    backgroundColor: isDarkMode ? 'rgba(8,47,73,0.6)' : `color-mix(in srgb, ${activeColor} 15%, #ffffff)`,
+                    borderColor: isDarkMode ? 'rgba(14,165,233,0.3)' : `color-mix(in srgb, ${activeColor} 40%, transparent)`,
+                    color: isDarkMode ? '#e0f2fe' : `color-mix(in srgb, ${activeColor} 85%, #000000)`
+                  }}
+                >
                   COMING SOON
                 </span>
               </div>
@@ -871,7 +917,12 @@ function ShopSection({ activeColor }) {
                 {selectedCrateFlavor} Case
               </h3>
               
-              <div className="mt-6 aspect-square rounded-2xl bg-sky-300/30 border border-sky-400/30 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
+              <div className="mt-6 aspect-square rounded-2xl flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:scale-[1.02]"
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`,
+                  borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
+                }}
+              >
                 {/* Radial glow background */}
                 <div 
                   className="absolute inset-0 blur-2xl opacity-20 transition-all duration-500"
@@ -887,8 +938,18 @@ function ShopSection({ activeColor }) {
                 />
 
                 {/* Vault Locked overlay */}
-                <div className="absolute inset-0 bg-sky-300/20 backdrop-blur-[2px] flex flex-col items-center justify-center gap-2 z-20">
-                  <div className="p-4 rounded-full bg-sky-950/80 border border-sky-500/40 text-sky-200 shadow-2xl">
+                <div className="absolute inset-0 backdrop-blur-[2px] flex flex-col items-center justify-center gap-2 z-20"
+                  style={{
+                    backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 6%, rgba(255,255,255,0.4))`
+                  }}
+                >
+                  <div className="p-4 rounded-full shadow-2xl border"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(8,47,73,0.8)' : `color-mix(in srgb, ${activeColor} 10%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(14,165,233,0.4)' : `color-mix(in srgb, ${activeColor} 30%, transparent)`,
+                      color: activeColor
+                    }}
+                  >
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" style={{ color: currentCrateFlavorInfo.color }}>
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -898,25 +959,37 @@ function ShopSection({ activeColor }) {
                 </div>
                 
                 <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/10 absolute bottom-12 z-10 font-sans">FANTÔME SECURE CASE</span>
-                <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[9px] font-bold bg-sky-300/50 border border-sky-400/30 z-30 tracking-widest uppercase">
+                <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[9px] font-bold z-30 tracking-widest uppercase border"
+                  style={{
+                    backgroundColor: isDarkMode ? 'rgba(125,211,252,0.25)' : `color-mix(in srgb, ${activeColor} 15%, #ffffff)`,
+                    borderColor: isDarkMode ? 'rgba(56,189,248,0.3)' : `color-mix(in srgb, ${activeColor} 35%, transparent)`
+                  }}
+                >
                   27 Cans Total
                 </div>
               </div>
 
               {/* Flavor Selector */}
               <div className="mt-6">
-                <span className="text-[10px] tracking-wide text-sky-300 block mb-2.5 font-bold">Preview Crate Flavor</span>
+                <span className="text-[10px] tracking-wide block mb-2.5 font-bold" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>Preview Crate Flavor</span>
                 <div className="flex gap-2">
                   {crateFlavors.map(f => (
                     <button
                       key={f.name}
                       onClick={() => setSelectedCrateFlavor(f.name)}
-                      className={`flex-1 py-2 px-3 text-[10px] rounded-xl border transition-all font-bold uppercase cursor-pointer text-center ${
-                        selectedCrateFlavor === f.name 
-                          ? 'bg-sky-600 text-white hover:bg-sky-700 border-sky-700' 
-                          : 'bg-slate-900/40 text-slate-350 border-white/10 hover:bg-slate-850/40 hover:border-white/20'
-                      }`}
-                      style={selectedCrateFlavor === f.name ? { boxShadow: "none" } : {}}
+                      className={`flex-1 py-2 px-3 text-[10px] rounded-xl border transition-all font-bold uppercase cursor-pointer text-center`}
+                      style={{
+                        backgroundColor: selectedCrateFlavor === f.name
+                          ? f.color
+                          : (isDarkMode ? 'rgba(15,23,42,0.4)' : `color-mix(in srgb, ${activeColor} 4%, #ffffff)`),
+                        borderColor: selectedCrateFlavor === f.name
+                          ? f.color
+                          : (isDarkMode ? 'rgba(255,255,255,0.1)' : `color-mix(in srgb, ${activeColor} 15%, var(--border-glass))`),
+                        color: selectedCrateFlavor === f.name
+                          ? '#ffffff'
+                          : (isDarkMode ? 'rgba(248,251,255,0.6)' : `color-mix(in srgb, ${activeColor} 70%, #000000)`),
+                        boxShadow: "none"
+                      }}
                     >
                       {f.name}
                     </button>
@@ -925,13 +998,21 @@ function ShopSection({ activeColor }) {
               </div>
             </div>
 
-            <div className="mt-8 flex items-center justify-between pt-6 border-t border-sky-400/30">
+            <div className="mt-8 flex items-center justify-between pt-6 border-t"
+              style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))` }}
+            >
               <div>
                 <span className="text-xs text-slate-500 tracking-wide">Target Price</span>
                 <h4 className="text-2xl font-bold font-sans text-slate-100 mt-1">{formatPrice(1440)}</h4>
               </div>
               
-              <span className="text-xs font-bold tracking-wide text-slate-200 py-3 px-5 rounded-xl border border-sky-500/30 bg-sky-950/60">
+              <span className="text-xs font-bold tracking-wide py-3 px-5 rounded-xl border"
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(8,47,73,0.6)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`,
+                  borderColor: isDarkMode ? 'rgba(14,165,233,0.3)' : `color-mix(in srgb, ${activeColor} 30%, transparent)`,
+                  color: isDarkMode ? '#e2e8f0' : `color-mix(in srgb, ${activeColor} 85%, #000000)`
+                }}
+              >
                 LOCKED
               </span>
             </div>
@@ -941,25 +1022,40 @@ function ShopSection({ activeColor }) {
         {/* Right Side: Cybernetic Terminal UI with Countdown & Alert Sign Up */}
         <div className="lg:col-span-6 space-y-6">
           {/* Terminal Box */}
-          <div className="p-8 rounded-3xl glass-panel border border-sky-400/40 shadow-2xl relative overflow-hidden">
+          <div className="p-8 rounded-3xl glass-panel shadow-2xl relative overflow-hidden border"
+            style={{
+              background: isDarkMode 
+                ? '' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 12%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 4%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 30%, var(--border-glass))`
+            }}
+          >
             
             
             {/* Terminal Header */}
-            <div className="flex items-center justify-between border-b border-sky-400/30 pb-4 mb-6">
+            <div className="flex items-center justify-between border-b pb-4 mb-6"
+              style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))` }}
+            >
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
                 <h3 className="font-sans font-bold text-xl tracking-widest uppercase text-slate-100">SECURE ACCESS LOCKOUT</h3>
               </div>
-              <span className="text-[9px] font-mono text-sky-200 bg-sky-950/60 px-2 py-1 rounded border border-sky-400/30">SYS.V_2.0</span>
+              <span className="text-[9px] font-mono px-2 py-1 rounded border"
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(8,47,73,0.6)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`,
+                  borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 25%, transparent)`,
+                  color: isDarkMode ? '#e0f2fe' : `color-mix(in srgb, ${activeColor} 85%, #000000)`
+                }}
+              >SYS.V_2.0</span>
             </div>
 
-            <p className="text-slate-300 text-sm leading-relaxed font-light mb-8">
+            <p className="text-slate-350 text-sm leading-relaxed font-light mb-8">
               The official Fantôme secure case containing our premier energy catalyst variations is currently under orbital dispatch. The single bottle cans for sale are discontinued to prioritize high-capacity case deployments.
             </p>
 
             {/* Glowing Countdown */}
             <div className="space-y-3 mb-8">
-              <span className="text-[10px] tracking-wide text-sky-300 font-bold block">Transmission Synchronization Est. Time</span>
+              <span className="text-[10px] tracking-wide font-bold block" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>Transmission Synchronization Est. Time</span>
               <div className="grid grid-cols-4 gap-3 text-center">
                 {[
                   { label: "DAYS", val: timeLeft.days },
@@ -967,18 +1063,25 @@ function ShopSection({ activeColor }) {
                   { label: "MINUTES", val: timeLeft.minutes },
                   { label: "SECONDS", val: timeLeft.seconds }
                 ].map((t, idx) => (
-                  <div key={idx} className="p-3 rounded-2xl bg-sky-300/30 border border-sky-400/30 flex flex-col justify-center">
+                  <div key={idx} className="p-3 rounded-2xl flex flex-col justify-center border"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 10%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 30%, var(--border-glass))`
+                    }}
+                  >
                     <span className="text-2xl md:text-3xl font-bold font-sans tracking-tight text-slate-100" style={{ textShadow: "none" }}>
                       {String(t.val).padStart(2, '0')}
                     </span>
-                    <span className="text-[8px] text-sky-300 font-bold tracking-widest uppercase mt-1">{t.label}</span>
+                    <span className="text-[8px] font-bold tracking-widest uppercase mt-1" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>{t.label}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Newsletter Notify Form */}
-            <div className="border-t border-sky-400/30 pt-6">
+            <div className="border-t pt-6"
+              style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))` }}
+            >
               <AnimatePresence mode="wait">
                 {!isSubmitted ? (
                   <motion.form 
@@ -989,7 +1092,7 @@ function ShopSection({ activeColor }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <span className="text-[10px] tracking-wide text-sky-300 font-bold block">Register for launch authorization</span>
+                    <span className="text-[10px] tracking-wide font-bold block" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>Register for launch authorization</span>
                     <div className="flex flex-col sm:flex-row gap-3">
                       <input 
                         type="email" 
@@ -997,14 +1100,21 @@ function ShopSection({ activeColor }) {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="ENTER SECURE EMAIL ADDRESS"
-                        className="px-5 py-4 rounded-2xl glass-panel bg-sky-300/30 text-xs tracking-wide font-semibold border border-sky-400/30 flex-grow focus:outline-none focus:border-sky-500 transition-colors text-slate-100"
+                        className="px-5 py-4 rounded-2xl glass-panel text-xs tracking-wide font-semibold flex-grow focus:outline-none focus:border-sky-500 transition-colors text-slate-100 border"
+                        style={{
+                          backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 6%, #ffffff)`,
+                          borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
+                        }}
                       />
                       <motion.button 
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         type="submit"
-                        className="px-6 py-4 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide text-xs flex items-center justify-center transition-colors cursor-pointer"
-                        style={{ boxShadow: "none" }}
+                        className="px-6 py-4 rounded-2xl text-white font-bold tracking-wide text-xs flex items-center justify-center transition-colors cursor-pointer"
+                        style={{
+                          backgroundColor: activeColor,
+                          boxShadow: "none"
+                        }}
                       >
                         Authorize
                       </motion.button>
@@ -1015,9 +1125,18 @@ function ShopSection({ activeColor }) {
                     key="success"
                     initial={{ scale: 0.95, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="p-5 rounded-2xl bg-sky-300/20 border border-sky-400/30 flex items-start gap-4"
+                    className="p-5 rounded-2xl flex items-start gap-4 border"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(125,211,252,0.06)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
+                    }}
                   >
-                    <div className="p-2 rounded-xl bg-sky-300/40 text-sky-200 mt-0.5 animate-pulse">
+                    <div className="p-2 rounded-xl mt-0.5 animate-pulse"
+                      style={{
+                        backgroundColor: isDarkMode ? 'rgba(125,211,252,0.25)' : `color-mix(in srgb, ${activeColor} 15%, #ffffff)`,
+                        color: activeColor
+                      }}
+                    >
                       <Check className="w-5 h-5" />
                     </div>
                     <div>
@@ -1031,8 +1150,6 @@ function ShopSection({ activeColor }) {
               </AnimatePresence>
             </div>
           </div>
-          
-
         </div>
       </div>
     </section>
@@ -1042,7 +1159,7 @@ function ShopSection({ activeColor }) {
 // ==========================================
 // CAMPAIGNS SECTION
 // ==========================================
-function CampaignsSection({ activeColor }) {
+function CampaignsSection({ activeColor, isDarkMode }) {
   const [unmutedVideos, setUnmutedVideos] = useState({});
   const campaigns = [
     {
@@ -1072,7 +1189,9 @@ function CampaignsSection({ activeColor }) {
   ];
 
   return (
-    <section id="campaigns" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-sky-400/30">
+    <section id="campaigns" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t"
+      style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))` }}
+    >
       {/* Glow aura */}
       
 
@@ -1083,7 +1202,7 @@ function CampaignsSection({ activeColor }) {
         <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Our Campaigns
         </h2>
-        <p className="text-sky-350 text-sm md:text-base font-light tracking-wide mt-4">
+        <p className="text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4">
           Tactical activations and planetary brand maneuvers
         </p>
       </div>
@@ -1093,16 +1212,30 @@ function CampaignsSection({ activeColor }) {
           <motion.div
             key={camp.id}
             whileHover={{ y: -8 }}
-            className={`rounded-3xl overflow-hidden glass-panel border border-sky-400/40 shadow-2xl relative group flex flex-col h-full transform-gpu ${idx === 0 ? "md:col-span-2" : ""}`}
-            style={{ contain: "content" }}
+            className={`rounded-3xl overflow-hidden glass-panel relative group flex flex-col h-full transform-gpu border ${idx === 0 ? "md:col-span-2" : ""}`}
+            style={{
+              contain: "content",
+              background: isDarkMode 
+                ? '' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 12%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 4%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 30%, var(--border-glass))`
+            }}
           >
             {/* Visual background element */}
-            <div className="absolute inset-0 bg-gradient-to-t from-sky-300/40 via-sky-300/10 to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-0 z-10 pointer-events-none"
+              style={{
+                background: `linear-gradient(to top, color-mix(in srgb, ${activeColor} 20%, transparent) 0%, color-mix(in srgb, ${activeColor} 5%, transparent) 60%, transparent 100%)`
+              }}
+            />
             
             {/* Hover glow line */}
             <div className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ backgroundColor: activeColor }} />
 
-            <div className="relative aspect-[16/10] overflow-hidden bg-sky-300/30 transform-gpu">
+            <div className="relative aspect-[16/10] overflow-hidden transform-gpu"
+              style={{
+                backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`
+              }}
+            >
               {camp.video ? (
                 <>
                   <video
@@ -1139,20 +1272,31 @@ function CampaignsSection({ activeColor }) {
               )}
               {/* Badge overlay */}
               <div className="absolute top-6 left-6 z-20 flex gap-2">
-                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-sky-300/80 border border-sky-400/30 text-slate-800">
+                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide border text-slate-800"
+                  style={{
+                    backgroundColor: isDarkMode ? 'rgba(125,211,252,0.7)' : `color-mix(in srgb, ${activeColor} 18%, #ffffff)`,
+                    borderColor: isDarkMode ? 'rgba(56,189,248,0.3)' : `color-mix(in srgb, ${activeColor} 35%, transparent)`,
+                    color: isDarkMode ? '#0f172a' : `color-mix(in srgb, ${activeColor} 90%, #000000)`
+                  }}
+                >
                   {camp.tag}
                 </span>
-                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-sky-600 text-white hover:bg-sky-700" style={{ boxShadow: "none" }}>
+                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide text-white"
+                  style={{
+                    backgroundColor: activeColor,
+                    boxShadow: "none"
+                  }}
+                >
                   {camp.stat}
                 </span>
               </div>
             </div>
 
             <div className="p-8 relative z-20 space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-slate-100 group-hover:text-sky-450 transition-all duration-300">
+              <h3 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] group-hover:text-[var(--text-accent)] transition-all duration-300">
                 {camp.title}
               </h3>
-              <p className="text-slate-300 font-light leading-relaxed text-sm md:text-base">
+              <p className="text-[var(--text-sub)] font-light leading-relaxed text-sm md:text-base">
                 {camp.desc}
               </p>
             </div>
@@ -1164,7 +1308,10 @@ function CampaignsSection({ activeColor }) {
       <div className="text-center mt-16">
         <Link
           to="/campaigns"
-          className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-sky-600 text-white hover:bg-sky-700 font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg no-underline"
+          className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-white font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg no-underline font-sans"
+          style={{
+            backgroundColor: activeColor
+          }}
         >
           <span>More Campaigns</span>
           <ArrowRight className="w-4 h-4" />
@@ -1177,9 +1324,16 @@ function CampaignsSection({ activeColor }) {
 // ==========================================
 // FOUNDER SECTION
 // ==========================================
-function FounderSection({ activeColor }) {
+function FounderSection({ activeColor, isDarkMode }) {
   return (
-    <section className="relative py-32 px-6 border-t border-sky-400/30 bg-[linear-gradient(135deg,rgba(125,211,252,0.1)_0%,rgba(254,215,170,0.1)_100%)] z-20 overflow-hidden">
+    <section className="relative py-32 px-6 border-t z-20 overflow-hidden"
+      style={{
+        borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))`,
+        background: isDarkMode 
+          ? 'linear-gradient(135deg, rgba(125, 211, 252, 0.05) 0%, rgba(254, 215, 170, 0.05) 100%)' 
+          : `radial-gradient(circle at 10% 20%, color-mix(in srgb, ${activeColor} 12%, #ffffff) 0%, rgba(255, 255, 255, 0) 80%), radial-gradient(circle at 90% 80%, color-mix(in srgb, ${activeColor} 8%, #ffffff) 0%, rgba(255, 255, 255, 0) 80%)`
+      }}
+    >
       {/* Background ambient glow */}
       
       
@@ -1191,7 +1345,15 @@ function FounderSection({ activeColor }) {
           transition={{ duration: 0.8 }}
           className="w-full lg:w-5/12"
         >
-          <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border border-sky-400/40" style={{ boxShadow: `0 24px 70px rgba(0,0,0,0.35), 0 0 34px ${activeColor}22` }}>
+          <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border"
+            style={{
+              boxShadow: `0 24px 70px rgba(0,0,0,0.35), 0 0 34px ${activeColor}22`,
+              background: isDarkMode 
+                ? '' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 10%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 3%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
+            }}
+          >
             <div className="relative mx-auto w-full max-w-[24rem] aspect-[137/319] rounded-2xl overflow-hidden bg-black">
               <img 
                 src="/founder_final.png" 
@@ -1238,14 +1400,16 @@ function FounderSection({ activeColor }) {
 // ==========================================
 // CONNECT SECTION
 // ==========================================
-function ConnectSection({ activeColor }) {
+function ConnectSection({ activeColor, isDarkMode }) {
   const socials = [
     { name: "Instagram", url: "https://www.instagram.com/fantomeenergy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg> },
     { name: "YouTube", url: "https://www.youtube.com/@FantomeEnergyDrink", icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg> }
   ];
 
   return (
-    <section id="connect" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t border-sky-400/30">
+    <section id="connect" className="py-32 px-6 max-w-7xl mx-auto relative z-20 border-t"
+      style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))` }}
+    >
       <div className="text-center mb-20">
         <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
           Network
@@ -1253,7 +1417,7 @@ function ConnectSection({ activeColor }) {
         <h2 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
           Connect Us
         </h2>
-        <p className="text-sky-300 text-sm md:text-base font-light tracking-wide mt-4">
+        <p className="text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4">
           Join the planetary energy transmission
         </p>
       </div>
@@ -1266,16 +1430,22 @@ function ConnectSection({ activeColor }) {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ y: -5, scale: 1.05 }}
-            className="flex flex-col items-center gap-4 p-8 rounded-3xl border border-sky-400/40 glass-panel hover:bg-sky-300/40 transition-colors group cursor-pointer"
-            style={{ minWidth: "160px" }}
+            className="flex flex-col items-center gap-4 p-8 rounded-3xl border glass-panel hover:bg-[var(--active-color)]/20 hover:border-[var(--active-color)]/40 transition-colors group cursor-pointer"
+            style={{
+              minWidth: "160px",
+              background: isDarkMode 
+                ? '' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 8%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 2%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
+            }}
           >
             <div 
-              className="text-slate-200 group-hover:text-white transition-colors duration-500"
+              className="text-[var(--text-sub)] group-hover:text-[var(--text-main)] transition-colors duration-500"
               style={{ filter: "none" }}
             >
               {social.icon}
             </div>
-            <span className="font-bold tracking-wide text-sm text-slate-300 group-hover:text-white">
+            <span className="font-bold tracking-wide text-sm text-[var(--text-sub)] group-hover:text-[var(--text-main)] transition-colors">
               {social.name}
             </span>
           </motion.a>
@@ -1288,9 +1458,16 @@ function ConnectSection({ activeColor }) {
 // ==========================================
 // FOOTER / NEWSLETTER / LEGAL COMPLIANCE
 // ==========================================
-function Footer({ activeColor }) {
+function Footer({ activeColor, isDarkMode }) {
   return (
-    <footer className="relative border-t border-sky-400/30 bg-sky-300/30 backdrop-blur-xl overflow-hidden py-20 px-6 z-20">
+    <footer className="relative border-t overflow-hidden py-20 px-6 z-20"
+      style={{
+        borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 25%, rgba(15, 23, 42, 0.1))`,
+        background: isDarkMode 
+          ? 'rgba(15, 23, 42, 0.3)' 
+          : `linear-gradient(180deg, color-mix(in srgb, ${activeColor} 18%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 8%, #ffffff) 100%)`
+      }}
+    >
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:30px_30px] opacity-20 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -1303,43 +1480,64 @@ function Footer({ activeColor }) {
             />
             <div>
               <h2 className="text-3xl font-black font-sans tracking-wider text-slate-100 leading-none">FANTÔME</h2>
-              <span className="text-[10px] font-black uppercase tracking-[0.16em] text-sky-400">Unseen Power</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.16em]" style={{ color: activeColor }}>Unseen Power</span>
             </div>
           </div>
 
         </div>
 
         {/* Legal Grid Compliance (Real Addresses & FSSAI Lic) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-sky-300 font-medium">
-          <div className="p-5 rounded-2xl glass-panel border border-sky-400/40 space-y-3 bg-sky-300/20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs font-medium"
+          style={{ color: isDarkMode ? '#7dd3fc' : `color-mix(in srgb, ${activeColor} 85%, #0f172a)` }}
+        >
+          <div className="p-5 rounded-2xl glass-panel border space-y-3"
+            style={{
+              background: isDarkMode 
+                ? 'rgba(8, 12, 18, 0.6)' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 8%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 2%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
+            }}
+          >
             <h4 className="text-[10px] font-bold tracking-wide text-slate-200">Manufactured By</h4>
             <p className="font-bold text-slate-100">KOLADIYA INDUSTRIES PVT. LTD.</p>
-            <p className="leading-relaxed text-slate-300">
+            <p className="leading-relaxed text-slate-350">
               Plot no. 21 to 26, 3rd Phase Industrial Estate, Navagam, Bhavnagar, Gujarat – 364110
             </p>
-            <p className="font-bold tracking-wide text-sky-300">
+            <p className="font-bold tracking-wide" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>
               FSSAI Lic. No: <span className="text-slate-100">10722999000112</span>
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl glass-panel border border-sky-400/40 space-y-3 bg-sky-300/20">
+          <div className="p-5 rounded-2xl glass-panel border space-y-3"
+            style={{
+              background: isDarkMode 
+                ? 'rgba(8, 12, 18, 0.6)' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 8%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 2%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
+            }}
+          >
             <h4 className="text-[10px] font-bold tracking-wide text-slate-200">Marketed By</h4>
             <p className="font-bold text-slate-100">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
-            <p className="leading-relaxed text-slate-300">
+            <p className="leading-relaxed text-slate-350">
               Plot No. 10, Nayapalli, Bhubaneswar, Odisha – 751014
             </p>
             <div className="space-y-1">
-              <p className="font-bold tracking-wide text-sky-300">
+              <p className="font-bold tracking-wide" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>
                 FSSAI Lic. No: <span className="text-slate-100">10016031000631</span>
               </p>
-              <p>Email: <a href="mailto:info@ethosglobal.in" className="text-sky-300/80 hover:text-sky-200 underline">info@ethosglobal.in</a></p>
+              <p>Email: <a href="mailto:info@ethosglobal.in" className="underline" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>info@ethosglobal.in</a></p>
               <p>Customer Care: <span className="text-slate-100">9090355570</span></p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-sky-400/30 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-sky-800 font-bold tracking-wide">
+      <div className="max-w-7xl mx-auto border-t mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold tracking-wide"
+        style={{
+          borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))`,
+          color: isDarkMode ? 'rgba(255,255,255,0.4)' : `color-mix(in srgb, ${activeColor} 60%, #0f172a)`
+        }}
+      >
         <span>© 2026 FANTÔME ENERGY.</span>
         <p className="text-[0.68rem] font-bold tracking-[0.14em] text-white/65 sm:text-xs">
           Designed and Developed by Praveen
@@ -1533,9 +1731,21 @@ function FantomeChatbot({ activeColor, isDarkMode }) {
 // MAIN APP COMPONENT
 // ==========================================
 function App() {
-  const queryParams = new URLSearchParams(window.location.search);
-  const defaultFlavor = queryParams.get('flavor') || 'Sugar Free';
-  const [activeFlavor, setActiveFlavor] = useState(defaultFlavor); // Default core Sugar Free flavor
+  const [activeFlavor, setActiveFlavor] = useState(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const urlFlavor = queryParams.get('flavor');
+    if (urlFlavor) {
+      localStorage.setItem('fantome-flavor', urlFlavor);
+      return urlFlavor;
+    }
+    const saved = localStorage.getItem('fantome-flavor');
+    return saved !== null ? saved : 'Sugar Free';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('fantome-flavor', activeFlavor);
+  }, [activeFlavor]);
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('fantome-theme');
     return saved !== null ? saved === 'dark' : true;
@@ -1839,7 +2049,7 @@ function App() {
       </AnimatePresence>
 
       {/* Brand Story */}
-      <StorySection activeColor={activeColor} activeFlavor={activeFlavor} />
+      <StorySection activeColor={activeColor} activeFlavor={activeFlavor} isDarkMode={isDarkMode} />
 
       {/* Flavors Section */}
       <FlavorsSection 
@@ -1848,22 +2058,23 @@ function App() {
         activeFlavor={activeFlavor}
         setActiveFlavor={setActiveFlavor}
         flavors={flavors} 
+        isDarkMode={isDarkMode}
       />
 
       {/* Shop Section */}
-      <ShopSection activeColor={activeColor} />
+      <ShopSection activeColor={activeColor} isDarkMode={isDarkMode} />
 
       {/* Campaigns Section */}
-      <CampaignsSection activeColor={activeColor} />
+      <CampaignsSection activeColor={activeColor} isDarkMode={isDarkMode} />
 
       {/* Founder Section */}
-      <FounderSection activeColor={activeColor} />
+      <FounderSection activeColor={activeColor} isDarkMode={isDarkMode} />
 
       {/* Connect Section */}
-      <ConnectSection activeColor={activeColor} />
+      <ConnectSection activeColor={activeColor} isDarkMode={isDarkMode} />
 
       {/* Footer */}
-      <Footer activeColor={activeColor} />
+      <Footer activeColor={activeColor} isDarkMode={isDarkMode} />
 
       {/* Cart Drawer */}
       <AnimatePresence>

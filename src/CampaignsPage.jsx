@@ -42,22 +42,33 @@ const campaigns = [
   },
 ];
 
-const activeColor = '#0284c7';
-
 function CampaignsPage() {
+  const [activeFlavor] = React.useState(() => {
+    const saved = localStorage.getItem('fantome-flavor');
+    return saved !== null ? saved : 'Sugar Free';
+  });
+
+  const flavorColors = {
+    'Original': '#0284C7',
+    'Mojito': '#059669',
+    'Sugar Free': '#475569'
+  };
+
+  const activeColor = flavorColors[activeFlavor] || '#059669';
+
   const [isDarkMode] = React.useState(() => {
     const saved = localStorage.getItem('fantome-theme');
     return saved !== null ? saved === 'dark' : true;
   });
 
   React.useEffect(() => {
-    document.documentElement.style.setProperty('--active-color', '#0284c7');
+    document.documentElement.style.setProperty('--active-color', activeColor);
     if (isDarkMode) {
       document.documentElement.classList.remove('light-mode');
     } else {
       document.documentElement.classList.add('light-mode');
     }
-  }, [isDarkMode]);
+  }, [isDarkMode, activeColor]);
 
   return (
     <div className={`${isDarkMode ? 'fantome-dark' : 'fantome-light'} min-h-screen relative text-slate-200 overflow-hidden bg-transparent`}>
@@ -67,7 +78,8 @@ function CampaignsPage() {
           <div className="max-w-7xl mx-auto glass-panel px-6 py-3 flex justify-between items-center rounded-full shadow-lg">
             <Link
               to="/"
-              className="font-sans font-bold text-2xl tracking-[0.2em] text-sky-400 select-none cursor-pointer transition-all duration-500 no-underline"
+              className="font-sans font-bold text-2xl tracking-[0.2em] select-none cursor-pointer transition-all duration-500 no-underline"
+              style={{ color: activeColor }}
             >
               FANTÔME
             </Link>
@@ -104,7 +116,7 @@ function CampaignsPage() {
           <h1 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
             All Campaigns
           </h1>
-          <p className="text-sky-300 text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
+          <p className="text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
             Explore all our brand activations, ad campaigns, and event highlights across platforms.
           </p>
         </motion.div>
@@ -121,11 +133,21 @@ function CampaignsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
               whileHover={{ y: -8 }}
-              className="rounded-3xl overflow-hidden glass-panel border border-sky-400/40 shadow-2xl relative group flex flex-col h-full transform-gpu cursor-pointer no-underline text-slate-200"
-              style={{ contain: 'content' }}
+              className="rounded-3xl overflow-hidden glass-panel shadow-2xl relative group flex flex-col h-full transform-gpu cursor-pointer no-underline text-slate-200 border"
+              style={{
+                contain: 'content',
+                background: isDarkMode 
+                  ? '' 
+                  : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 12%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 4%, #ffffff) 100%)`,
+                borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 30%, var(--border-glass))`
+              }}
             >
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-sky-300/40 via-sky-300/10 to-transparent z-10 pointer-events-none" />
+              <div className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                  background: `linear-gradient(to top, color-mix(in srgb, ${activeColor} 20%, transparent) 0%, color-mix(in srgb, ${activeColor} 5%, transparent) 60%, transparent 100%)`
+                }}
+              />
 
               {/* Hover glow line */}
               <div
@@ -134,7 +156,11 @@ function CampaignsPage() {
               />
 
               {/* Thumbnail */}
-              <div className="relative aspect-[16/9] overflow-hidden bg-sky-300/30 transform-gpu">
+              <div className="relative aspect-[16/9] overflow-hidden transform-gpu"
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`
+                }}
+              >
                 <img
                   src={camp.thumbnail}
                   alt={camp.title}
@@ -156,7 +182,7 @@ function CampaignsPage() {
                   <div className="absolute inset-0 flex items-center justify-center z-20 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                     <div
                       className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-md border border-white/30 shadow-xl transition-transform duration-300 group-hover:scale-110"
-                      style={{ backgroundColor: 'rgba(2, 132, 199, 0.85)' }}
+                      style={{ backgroundColor: `color-mix(in srgb, ${activeColor} 85%, transparent)` }}
                     >
                       <Play className="w-7 h-7 text-white ml-1" fill="white" />
                     </div>
@@ -165,11 +191,18 @@ function CampaignsPage() {
 
                 {/* Badges */}
                 <div className="absolute top-4 left-4 z-20 flex gap-2">
-                  <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-sky-300/80 border border-sky-400/30 text-slate-800">
+                  <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide border text-slate-800"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(125,211,252,0.7)' : `color-mix(in srgb, ${activeColor} 18%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.3)' : `color-mix(in srgb, ${activeColor} 35%, transparent)`,
+                      color: isDarkMode ? '#0f172a' : `color-mix(in srgb, ${activeColor} 90%, #000000)`
+                    }}
+                  >
                     {camp.tag}
                   </span>
                   <span
-                    className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide bg-sky-600 text-white"
+                    className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide text-white"
+                    style={{ backgroundColor: activeColor }}
                   >
                     {camp.platform}
                   </span>
@@ -178,10 +211,12 @@ function CampaignsPage() {
 
               {/* Text content */}
               <div className="p-6 relative z-20 space-y-3 flex-1 flex flex-col justify-between">
-                <h3 className="text-lg md:text-xl font-bold font-sans uppercase tracking-wide text-slate-100 group-hover:text-sky-450 transition-all duration-300">
+                <h3 className="text-lg md:text-xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] group-hover:text-[var(--text-accent)] transition-all duration-300">
                   {camp.title}
                 </h3>
-                <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-sky-400 mt-auto pt-2">
+                <div className="flex items-center gap-2 text-xs font-semibold tracking-wide mt-auto pt-2"
+                  style={{ color: activeColor }}
+                >
                   <ExternalLink className="w-3.5 h-3.5" />
                   <span>Watch on {camp.platform}</span>
                 </div>
@@ -192,12 +227,16 @@ function CampaignsPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-sky-400/30 py-12 px-6 relative z-20">
+      <footer className="border-t py-12 px-6 relative z-20"
+        style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))` }}
+      >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="font-sans font-bold text-xl tracking-[0.2em] text-sky-400">
+          <div className="font-sans font-bold text-xl tracking-[0.2em]"
+            style={{ color: activeColor }}
+          >
             FANTÔME
           </div>
-          <p className="text-xs text-slate-400 tracking-wide">
+          <p className="text-xs text-[var(--text-muted)] tracking-wide">
             © {new Date().getFullYear()} Fantôme Energy. All rights reserved.
           </p>
         </div>
