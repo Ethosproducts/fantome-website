@@ -1732,81 +1732,161 @@ function FantomeChatbot({ activeColor, isDarkMode }) {
 // DEDICATED SUBPAGES
 // ==========================================
 
-function DedicatedFlavorsPage({ flavors, activeColor, isDarkMode, handleAddToCart }) {
+function DedicatedFlavorsPage({ flavors, activeColor, isDarkMode }) {
   const [selectedFlavor, setSelectedFlavor] = useState(flavors[0]);
   const [isFormulaOpen, setIsFormulaOpen] = useState(false);
   const activeNutrition = NUTRITION_DATA[selectedFlavor.title] || NUTRITION_DATA.Mojito;
 
+  // Refs for GSAP ScrollTrigger
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsRef = useRef(null);
+  const dividerRef = useRef(null);
+
   const specs = {
-    "Original": { energy: "9/10", sweetness: "8/10", sharpness: "7/10", focus: "Instant" },
-    "Mojito": { energy: "8/10", sweetness: "6/10", sharpness: "9/10", focus: "Sustained" },
-    "Sugar Free": { energy: "9.5/10", sweetness: "0/10", sharpness: "8.5/10", focus: "Peak State" }
+    "Original": { energy: "High", sweetness: "Bold", sharpness: "Sharp", focus: "Instant" },
+    "Mojito": { energy: "Strong", sweetness: "Balanced", sharpness: "Crisp", focus: "Sustained" },
+    "Sugar Free": { energy: "Extreme", sweetness: "Zero", sharpness: "Intense", focus: "Peak State" }
   };
 
-  const currentSpecs = specs[selectedFlavor.title] || specs["Original"];
+  // GSAP scroll animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header entrance: eyebrow, title, description stagger in
+      gsap.fromTo(
+        headerRef.current?.querySelectorAll('.gsap-header-item') || [],
+        { y: 60, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 0.9, stagger: 0.15, ease: 'power3.out',
+          scrollTrigger: { trigger: headerRef.current, start: 'top 85%', toggleActions: 'play none none none' }
+        }
+      );
+
+      // Decorative divider line grows in width
+      if (dividerRef.current) {
+        gsap.fromTo(dividerRef.current,
+          { scaleX: 0, opacity: 0 },
+          {
+            scaleX: 1, opacity: 1, duration: 1.2, ease: 'power2.out',
+            scrollTrigger: { trigger: dividerRef.current, start: 'top 88%', toggleActions: 'play none none none' }
+          }
+        );
+      }
+
+      // Flavor cards: stagger from bottom with slight rotation
+      const cards = cardsRef.current?.querySelectorAll('.gsap-flavor-card') || [];
+      gsap.fromTo(cards,
+        { y: 100, opacity: 0, rotateX: 8 },
+        {
+          y: 0, opacity: 1, rotateX: 0, duration: 0.85, stagger: 0.18, ease: 'power3.out',
+          scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', toggleActions: 'play none none none' }
+        }
+      );
+
+      // Parallax float effect on can images while scrolling
+      cards.forEach((card) => {
+        const img = card.querySelector('.gsap-can-img');
+        if (img) {
+          gsap.fromTo(img,
+            { y: 30 },
+            {
+              y: -20, ease: 'none',
+              scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 1.5 }
+            }
+          );
+        }
+      });
+
+      // Specs rows inside each card fade in
+      cards.forEach((card) => {
+        const specRows = card.querySelectorAll('.gsap-spec-row');
+        gsap.fromTo(specRows,
+          { x: -20, opacity: 0 },
+          {
+            x: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power2.out',
+            scrollTrigger: { trigger: card, start: 'top 70%', toggleActions: 'play none none none' }
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto z-20">
-      <div className="text-center mb-16">
-        <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
+    <section ref={sectionRef} className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto z-20">
+      {/* Header with GSAP stagger */}
+      <div ref={headerRef} className="text-center mb-12">
+        <span className="gsap-header-item text-sm font-semibold tracking-[0.3em] uppercase block" style={{ color: activeColor }}>
           The Formulations
         </span>
-        <h1 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
-          Mathematical Energy
+        <h1 className="gsap-header-item text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
+          Formula Variations
         </h1>
-        <p className="text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
-          Explore our precisely regulated energy catalysts engineered for cognitive load optimization.
+        <p className="gsap-header-item text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
+          Explore our precisely crafted energy formulas, each engineered for a distinct performance profile.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {/* Decorative divider */}
+      <div className="flex justify-center mb-16">
+        <div
+          ref={dividerRef}
+          className="h-[2px] w-32 rounded-full origin-center"
+          style={{ backgroundColor: activeColor, boxShadow: `0 0 14px ${activeColor}55` }}
+        />
+      </div>
+
+      {/* Flavor cards grid */}
+      <div ref={cardsRef} className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto" style={{ perspective: '1200px' }}>
         {flavors.map((flavor) => {
           const flavorColor = flavor.color;
           const isSelected = selectedFlavor.title === flavor.title;
           const currentSpecs = specs[flavor.title] || specs["Original"];
           return (
-            <motion.div
+            <div
               key={flavor.title}
-              whileHover={{ y: -8 }}
-              onClick={() => setSelectedFlavor(flavor)}
-              className={`rounded-3xl p-6 glass-panel border relative group flex flex-col justify-between cursor-pointer transition-all duration-300 ${
-                isSelected ? 'border-[var(--active-color)] ring-1 ring-[var(--active-color)]/30' : 'border-white/10 hover:border-white/20'
+              className={`gsap-flavor-card rounded-3xl p-6 glass-panel border relative group flex flex-col justify-between cursor-pointer transition-all duration-300 ${
+                isSelected ? 'ring-1' : 'hover:border-white/20'
               }`}
+              onClick={() => setSelectedFlavor(flavor)}
               style={{
-                background: isDarkMode 
-                  ? 'rgba(15, 23, 42, 0.4)' 
+                background: isDarkMode
+                  ? 'rgba(15, 23, 42, 0.4)'
                   : `linear-gradient(135deg, color-mix(in srgb, ${flavorColor} 12%, #ffffff) 0%, color-mix(in srgb, ${flavorColor} 4%, #ffffff) 100%)`,
-                borderColor: isSelected 
-                  ? flavorColor 
-                  : isDarkMode 
-                    ? 'rgba(255, 255, 255, 0.1)' 
-                    : `color-mix(in srgb, ${flavorColor} 25%, var(--border-glass))`
+                borderColor: isSelected
+                  ? flavorColor
+                  : isDarkMode
+                    ? 'rgba(255, 255, 255, 0.1)'
+                    : `color-mix(in srgb, ${flavorColor} 25%, var(--border-glass))`,
+                ringColor: isSelected ? `${flavorColor}44` : undefined,
+                transformStyle: 'preserve-3d'
               }}
             >
-              {/* Glow overlay */}
-              <div 
+              {/* Top glow bar */}
+              <div
                 className="absolute top-0 left-0 w-full h-[3px] rounded-t-full transition-opacity duration-300"
-                style={{ 
+                style={{
                   backgroundColor: flavorColor,
                   opacity: isSelected ? 1 : 0,
                   boxShadow: `0 0 10px ${flavorColor}`
                 }}
               />
 
-              {/* Can visual */}
+              {/* Can visual with parallax */}
               <div className="relative aspect-[1/1] w-full flex items-center justify-center rounded-2xl overflow-hidden mb-6"
                 style={{
                   background: isDarkMode ? 'rgba(0,0,0,0.2)' : `color-mix(in srgb, ${flavorColor} 6%, #ffffff)`
                 }}
               >
-                <motion.img
+                <img
                   src={flavor.showcaseImage || flavor.canFront}
                   alt={flavor.title}
-                  className="h-[80%] w-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-500"
+                  className="gsap-can-img h-[80%] w-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
 
-              {/* Flavor Text */}
+              {/* Flavor text */}
               <div className="space-y-4 flex-1 flex flex-col justify-between">
                 <div>
                   <h3 className="text-2xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)]">
@@ -1820,43 +1900,26 @@ function DedicatedFlavorsPage({ flavors, activeColor, isDarkMode, handleAddToCar
                   </p>
                 </div>
 
-                {/* Specs display */}
-                <div className="border-t border-b border-white/5 py-4 my-4 space-y-2 text-xs"
+                {/* Specs display with scroll animation */}
+                <div className="border-t border-b py-4 my-4 space-y-2 text-xs"
                   style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : `color-mix(in srgb, ${flavorColor} 15%, rgba(15, 23, 42, 0.08))` }}
                 >
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Energy Metric:</span>
+                  <div className="gsap-spec-row flex justify-between">
+                    <span className="text-[var(--text-muted)]">Energy Level</span>
                     <strong className="text-[var(--text-main)]">{currentSpecs.energy}</strong>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Sugar Content:</span>
-                    <strong className="text-[var(--text-main)]">{flavor.title === 'Sugar Free' ? '0 g' : '22.6 g'}</strong>
+                  <div className="gsap-spec-row flex justify-between">
+                    <span className="text-[var(--text-muted)]">Sweetness</span>
+                    <strong className="text-[var(--text-main)]">{currentSpecs.sweetness}</strong>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Focus State:</span>
+                  <div className="gsap-spec-row flex justify-between">
+                    <span className="text-[var(--text-muted)]">Focus Profile</span>
                     <strong className="text-[var(--text-main)]">{currentSpecs.focus}</strong>
                   </div>
                 </div>
 
-                {/* Actions */}
-                <div className="flex gap-2 mt-auto">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleAddToCart({
-                        id: flavor.title === 'Original' ? 'prod-original' : flavor.title === 'Mojito' ? 'prod-mojito' : 'prod-sugarfree',
-                        name: `Fantôme ${flavor.title}`,
-                        price: flavor.title === 'Sugar Free' ? 140 : 150,
-                        image: flavor.canFront,
-                        color: flavor.color
-                      });
-                    }}
-                    className="flex-1 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-black transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-                    style={{ backgroundColor: flavorColor }}
-                  >
-                    Add to Bag
-                  </button>
+                {/* Single action: View Formula Specs */}
+                <div className="mt-auto">
                   <button
                     type="button"
                     onClick={(e) => {
@@ -1864,19 +1927,22 @@ function DedicatedFlavorsPage({ flavors, activeColor, isDarkMode, handleAddToCar
                       setSelectedFlavor(flavor);
                       setIsFormulaOpen(true);
                     }}
-                    className="px-4 py-3 rounded-xl border border-white/10 text-[var(--text-main)] font-semibold text-xs tracking-wider uppercase hover:bg-white/5 transition-colors cursor-pointer"
-                    style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : `color-mix(in srgb, ${flavorColor} 30%, var(--border-glass))` }}
+                    className="w-full py-3 rounded-xl border font-semibold text-xs tracking-wider uppercase transition-all duration-300 hover:scale-[1.02] cursor-pointer text-[var(--text-main)]"
+                    style={{
+                      borderColor: isDarkMode ? 'rgba(255,255,255,0.12)' : `color-mix(in srgb, ${flavorColor} 30%, var(--border-glass))`,
+                      background: isDarkMode ? 'rgba(255,255,255,0.04)' : `color-mix(in srgb, ${flavorColor} 6%, #ffffff)`
+                    }}
                   >
-                    Specs
+                    View Full Formula
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>
 
-      {/* Manifest Modal */}
+      {/* Formula Specs Modal */}
       <AnimatePresence>
         {isFormulaOpen && (
           <motion.div
@@ -2569,7 +2635,6 @@ function App({ page = 'home' }) {
           flavors={flavors} 
           activeColor={activeColor} 
           isDarkMode={isDarkMode} 
-          handleAddToCart={handleAddToCart} 
         />
       )}
 
