@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send, Volume2, VolumeX, Sun, Moon } from 'lucide-react';
+import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send, Volume2, VolumeX, Sun, Moon, Play, ExternalLink } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -614,15 +614,17 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             const absDistance = Math.abs(distance);
             const travel = Math.min(window.innerWidth * 0.38, 520);
             const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
-            const visualCenterOffset = window.innerWidth < 640
-              ? -Math.min(Math.max(window.innerWidth * 0.42, 140), 190)
-              : (() => {
-                  const baseHeight = window.innerWidth >= 768
-                    ? Math.min(window.innerHeight * 0.46, 520)
-                    : window.innerHeight * 0.42;
-                  const baseWidth = Math.min(baseHeight * 1.5, window.innerWidth * 0.82);
-                  return -baseWidth / 2;
-                })();
+            const visualCenterOffset = window.innerWidth >= 1024
+              ? -255
+              : window.innerWidth < 640
+                ? -Math.min(Math.max(window.innerWidth * 0.42, 140), 190)
+                : (() => {
+                    const baseHeight = window.innerWidth >= 768
+                      ? Math.min(window.innerHeight * 0.46, 520)
+                      : window.innerHeight * 0.42;
+                    const baseWidth = Math.min(baseHeight * 1.5, window.innerWidth * 0.82);
+                    return -baseWidth / 2;
+                  })();
             gsap.set(can, {
               x: visualCenterOffset + distance * travel,
               y: -168 - centerPull * 26,
@@ -1727,6 +1729,513 @@ function FantomeChatbot({ activeColor, isDarkMode }) {
 }
 
 // ==========================================
+// DEDICATED SUBPAGES
+// ==========================================
+
+function DedicatedFlavorsPage({ flavors, activeColor, isDarkMode, handleAddToCart }) {
+  const [selectedFlavor, setSelectedFlavor] = useState(flavors[0]);
+  const [isFormulaOpen, setIsFormulaOpen] = useState(false);
+  const activeNutrition = NUTRITION_DATA[selectedFlavor.title] || NUTRITION_DATA.Mojito;
+
+  const specs = {
+    "Original": { energy: "9/10", sweetness: "8/10", sharpness: "7/10", focus: "Instant" },
+    "Mojito": { energy: "8/10", sweetness: "6/10", sharpness: "9/10", focus: "Sustained" },
+    "Sugar Free": { energy: "9.5/10", sweetness: "0/10", sharpness: "8.5/10", focus: "Peak State" }
+  };
+
+  const currentSpecs = specs[selectedFlavor.title] || specs["Original"];
+
+  return (
+    <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto z-20">
+      <div className="text-center mb-16">
+        <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
+          The Formulations
+        </span>
+        <h1 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
+          Mathematical Energy
+        </h1>
+        <p className="text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
+          Explore our precisely regulated energy catalysts engineered for cognitive load optimization.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {flavors.map((flavor) => {
+          const flavorColor = flavor.color;
+          const isSelected = selectedFlavor.title === flavor.title;
+          const currentSpecs = specs[flavor.title] || specs["Original"];
+          return (
+            <motion.div
+              key={flavor.title}
+              whileHover={{ y: -8 }}
+              onClick={() => setSelectedFlavor(flavor)}
+              className={`rounded-3xl p-6 glass-panel border relative group flex flex-col justify-between cursor-pointer transition-all duration-300 ${
+                isSelected ? 'border-[var(--active-color)] ring-1 ring-[var(--active-color)]/30' : 'border-white/10 hover:border-white/20'
+              }`}
+              style={{
+                background: isDarkMode 
+                  ? 'rgba(15, 23, 42, 0.4)' 
+                  : `linear-gradient(135deg, color-mix(in srgb, ${flavorColor} 12%, #ffffff) 0%, color-mix(in srgb, ${flavorColor} 4%, #ffffff) 100%)`,
+                borderColor: isSelected 
+                  ? flavorColor 
+                  : isDarkMode 
+                    ? 'rgba(255, 255, 255, 0.1)' 
+                    : `color-mix(in srgb, ${flavorColor} 25%, var(--border-glass))`
+              }}
+            >
+              {/* Glow overlay */}
+              <div 
+                className="absolute top-0 left-0 w-full h-[3px] rounded-t-full transition-opacity duration-300"
+                style={{ 
+                  backgroundColor: flavorColor,
+                  opacity: isSelected ? 1 : 0,
+                  boxShadow: `0 0 10px ${flavorColor}`
+                }}
+              />
+
+              {/* Can visual */}
+              <div className="relative aspect-[1/1] w-full flex items-center justify-center rounded-2xl overflow-hidden mb-6"
+                style={{
+                  background: isDarkMode ? 'rgba(0,0,0,0.2)' : `color-mix(in srgb, ${flavorColor} 6%, #ffffff)`
+                }}
+              >
+                <motion.img
+                  src={flavor.showcaseImage || flavor.canFront}
+                  alt={flavor.title}
+                  className="h-[80%] w-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              {/* Flavor Text */}
+              <div className="space-y-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-2xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)]">
+                    {flavor.title}
+                  </h3>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.16em] block mt-1" style={{ color: flavorColor }}>
+                    {flavor.flavor}
+                  </span>
+                  <p className="text-[var(--text-sub)] text-xs mt-3 leading-relaxed">
+                    {flavor.desc}
+                  </p>
+                </div>
+
+                {/* Specs display */}
+                <div className="border-t border-b border-white/5 py-4 my-4 space-y-2 text-xs"
+                  style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : `color-mix(in srgb, ${flavorColor} 15%, rgba(15, 23, 42, 0.08))` }}
+                >
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Energy Metric:</span>
+                    <strong className="text-[var(--text-main)]">{currentSpecs.energy}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Sugar Content:</span>
+                    <strong className="text-[var(--text-main)]">{flavor.title === 'Sugar Free' ? '0 g' : '22.6 g'}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Focus State:</span>
+                    <strong className="text-[var(--text-main)]">{currentSpecs.focus}</strong>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-2 mt-auto">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart({
+                        id: flavor.title === 'Original' ? 'prod-original' : flavor.title === 'Mojito' ? 'prod-mojito' : 'prod-sugarfree',
+                        name: `Fantôme ${flavor.title}`,
+                        price: flavor.title === 'Sugar Free' ? 140 : 150,
+                        image: flavor.canFront,
+                        color: flavor.color
+                      });
+                    }}
+                    className="flex-1 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-black transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+                    style={{ backgroundColor: flavorColor }}
+                  >
+                    Add to Bag
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedFlavor(flavor);
+                      setIsFormulaOpen(true);
+                    }}
+                    className="px-4 py-3 rounded-xl border border-white/10 text-[var(--text-main)] font-semibold text-xs tracking-wider uppercase hover:bg-white/5 transition-colors cursor-pointer"
+                    style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : `color-mix(in srgb, ${flavorColor} 30%, var(--border-glass))` }}
+                  >
+                    Specs
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Manifest Modal */}
+      <AnimatePresence>
+        {isFormulaOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] flex items-start justify-center overflow-y-auto bg-black/80 px-3 pb-8 pt-24 backdrop-blur-md sm:items-center sm:p-6"
+            onClick={() => setIsFormulaOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.92, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.92, y: 20 }}
+              className="max-h-[calc(100svh-7.5rem)] w-full max-w-2xl overflow-hidden rounded-2xl border shadow-2xl sm:max-h-[86vh]"
+              style={{
+                backgroundColor: isDarkMode ? 'rgba(2,3,5,0.95)' : `color-mix(in srgb, ${selectedFlavor.color} 8%, #ffffff)`,
+                borderColor: isDarkMode ? 'rgba(56,189,248,0.3)' : `color-mix(in srgb, ${selectedFlavor.color} 30%, var(--border-glass))`
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-3 border-b p-4 sm:gap-6 sm:p-6 sm:pb-4"
+                style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${selectedFlavor.color} 20%, rgba(15, 23, 42, 0.1))` }}
+              >
+                <div className="min-w-0">
+                  <span className="text-[0.65rem] font-bold uppercase tracking-[0.22em] sm:text-xs sm:tracking-[0.3em]" style={{ color: selectedFlavor.color }}>
+                    Fully Disclosed
+                  </span>
+                  <h3 className="mt-1 max-w-[15rem] break-words text-2xl font-bold uppercase leading-[0.95] text-[var(--text-main)] min-[390px]:max-w-none sm:mt-2 sm:text-3xl">{selectedFlavor.title} Formula</h3>
+                </div>
+                <button type="button" onClick={() => setIsFormulaOpen(false)} className="shrink-0 rounded-full border border-white/10 bg-white/5 p-2 text-slate-300 hover:bg-white/10 cursor-pointer">
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+              </div>
+
+              <div className="max-h-[calc(100svh-15rem)] overflow-y-auto p-4 pt-5 sm:max-h-[64vh] sm:p-6">
+                <div className="grid grid-cols-1 gap-3 min-[430px]:grid-cols-3 sm:gap-4">
+                  <div className="rounded-xl border p-3 sm:p-4"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : `color-mix(in srgb, ${selectedFlavor.color} 4%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${selectedFlavor.color} 25%, var(--border-glass))`
+                    }}
+                  >
+                    <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Caffeine</span>
+                    <strong className="mt-1 block text-xl text-[var(--text-main)] sm:mt-2 sm:text-2xl">75 mg</strong>
+                    <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Per 250 ml can</p>
+                  </div>
+                  <div className="rounded-xl border p-3 sm:p-4"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : `color-mix(in srgb, ${selectedFlavor.color} 4%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${selectedFlavor.color} 25%, var(--border-glass))`
+                    }}
+                  >
+                    <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Sugar</span>
+                    <strong className="mt-1 block text-xl text-[var(--text-main)] sm:mt-2 sm:text-2xl">{selectedFlavor.title === 'Sugar Free' ? '0 g' : '22.6 g'}</strong>
+                    <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Clearly labeled per can</p>
+                  </div>
+                  <div className="rounded-xl border p-3 sm:p-4"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : `color-mix(in srgb, ${selectedFlavor.color} 4%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${selectedFlavor.color} 25%, var(--border-glass))`
+                    }}
+                  >
+                    <span className="text-[0.65rem] uppercase tracking-wide text-slate-400 sm:text-xs">Taurine</span>
+                    <strong className="mt-1 block text-xl text-[var(--text-main)] sm:mt-2 sm:text-2xl">{selectedFlavor.title === 'Sugar Free' ? '400 mg' : '800 mg'}</strong>
+                    <p className="mt-1 text-[0.68rem] text-slate-400 sm:text-xs">Performance support</p>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid grid-cols-1 gap-2 text-xs sm:mt-6 sm:grid-cols-2 sm:gap-3 sm:text-sm">
+                  {activeNutrition.bioElements.map((item) => (
+                    <div key={item.name} className="flex justify-between gap-4 border-b py-2 text-[var(--text-sub)]"
+                      style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.1)' : `color-mix(in srgb, ${selectedFlavor.color} 15%, rgba(15, 23, 42, 0.08))` }}
+                    >
+                      <span className="min-w-0 pr-2">{item.name}</span>
+                      <strong className="shrink-0 text-[var(--text-main)]">{item.val}</strong>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+function DedicatedStoryPage({ activeColor, isDarkMode }) {
+  const chapters = [
+    {
+      num: "01",
+      title: "Neural Ignition",
+      subtitle: "The cognitive load hypothesis",
+      copy: "Fantôme was created because standard energy formulations rely solely on simple carbohydrate dumps and heavy glucose peaks. We engineered a catalyst structured around sustained, smooth neurotransmission, enabling elite developers and builders to run at peak capacity for hours without a glycemic crash."
+    },
+    {
+      num: "02",
+      title: "Mathematical Purity",
+      subtitle: "Formula compliance & safety metrics",
+      copy: "Our labs are regulated under stringent quality standards. Every can of Fantôme contains precise milligrams of synthetic taurine and active caffeine, balanced by Pyridoxine Hydrochloride (Vitamin B6) and Vitamin B12, ensuring sustained neural cellular metabolism with complete ingredient manifest transparency."
+    },
+    {
+      num: "03",
+      title: "The Movement",
+      subtitle: "The unseen community of the vanguard",
+      copy: "We do not believe in mass marketing. Fantôme is a targeted tool distributed selectively to elite engineers, creative directors, and builders who work in the shadows of high-pressure computing. Our network is a quiet, powerful collective running the infrastructure of the future."
+    }
+  ];
+
+  return (
+    <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto z-20">
+      <div className="text-center mb-20">
+        <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
+          The Brand Book
+        </span>
+        <h1 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
+          Unseen Narrative
+        </h1>
+        <p className="text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
+          "We do not sell sugar. We sell mathematical focus."
+        </p>
+      </div>
+
+      {/* Chapters Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-24">
+        {chapters.map((chapter) => (
+          <motion.div
+            key={chapter.num}
+            whileHover={{ y: -6 }}
+            className="p-8 rounded-3xl glass-panel border relative group flex flex-col h-full overflow-hidden"
+            style={{
+              borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : `color-mix(in srgb, ${activeColor} 20%, var(--border-glass))`,
+              background: isDarkMode ? '' : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 8%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 2%, #ffffff) 100%)`
+            }}
+          >
+            {/* Huge watermarked number */}
+            <div className="absolute right-6 top-6 text-7xl font-sans font-black opacity-10 select-none transition-transform duration-500 group-hover:scale-110"
+              style={{ color: activeColor }}
+            >
+              {chapter.num}
+            </div>
+
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: activeColor }}>
+              {chapter.subtitle}
+            </span>
+            <h3 className="text-2xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] mb-4">
+              {chapter.title}
+            </h3>
+            <p className="text-[var(--text-sub)] text-xs sm:text-sm font-light leading-relaxed">
+              {chapter.copy}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Editorial Founder Biography */}
+      <div className="max-w-4xl mx-auto rounded-3xl overflow-hidden glass-panel border p-8 md:p-12 relative"
+        style={{
+          borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : `color-mix(in srgb, ${activeColor} 20%, var(--border-glass))`,
+          background: isDarkMode ? '' : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 10%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 3%, #ffffff) 100%)`
+        }}
+      >
+        <div className="absolute top-0 right-0 w-44 h-44 blur-3xl opacity-15 rounded-full pointer-events-none" style={{ backgroundColor: activeColor }} />
+
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center">
+          <div className="flex flex-col items-center text-center">
+            <div className="w-32 h-32 rounded-full overflow-hidden border border-white/20 relative shadow-2xl mb-4"
+              style={{ borderColor: activeColor }}
+            >
+              <img
+                src="/founder_avatar.jpg"
+                alt="Founder Praveen"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.src = "/fantome_unseen_power_logo_square.png";
+                }}
+              />
+            </div>
+            <h4 className="text-lg font-bold font-sans uppercase text-[var(--text-main)]">Praveen</h4>
+            <span className="text-[10px] font-bold tracking-wider uppercase text-slate-400">Founder & Catalyst</span>
+          </div>
+
+          <div className="space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] block" style={{ color: activeColor }}>
+              A Statement of Intent
+            </span>
+            <p className="text-[var(--text-main)] font-light text-base md:text-lg italic leading-relaxed">
+              "We built Fantôme to serve as the premium cognitive catalyst for the developers, builders, and high-performance engineers who drive our digital architecture forward. We do not compromise on ingredient quality, formula concentration, or manifest transparency."
+            </p>
+            <div className="pt-2">
+              <span className="font-sans font-black text-2xl tracking-[0.16em] block" style={{ color: activeColor }}>
+                FANTÔME
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DedicatedCampaignsPage({ activeColor, isDarkMode }) {
+  const campaigns = [
+    {
+      id: 'yt-1',
+      title: 'Fantôme Energy — Official Ad Campaign',
+      platform: 'YouTube',
+      url: 'https://youtu.be/nY17PjJHLWA?si=hsNBHW1bZuCYsf_p',
+      videoId: 'nY17PjJHLWA',
+      thumbnail: 'https://img.youtube.com/vi/nY17PjJHLWA/maxresdefault.jpg',
+      tag: 'Official Ad',
+    },
+    {
+      id: 'yt-2',
+      title: 'Fantôme Energy — Brand Film',
+      platform: 'YouTube',
+      url: 'https://youtu.be/YDOju5uljKI?si=vhsCg7DlQy5Sum9e',
+      videoId: 'YDOju5uljKI',
+      thumbnail: 'https://img.youtube.com/vi/YDOju5uljKI/maxresdefault.jpg',
+      tag: 'Brand Film',
+    },
+    {
+      id: 'fb-1',
+      title: 'Fantôme Energy — Social Campaign',
+      platform: 'Facebook',
+      url: 'https://www.facebook.com/share/r/1Adsam4pTG/',
+      videoId: null,
+      thumbnail: '/campaign_birla.jpg',
+      tag: 'Social Media',
+    },
+    {
+      id: 'yt-3',
+      title: 'Fantôme Energy — Launch Event Highlights',
+      platform: 'YouTube',
+      url: 'https://youtu.be/reWlwI_8WJo?si=CvG4GxmZJ5txHl-H',
+      videoId: 'reWlwI_8WJo',
+      thumbnail: 'https://img.youtube.com/vi/reWlwI_8WJo/maxresdefault.jpg',
+      tag: 'Event Highlights',
+    },
+  ];
+
+  return (
+    <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto z-20">
+      <div className="text-center mb-16">
+        <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
+          Media Broadcast
+        </span>
+        <h1 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
+          Brand Operations
+        </h1>
+        <p className="text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
+          Explore all our brand activations, ad campaigns, and event highlights across platforms.
+        </p>
+      </div>
+
+      {/* Campaigns Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {campaigns.map((camp, idx) => (
+          <motion.a
+            key={camp.id}
+            href={camp.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -8 }}
+            className="rounded-3xl overflow-hidden glass-panel shadow-2xl relative group flex flex-col h-full border cursor-pointer no-underline text-slate-200"
+            style={{
+              contain: 'content',
+              background: isDarkMode 
+                ? 'rgba(15, 23, 42, 0.4)' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 12%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 4%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 30%, var(--border-glass))`
+            }}
+          >
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 z-10 pointer-events-none"
+              style={{
+                background: `linear-gradient(to top, color-mix(in srgb, ${activeColor} 20%, transparent) 0%, color-mix(in srgb, ${activeColor} 5%, transparent) 60%, transparent 100%)`
+              }}
+            />
+
+            {/* Hover glow line */}
+            <div
+              className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{ backgroundColor: activeColor }}
+            />
+
+            {/* Thumbnail */}
+            <div className="relative aspect-[16/9] overflow-hidden transform-gpu"
+              style={{
+                backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`
+              }}
+            >
+              <img
+                src={camp.thumbnail}
+                alt={camp.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
+                style={{
+                  transform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
+                }}
+                onError={(e) => {
+                  if (camp.videoId && e.target.src.includes('maxresdefault')) {
+                    e.target.src = `https://img.youtube.com/vi/${camp.videoId}/hqdefault.jpg`;
+                  }
+                }}
+              />
+
+              {/* Play button overlay */}
+              {camp.videoId && (
+                <div className="absolute inset-0 flex items-center justify-center z-20 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                  <div
+                    className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-md border border-white/30 shadow-xl transition-transform duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `color-mix(in srgb, ${activeColor} 85%, transparent)` }}
+                  >
+                    <Play className="w-7 h-7 text-white ml-1" fill="white" />
+                  </div>
+                </div>
+              )}
+
+              {/* Badges */}
+              <div className="absolute top-4 left-4 z-20 flex gap-2">
+                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide border text-slate-800"
+                  style={{
+                    backgroundColor: isDarkMode ? 'rgba(125,211,252,0.7)' : `color-mix(in srgb, ${activeColor} 18%, #ffffff)`,
+                    borderColor: isDarkMode ? 'rgba(56,189,248,0.3)' : `color-mix(in srgb, ${activeColor} 35%, transparent)`,
+                    color: isDarkMode ? '#0f172a' : `color-mix(in srgb, ${activeColor} 90%, #000000)`
+                  }}
+                >
+                  {camp.tag}
+                </span>
+                <span
+                  className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide text-white"
+                  style={{ backgroundColor: activeColor }}
+                >
+                  {camp.platform}
+                </span>
+              </div>
+            </div>
+
+            {/* Text content */}
+            <div className="p-6 relative z-20 space-y-3 flex-1 flex flex-col justify-between">
+              <h3 className="text-lg md:text-xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] group-hover:text-[var(--text-accent)] transition-all duration-300">
+                {camp.title}
+              </h3>
+              <div className="flex items-center gap-2 text-xs font-semibold tracking-wide mt-auto pt-2"
+                style={{ color: activeColor }}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Watch on {camp.platform}</span>
+              </div>
+            </div>
+          </motion.a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ==========================================
 // MAIN APP COMPONENT
 // ==========================================
 function App({ page = 'home' }) {
@@ -2075,41 +2584,46 @@ function App({ page = 'home' }) {
         )}
       </AnimatePresence>
 
-      {/* Brand Story (Rendered on Home and Story pages) */}
-      {(page === 'home' || page === 'story') && (
-        <StorySection activeColor={activeColor} activeFlavor={activeFlavor} isDarkMode={isDarkMode} />
+      {/* Conditionally Rendered Pages */}
+      {page === 'home' && (
+        <>
+          <StorySection activeColor={activeColor} activeFlavor={activeFlavor} isDarkMode={isDarkMode} />
+          <FlavorsSection 
+            activeColor={activeColor} 
+            setActiveColor={() => {}} 
+            activeFlavor={activeFlavor}
+            setActiveFlavor={setActiveFlavor}
+            flavors={flavors} 
+            isDarkMode={isDarkMode}
+          />
+          <ShopSection activeColor={activeColor} isDarkMode={isDarkMode} />
+          <CampaignsSection activeColor={activeColor} isDarkMode={isDarkMode} />
+          <FounderSection activeColor={activeColor} isDarkMode={isDarkMode} />
+          <ConnectSection activeColor={activeColor} isDarkMode={isDarkMode} />
+        </>
       )}
 
-      {/* Flavors Section (Rendered on Home and Flavors pages) */}
-      {(page === 'home' || page === 'flavors') && (
-        <FlavorsSection 
-          activeColor={activeColor} 
-          setActiveColor={() => {}} 
-          activeFlavor={activeFlavor}
-          setActiveFlavor={setActiveFlavor}
+      {page === 'flavors' && (
+        <DedicatedFlavorsPage 
           flavors={flavors} 
-          isDarkMode={isDarkMode}
+          activeColor={activeColor} 
+          isDarkMode={isDarkMode} 
+          handleAddToCart={handleAddToCart} 
         />
       )}
 
-      {/* Shop Section (Rendered on Home page only) */}
-      {page === 'home' && (
-        <ShopSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      {page === 'story' && (
+        <DedicatedStoryPage 
+          activeColor={activeColor} 
+          isDarkMode={isDarkMode} 
+        />
       )}
 
-      {/* Campaigns Section (Rendered on Home and Campaigns pages) */}
-      {(page === 'home' || page === 'campaigns') && (
-        <CampaignsSection activeColor={activeColor} isDarkMode={isDarkMode} />
-      )}
-
-      {/* Founder Section (Rendered on Home and Story pages) */}
-      {(page === 'home' || page === 'story') && (
-        <FounderSection activeColor={activeColor} isDarkMode={isDarkMode} />
-      )}
-
-      {/* Connect Section (Rendered on Home page only) */}
-      {page === 'home' && (
-        <ConnectSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      {page === 'campaigns' && (
+        <DedicatedCampaignsPage 
+          activeColor={activeColor} 
+          isDarkMode={isDarkMode} 
+        />
       )}
 
       {/* Footer is shared across all pages */}
