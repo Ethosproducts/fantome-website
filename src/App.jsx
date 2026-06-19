@@ -1747,12 +1747,12 @@ function App() {
   }, [activeFlavor]);
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('fantome-theme');
+    const saved = sessionStorage.getItem('fantome-theme');
     return saved !== null ? saved === 'dark' : true;
   });
 
   useEffect(() => {
-    localStorage.setItem('fantome-theme', isDarkMode ? 'dark' : 'light');
+    sessionStorage.setItem('fantome-theme', isDarkMode ? 'dark' : 'light');
     if (isDarkMode) {
       document.documentElement.classList.remove('light-mode');
     } else {

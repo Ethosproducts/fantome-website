@@ -57,7 +57,7 @@ function CampaignsPage() {
   const activeColor = flavorColors[activeFlavor] || '#059669';
 
   const [isDarkMode] = React.useState(() => {
-    const saved = localStorage.getItem('fantome-theme');
+    const saved = sessionStorage.getItem('fantome-theme');
     return saved !== null ? saved === 'dark' : true;
   });
 
