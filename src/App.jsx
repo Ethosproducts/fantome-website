@@ -2494,12 +2494,12 @@ function App({ page = 'home' }) {
                         {item.label}
                       </span>
                       <span 
-                        className={`absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                          isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100'
+                        className={`absolute bottom-0.5 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
+                          isActive ? 'opacity-100 w-6' : 'opacity-0 w-0 group-hover:opacity-100 group-hover:w-4'
                         }`}
                         style={{ 
                           backgroundColor: activeColor, 
-                          boxShadow: `0 0 10px ${activeColor}, 0 0 3px ${activeColor}` 
+                          boxShadow: `0 0 8px ${activeColor}` 
                         }} 
                       />
                     </Link>
