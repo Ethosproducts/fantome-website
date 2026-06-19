@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, ChevronRight, ChevronLeft, Plus, Minus, ArrowRight, Check, ShieldAlert, FlaskConical, Award, Trash2, MessageCircle, X, Send, Volume2, VolumeX, Sun, Moon } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -238,7 +238,6 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
     <section className="relative min-h-[100svh] overflow-hidden pt-16 text-white min-[390px]:pt-18 sm:pt-28 md:pt-32" style={{ background: isDarkMode ? `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` : `radial-gradient(circle at 78% 42%, ${activeColor}15 0%, rgba(0,0,0,0) 34%), var(--bg-gradient)` }}>
       <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: isDarkMode ? `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` : `linear-gradient(90deg, ${activeColor}08 0%, transparent 34%, ${activeColor}05 100%)` }} />
       <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none" style={{ backgroundImage: 'linear-gradient(to top, var(--bg-solid), transparent)' }} />
-      <BackgroundEffects activeColor={activeColor} />
       <button
         type="button"
         onClick={() => changeHeroFlavor(-1)}
@@ -1730,7 +1729,15 @@ function FantomeChatbot({ activeColor, isDarkMode }) {
 // ==========================================
 // MAIN APP COMPONENT
 // ==========================================
-function App() {
+function App({ page = 'home' }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const [activeFlavor, setActiveFlavor] = useState(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const urlFlavor = queryParams.get('flavor');
@@ -1862,14 +1869,16 @@ function App() {
 
   const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const navItems = [
-    { label: 'Flavors', target: 'flavors' },
-    { label: 'Story', target: 'story' },
-    { label: 'Campaigns', target: 'campaigns' }
+    { label: 'Home', path: '/', pageKey: 'home' },
+    { label: 'Flavors', path: '/flavors', pageKey: 'flavors' },
+    { label: 'Story', path: '/story', pageKey: 'story' },
+    { label: 'Campaigns', path: '/campaigns', pageKey: 'campaigns' }
   ];
 
   return (
     <div className={`${isDarkMode ? 'fantome-dark' : 'fantome-light'} min-h-screen relative text-slate-200 overflow-x-hidden bg-transparent`}>
       <audio ref={audioRef} src="/fantome-bg-music.mp3" loop preload="auto" />
+      <BackgroundEffects activeColor={activeColor} />
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
         {/* Navigation Bar */}
@@ -1882,7 +1891,11 @@ function App() {
                   setIsMobileMenuOpen(true);
                   return;
                 }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (page !== 'home') {
+                  navigate('/');
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
               }}
               className="group flex h-16 w-16 max-w-full items-center justify-center rounded-[1.1rem] border border-white/40 bg-white p-1 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer sm:h-20 sm:w-20 lg:justify-self-start"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}28` }}
@@ -1926,27 +1939,36 @@ function App() {
               </button>
             </div>
 
-            <div className="hidden rounded-full theme-nav-bar lg:mx-auto lg:flex lg:items-center lg:justify-center px-6 py-2.5 max-w-max">
-              <div className="flex items-center gap-1 sm:gap-2">
-                {navItems.map((item) => (
-                  <button
-                    key={item.target}
-                    type="button"
-                    onClick={() => document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' })}
-                    className="group relative px-6 py-2 cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
-                  >
-                    <span className="relative block text-[11px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 text-[var(--text-sub)] group-hover:text-[var(--text-main)] sm:text-xs">
-                      {item.label}
-                    </span>
-                    <span 
-                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 scale-50 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100"
-                      style={{ 
-                        backgroundColor: activeColor, 
-                        boxShadow: `0 0 10px ${activeColor}, 0 0 3px ${activeColor}` 
-                      }} 
-                    />
-                  </button>
-                ))}
+            <div className="hidden rounded-full theme-nav-bar lg:mx-auto lg:flex lg:items-center lg:justify-center px-12 py-3.5 max-w-max">
+              <div className="flex items-center gap-4 sm:gap-6">
+                {navItems.map((item) => {
+                  const isActive = page === item.pageKey;
+                  return (
+                    <Link
+                      key={item.pageKey}
+                      to={item.path}
+                      className="group relative px-8 py-2 cursor-pointer transition-transform duration-300 hover:-translate-y-0.5 no-underline"
+                    >
+                      <span
+                        className="relative block text-[11px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 sm:text-xs"
+                        style={{
+                          color: isActive ? 'var(--text-main)' : 'var(--text-sub)'
+                        }}
+                      >
+                        {item.label}
+                      </span>
+                      <span 
+                        className={`absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                          isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100'
+                        }`}
+                        style={{ 
+                          backgroundColor: activeColor, 
+                          boxShadow: `0 0 10px ${activeColor}, 0 0 3px ${activeColor}` 
+                        }} 
+                      />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
             
@@ -1985,13 +2007,15 @@ function App() {
         </nav>
       </div>
       {/* Hero */}
-      <Hero
-        activeColor={activeColor}
-        activeFlavor={activeFlavor}
-        flavors={flavors}
-        setActiveFlavor={setActiveFlavor}
-        isDarkMode={isDarkMode}
-      />
+      {page === 'home' && (
+        <Hero
+          activeColor={activeColor}
+          activeFlavor={activeFlavor}
+          flavors={flavors}
+          setActiveFlavor={setActiveFlavor}
+          isDarkMode={isDarkMode}
+        />
+      )}
 
       {/* Mobile Navigation Drawer */}
       <AnimatePresence>
@@ -2029,18 +2053,17 @@ function App() {
 
               <div className="mt-6 space-y-3">
                 {navItems.map((item) => (
-                  <button
-                    key={item.target}
-                    type="button"
+                  <Link
+                    key={item.pageKey}
+                    to={item.path}
                     onClick={() => {
                       setIsMobileMenuOpen(false);
-                      document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="group relative flex w-full items-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-left text-sm font-black uppercase tracking-[0.16em] text-white cursor-pointer"
+                    className="group relative flex w-full items-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-left text-sm font-black uppercase tracking-[0.16em] text-white cursor-pointer no-underline"
                   >
                     <span className="absolute inset-y-0 left-0 w-1 opacity-80 transition-all duration-300 group-hover:w-full group-hover:opacity-15" style={{ backgroundColor: activeColor }} />
                     <span className="relative">{item.label}</span>
-                  </button>
+                  </Link>
                 ))}
               </div>
 
@@ -2052,32 +2075,44 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* Brand Story */}
-      <StorySection activeColor={activeColor} activeFlavor={activeFlavor} isDarkMode={isDarkMode} />
+      {/* Brand Story (Rendered on Home and Story pages) */}
+      {(page === 'home' || page === 'story') && (
+        <StorySection activeColor={activeColor} activeFlavor={activeFlavor} isDarkMode={isDarkMode} />
+      )}
 
-      {/* Flavors Section */}
-      <FlavorsSection 
-        activeColor={activeColor} 
-        setActiveColor={() => {}} 
-        activeFlavor={activeFlavor}
-        setActiveFlavor={setActiveFlavor}
-        flavors={flavors} 
-        isDarkMode={isDarkMode}
-      />
+      {/* Flavors Section (Rendered on Home and Flavors pages) */}
+      {(page === 'home' || page === 'flavors') && (
+        <FlavorsSection 
+          activeColor={activeColor} 
+          setActiveColor={() => {}} 
+          activeFlavor={activeFlavor}
+          setActiveFlavor={setActiveFlavor}
+          flavors={flavors} 
+          isDarkMode={isDarkMode}
+        />
+      )}
 
-      {/* Shop Section */}
-      <ShopSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      {/* Shop Section (Rendered on Home page only) */}
+      {page === 'home' && (
+        <ShopSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      )}
 
-      {/* Campaigns Section */}
-      <CampaignsSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      {/* Campaigns Section (Rendered on Home and Campaigns pages) */}
+      {(page === 'home' || page === 'campaigns') && (
+        <CampaignsSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      )}
 
-      {/* Founder Section */}
-      <FounderSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      {/* Founder Section (Rendered on Home and Story pages) */}
+      {(page === 'home' || page === 'story') && (
+        <FounderSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      )}
 
-      {/* Connect Section */}
-      <ConnectSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      {/* Connect Section (Rendered on Home page only) */}
+      {page === 'home' && (
+        <ConnectSection activeColor={activeColor} isDarkMode={isDarkMode} />
+      )}
 
-      {/* Footer */}
+      {/* Footer is shared across all pages */}
       <Footer activeColor={activeColor} isDarkMode={isDarkMode} />
 
       {/* Cart Drawer */}

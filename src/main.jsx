@@ -16,8 +16,10 @@ createRoot(document.getElementById('root')).render(
         </div>
       }>
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/campaigns" element={<CampaignsPage />} />
+          <Route path="/" element={<App page="home" />} />
+          <Route path="/flavors" element={<App page="flavors" />} />
+          <Route path="/story" element={<App page="story" />} />
+          <Route path="/campaigns" element={<App page="campaigns" />} />
         </Routes>
       </Suspense>
     </HashRouter>
