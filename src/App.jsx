@@ -1926,23 +1926,27 @@ function App() {
               </button>
             </div>
 
-            <div className="hidden w-full overflow-hidden rounded-[1.35rem] theme-nav-bar lg:mx-auto lg:block lg:max-w-[660px] xl:max-w-[760px]">
-              <div className="px-3 py-2.5 sm:px-4">
-                <div className="grid grid-cols-3 gap-2">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.target}
-                      type="button"
-                      onClick={() => document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' })}
-                      className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.08] cursor-pointer"
-                      style={{ boxShadow: `inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 0 transparent` }}
-                    >
-                      <span className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: `radial-gradient(circle at 50% 0%, ${activeColor}24, transparent 62%)` }} />
-                      <span className="absolute inset-x-4 bottom-0 h-px scale-x-0 rounded-full opacity-0 transition-all duration-300 group-hover:scale-x-100 group-hover:opacity-100" style={{ backgroundColor: activeColor, boxShadow: `0 0 14px ${activeColor}` }} />
-                      <span className="relative block text-[10px] font-black uppercase tracking-[0.14em] text-slate-100 transition-colors duration-300 group-hover:text-white sm:text-xs" style={{ color: 'var(--text-main)' }}>{item.label}</span>
-                    </button>
-                  ))}
-                </div>
+            <div className="hidden rounded-full theme-nav-bar lg:mx-auto lg:flex lg:items-center lg:justify-center px-6 py-2.5 max-w-max">
+              <div className="flex items-center gap-1 sm:gap-2">
+                {navItems.map((item) => (
+                  <button
+                    key={item.target}
+                    type="button"
+                    onClick={() => document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' })}
+                    className="group relative px-6 py-2 cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
+                  >
+                    <span className="relative block text-[11px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 text-[var(--text-sub)] group-hover:text-[var(--text-main)] sm:text-xs">
+                      {item.label}
+                    </span>
+                    <span 
+                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full opacity-0 scale-50 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100"
+                      style={{ 
+                        backgroundColor: activeColor, 
+                        boxShadow: `0 0 10px ${activeColor}, 0 0 3px ${activeColor}` 
+                      }} 
+                    />
+                  </button>
+                ))}
               </div>
             </div>
             
