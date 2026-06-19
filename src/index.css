@@ -705,6 +705,7 @@
 .light-mode .text-white\/76,
 .light-mode .text-white\/62,
 .light-mode .text-white\/84,
+.light-mode .text-white\/80,
 .light-mode .text-slate-400\/80,
 .light-mode .text-slate-400\/60 {
   color: var(--text-sub) !important;
@@ -786,7 +787,9 @@
 .light-mode .bg-black,
 .light-mode .bg-black *,
 .light-mode button.bg-black\/45,
-.light-mode button.bg-black\/45 * {
+.light-mode button.bg-black\/45 *,
+.light-mode .keep-white,
+.light-mode .keep-white * {
   color: #ffffff !important;
 }
 

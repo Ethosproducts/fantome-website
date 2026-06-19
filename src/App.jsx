@@ -14,22 +14,34 @@ const TICKER_ITEMS = [
   "UNSEEN POWER", "ZERO SUGAR", "THE WOLF RUNS AT NIGHT", "DARK ENERGY", "PREMIUM CATALYST"
 ];
 
-function HeroTicker({ activeColor }) {
+function HeroTicker({ activeColor, isDarkMode }) {
   const items = [...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
     <div
       className="relative z-20 w-full overflow-hidden py-3 pointer-events-none backdrop-blur-xl"
       style={{
-        borderTop: `1px solid ${activeColor}55`,
-        borderBottom: `1px solid ${activeColor}55`,
-        background: `linear-gradient(90deg, rgba(2, 6, 12, 0.92), ${activeColor}22, rgba(2, 6, 12, 0.92))`,
-        boxShadow: `0 0 34px ${activeColor}22, inset 0 0 24px rgba(255,255,255,0.035)`,
+        borderTop: `1px solid ${isDarkMode ? activeColor + '55' : activeColor}`,
+        borderBottom: `1px solid ${isDarkMode ? activeColor + '55' : activeColor}`,
+        background: isDarkMode 
+          ? `linear-gradient(90deg, rgba(2, 6, 12, 0.92), ${activeColor}22, rgba(2, 6, 12, 0.92))` 
+          : 'transparent',
+        boxShadow: isDarkMode 
+          ? `0 0 34px ${activeColor}22, inset 0 0 24px rgba(255,255,255,0.035)` 
+          : 'none',
       }}
     >
       <div className="absolute left-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, rgba(2, 6, 12, 0.98), transparent)' }} />
+        style={{ 
+          background: isDarkMode 
+            ? 'linear-gradient(to right, rgba(2, 6, 12, 0.98), transparent)' 
+            : 'linear-gradient(to right, var(--bg-solid), transparent)' 
+        }} />
       <div className="absolute right-0 top-0 h-full w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left, rgba(2, 6, 12, 0.98), transparent)' }} />
+        style={{ 
+          background: isDarkMode 
+            ? 'linear-gradient(to left, rgba(2, 6, 12, 0.98), transparent)' 
+            : 'linear-gradient(to left, var(--bg-solid), transparent)' 
+        }} />
 
       <div className="flex whitespace-nowrap hero-ticker-track">
         {items.map((item, i) => (
@@ -37,7 +49,7 @@ function HeroTicker({ activeColor }) {
             <span className="text-[10px] font-black uppercase tracking-wide font-sans text-white/80 sm:text-[11px]">
               {item}
             </span>
-            <span className="text-[8px] font-black opacity-45" style={{ color: activeColor }}>◆</span>
+            <span className="text-[8px] font-black" style={{ color: activeColor, opacity: isDarkMode ? 0.45 : 0.8 }}>◆</span>
           </span>
         ))}
       </div>
@@ -277,8 +289,8 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
             onClick={() => document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' })}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
-            className={`mt-6 hidden items-center gap-3 rounded-full border px-7 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer sm:mt-9 sm:gap-4 sm:px-9 sm:py-4 sm:text-base md:inline-flex ${isMojitoHero ? 'md:ml-auto' : ''}`}
-            style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
+            className={`mt-6 hidden items-center gap-3 rounded-full border px-7 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer sm:mt-9 sm:gap-4 sm:px-9 sm:py-4 sm:text-base md:inline-flex keep-white ${isMojitoHero ? 'md:ml-auto' : ''}`}
+            style={{ backgroundColor: isDarkMode ? '#05080d' : activeColor, borderColor: activeColor, boxShadow: isDarkMode ? `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` : `0 8px 24px ${activeColor}33` }}
           >
             Connect Us
             <ChevronRight className="h-5 w-5" />
@@ -314,15 +326,15 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
           type="button"
           onClick={() => document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' })}
           whileTap={{ scale: 0.98 }}
-          className="mx-auto mt-2 inline-flex items-center gap-3 rounded-full border px-8 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer min-[390px]:mt-3 md:hidden"
-          style={{ backgroundColor: '#05080d', borderColor: activeColor, boxShadow: `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` }}
+          className="mx-auto mt-2 inline-flex items-center gap-3 rounded-full border px-8 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(0,0,0,0.42)] cursor-pointer min-[390px]:mt-3 keep-white md:hidden"
+          style={{ backgroundColor: isDarkMode ? '#05080d' : activeColor, borderColor: activeColor, boxShadow: isDarkMode ? `0 18px 45px rgba(0,0,0,0.42), 0 0 28px ${activeColor}55` : `0 8px 24px ${activeColor}33` }}
         >
           Connect Us
           <ChevronRight className="h-5 w-5" />
         </motion.button>
       </div>
       <div className="absolute inset-x-0 top-[calc(100svh-2.25rem)] z-[5] -translate-y-full sm:top-[calc(100svh-1.5rem)]">
-        <HeroTicker activeColor={activeColor} />
+        <HeroTicker activeColor={activeColor} isDarkMode={isDarkMode} />
       </div>
     </section>
   );
@@ -1330,7 +1342,7 @@ function Footer({ activeColor }) {
 // ==========================================
 // CHATBOT COMPONENT
 // ==========================================
-function FantomeChatbot({ activeColor }) {
+function FantomeChatbot({ activeColor, isDarkMode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { id: 1, text: "Welcome to Fantôme Energy. I am your biological catalyst assistant. How can I augment your experience today?", sender: "bot" }
@@ -1396,10 +1408,10 @@ function FantomeChatbot({ activeColor }) {
       >
         <div
           className="chatbot-bubble relative rounded-full border px-3 py-1 text-[11px] font-black tracking-wide text-white shadow-[0_10px_30px_rgba(0,0,0,0.42)] md:px-4 md:py-1.5 md:text-xs"
-          style={{ backgroundColor: '#05080d', borderColor: `${activeColor}80`, boxShadow: `0 10px 30px rgba(0,0,0,0.42), 0 0 22px ${activeColor}55` }}
+          style={{ backgroundColor: isDarkMode ? '#05080d' : 'var(--bg-glass-blend)', borderColor: isDarkMode ? `${activeColor}80` : 'var(--border-glass)', boxShadow: isDarkMode ? `0 10px 30px rgba(0,0,0,0.42), 0 0 22px ${activeColor}55` : 'var(--shadow-main)' }}
         >
           Hi, ask me
-          <span className="absolute left-1/2 -bottom-1 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r" style={{ backgroundColor: '#05080d', borderColor: `${activeColor}80` }} />
+          <span className="absolute left-1/2 -bottom-1 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r" style={{ backgroundColor: isDarkMode ? '#05080d' : 'var(--bg-glass-blend)', borderColor: isDarkMode ? `${activeColor}80` : 'var(--border-glass)' }} />
         </div>
 
         <div className="relative flex flex-col items-center">
@@ -2035,7 +2047,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      <FantomeChatbot activeColor={activeColor} />
+      <FantomeChatbot activeColor={activeColor} isDarkMode={isDarkMode} />
     </div>
   );
 }
