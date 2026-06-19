@@ -56,10 +56,11 @@ function HeroTicker({ activeColor, isDarkMode }) {
     </div>
   );
 }
-function BackgroundEffects({ activeColor }) {
+function BackgroundEffects({ activeColor, isSubpage = false }) {
   const effectsRef = useRef(null);
 
   useEffect(() => {
+    if (isSubpage) return; // Skip pointer tracking on subpages
     let frame = 0;
     const handlePointerMove = (event) => {
       if (window.innerWidth < 768) return;
@@ -76,22 +77,41 @@ function BackgroundEffects({ activeColor }) {
       cancelAnimationFrame(frame);
       window.removeEventListener('pointermove', handlePointerMove);
     };
-  }, []);
+  }, [isSubpage]);
 
-  const particles = useMemo(() => Array.from({ length: 18 }, (_, index) => ({
+  const particles = useMemo(() => isSubpage ? [] : Array.from({ length: 18 }, (_, index) => ({
     left: `${12 + ((index * 37) % 78)}%`,
     top: `${16 + ((index * 29) % 68)}%`,
     size: `${4 + (index % 5)}px`,
     delay: `${(index % 7) * 0.55}s`,
     dx: `${index % 2 === 0 ? 22 + (index % 5) * 7 : -24 - (index % 4) * 8}px`,
     dy: `${-26 - (index % 6) * 9}px`
-  })), []);
-  const sparkles = useMemo(() => Array.from({ length: 20 }, (_, index) => ({
+  })), [isSubpage]);
+  const sparkles = useMemo(() => isSubpage ? [] : Array.from({ length: 20 }, (_, index) => ({
     left: `${8 + ((index * 31) % 86)}%`,
     top: `${10 + ((index * 43) % 76)}%`,
     delay: `${(index % 9) * 0.38}s`,
     duration: `${3.4 + (index % 5) * 0.7}s`
-  })), []);
+  })), [isSubpage]);
+
+  // Subpages: render only lightweight ambient beams + aurora (no particles, sparkles, smoke, shooting lights)
+  if (isSubpage) {
+    return (
+      <div
+        ref={effectsRef}
+        className="fantome-background-effects"
+        style={{ '--accent': activeColor }}
+        aria-hidden="true"
+      >
+        <div className="light-beam beam-one" />
+        <div className="light-beam beam-two" />
+        <div className="aurora-waves">
+          <span />
+          <span />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -2030,7 +2050,7 @@ function DedicatedFlavorsPage({ flavors, activeColor, isDarkMode }) {
   );
 }
 
-function DedicatedStoryPage({ activeColor, isDarkMode }) {
+const DedicatedStoryPage = React.memo(function DedicatedStoryPage({ activeColor, isDarkMode }) {
   return (
     <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto z-20">
       {/* Header */}
@@ -2046,14 +2066,9 @@ function DedicatedStoryPage({ activeColor, isDarkMode }) {
         </p>
       </div>
 
-      {/* Founder Content Grid (taking reference from home page) */}
+      {/* Founder Content Grid */}
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="w-full lg:w-5/12 flex justify-center"
-        >
+        <div className="w-full lg:w-5/12 flex justify-center">
           <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border w-full max-w-[24rem]"
             style={{
               boxShadow: `0 24px 70px rgba(0,0,0,0.35), 0 0 34px ${activeColor}22`,
@@ -2068,18 +2083,13 @@ function DedicatedStoryPage({ activeColor, isDarkMode }) {
                 src="/founder_final.png" 
                 alt="Shri Ankit Khandelwal - Founder" 
                 loading="eager"
-                className="h-full w-full object-contain object-center transition-all duration-700 hover:scale-[1.01]"
+                className="h-full w-full object-contain object-center"
               />
             </div>
           </div>
-        </motion.div>
+        </div>
         
-        <motion.div 
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full lg:w-7/12 space-y-8"
-        >
+        <div className="w-full lg:w-7/12 space-y-8">
           <div className="space-y-6">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-wide text-[var(--text-main)] leading-tight">
               The Visionary <br />
@@ -2099,13 +2109,13 @@ function DedicatedStoryPage({ activeColor, isDarkMode }) {
               Under his visionary leadership, Fantôme Energy merges cutting-edge formulation with dark, sophisticated aesthetics, redefining the boundaries of physical and cognitive performance on a global scale.
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
-}
+});
 
-function DedicatedCampaignsPage({ activeColor, isDarkMode }) {
+const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ activeColor, isDarkMode }) {
   const campaigns = [
     {
       id: 'yt-1',
@@ -2162,13 +2172,12 @@ function DedicatedCampaignsPage({ activeColor, isDarkMode }) {
       {/* Campaigns Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         {campaigns.map((camp, idx) => (
-          <motion.a
+          <a
             key={camp.id}
             href={camp.url}
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ y: -8 }}
-            className="rounded-3xl overflow-hidden glass-panel shadow-2xl relative group flex flex-col h-full border cursor-pointer no-underline text-slate-200"
+            className="rounded-3xl overflow-hidden glass-panel shadow-2xl relative group flex flex-col h-full border cursor-pointer no-underline text-slate-200 transition-transform duration-300 hover:-translate-y-2"
             style={{
               contain: 'content',
               background: isDarkMode 
@@ -2255,12 +2264,12 @@ function DedicatedCampaignsPage({ activeColor, isDarkMode }) {
                 <span>Watch on {camp.platform}</span>
               </div>
             </div>
-          </motion.a>
+          </a>
         ))}
       </div>
     </section>
   );
-}
+});
 
 // ==========================================
 // MAIN APP COMPONENT
@@ -2414,7 +2423,7 @@ function App({ page = 'home' }) {
   return (
     <div className={`${isDarkMode ? 'fantome-dark' : 'fantome-light'} min-h-screen relative text-slate-200 overflow-x-hidden bg-transparent`}>
       <audio ref={audioRef} src="/fantome-bg-music.mp3" loop preload="auto" />
-      <BackgroundEffects activeColor={activeColor} />
+      <BackgroundEffects activeColor={activeColor} isSubpage={page !== 'home'} />
       {/* Dynamic Header & Announcement */}
       <div className="fixed top-0 w-full z-50 flex flex-col">
         {/* Navigation Bar */}
