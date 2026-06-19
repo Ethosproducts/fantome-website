@@ -21,16 +21,16 @@
 
 .light-mode {
   /* Light Mode Tokens */
-  --bg-gradient: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--active-color, #059669) 8%, #ffffff) 0%, color-mix(in srgb, var(--active-color, #059669) 2%, #f1f5f9) 50%, #e2e8f0 100%);
-  --bg-solid: color-mix(in srgb, var(--active-color, #059669) 3%, #f8fafc);
-  --bg-glass-card: rgba(255, 255, 255, 0.88);
-  --bg-glass-blend: rgba(248, 250, 252, 0.92);
+  --bg-gradient: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--active-color, #059669) 12%, #ffffff) 0%, color-mix(in srgb, var(--active-color, #059669) 4%, #f8fafc) 50%, #e2e8f0 100%);
+  --bg-solid: color-mix(in srgb, var(--active-color, #059669) 5%, #f8fafc);
+  --bg-glass-card: color-mix(in srgb, var(--active-color, #059669) 3%, rgba(255, 255, 255, 0.88));
+  --bg-glass-blend: color-mix(in srgb, var(--active-color, #059669) 2%, rgba(248, 250, 252, 0.92));
   --text-main: #0f172a; /* Slate 900 */
   --text-sub: #334155;  /* Slate 700 */
   --text-muted: #64748b; /* Slate 500 */
   --text-accent: var(--active-color, #0284c7);
-  --border-glass: rgba(15, 23, 42, 0.12);
-  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-glass: color-mix(in srgb, var(--active-color, #059669) 15%, rgba(15, 23, 42, 0.12));
+  --border-subtle: color-mix(in srgb, var(--active-color, #059669) 10%, rgba(15, 23, 42, 0.08));
   --shadow-main: 0 18px 48px 0 rgba(15, 23, 42, 0.06);
   --mix-blend-beams: multiply;
   --mix-blend-effects: overlay;
@@ -786,8 +786,6 @@
 .light-mode .bg-sky-600 *,
 .light-mode .bg-black,
 .light-mode .bg-black *,
-.light-mode button.bg-black\/45,
-.light-mode button.bg-black\/45 *,
 .light-mode .keep-white,
 .light-mode .keep-white * {
   color: #ffffff !important;

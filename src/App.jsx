@@ -242,7 +242,13 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       <button
         type="button"
         onClick={() => changeHeroFlavor(-1)}
-        className="absolute bottom-40 left-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:left-12 lg:left-44"
+        className="absolute bottom-40 left-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:-translate-x-1 cursor-pointer sm:bottom-24 sm:left-12 lg:left-44"
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.45)' : 'var(--bg-glass-blend)',
+          borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : activeColor,
+          color: isDarkMode ? '#ffffff' : activeColor,
+          boxShadow: isDarkMode ? '0 0 28px rgba(255,255,255,0.08)' : '0 4px 14px rgba(0,0,0,0.05)',
+        }}
         aria-label="Previous flavor"
       >
         <ChevronLeft className="h-5 w-5" />
@@ -250,7 +256,13 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       <button
         type="button"
         onClick={() => changeHeroFlavor(1)}
-        className="absolute bottom-40 right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-[0_0_28px_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:translate-x-1 hover:bg-white/10 cursor-pointer sm:bottom-24 sm:right-12 lg:right-44"
+        className="absolute bottom-40 right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:translate-x-1 cursor-pointer sm:bottom-24 sm:right-12 lg:right-44"
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.45)' : 'var(--bg-glass-blend)',
+          borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : activeColor,
+          color: isDarkMode ? '#ffffff' : activeColor,
+          boxShadow: isDarkMode ? '0 0 28px rgba(255,255,255,0.08)' : '0 4px 14px rgba(0,0,0,0.05)',
+        }}
         aria-label="Next flavor"
       >
         <ChevronRight className="h-5 w-5" />
@@ -1203,7 +1215,7 @@ function FounderSection({ activeColor }) {
           <div className="space-y-6">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-wide text-slate-100 leading-tight">
               The Visionary <br />
-              <span className="text-slate-200">The Power</span>
+              <span style={{ color: activeColor }}>The Power</span>
             </h2>
             <div className="h-1 w-24 rounded-full" style={{ backgroundColor: activeColor, boxShadow: "none" }} />
           </div>
