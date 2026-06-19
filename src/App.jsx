@@ -1374,19 +1374,19 @@ function FounderSection({ activeColor, isDarkMode }) {
           className="w-full lg:w-7/12 space-y-10"
         >
           <div className="space-y-6">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-wide text-slate-100 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-wide text-[var(--text-main)] leading-tight">
               The Visionary <br />
               <span style={{ color: activeColor }}>The Power</span>
             </h2>
             <div className="h-1 w-24 rounded-full" style={{ backgroundColor: activeColor, boxShadow: "none" }} />
           </div>
           
-          <div className="space-y-8 text-slate-300 font-light leading-relaxed text-lg lg:text-xl">
+          <div className="space-y-8 text-[var(--text-sub)] font-light leading-relaxed text-lg lg:text-xl">
             <p>
-              A first-generation entrepreneur, <strong className="text-slate-100 font-bold">Shri Ankit Khandelwal</strong> has built a diversified global business enterprise from the ground up. Driven by a relentless pursuit of excellence and an unyielding work ethic, his journey is a testament to what absolute dedication can achieve.
+              A first-generation entrepreneur, <strong className="text-[var(--text-main)] font-bold">Shri Ankit Khandelwal</strong> has built a diversified global business enterprise from the ground up. Driven by a relentless pursuit of excellence and an unyielding work ethic, his journey is a testament to what absolute dedication can achieve.
             </p>
             <p>
-              Recognizing a critical gap in the market for a truly premium, scientifically backed energy catalyst, he conceptualized <strong className="text-slate-100 font-bold tracking-wider">FANTÔME</strong>. It was designed not merely as a beverage, but as a lifestyle symbol for the relentless, the ambitious, and the unstoppable.
+              Recognizing a critical gap in the market for a truly premium, scientifically backed energy catalyst, he conceptualized <strong className="text-[var(--text-main)] font-bold tracking-wider">FANTÔME</strong>. It was designed not merely as a beverage, but as a lifestyle symbol for the relentless, the ambitious, and the unstoppable.
             </p>
             <p>
               Under his visionary leadership, Fantôme Energy merges cutting-edge formulation with dark, sophisticated aesthetics, redefining the boundaries of physical and cognitive performance on a global scale.
@@ -1965,114 +1965,75 @@ function DedicatedFlavorsPage({ flavors, activeColor, isDarkMode, handleAddToCar
 }
 
 function DedicatedStoryPage({ activeColor, isDarkMode }) {
-  const chapters = [
-    {
-      num: "01",
-      title: "Neural Ignition",
-      subtitle: "The cognitive load hypothesis",
-      copy: "Fantôme was created because standard energy formulations rely solely on simple carbohydrate dumps and heavy glucose peaks. We engineered a catalyst structured around sustained, smooth neurotransmission, enabling elite developers and builders to run at peak capacity for hours without a glycemic crash."
-    },
-    {
-      num: "02",
-      title: "Mathematical Purity",
-      subtitle: "Formula compliance & safety metrics",
-      copy: "Our labs are regulated under stringent quality standards. Every can of Fantôme contains precise milligrams of synthetic taurine and active caffeine, balanced by Pyridoxine Hydrochloride (Vitamin B6) and Vitamin B12, ensuring sustained neural cellular metabolism with complete ingredient manifest transparency."
-    },
-    {
-      num: "03",
-      title: "The Movement",
-      subtitle: "The unseen community of the vanguard",
-      copy: "We do not believe in mass marketing. Fantôme is a targeted tool distributed selectively to elite engineers, creative directors, and builders who work in the shadows of high-pressure computing. Our network is a quiet, powerful collective running the infrastructure of the future."
-    }
-  ];
-
   return (
     <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto z-20">
-      <div className="text-center mb-20">
+      {/* Header */}
+      <div className="text-center mb-16">
         <span className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: activeColor }}>
-          The Brand Book
+          The Story
         </span>
         <h1 className="text-4xl md:text-6xl font-bold font-sans uppercase mt-2">
-          Unseen Narrative
+          The Founder
         </h1>
         <p className="text-[var(--text-sub)] text-sm md:text-base font-light tracking-wide mt-4 max-w-xl mx-auto">
-          "We do not sell sugar. We sell mathematical focus."
+          The mind behind the unseen power of Fantôme.
         </p>
       </div>
 
-      {/* Chapters Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-24">
-        {chapters.map((chapter) => (
-          <motion.div
-            key={chapter.num}
-            whileHover={{ y: -6 }}
-            className="p-8 rounded-3xl glass-panel border relative group flex flex-col h-full overflow-hidden"
+      {/* Founder Content Grid (taking reference from home page) */}
+      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="w-full lg:w-5/12 flex justify-center"
+        >
+          <div className="relative rounded-3xl overflow-hidden p-2 glass-panel border w-full max-w-[24rem]"
             style={{
-              borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : `color-mix(in srgb, ${activeColor} 20%, var(--border-glass))`,
-              background: isDarkMode ? '' : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 8%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 2%, #ffffff) 100%)`
+              boxShadow: `0 24px 70px rgba(0,0,0,0.35), 0 0 34px ${activeColor}22`,
+              background: isDarkMode 
+                ? '' 
+                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 10%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 3%, #ffffff) 100%)`,
+              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
             }}
           >
-            {/* Huge watermarked number */}
-            <div className="absolute right-6 top-6 text-7xl font-sans font-black opacity-10 select-none transition-transform duration-500 group-hover:scale-110"
-              style={{ color: activeColor }}
-            >
-              {chapter.num}
-            </div>
-
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: activeColor }}>
-              {chapter.subtitle}
-            </span>
-            <h3 className="text-2xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] mb-4">
-              {chapter.title}
-            </h3>
-            <p className="text-[var(--text-sub)] text-xs sm:text-sm font-light leading-relaxed">
-              {chapter.copy}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Editorial Founder Biography */}
-      <div className="max-w-4xl mx-auto rounded-3xl overflow-hidden glass-panel border p-8 md:p-12 relative"
-        style={{
-          borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : `color-mix(in srgb, ${activeColor} 20%, var(--border-glass))`,
-          background: isDarkMode ? '' : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 10%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 3%, #ffffff) 100%)`
-        }}
-      >
-        <div className="absolute top-0 right-0 w-44 h-44 blur-3xl opacity-15 rounded-full pointer-events-none" style={{ backgroundColor: activeColor }} />
-
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center">
-          <div className="flex flex-col items-center text-center">
-            <div className="w-32 h-32 rounded-full overflow-hidden border border-white/20 relative shadow-2xl mb-4"
-              style={{ borderColor: activeColor }}
-            >
-              <img
-                src="/founder_avatar.jpg"
-                alt="Founder Praveen"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.src = "/fantome_unseen_power_logo_square.png";
-                }}
+            <div className="relative mx-auto w-full aspect-[137/319] rounded-2xl overflow-hidden bg-black">
+              <img 
+                src="/founder_final.png" 
+                alt="Shri Ankit Khandelwal - Founder" 
+                loading="eager"
+                className="h-full w-full object-contain object-center transition-all duration-700 hover:scale-[1.01]"
               />
             </div>
-            <h4 className="text-lg font-bold font-sans uppercase text-[var(--text-main)]">Praveen</h4>
-            <span className="text-[10px] font-bold tracking-wider uppercase text-slate-400">Founder & Catalyst</span>
           </div>
-
-          <div className="space-y-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] block" style={{ color: activeColor }}>
-              A Statement of Intent
-            </span>
-            <p className="text-[var(--text-main)] font-light text-base md:text-lg italic leading-relaxed">
-              "We built Fantôme to serve as the premium cognitive catalyst for the developers, builders, and high-performance engineers who drive our digital architecture forward. We do not compromise on ingredient quality, formula concentration, or manifest transparency."
+        </motion.div>
+        
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="w-full lg:w-7/12 space-y-8"
+        >
+          <div className="space-y-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-wide text-[var(--text-main)] leading-tight">
+              The Visionary <br />
+              <span style={{ color: activeColor }}>The Power</span>
+            </h2>
+            <div className="h-1 w-24 rounded-full" style={{ backgroundColor: activeColor, boxShadow: "none" }} />
+          </div>
+          
+          <div className="space-y-6 text-[var(--text-sub)] font-light leading-relaxed text-lg lg:text-xl">
+            <p>
+              A first-generation entrepreneur, <strong className="text-[var(--text-main)] font-bold">Shri Ankit Khandelwal</strong> has built a diversified global business enterprise from the ground up. Driven by a relentless pursuit of excellence and an unyielding work ethic, his journey is a testament to what absolute dedication can achieve.
             </p>
-            <div className="pt-2">
-              <span className="font-sans font-black text-2xl tracking-[0.16em] block" style={{ color: activeColor }}>
-                FANTÔME
-              </span>
-            </div>
+            <p>
+              Recognizing a critical gap in the market for a truly premium, scientifically backed energy catalyst, he conceptualized <strong className="text-[var(--text-main)] font-bold tracking-wider">FANTÔME</strong>. It was designed not merely as a beverage, but as a lifestyle symbol for the relentless, the ambitious, and the unstoppable.
+            </p>
+            <p>
+              Under his visionary leadership, Fantôme Energy merges cutting-edge formulation with dark, sophisticated aesthetics, redefining the boundaries of physical and cognitive performance on a global scale.
+            </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
