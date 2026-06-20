@@ -255,13 +255,13 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
   }, [activeFlavor, flavors, setActiveFlavor]);
 
   return (
-    <section className="relative min-h-[100svh] overflow-hidden pt-16 text-white min-[390px]:pt-18 sm:pt-28 md:pt-32" style={{ background: isDarkMode ? `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` : `radial-gradient(circle at 78% 42%, ${activeColor}15 0%, rgba(0,0,0,0) 34%), var(--bg-gradient)` }}>
+    <section className="relative min-h-[100svh] overflow-hidden pt-12 text-white min-[390px]:pt-14 sm:pt-28 md:pt-32" style={{ background: isDarkMode ? `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` : `radial-gradient(circle at 78% 42%, ${activeColor}15 0%, rgba(0,0,0,0) 34%), var(--bg-gradient)` }}>
       <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: isDarkMode ? `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` : `linear-gradient(90deg, ${activeColor}08 0%, transparent 34%, ${activeColor}05 100%)` }} />
       <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none" style={{ backgroundImage: 'linear-gradient(to top, var(--bg-solid), transparent)' }} />
       <button
         type="button"
         onClick={() => changeHeroFlavor(-1)}
-        className="absolute bottom-40 left-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:-translate-x-1 cursor-pointer sm:bottom-24 sm:left-12 lg:left-44"
+        className="absolute top-[62%] -translate-y-1/2 left-3 z-30 flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer sm:top-auto sm:translate-y-0 sm:bottom-24 sm:left-12 lg:left-44"
         style={{
           backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.45)' : 'var(--bg-glass-blend)',
           borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : activeColor,
@@ -275,7 +275,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       <button
         type="button"
         onClick={() => changeHeroFlavor(1)}
-        className="absolute bottom-40 right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:translate-x-1 cursor-pointer sm:bottom-24 sm:right-12 lg:right-44"
+        className="absolute top-[62%] -translate-y-1/2 right-3 z-30 flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer sm:top-auto sm:translate-y-0 sm:bottom-24 sm:right-12 lg:right-44"
         style={{
           backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.45)' : 'var(--bg-glass-blend)',
           borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : activeColor,
@@ -603,6 +603,7 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
         if (!can) return;
         const travel = Math.min(window.innerWidth * 0.38, 520);
         gsap.set(can, {
+          xPercent: -50,
           x: index === 0 ? 0 : travel,
           scale: index === 0 ? 1 : 0.88,
           opacity: index === 0 ? 1 : 0.42,
@@ -657,19 +658,9 @@ function FlavorsSection({ activeColor, setActiveColor, activeFlavor, setActiveFl
             const absDistance = Math.abs(distance);
             const travel = Math.min(window.innerWidth * 0.38, 520);
             const centerPull = Math.max(0, 1 - Math.min(absDistance, 1));
-            const visualCenterOffset = window.innerWidth >= 1024
-              ? -255
-              : window.innerWidth < 640
-                ? -Math.min(Math.max(window.innerWidth * 0.42, 140), 190)
-                : (() => {
-                    const baseHeight = window.innerWidth >= 768
-                      ? Math.min(window.innerHeight * 0.46, 520)
-                      : window.innerHeight * 0.42;
-                    const baseWidth = Math.min(baseHeight * 1.5, window.innerWidth * 0.82);
-                    return -baseWidth / 2;
-                  })();
             gsap.set(can, {
-              x: visualCenterOffset + distance * travel,
+              xPercent: -50,
+              x: distance * travel,
               y: -168 - centerPull * 26,
               yPercent: absDistance * 1.2,
               scale: 1.1 - Math.min(absDistance, 1) * 0.18,
