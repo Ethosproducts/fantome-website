@@ -2634,10 +2634,6 @@ function App({ page = 'home' }) {
                   </Link>
                 ))}
               </div>
-
-              <p className="mt-auto rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-xs font-semibold leading-5 text-slate-400">
-                Bag is now available from the top-right corner.
-              </p>
             </motion.aside>
           </div>
         )}
