@@ -350,6 +350,29 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
                 className={`absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] transition-[opacity,transform] duration-500 ease-out ${activeFlavor === flavorName ? 'opacity-100 scale-100' : 'opacity-0 scale-[0.985]'}`}
               />
             ))}
+            
+            {/* Liquid reflection under the can */}
+            <div className="absolute left-1/2 top-[100%] h-[30%] w-full -translate-x-1/2 overflow-hidden pointer-events-none select-none"
+                 style={{
+                   WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 80%)',
+                   maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 80%)',
+                   opacity: 0.1,
+                   filter: 'blur(3px)'
+                 }}
+            >
+              {Object.entries(heroData).map(([flavorName, hero]) => (
+                <img
+                  key={`${flavorName}-reflection`}
+                  src={hero.image}
+                  alt=""
+                  className={`absolute left-1/2 top-0 h-[333%] w-auto max-w-none object-contain transition-opacity duration-500 ease-out ${activeFlavor === flavorName ? 'opacity-100' : 'opacity-0'}`}
+                  style={{
+                    transform: 'translateX(-50%) scaleY(-1)',
+                    transformOrigin: 'top center'
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
 
