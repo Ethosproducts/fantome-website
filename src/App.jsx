@@ -288,7 +288,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       </button>
 
       <div className={`relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 content-start items-start gap-0 px-5 pb-12 text-center sm:gap-8 sm:px-6 sm:pb-20 md:-mt-10 md:min-h-[calc(100vh-8rem)] md:items-center md:px-10 md:pb-20 lg:-mt-14 lg:px-12 ${isMojitoHero ? 'md:grid-cols-[1.08fr_0.92fr] md:text-right' : 'md:grid-cols-[0.9fr_1.1fr] md:text-left'}`}>
-        <div className={`mx-auto max-w-xl pt-0 sm:pt-8 md:pt-0 ${isMojitoHero ? 'md:col-start-2 md:mx-0 md:ml-auto md:mr-8 lg:mr-14 xl:mr-20' : 'md:mx-0'}`}>
+        <div className={`mx-auto max-w-xl pt-0 sm:pt-8 md:pt-0 ${isMojitoHero ? 'md:col-start-2 md:mx-0 md:ml-auto md:mr-4 lg:mr-14 xl:mr-20' : 'md:mx-0'}`}>
           <div className="transition-colors duration-300">
             <p
               className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] min-[390px]:mb-3 sm:mb-7 sm:text-sm md:text-base"
@@ -297,7 +297,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
               {currentHero.eyebrow}
             </p>
             <h1
-              className={`mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-7xl lg:text-8xl ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
+              className={`mx-auto max-w-[22rem] font-sans text-[2.75rem] font-black leading-[0.88] tracking-normal min-[390px]:text-[3.05rem] sm:max-w-none sm:text-6xl md:text-[3.2rem] lg:text-7xl xl:text-8xl ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
               style={{
                 color: currentHero.titleColor || currentHero.bg,
                 textShadow: isDarkMode 
@@ -309,7 +309,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
               <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
             </h1>
             <p
-              className={`mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:text-lg ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
+              className={`mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:text-sm md:leading-6 lg:text-base lg:leading-7 xl:text-lg ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
               style={{ color: currentHero.copyColor || 'rgba(255,255,255,0.78)' }}
             >
               {currentHero.copy}
@@ -332,7 +332,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className={`relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] ${isMojitoHero ? 'md:col-start-1 md:row-start-1 md:justify-start md:-ml-24 lg:-ml-36 xl:-ml-48' : 'md:justify-end'}`}
+          className={`relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] ${isMojitoHero ? 'md:col-start-1 md:row-start-1 md:justify-start md:-ml-12 lg:-ml-36 xl:-ml-48' : 'md:justify-end'}`}
         >
           <motion.div
             className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
