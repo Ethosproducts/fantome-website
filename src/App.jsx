@@ -2456,7 +2456,7 @@ function App({ page = 'home' }) {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
-              className="group flex h-16 w-16 max-w-full items-center justify-center rounded-[1.1rem] border border-white/40 bg-white p-1 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer sm:h-20 sm:w-20 lg:justify-self-start"
+              className="group flex h-12 w-12 max-w-full items-center justify-center rounded-[0.85rem] border border-white/40 bg-white p-1 text-left shadow-[0_18px_50px_rgba(0,0,0,0.48)] transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer sm:h-20 sm:w-20 sm:rounded-[1.1rem] lg:justify-self-start"
               style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}28` }}
             >
               <img
@@ -2470,31 +2470,31 @@ function App({ page = 'home' }) {
               <button
                 type="button"
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className="flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-[1.1rem] theme-header-btn cursor-pointer sm:h-20 sm:w-20"
+                className="flex h-12 w-12 flex-col items-center justify-center gap-0.5 rounded-[0.85rem] theme-header-btn cursor-pointer sm:h-20 sm:w-20 sm:rounded-[1.1rem]"
                 style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
                 aria-label="Toggle visual theme"
               >
                 {isDarkMode ? (
-                  <Sun className="h-5 w-5" style={{ color: activeColor }} />
+                  <Sun className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: activeColor }} />
                 ) : (
-                  <Moon className="h-5 w-5 text-slate-300" style={{ color: activeColor }} />
+                  <Moon className="h-4 w-4 sm:h-5 sm:w-5 text-slate-300" style={{ color: activeColor }} />
                 )}
-                <span className="text-[8px] font-black uppercase leading-none tracking-[0.08em] text-slate-200" style={{ color: 'var(--text-sub)' }}>Theme</span>
+                <span className="text-[7px] sm:text-[8px] font-black uppercase leading-none tracking-[0.08em] text-slate-200" style={{ color: 'var(--text-sub)' }}>Theme</span>
               </button>
 
               <button
                 type="button"
                 onClick={toggleMusic}
-                className="flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-[1.1rem] theme-header-btn cursor-pointer sm:h-20 sm:w-20"
+                className="flex h-12 w-12 flex-col items-center justify-center gap-0.5 rounded-[0.85rem] theme-header-btn cursor-pointer sm:h-20 sm:w-20 sm:rounded-[1.1rem]"
                 style={{ boxShadow: `0 18px 50px rgba(0,0,0,0.48), 0 0 24px ${activeColor}24, inset 0 0 18px ${activeColor}20` }}
                 aria-label={isMusicPlaying ? 'Pause background music' : 'Play background music'}
               >
                 {isMusicPlaying ? (
-                  <Volume2 className="h-5 w-5" style={{ color: activeColor }} />
+                  <Volume2 className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: activeColor }} />
                 ) : (
-                  <VolumeX className="h-5 w-5 text-slate-300" style={{ color: 'var(--text-muted)' }} />
+                  <VolumeX className="h-4 w-4 sm:h-5 sm:w-5 text-slate-300" style={{ color: 'var(--text-muted)' }} />
                 )}
-                <span className="text-[8px] font-black uppercase leading-none tracking-[0.08em] text-slate-200" style={{ color: 'var(--text-sub)' }}>Vibe</span>
+                <span className="text-[7px] sm:text-[8px] font-black uppercase leading-none tracking-[0.08em] text-slate-200" style={{ color: 'var(--text-sub)' }}>Vibe</span>
               </button>
             </div>
 
