@@ -364,7 +364,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className={`relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] ${isMojitoHero ? 'md:col-start-1 md:row-start-1 md:justify-start md:-ml-12 lg:-ml-36 xl:-ml-48' : 'md:justify-end md:-mr-4 lg:-mr-12 xl:-mr-16'}`}
+          className={`relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] ${isMojitoHero ? 'md:col-start-1 md:row-start-1 md:justify-start md:-ml-12 lg:-ml-36 xl:-ml-48' : 'md:justify-end md:-mr-4 lg:-mr-12 xl:-mr-16'} [--can-offset:0px] md:[--can-offset:30px] lg:[--can-offset:55px] xl:[--can-offset:70px]`}
         >
           <motion.div
             className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
@@ -379,7 +379,10 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
                 alt={`${flavorName} Fantome can`}
                 decoding="async"
                 loading="eager"
-                className={`absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] transition-[opacity,transform] duration-500 ease-out ${activeFlavor === flavorName ? 'opacity-100 scale-100' : 'opacity-0 scale-[0.985]'}`}
+                className={`absolute left-1/2 top-1/2 h-full w-auto max-w-none object-contain drop-shadow-[0_32px_45px_rgba(0,0,0,0.58)] transition-[opacity,transform] duration-500 ease-out ${activeFlavor === flavorName ? 'opacity-100' : 'opacity-0'}`}
+                style={{
+                  transform: `translate(calc(-50% + ${flavorName !== 'Mojito' ? 'var(--can-offset)' : '0px'}), -50%) scale(${activeFlavor === flavorName ? 1 : 0.985})`
+                }}
               />
             ))}
             
@@ -399,7 +402,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
                   alt=""
                   className={`absolute left-1/2 top-0 h-[333%] w-auto max-w-none object-contain transition-opacity duration-500 ease-out ${activeFlavor === flavorName ? 'opacity-100' : 'opacity-0'}`}
                   style={{
-                    transform: 'translateX(-50%) scaleY(-1)',
+                    transform: `translate(calc(-50% + ${flavorName !== 'Mojito' ? 'var(--can-offset)' : '0px'}), 0px) scaleY(-1)`,
                     transformOrigin: 'top center'
                   }}
                 />
