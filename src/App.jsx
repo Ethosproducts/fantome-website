@@ -197,7 +197,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       title: 'Fantome Sugar Free',
       image: '/hero_sugarfree.png?v=1',
       bgWolfImage: '/bg_wolf_sugarfree.jpg',
-      bgWolfImageLight: '/bg_wolf_sugarfree_light.jpg',
+      bgWolfImageLight: '/bg_wolf_sugarfree_light.png',
       bg: '#c7ccd3',
       titleColor: isDarkMode ? '#d6d9de' : '#1e293b',
       eyebrowColor: isDarkMode ? '#a9afb8' : '#475569',
