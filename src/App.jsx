@@ -197,6 +197,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       title: 'Fantome Sugar Free',
       image: '/hero_sugarfree.png?v=1',
       bgWolfImage: '/bg_wolf_sugarfree.jpg',
+      bgWolfImageLight: '/bg_wolf_sugarfree_light.jpg',
       bg: '#c7ccd3',
       titleColor: isDarkMode ? '#d6d9de' : '#1e293b',
       eyebrowColor: isDarkMode ? '#a9afb8' : '#475569',
@@ -208,6 +209,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       title: 'Fantome Mojito',
       image: '/hero_mojito.png?v=1',
       bgWolfImage: '/bg_wolf_mojito.jpg',
+      bgWolfImageLight: '/bg_wolf_mojito_light.png',
       bg: '#059669',
       titleColor: isDarkMode ? '#22c55e' : '#047857',
       eyebrowColor: isDarkMode ? '#b9f6d2' : '#065f46',
@@ -219,6 +221,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       title: 'Fantome Original',
       image: '/hero_original.png?v=1',
       bgWolfImage: '/bg_wolf_original.jpg',
+      bgWolfImageLight: '/bg_wolf_original_light.png',
       bg: '#0F2C4A',
       titleColor: isDarkMode ? '#7DD3FC' : '#0369a1',
       eyebrowColor: isDarkMode ? '#BAE6FD' : '#075985',
@@ -236,6 +239,16 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       const image = new Image();
       image.src = hero.image;
       image.decoding = 'async';
+
+      const bgImage = new Image();
+      bgImage.src = hero.bgWolfImage;
+      bgImage.decoding = 'async';
+
+      if (hero.bgWolfImageLight) {
+        const bgImageLight = new Image();
+        bgImageLight.src = hero.bgWolfImageLight;
+        bgImageLight.decoding = 'async';
+      }
     });
   }, []);
 
@@ -266,9 +279,8 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
             key={`${flavorName}-bg-image`}
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center select-none"
             style={{
-              backgroundImage: `url(${hero.bgWolfImage})`,
-              opacity: activeFlavor === flavorName ? (isDarkMode ? 0.75 : 0.12) : 0,
-              filter: !isDarkMode ? 'invert(1) brightness(1.15) contrast(0.9)' : undefined,
+              backgroundImage: `url(${isDarkMode ? hero.bgWolfImage : (hero.bgWolfImageLight || hero.bgWolfImage)})`,
+              opacity: activeFlavor === flavorName ? (isDarkMode ? 0.75 : 0.85) : 0,
             }}
           />
         ))}
