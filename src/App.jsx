@@ -196,6 +196,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       eyebrow: 'ZERO SUGAR. FULL POWER.',
       title: 'Fantome Sugar Free',
       image: '/hero_sugarfree.png?v=1',
+      bgWolfImage: '/bg_wolf_sugarfree.png',
       bg: '#c7ccd3',
       titleColor: isDarkMode ? '#d6d9de' : '#1e293b',
       eyebrowColor: isDarkMode ? '#a9afb8' : '#475569',
@@ -206,6 +207,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       eyebrow: 'MINT. LIME. NIGHT DRIVE.',
       title: 'Fantome Mojito',
       image: '/hero_mojito.png?v=1',
+      bgWolfImage: '/bg_wolf_mojito.png',
       bg: '#059669',
       titleColor: isDarkMode ? '#22c55e' : '#047857',
       eyebrowColor: isDarkMode ? '#b9f6d2' : '#065f46',
@@ -216,6 +218,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       eyebrow: 'PREMIUM ENERGY CATALYST',
       title: 'Fantome Original',
       image: '/hero_original.png?v=1',
+      bgWolfImage: '/bg_wolf_original.png',
       bg: '#0F2C4A',
       titleColor: isDarkMode ? '#7DD3FC' : '#0369a1',
       eyebrowColor: isDarkMode ? '#BAE6FD' : '#075985',
@@ -257,6 +260,30 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
   return (
     <section className="relative min-h-[100svh] overflow-hidden pt-12 text-white min-[390px]:pt-14 sm:pt-28 md:pt-32" style={{ background: isDarkMode ? `radial-gradient(circle at 78% 42%, ${activeColor}55 0%, rgba(0,0,0,0) 34%), linear-gradient(135deg, #030406 0%, #070b10 44%, #000000 100%)` : `radial-gradient(circle at 78% 42%, ${activeColor}15 0%, rgba(0,0,0,0) 34%), var(--bg-gradient)` }}>
       <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: isDarkMode ? `linear-gradient(90deg, ${activeColor}18 0%, transparent 34%, ${activeColor}12 100%)` : `linear-gradient(90deg, ${activeColor}08 0%, transparent 34%, ${activeColor}05 100%)` }} />
+      
+      {/* Giant Wolf Face Background (Animated) */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
+        {Object.entries(heroData).map(([flavorName, hero]) => (
+          <img
+            key={`${flavorName}-bg-wolf`}
+            src={hero.bgWolfImage}
+            alt=""
+            aria-hidden="true"
+            className={`absolute left-1/2 top-[48%] h-[68vh] md:h-[84vh] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-contain transition-all duration-700 ease-out select-none ${
+              activeFlavor === flavorName 
+                ? 'opacity-100 scale-100' 
+                : 'opacity-0 scale-[0.97]'
+            }`}
+            style={{
+              opacity: activeFlavor === flavorName 
+                ? (isDarkMode ? 0.16 : 0.07) 
+                : 0,
+              filter: !isDarkMode ? 'invert(1) brightness(0.3)' : undefined,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none" style={{ backgroundImage: 'linear-gradient(to top, var(--bg-solid), transparent)' }} />
       <button
         type="button"
