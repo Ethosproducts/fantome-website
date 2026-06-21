@@ -332,7 +332,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
           initial={{ opacity: 0, x: 35, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className={`relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] ${isMojitoHero ? 'md:col-start-1 md:row-start-1 md:justify-start md:-ml-12 lg:-ml-36 xl:-ml-48' : 'md:justify-end md:-mr-12 lg:-mr-36 xl:-mr-48'}`}
+          className={`relative -mt-3 flex min-h-[37svh] items-center justify-center min-[390px]:-mt-4 min-[390px]:min-h-[40svh] sm:min-h-[48vh] md:mt-0 md:min-h-[calc(100vh-11rem)] ${isMojitoHero ? 'md:col-start-1 md:row-start-1 md:justify-start md:-ml-12 lg:-ml-36 xl:-ml-48' : 'md:justify-end md:-mr-4 lg:-mr-12 xl:-mr-16'}`}
         >
           <motion.div
             className="absolute bottom-5 right-[8%] h-16 w-[52%] rounded-full blur-2xl"
