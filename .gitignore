@@ -22,3 +22,40 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary Test/Screenshot files
+critical_*.png
+verify_*.png
+screenshot_*.png
+scan_*.png
+crop_*.png
+fine_*.png
+webgl_test.png
+
+# Local proposals & reports
+proposal*.html
+proposal*.pdf
+inventory_proposal*.html
+tms_proposal*.html
+eauction_proposal*.html
+pricing_proposal*.html
+brochure.html
+brochure.pdf
+brochure_test.txt
+fantome_project_report.html
+inventory_report.*
+
+# Browser profiles
+chrome-profile/
+
+# Scratch directory
+scratch/
+
+# Root image copies
+/hero_original.png
+
+# Temporary backups and test files in public
+public/*.bak
+public/*.png.bak
+public/kh.png
+public/test_eyes_grid.png
