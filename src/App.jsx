@@ -1897,15 +1897,7 @@ function DedicatedFlavorsPage({ flavors, activeColor, isDarkMode }) {
                 transformStyle: 'preserve-3d'
               }}
             >
-              {/* Top glow bar */}
-              <div
-                className="absolute top-0 left-0 w-full h-[3px] rounded-t-full transition-opacity duration-300"
-                style={{
-                  backgroundColor: flavorColor,
-                  opacity: isSelected ? 1 : 0,
-                  boxShadow: `0 0 10px ${flavorColor}`
-                }}
-              />
+
 
               {/* Can visual with parallax */}
               <div className="relative aspect-[1/1] w-full flex items-center justify-center rounded-2xl overflow-hidden mb-6"
