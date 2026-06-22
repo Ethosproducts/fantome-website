@@ -365,8 +365,8 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
                   : `0 2px 10px rgba(15, 23, 42, 0.08)`
               }}
             >
-              {currentHero.title.split(' ').slice(0, -1).join(' ')}
-              <span className="block">{currentHero.title.split(' ').slice(-1)}</span>
+              {currentHero.title.split(' ')[0]}
+              <span className="block">{currentHero.title.split(' ').slice(1).join(' ')}</span>
             </h1>
             <p
               className={`mx-auto mt-2 max-w-[20rem] text-[13px] font-semibold leading-5 min-[390px]:mt-3 min-[390px]:text-sm min-[390px]:leading-6 sm:mt-7 sm:max-w-md sm:text-base sm:leading-7 md:text-sm md:leading-6 lg:text-base lg:leading-7 xl:text-lg ${isMojitoHero ? 'md:mx-0 md:ml-auto' : 'md:mx-0'}`}
