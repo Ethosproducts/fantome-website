@@ -197,6 +197,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       title: 'Fantome Sugar Free',
       image: '/hero_sugarfree.png?v=1',
       bgWolfImage: '/bg_wolf_sugarfree.jpg',
+      bgWolfImageMobile: '/bg_wolf_sugarfree_mobile.png',
       bgWolfImageLight: '/bg_wolf_sugarfree_light.png',
       bg: '#c7ccd3',
       titleColor: isDarkMode ? '#d6d9de' : '#1e293b',
@@ -209,6 +210,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       title: 'Fantome Mojito',
       image: '/hero_mojito.png?v=1',
       bgWolfImage: '/bg_wolf_mojito.jpg',
+      bgWolfImageMobile: '/bg_wolf_mojito_mobile.png',
       bgWolfImageLight: '/bg_wolf_mojito_light.png',
       bg: '#059669',
       titleColor: isDarkMode ? '#22c55e' : '#047857',
@@ -221,6 +223,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       title: 'Fantome Original',
       image: '/hero_original.png?v=1',
       bgWolfImage: '/bg_wolf_original.jpg',
+      bgWolfImageMobile: '/bg_wolf_original_mobile.png',
       bgWolfImageLight: '/bg_wolf_original_light.png',
       bg: '#0F2C4A',
       titleColor: isDarkMode ? '#7DD3FC' : '#0369a1',
@@ -243,6 +246,12 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       const bgImage = new Image();
       bgImage.src = hero.bgWolfImage;
       bgImage.decoding = 'async';
+
+      if (hero.bgWolfImageMobile) {
+        const bgImageMobile = new Image();
+        bgImageMobile.src = hero.bgWolfImageMobile;
+        bgImageMobile.decoding = 'async';
+      }
 
       if (hero.bgWolfImageLight) {
         const bgImageLight = new Image();
@@ -275,14 +284,24 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       {/* Dynamic Wolf Background Image */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {Object.entries(heroData).map(([flavorName, hero]) => (
-          <div
-            key={`${flavorName}-bg-image`}
-            className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center select-none"
-            style={{
-              backgroundImage: `url(${isDarkMode ? hero.bgWolfImage : (hero.bgWolfImageLight || hero.bgWolfImage)})`,
-              opacity: activeFlavor === flavorName ? (isDarkMode ? 0.75 : 0.85) : 0,
-            }}
-          />
+          <React.Fragment key={`${flavorName}-bg-image-container`}>
+            {/* Mobile background (visible on mobile, hidden on tablet/desktop) */}
+            <div
+              className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center select-none md:hidden"
+              style={{
+                backgroundImage: `url(${isDarkMode ? (hero.bgWolfImageMobile || hero.bgWolfImage) : (hero.bgWolfImageLight || hero.bgWolfImage)})`,
+                opacity: activeFlavor === flavorName ? (isDarkMode ? 0.75 : 0.85) : 0,
+              }}
+            />
+            {/* Desktop/Tablet background (hidden on mobile, visible on tablet/desktop) */}
+            <div
+              className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center select-none hidden md:block"
+              style={{
+                backgroundImage: `url(${isDarkMode ? hero.bgWolfImage : (hero.bgWolfImageLight || hero.bgWolfImage)})`,
+                opacity: activeFlavor === flavorName ? (isDarkMode ? 0.75 : 0.85) : 0,
+              }}
+            />
+          </React.Fragment>
         ))}
         {/* Soft overlay gradient to ensure high readability of text */}
         <div className="absolute inset-0 bg-black/20 pointer-events-none" />
