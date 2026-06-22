@@ -199,6 +199,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       bgWolfImage: '/bg_wolf_sugarfree.jpg',
       bgWolfImageMobile: '/bg_wolf_sugarfree_mobile.png',
       bgWolfImageLight: '/bg_wolf_sugarfree_light.png',
+      bgWolfImageMobileLight: '/bg_wolf_sugarfree_mobile_light.png',
       bg: '#c7ccd3',
       titleColor: isDarkMode ? '#d6d9de' : '#1e293b',
       eyebrowColor: isDarkMode ? '#a9afb8' : '#475569',
@@ -212,6 +213,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       bgWolfImage: '/bg_wolf_mojito.jpg',
       bgWolfImageMobile: '/bg_wolf_mojito_mobile.png',
       bgWolfImageLight: '/bg_wolf_mojito_light.png',
+      bgWolfImageMobileLight: '/bg_wolf_mojito_mobile_light.jpg',
       bg: '#059669',
       titleColor: isDarkMode ? '#22c55e' : '#047857',
       eyebrowColor: isDarkMode ? '#b9f6d2' : '#065f46',
@@ -225,6 +227,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
       bgWolfImage: '/bg_wolf_original.jpg',
       bgWolfImageMobile: '/bg_wolf_original_mobile.png',
       bgWolfImageLight: '/bg_wolf_original_light.png',
+      bgWolfImageMobileLight: '/bg_wolf_original_mobile_light.jpg',
       bg: '#0F2C4A',
       titleColor: isDarkMode ? '#7DD3FC' : '#0369a1',
       eyebrowColor: isDarkMode ? '#BAE6FD' : '#075985',
@@ -258,6 +261,12 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
         bgImageLight.src = hero.bgWolfImageLight;
         bgImageLight.decoding = 'async';
       }
+
+      if (hero.bgWolfImageMobileLight) {
+        const bgImageMobileLight = new Image();
+        bgImageMobileLight.src = hero.bgWolfImageMobileLight;
+        bgImageMobileLight.decoding = 'async';
+      }
     });
   }, []);
 
@@ -289,7 +298,7 @@ function Hero({ activeColor, activeFlavor, flavors = [], setActiveFlavor, isDark
             <div
               className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center select-none md:hidden"
               style={{
-                backgroundImage: `url(${isDarkMode ? (hero.bgWolfImageMobile || hero.bgWolfImage) : (hero.bgWolfImageLight || hero.bgWolfImage)})`,
+                backgroundImage: `url(${isDarkMode ? (hero.bgWolfImageMobile || hero.bgWolfImage) : (hero.bgWolfImageMobileLight || hero.bgWolfImageLight || hero.bgWolfImage)})`,
                 opacity: activeFlavor === flavorName ? (isDarkMode ? 0.75 : 0.85) : 0,
               }}
             />
