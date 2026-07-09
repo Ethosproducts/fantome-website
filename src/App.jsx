@@ -1624,7 +1624,7 @@ function Footer({ activeColor, isDarkMode }) {
                 FSSAI Lic. No: <span className="text-slate-100">10016031000631</span>
               </p>
               <p>Email: <a href="mailto:info@ethosglobal.in" className="underline" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>info@ethosglobal.in</a></p>
-              <p>Customer Care: <span className="text-slate-100">9090355570</span></p>
+              <p>Customer Care: <span className="text-slate-100">9078355570</span></p>
             </div>
           </div>
         </div>
@@ -1676,7 +1676,7 @@ function FantomeChatbot({ activeColor, isDarkMode }) {
     // Automated Response Logic
     setTimeout(() => {
       // Default response for complex questions
-      let responseText = "For any complex questions, kindly WhatsApp us at our number: +91 9090355570";
+      let responseText = "For any complex questions, kindly WhatsApp us at our number: +91 9078355570";
       const query = userMsg.text.toLowerCase();
 
       // Basic questions handling
