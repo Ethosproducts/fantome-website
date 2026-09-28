@@ -1617,7 +1617,7 @@ function Footer({ activeColor, isDarkMode }) {
             <h4 className="text-[10px] font-bold tracking-wide text-slate-200">Marketed By</h4>
             <p className="font-bold text-slate-100">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
             <p className="leading-relaxed text-slate-350">
-              Plot No. 10, Nayapalli, Bhubaneswar, Odisha – 751014
+              Plot No. 10, BJB Nagar, Bhubaneswar, Odisha – 751014
             </p>
             <div className="space-y-1">
               <p className="font-bold tracking-wide" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>
