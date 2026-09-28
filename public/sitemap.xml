@@ -5,7 +5,7 @@
 >
   <url>
     <loc>https://fantome.egv.co.in/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -24,5 +24,23 @@
       <image:loc>https://fantome.egv.co.in/hero_sugarfree.png</image:loc>
       <image:title>Fantome Sugar Free Energy Drink</image:title>
     </image:image>
+  </url>
+  <url>
+    <loc>https://fantome.egv.co.in/flavors</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fantome.egv.co.in/story</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fantome.egv.co.in/campaigns</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
