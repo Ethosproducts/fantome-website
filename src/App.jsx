@@ -1558,7 +1558,7 @@ function ConnectSection({ activeColor, isDarkMode }) {
 // ==========================================
 function Footer({ activeColor, isDarkMode }) {
   return (
-    <footer className="relative border-t overflow-hidden py-20 px-6 z-20"
+    <footer className="relative border-t overflow-hidden pt-20 pb-32 sm:pb-36 md:pb-32 px-6 z-20"
       style={{
         borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 25%, rgba(15, 23, 42, 0.1))`,
         background: isDarkMode 
@@ -1577,7 +1577,7 @@ function Footer({ activeColor, isDarkMode }) {
               className="h-16 w-16 rounded-[1.1rem] border border-white/40 bg-white p-1 shadow-[0_12px_36px_rgba(0,0,0,0.5)] brightness-105 contrast-110"
             />
             <div>
-              <h2 className="text-3xl font-black font-sans tracking-wider text-slate-100 leading-none">FANTÔME</h2>
+              <h2 className={`text-3xl font-black font-sans tracking-wider leading-none ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>FANTÔME</h2>
               <span className="text-[10px] font-black uppercase tracking-[0.16em]" style={{ color: activeColor }}>Unseen Power</span>
             </div>
           </div>
@@ -1596,13 +1596,13 @@ function Footer({ activeColor, isDarkMode }) {
               borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
             }}
           >
-            <h4 className="text-[10px] font-bold tracking-wide text-slate-200">Manufactured By</h4>
-            <p className="font-bold text-slate-100">KOLADIYA INDUSTRIES PVT. LTD.</p>
-            <p className="leading-relaxed text-slate-350">
+            <h4 className={`text-[10px] font-bold tracking-wide uppercase ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>Manufactured By</h4>
+            <p className={`font-bold ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>KOLADIYA INDUSTRIES PVT. LTD.</p>
+            <p className={`leading-relaxed ${isDarkMode ? 'text-slate-350' : 'text-slate-700'}`}>
               Plot no. 21 to 26, 3rd Phase Industrial Estate, Navagam, Bhavnagar, Gujarat – 364110
             </p>
             <p className="font-bold tracking-wide" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>
-              FSSAI Lic. No: <span className="text-slate-100">10722999000112</span>
+              FSSAI Lic. No: <span className={isDarkMode ? 'text-slate-100' : 'text-slate-900'}>10722999000112</span>
             </p>
           </div>
 
@@ -1614,32 +1614,56 @@ function Footer({ activeColor, isDarkMode }) {
               borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 25%, var(--border-glass))`
             }}
           >
-            <h4 className="text-[10px] font-bold tracking-wide text-slate-200">Marketed By</h4>
-            <p className="font-bold text-slate-100">ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
-            <p className="leading-relaxed text-slate-350">
+            <h4 className={`text-[10px] font-bold tracking-wide uppercase ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>Marketed By</h4>
+            <p className={`font-bold ${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>ETHOS GLOBAL FOOD & BEVERAGES PVT. LTD.</p>
+            <p className={`leading-relaxed ${isDarkMode ? 'text-slate-350' : 'text-slate-700'}`}>
               Plot No. 10, BJB Nagar, Bhubaneswar, Odisha – 751014
             </p>
             <div className="space-y-1">
               <p className="font-bold tracking-wide" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>
-                FSSAI Lic. No: <span className="text-slate-100">10016031000631</span>
+                FSSAI Lic. No: <span className={isDarkMode ? 'text-slate-100' : 'text-slate-900'}>10016031000631</span>
               </p>
               <p>Email: <a href="mailto:info@ethosglobal.in" className="underline" style={{ color: isDarkMode ? '#7dd3fc' : activeColor }}>info@ethosglobal.in</a></p>
-              <p>Customer Care: <span className="text-slate-100">9078355570</span></p>
+              <p>Customer Care: <span className={isDarkMode ? 'text-slate-100' : 'text-slate-900'}>9078355570</span></p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold tracking-wide"
+      <div className="max-w-7xl mx-auto border-t mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-bold tracking-wide"
         style={{
           borderColor: isDarkMode ? 'rgba(56,189,248,0.2)' : `color-mix(in srgb, ${activeColor} 20%, rgba(15, 23, 42, 0.1))`,
-          color: isDarkMode ? 'rgba(255,255,255,0.4)' : `color-mix(in srgb, ${activeColor} 60%, #0f172a)`
+          color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#334155'
         }}
       >
-        <span>© 2026 FANTÔME ENERGY.</span>
-        <p className="text-[0.68rem] font-bold tracking-[0.14em] text-white/65 sm:text-xs">
-          Designed and Developed by Praveen
-        </p>
+        <span className="text-center md:text-left text-xs sm:text-sm">
+          © 2026 FANTÔME ENERGY. All rights reserved.
+        </span>
+
+        {/* Designed and Developed by Praveen - high contrast, themed & clear of floating chatbot */}
+        <div className="flex items-center justify-center md:justify-end md:pr-24 lg:pr-28">
+          <p 
+            className="text-xs sm:text-sm font-medium tracking-wide py-2 px-4 rounded-full border shadow-sm backdrop-blur-md transition-all duration-300 flex items-center gap-1.5"
+            style={{
+              backgroundColor: isDarkMode ? 'rgba(15, 23, 42, 0.75)' : 'rgba(255, 255, 255, 0.95)',
+              borderColor: isDarkMode ? 'rgba(56, 189, 248, 0.3)' : `color-mix(in srgb, ${activeColor} 35%, rgba(15, 23, 42, 0.15))`,
+              color: isDarkMode ? '#e2e8f0' : '#0f172a',
+              boxShadow: isDarkMode 
+                ? '0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(56, 189, 248, 0.1)' 
+                : '0 4px 18px rgba(15, 23, 42, 0.08)'
+            }}
+          >
+            <span>Designed and Developed by</span>
+            <span 
+              className="font-bold underline decoration-2 underline-offset-4"
+              style={{
+                color: isDarkMode ? activeColor : `color-mix(in srgb, ${activeColor} 85%, #0284c7)`
+              }}
+            >
+              Praveen
+            </span>
+          </p>
+        </div>
       </div>
     </footer>
   );
