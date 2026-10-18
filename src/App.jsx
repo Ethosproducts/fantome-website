@@ -1654,14 +1654,19 @@ function Footer({ activeColor, isDarkMode }) {
             }}
           >
             <span>Designed and Developed by</span>
-            <span 
-              className="font-bold underline decoration-2 underline-offset-4"
+            <a 
+              href="https://praveenpatnaik.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Praveen Patnaik Portfolio (praveenpatnaik.xyz | praveenpatnaik.vercel.app)"
+              className="font-bold underline decoration-2 underline-offset-4 cursor-pointer hover:opacity-80 transition-all inline-flex items-center gap-1"
               style={{
                 color: isDarkMode ? activeColor : `color-mix(in srgb, ${activeColor} 85%, #0284c7)`
               }}
             >
-              Praveen
-            </span>
+              <span>Praveen</span>
+              <ExternalLink className="w-3 h-3 opacity-70" />
+            </a>
           </p>
         </div>
       </div>
