@@ -1274,12 +1274,14 @@ function CampaignsSection({ activeColor, isDarkMode }) {
   const [unmutedVideos, setUnmutedVideos] = useState({});
   const [btfwIndex, setBtfwIndex] = useState(0);
   const [lightboxImage, setLightboxImage] = useState(null);
+  const [lightboxVideo, setLightboxVideo] = useState(null);
+  const [btfwMediaMode, setBtfwMediaMode] = useState('video'); // 'video' | 'gallery'
 
   const btfwGallery = [
     {
       src: "/campaign_btfw_newspaper.jpg",
       title: "Times of India Official Press Feature",
-      caption: "FANTOME Energises Bhubaneswar Times Fashion Week 2026 as Official Energy Drink Partner."
+      caption: "FANTÔME Energises Bhubaneswar Times Fashion Week 2026 as Official Energy Drink Partner."
     },
     {
       src: "/campaign_btfw_stage.jpg",
@@ -1307,6 +1309,7 @@ function CampaignsSection({ activeColor, isDarkMode }) {
       stat: "BTFW 2026",
       desc: "Bringing a vibrant burst of energy to the world of fashion, FANTÔME Energy Drink joined Bhubaneswar Times Fashion Week (BTFW) 2026 as the Official Energy Drink Partner. Lighting up the runway alongside celebrity guest Shriya Saran, fashion designers, top models, and influencers with an unforgettable celebration of unseen power.",
       reelUrl: "https://www.instagram.com/reel/DemhmoXvUC7/?vrfl=MThjb3dneHd2eHY1bg==",
+      video: "/campaign_btfw_video.mp4",
       gallery: btfwGallery
     },
     {
@@ -1356,6 +1359,7 @@ function CampaignsSection({ activeColor, isDarkMode }) {
         {campaigns.map((camp, idx) => {
           if (camp.isSpotlight) {
             const activePhoto = camp.gallery[btfwIndex];
+            const isVideoActive = btfwMediaMode === 'video';
             return (
               <motion.div
                 key={camp.id}
@@ -1380,13 +1384,68 @@ function CampaignsSection({ activeColor, isDarkMode }) {
                 <div className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ backgroundColor: activeColor }} />
 
                 {/* Main Media Viewer */}
-                <div className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden transform-gpu bg-black/40">
-                  <img
-                    src={activePhoto.src}
-                    alt={activePhoto.title}
-                    className="w-full h-full object-cover transition-all duration-500 transform-gpu cursor-pointer"
-                    onClick={() => setLightboxImage(activePhoto)}
-                  />
+                <div className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden transform-gpu bg-black/50">
+                  {isVideoActive ? (
+                    <>
+                      <video
+                        src={camp.video}
+                        autoPlay
+                        loop
+                        muted={!unmutedVideos[camp.id]}
+                        playsInline
+                        className="w-full h-full object-cover transform-gpu"
+                        style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
+                      />
+                      {/* Audio Mute/Unmute Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => setUnmutedVideos((current) => ({
+                          ...current,
+                          [camp.id]: !current[camp.id]
+                        }))}
+                        className="absolute bottom-16 sm:bottom-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/70 text-white shadow-[0_0_28px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-black/85 cursor-pointer"
+                        aria-label={unmutedVideos[camp.id] ? `Mute ${camp.title}` : `Unmute ${camp.title}`}
+                        title={unmutedVideos[camp.id] ? "Mute" : "Unmute audio"}
+                      >
+                        {unmutedVideos[camp.id] ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={activePhoto.src}
+                        alt={activePhoto.title}
+                        className="w-full h-full object-cover transition-all duration-500 transform-gpu cursor-pointer"
+                        onClick={() => setLightboxImage(activePhoto)}
+                      />
+
+                      {/* Navigation Arrows */}
+                      <div className="absolute inset-y-0 inset-x-3 flex items-center justify-between z-20 pointer-events-none">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setBtfwIndex((prev) => (prev === 0 ? camp.gallery.length - 1 : prev - 1));
+                          }}
+                          className="pointer-events-auto h-10 w-10 rounded-full bg-black/60 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all hover:scale-110 cursor-pointer shadow-lg"
+                          aria-label="Previous Photo"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setBtfwIndex((prev) => (prev === camp.gallery.length - 1 ? 0 : prev + 1));
+                          }}
+                          className="pointer-events-auto h-10 w-10 rounded-full bg-black/60 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all hover:scale-110 cursor-pointer shadow-lg"
+                          aria-label="Next Photo"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </>
+                  )}
 
                   {/* Badges overlay */}
                   <div className="absolute top-5 left-5 z-20 flex flex-wrap gap-2">
@@ -1404,52 +1463,75 @@ function CampaignsSection({ activeColor, isDarkMode }) {
                     >
                       {camp.stat}
                     </span>
+                    {isVideoActive && (
+                      <span className="px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-wide bg-rose-600/90 text-white shadow-md backdrop-blur-md flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        Runway Video
+                      </span>
+                    )}
                   </div>
 
-                  {/* Photo Counter Pill & Zoom Button */}
+                  {/* Mode switcher and zoom controls (top right) */}
                   <div className="absolute top-5 right-5 z-20 flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setLightboxImage(activePhoto)}
-                      className="px-3 py-1.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/20 text-white text-[11px] font-bold tracking-wider backdrop-blur-md transition-all flex items-center gap-1.5 cursor-pointer"
-                      title="Click to view full image"
-                    >
-                      <span>{btfwIndex + 1} / {camp.gallery.length}</span>
-                      <span className="text-[10px] opacity-75">• Zoom</span>
-                    </button>
+                    <div className="flex items-center rounded-full bg-black/75 border border-white/25 p-1 backdrop-blur-md shadow-lg">
+                      <button
+                        type="button"
+                        onClick={() => setBtfwMediaMode('video')}
+                        className={`px-3 py-1 rounded-full text-[11px] font-bold tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+                          isVideoActive
+                            ? 'bg-white text-black shadow'
+                            : 'text-white/80 hover:text-white'
+                        }`}
+                      >
+                        <Play className="w-3 h-3" fill={isVideoActive ? "currentColor" : "none"} />
+                        <span>Video</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setBtfwMediaMode('gallery')}
+                        className={`px-3 py-1 rounded-full text-[11px] font-bold tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+                          !isVideoActive
+                            ? 'bg-white text-black shadow'
+                            : 'text-white/80 hover:text-white'
+                        }`}
+                      >
+                        <span>Photos ({camp.gallery.length})</span>
+                      </button>
+                    </div>
+
+                    {isVideoActive ? (
+                      <button
+                        type="button"
+                        onClick={() => setLightboxVideo({ src: camp.video, title: camp.title, reelUrl: camp.reelUrl })}
+                        className="px-3 py-1.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/20 text-white text-[11px] font-bold tracking-wider backdrop-blur-md transition-all flex items-center gap-1 cursor-pointer"
+                        title="Expand Video"
+                      >
+                        <span>Expand</span>
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setLightboxImage(activePhoto)}
+                        className="px-3 py-1.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/20 text-white text-[11px] font-bold tracking-wider backdrop-blur-md transition-all flex items-center gap-1 cursor-pointer"
+                        title="Click to view full image"
+                      >
+                        <span>{btfwIndex + 1}/{camp.gallery.length}</span>
+                        <span className="text-[10px] opacity-75">• Zoom</span>
+                      </button>
+                    )}
                   </div>
 
-                  {/* Navigation Arrows */}
-                  <div className="absolute inset-y-0 inset-x-3 flex items-center justify-between z-20 pointer-events-none">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setBtfwIndex((prev) => (prev === 0 ? camp.gallery.length - 1 : prev - 1));
-                      }}
-                      className="pointer-events-auto h-10 w-10 rounded-full bg-black/60 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all hover:scale-110 cursor-pointer shadow-lg"
-                      aria-label="Previous Photo"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setBtfwIndex((prev) => (prev === camp.gallery.length - 1 ? 0 : prev + 1));
-                      }}
-                      className="pointer-events-auto h-10 w-10 rounded-full bg-black/60 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all hover:scale-110 cursor-pointer shadow-lg"
-                      aria-label="Next Photo"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                  {/* Photo Caption Overlay Bar */}
-                  <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/85 via-black/40 to-transparent z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div>
-                      <p className="text-xs font-bold text-white uppercase tracking-wider">{activePhoto.title}</p>
-                      <p className="text-[11px] text-slate-300 font-light line-clamp-1">{activePhoto.caption}</p>
+                  {/* Media Caption Overlay Bar */}
+                  <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div className="pr-16 sm:pr-0">
+                      <p className="text-xs font-bold text-white uppercase tracking-wider">
+                        {isVideoActive ? "Bhubaneswar Times Fashion Week 2026 — Runway Broadcast" : activePhoto.title}
+                      </p>
+                      <p className="text-[11px] text-slate-300 font-light line-clamp-1">
+                        {isVideoActive
+                          ? "FANTÔME lighting up the ramp with designers, models, and high-energy power celebration."
+                          : activePhoto.caption}
+                      </p>
                     </div>
 
                     <a
@@ -1466,22 +1548,47 @@ function CampaignsSection({ activeColor, isDarkMode }) {
                   </div>
                 </div>
 
-                {/* Thumbnail Selector Bar */}
-                <div className="px-6 pt-5 pb-2 relative z-20 flex items-center gap-3 overflow-x-auto border-b"
+                {/* Media Selector Bar */}
+                <div className="px-6 pt-5 pb-3 relative z-20 flex items-center gap-3 overflow-x-auto border-b"
                   style={{ borderColor: isDarkMode ? 'rgba(56,189,248,0.15)' : 'rgba(15,23,42,0.08)' }}
                 >
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] shrink-0">Gallery:</span>
-                  <div className="flex gap-2.5 pb-2 shrink-0">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] shrink-0">Media:</span>
+                  <div className="flex gap-2.5 pb-1 shrink-0">
+                    {/* Video Selector Tab */}
+                    <button
+                      type="button"
+                      onClick={() => setBtfwMediaMode('video')}
+                      className={`relative h-14 w-28 rounded-xl overflow-hidden border-2 transition-all cursor-pointer flex flex-col items-center justify-center text-center p-1.5 shrink-0 ${
+                        isVideoActive ? 'scale-105 shadow-md' : 'opacity-70 hover:opacity-100'
+                      }`}
+                      style={{
+                        borderColor: isVideoActive ? activeColor : 'rgba(255,255,255,0.2)',
+                        background: isVideoActive
+                          ? `linear-gradient(135deg, ${activeColor}35, rgba(0,0,0,0.85))`
+                          : 'rgba(0,0,0,0.5)'
+                      }}
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <Play className="w-3.5 h-3.5 text-white" fill="white" />
+                        <span className="text-[10px] font-bold text-white uppercase tracking-wider">Runway Video</span>
+                      </div>
+                      <span className="text-[8px] text-slate-300 font-medium">1m 43s • HD</span>
+                    </button>
+
+                    {/* Photo Thumbnails */}
                     {camp.gallery.map((photo, pIdx) => (
                       <button
                         key={pIdx}
                         type="button"
-                        onClick={() => setBtfwIndex(pIdx)}
-                        className={`relative h-14 w-20 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
-                          btfwIndex === pIdx ? 'scale-105 shadow-md' : 'opacity-65 hover:opacity-100'
+                        onClick={() => {
+                          setBtfwMediaMode('gallery');
+                          setBtfwIndex(pIdx);
+                        }}
+                        className={`relative h-14 w-20 rounded-xl overflow-hidden border-2 transition-all cursor-pointer shrink-0 ${
+                          !isVideoActive && btfwIndex === pIdx ? 'scale-105 shadow-md' : 'opacity-65 hover:opacity-100'
                         }`}
                         style={{
-                          borderColor: btfwIndex === pIdx ? activeColor : 'rgba(255,255,255,0.2)'
+                          borderColor: !isVideoActive && btfwIndex === pIdx ? activeColor : 'rgba(255,255,255,0.2)'
                         }}
                       >
                         <img src={photo.src} alt={photo.title} className="w-full h-full object-cover" />
@@ -1496,19 +1603,40 @@ function CampaignsSection({ activeColor, isDarkMode }) {
                     <h3 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] group-hover:text-[var(--text-accent)] transition-all duration-300">
                       {camp.title}
                     </h3>
-                    <a
-                      href={camp.reelUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide text-white shadow-md hover:scale-105 transition-all shrink-0 no-underline"
-                      style={{
-                        background: `linear-gradient(135deg, ${activeColor} 0%, color-mix(in srgb, ${activeColor} 70%, #000) 100%)`
-                      }}
-                    >
-                      <InstagramIcon className="w-3.5 h-3.5" />
-                      <span>Watch Reel on Instagram</span>
-                      <ExternalLink className="w-3.5 h-3.5 ml-0.5" />
-                    </a>
+                    <div className="flex flex-wrap items-center gap-2 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => setBtfwMediaMode(isVideoActive ? 'gallery' : 'video')}
+                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold tracking-wide border transition-all cursor-pointer"
+                        style={{
+                          borderColor: `${activeColor}50`,
+                          backgroundColor: `${activeColor}15`,
+                          color: isDarkMode ? '#e2e8f0' : '#0f172a'
+                        }}
+                      >
+                        {isVideoActive ? (
+                          <span>View Photos (4)</span>
+                        ) : (
+                          <>
+                            <Play className="w-3.5 h-3.5" fill="currentColor" />
+                            <span>Watch Runway Video</span>
+                          </>
+                        )}
+                      </button>
+                      <a
+                        href={camp.reelUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide text-white shadow-md hover:scale-105 transition-all shrink-0 no-underline"
+                        style={{
+                          background: `linear-gradient(135deg, ${activeColor} 0%, color-mix(in srgb, ${activeColor} 70%, #000) 100%)`
+                        }}
+                      >
+                        <InstagramIcon className="w-3.5 h-3.5" />
+                        <span>Watch Reel on Instagram</span>
+                        <ExternalLink className="w-3.5 h-3.5 ml-0.5" />
+                      </a>
+                    </div>
                   </div>
                   <p className="text-[var(--text-sub)] font-light leading-relaxed text-sm md:text-base">
                     {camp.desc}
@@ -1680,6 +1808,67 @@ function CampaignsSection({ activeColor, isDarkMode }) {
                     {lightboxImage.caption}
                   </p>
                 )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Lightbox Modal for Video Playback */}
+      <AnimatePresence>
+        {lightboxVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightboxVideo(null)}
+            className="fixed inset-0 z-[120] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden glass-panel border border-white/20 shadow-2xl flex flex-col bg-slate-950"
+            >
+              <div className="p-4 sm:p-5 flex items-center justify-between border-b border-white/10">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Runway Video Broadcast</span>
+                  <h4 className="text-sm sm:text-base font-bold text-white uppercase tracking-wide">
+                    {lightboxVideo.title || "BTFW 2026 Runway Video"}
+                  </h4>
+                </div>
+                <div className="flex items-center gap-3">
+                  {lightboxVideo.reelUrl && (
+                    <a
+                      href={lightboxVideo.reelUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg hover:opacity-90 transition-opacity no-underline"
+                    >
+                      <InstagramIcon className="w-3.5 h-3.5" />
+                      <span>Watch Reel</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setLightboxVideo(null)}
+                    className="p-2 rounded-full bg-black/70 border border-white/20 text-white hover:bg-black/90 transition-colors cursor-pointer"
+                    aria-label="Close video preview"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+              <div className="relative aspect-[16/9] w-full bg-black">
+                <video
+                  src={lightboxVideo.src}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
               </div>
             </motion.div>
           </motion.div>
@@ -2484,7 +2673,18 @@ const DedicatedStoryPage = React.memo(function DedicatedStoryPage({ activeColor,
 });
 
 const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ activeColor, isDarkMode }) {
+  const [activeVideoModal, setActiveVideoModal] = React.useState(null);
+
   const campaigns = [
+    {
+      id: 'video-btfw',
+      title: 'Bhubaneswar Times Fashion Week 2026 — Official Runway Highlights',
+      platform: 'Runway Video',
+      url: '/campaign_btfw_video.mp4',
+      video: '/campaign_btfw_video.mp4',
+      thumbnail: '/campaign_btfw_model_runway.jpg',
+      tag: 'Official Video',
+    },
     {
       id: 'ig-btfw',
       title: 'Bhubaneswar Times Fashion Week 2026 — Official Reel',
@@ -2575,112 +2775,170 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
 
       {/* Campaigns Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {campaigns.map((camp, idx) => (
-          <a
-            key={camp.id}
-            href={camp.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-3xl overflow-hidden glass-panel shadow-2xl relative group flex flex-col h-full border cursor-pointer no-underline text-slate-200 transition-transform duration-300 hover:-translate-y-2"
-            style={{
-              contain: 'content',
-              background: isDarkMode 
-                ? 'rgba(15, 23, 42, 0.4)' 
-                : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 12%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 4%, #ffffff) 100%)`,
-              borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 30%, var(--border-glass))`
-            }}
-          >
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 z-10 pointer-events-none"
-              style={{
-                background: `linear-gradient(to top, color-mix(in srgb, ${activeColor} 20%, transparent) 0%, color-mix(in srgb, ${activeColor} 5%, transparent) 60%, transparent 100%)`
+        {campaigns.map((camp, idx) => {
+          const isVideo = Boolean(camp.video);
+          return (
+            <a
+              key={camp.id}
+              href={camp.url}
+              target={isVideo ? undefined : "_blank"}
+              rel={isVideo ? undefined : "noopener noreferrer"}
+              onClick={(e) => {
+                if (isVideo) {
+                  e.preventDefault();
+                  setActiveVideoModal(camp);
+                }
               }}
-            />
-
-            {/* Hover glow line */}
-            <div
-              className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              style={{ backgroundColor: activeColor }}
-            />
-
-            {/* Thumbnail */}
-            <div className="relative aspect-[16/9] overflow-hidden transform-gpu"
+              className="rounded-3xl overflow-hidden glass-panel shadow-2xl relative group flex flex-col h-full border cursor-pointer no-underline text-slate-200 transition-transform duration-300 hover:-translate-y-2"
               style={{
-                backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`
+                contain: 'content',
+                background: isDarkMode 
+                  ? 'rgba(15, 23, 42, 0.4)' 
+                  : `linear-gradient(135deg, color-mix(in srgb, ${activeColor} 12%, #ffffff) 0%, color-mix(in srgb, ${activeColor} 4%, #ffffff) 100%)`,
+                borderColor: isDarkMode ? '' : `color-mix(in srgb, ${activeColor} 30%, var(--border-glass))`
               }}
             >
-              <img
-                src={camp.thumbnail}
-                alt={camp.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 z-10 pointer-events-none"
                 style={{
-                  transform: 'translate3d(0, 0, 0)',
-                  backfaceVisibility: 'hidden',
-                }}
-                onError={(e) => {
-                  if (camp.videoId && e.target.src.includes('maxresdefault')) {
-                    e.target.src = `https://img.youtube.com/vi/${camp.videoId}/hqdefault.jpg`;
-                  }
+                  background: `linear-gradient(to top, color-mix(in srgb, ${activeColor} 20%, transparent) 0%, color-mix(in srgb, ${activeColor} 5%, transparent) 60%, transparent 100%)`
                 }}
               />
 
-              {/* Play button overlay */}
-              {(camp.videoId || camp.platform === 'Instagram') && (
-                <div className="absolute inset-0 flex items-center justify-center z-20 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-md border border-white/30 shadow-xl transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: `color-mix(in srgb, ${activeColor} 85%, transparent)` }}
-                  >
-                    <Play className="w-7 h-7 text-white ml-1" fill="white" />
-                  </div>
-                </div>
-              )}
+              {/* Hover glow line */}
+              <div
+                className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ backgroundColor: activeColor }}
+              />
 
-              {/* Badges */}
-              <div className="absolute top-4 left-4 z-20 flex gap-2">
-                <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide border text-slate-800"
-                  style={{
-                    backgroundColor: isDarkMode ? 'rgba(125,211,252,0.7)' : `color-mix(in srgb, ${activeColor} 18%, #ffffff)`,
-                    borderColor: isDarkMode ? 'rgba(56,189,248,0.3)' : `color-mix(in srgb, ${activeColor} 35%, transparent)`,
-                    color: isDarkMode ? '#0f172a' : `color-mix(in srgb, ${activeColor} 90%, #000000)`
-                  }}
-                >
-                  {camp.tag}
-                </span>
-                <span
-                  className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide text-white"
-                  style={{ backgroundColor: activeColor }}
-                >
-                  {camp.platform}
-                </span>
-              </div>
-            </div>
-
-            {/* Text content */}
-            <div className="p-6 relative z-20 space-y-3 flex-1 flex flex-col justify-between">
-              <h3 className="text-lg md:text-xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] group-hover:text-[var(--text-accent)] transition-all duration-300">
-                {camp.title}
-              </h3>
-              <div className="flex items-center gap-2 text-xs font-semibold tracking-wide mt-auto pt-2"
-                style={{ color: activeColor }}
+              {/* Thumbnail */}
+              <div className="relative aspect-[16/9] overflow-hidden transform-gpu"
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`
+                }}
               >
-                {camp.platform === 'Instagram' ? (
-                  <InstagramIcon className="w-4 h-4" />
-                ) : (
-                  <ExternalLink className="w-3.5 h-3.5" />
+                <img
+                  src={camp.thumbnail}
+                  alt={camp.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
+                  style={{
+                    transform: 'translate3d(0, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                  }}
+                  onError={(e) => {
+                    if (camp.videoId && e.target.src.includes('maxresdefault')) {
+                      e.target.src = `https://img.youtube.com/vi/${camp.videoId}/hqdefault.jpg`;
+                    }
+                  }}
+                />
+
+                {/* Play button overlay */}
+                {(camp.videoId || camp.platform === 'Instagram' || isVideo) && (
+                  <div className="absolute inset-0 flex items-center justify-center z-20 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                    <div
+                      className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-md border border-white/30 shadow-xl transition-transform duration-300 group-hover:scale-110"
+                      style={{ backgroundColor: `color-mix(in srgb, ${activeColor} 85%, transparent)` }}
+                    >
+                      <Play className="w-7 h-7 text-white ml-1" fill="white" />
+                    </div>
+                  </div>
                 )}
-                <span>
-                  {camp.platform === 'Instagram'
-                    ? 'Watch Reel on Instagram'
-                    : camp.platform === 'Times of India' || camp.platform === 'Press Feature'
-                    ? 'View Coverage & Reel'
-                    : `Watch on ${camp.platform}`}
-                </span>
+
+                {/* Badges */}
+                <div className="absolute top-4 left-4 z-20 flex gap-2">
+                  <span className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide border text-slate-800"
+                    style={{
+                      backgroundColor: isDarkMode ? 'rgba(125,211,252,0.7)' : `color-mix(in srgb, ${activeColor} 18%, #ffffff)`,
+                      borderColor: isDarkMode ? 'rgba(56,189,248,0.3)' : `color-mix(in srgb, ${activeColor} 35%, transparent)`,
+                      color: isDarkMode ? '#0f172a' : `color-mix(in srgb, ${activeColor} 90%, #000000)`
+                    }}
+                  >
+                    {camp.tag}
+                  </span>
+                  <span
+                    className="px-3 py-1 rounded-full text-[9px] font-bold tracking-wide text-white"
+                    style={{ backgroundColor: activeColor }}
+                  >
+                    {camp.platform}
+                  </span>
+                </div>
               </div>
-            </div>
-          </a>
-        ))}
+
+              {/* Text content */}
+              <div className="p-6 relative z-20 space-y-3 flex-1 flex flex-col justify-between">
+                <h3 className="text-lg md:text-xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] group-hover:text-[var(--text-accent)] transition-all duration-300">
+                  {camp.title}
+                </h3>
+                <div className="flex items-center gap-2 text-xs font-semibold tracking-wide mt-auto pt-2"
+                  style={{ color: activeColor }}
+                >
+                  {camp.video ? (
+                    <Play className="w-3.5 h-3.5" fill="currentColor" />
+                  ) : camp.platform === 'Instagram' ? (
+                    <InstagramIcon className="w-4 h-4" />
+                  ) : (
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  )}
+                  <span>
+                    {camp.video
+                      ? 'Watch Runway Video'
+                      : camp.platform === 'Instagram'
+                      ? 'Watch Reel on Instagram'
+                      : camp.platform === 'Times of India' || camp.platform === 'Press Feature'
+                      ? 'View Coverage & Reel'
+                      : `Watch on ${camp.platform}`}
+                  </span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
       </div>
+
+      {/* Video Modal Player */}
+      <AnimatePresence>
+        {activeVideoModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveVideoModal(null)}
+            className="fixed inset-0 z-[120] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          >
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.92, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-4xl rounded-3xl overflow-hidden glass-panel border border-white/20 shadow-2xl flex flex-col bg-slate-950"
+            >
+              <div className="p-4 sm:p-5 flex items-center justify-between border-b border-white/10">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Campaign Broadcast</span>
+                  <h3 className="text-sm sm:text-base font-bold text-white uppercase">{activeVideoModal.title}</h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveVideoModal(null)}
+                  className="h-9 w-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+                  aria-label="Close video player"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="relative aspect-[16/9] w-full bg-black">
+                <video
+                  src={activeVideoModal.video}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 });
