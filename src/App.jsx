@@ -2682,7 +2682,7 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
       platform: 'Runway Video',
       url: '/campaign_btfw_video.mp4',
       video: '/campaign_btfw_video.mp4',
-      thumbnail: '/campaign_btfw_model_runway.jpg',
+      thumbnail: '/campaign_btfw_stage.jpg',
       tag: 'Official Video',
     },
     {
