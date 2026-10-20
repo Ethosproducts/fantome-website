@@ -3,7 +3,53 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Play, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+function InstagramIcon({ className = "w-4 h-4" }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+    </svg>
+  );
+}
+
 const campaigns = [
+  {
+    id: 'ig-btfw',
+    title: 'Bhubaneswar Times Fashion Week 2026 — Official Reel',
+    platform: 'Instagram',
+    url: 'https://www.instagram.com/reel/DemhmoXvUC7/?vrfl=MThjb3dneHd2eHY1bg==',
+    videoId: null,
+    thumbnail: '/campaign_btfw_model_runway.jpg',
+    tag: 'Fashion Week',
+  },
+  {
+    id: 'press-btfw',
+    title: 'Times of India Press Feature — FANTÔME Energises BTFW 2026',
+    platform: 'Times of India',
+    url: 'https://www.instagram.com/reel/DemhmoXvUC7/?vrfl=MThjb3dneHd2eHY1bg==',
+    videoId: null,
+    thumbnail: '/campaign_btfw_newspaper.jpg',
+    tag: 'Press Feature',
+  },
+  {
+    id: 'stage-btfw',
+    title: 'Times Power 2026 — Shriya Saran & Ethos Founders Showcase',
+    platform: 'Event Showcase',
+    url: 'https://www.instagram.com/reel/DemhmoXvUC7/?vrfl=MThjb3dneHd2eHY1bg==',
+    videoId: null,
+    thumbnail: '/campaign_btfw_stage.jpg',
+    tag: 'Star Activation',
+  },
+  {
+    id: 'runway-btfw',
+    title: 'BTFW 2026 Runway Showcase — Bold Ramp Walk with Fantôme',
+    platform: 'Runway Live',
+    url: 'https://www.instagram.com/reel/DemhmoXvUC7/?vrfl=MThjb3dneHd2eHY1bg==',
+    videoId: null,
+    thumbnail: '/campaign_btfw_models.jpg',
+    tag: 'Runway Highlights',
+  },
   {
     id: 'yt-1',
     title: 'Fantôme Energy — Official Ad Campaign',
@@ -24,7 +70,7 @@ const campaigns = [
   },
   {
     id: 'fb-1',
-    title: 'Fantôme Energy — Social Campaign',
+    title: 'Fantôme Energy — Social Campaign at Birla Global University',
     platform: 'Facebook',
     url: 'https://www.facebook.com/share/r/1Adsam4pTG/',
     videoId: null,
@@ -177,8 +223,8 @@ function CampaignsPage() {
                   }}
                 />
 
-                {/* Play button overlay for videos */}
-                {camp.videoId && (
+                {/* Play button overlay for videos and reels */}
+                {(camp.videoId || camp.platform === 'Instagram') && (
                   <div className="absolute inset-0 flex items-center justify-center z-20 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                     <div
                       className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-md border border-white/30 shadow-xl transition-transform duration-300 group-hover:scale-110"
@@ -217,8 +263,18 @@ function CampaignsPage() {
                 <div className="flex items-center gap-2 text-xs font-semibold tracking-wide mt-auto pt-2"
                   style={{ color: activeColor }}
                 >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Watch on {camp.platform}</span>
+                  {camp.platform === 'Instagram' ? (
+                    <InstagramIcon className="w-4 h-4" />
+                  ) : (
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  )}
+                  <span>
+                    {camp.platform === 'Instagram'
+                      ? 'Watch Reel on Instagram'
+                      : camp.platform === 'Times of India' || camp.platform === 'Press Feature'
+                      ? 'View Coverage & Reel'
+                      : `Watch on ${camp.platform}`}
+                  </span>
                 </div>
               </div>
             </motion.a>
