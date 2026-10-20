@@ -1314,26 +1314,26 @@ function CampaignsSection({ activeColor, isDarkMode }) {
     },
     {
       id: "adcampaign",
-      title: "Our ad Campaign with Shibani",
+      title: "Our Ad Campaign with Shibani",
       tag: "Official Ad",
-      desc: "An exclusive energy broadcast campaign featuring Shibani. Unleashing unseen power and metabolic acceleration in high-definition transmission.",
+      desc: "An exclusive cinematic brand commercial featuring renowned artist Shibani, spotlighting the relentless spirit and metabolic drive of Fantôme Energy. Capturing peak physical endurance, electrifying focus, and pure stamina, this high-octane commercial demonstrates how our scientifically balanced formulation fuels modern ambition without compromise, crashing, or unnecessary artificial sugar spikes.",
       video: "/adcampaign.mp4",
       stat: "Broadcast Active"
     },
     {
       id: "launching",
-      title: "Our Launching of Fantôme Energy Drink",
+      title: "The Grand Launch of Fantôme Energy Drink",
       tag: "Grand Launch",
-      desc: "The official unveiling of Fantôme Energy Drink. A landmark moment marking the arrival of unseen power into the premium energy market.",
+      desc: "The official grand unveiling of Fantôme Energy Drink, introducing a revolutionary energy catalyst to discerning consumers and athletes across the region. Celebrating clean vitality, bold modern design, and advanced nutrient fortification, this milestone launch marked the arrival of unseen power into the rapidly evolving lifestyle and performance beverage market.",
       video: "/launching.mp4",
       stat: "Launch Event"
     },
     {
       id: "birla",
       isFullWidth: true,
-      title: "Our Campaign at Times of India Event Hosted at Birla Global University",
+      title: "Times of India Brand Campaign at Birla Global University",
       tag: "Event Activation",
-      desc: "An elite brand showcase at the prestigious Times of India event, hosted at Birla Global University. Spotlighting the Fantôme premium energy range to academic and corporate leaders.",
+      desc: "A high-impact campus activation at the prestigious Times of India event hosted at Birla Global University. Engaging dynamic student innovators, youth leaders, and academic minds, Fantôme delivered refreshing sustained energy, proving that high cognitive performance, sharp daily focus, and uncompromising taste belong at the center of ambitious university life.",
       image: "/campaign_birla.jpg",
       stat: "Featured Event"
     }
@@ -1355,7 +1355,7 @@ function CampaignsSection({ activeColor, isDarkMode }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 gap-12 max-w-4xl mx-auto">
         {campaigns.map((camp, idx) => {
           if (camp.isSpotlight) {
             const activePhoto = camp.gallery[btfwIndex];
@@ -1364,7 +1364,7 @@ function CampaignsSection({ activeColor, isDarkMode }) {
               <motion.div
                 key={camp.id}
                 whileHover={{ y: -6 }}
-                className="rounded-3xl overflow-hidden glass-panel relative group flex flex-col h-full transform-gpu border md:col-span-2 shadow-2xl"
+                className="rounded-3xl overflow-hidden glass-panel relative group flex flex-col h-full transform-gpu border shadow-2xl w-full"
                 style={{
                   contain: "content",
                   background: isDarkMode 
@@ -1650,7 +1650,7 @@ function CampaignsSection({ activeColor, isDarkMode }) {
             <motion.div
               key={camp.id}
               whileHover={{ y: -8 }}
-              className={`rounded-3xl overflow-hidden glass-panel relative group flex flex-col h-full transform-gpu border ${camp.isFullWidth ? "md:col-span-2" : ""}`}
+              className="rounded-3xl overflow-hidden glass-panel relative group flex flex-col h-full transform-gpu border shadow-2xl w-full"
               style={{
                 contain: "content",
                 background: isDarkMode 
@@ -1669,7 +1669,7 @@ function CampaignsSection({ activeColor, isDarkMode }) {
               {/* Hover glow line */}
               <div className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ backgroundColor: activeColor }} />
 
-              <div className="relative aspect-[16/10] overflow-hidden transform-gpu"
+              <div className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden transform-gpu"
                 style={{
                   backgroundColor: isDarkMode ? 'rgba(125,211,252,0.1)' : `color-mix(in srgb, ${activeColor} 8%, #ffffff)`
                 }}
@@ -2684,6 +2684,7 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
       video: '/campaign_btfw_video.mp4',
       thumbnail: '/campaign_btfw_stage.jpg',
       tag: 'Official Video',
+      desc: 'The official Times Power 2026 stage and runway highlights at Bhubaneswar Times Fashion Week. Showcasing celebrity guest Shriya Saran alongside Fantôme founders, designers, and supermodels, this energetic broadcast marks a defining convergence of high fashion, vibrant runway choreography, and premium lifestyle beverage performance in Odisha.',
     },
     {
       id: 'ig-btfw',
@@ -2693,6 +2694,7 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
       videoId: null,
       thumbnail: '/campaign_btfw_model_runway.jpg',
       tag: 'Fashion Week',
+      desc: 'An exclusive social media reel capturing behind-the-scenes moments, model ramp walks, and VIP lounge energy at Bhubaneswar Times Fashion Week 2026. Spotlighting audience excitement and runway power walks, this short-form feature celebrates the vibrant arrival of Fantôme as the official energy drink partner.',
     },
     {
       id: 'press-btfw',
@@ -2702,6 +2704,7 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
       videoId: null,
       thumbnail: '/campaign_btfw_newspaper.jpg',
       tag: 'Press Feature',
+      desc: "The Times of India official print coverage spotlighting Fantôme Energy's landmark partnership at Bhubaneswar Times Fashion Week 2026. Documenting prominent event activations, brand recognition, and executive milestones, this newspaper feature chronicles the rapid ascendancy of Odisha's premier energy drink across corporate and regional business circles.",
     },
     {
       id: 'stage-btfw',
@@ -2711,6 +2714,7 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
       videoId: null,
       thumbnail: '/campaign_btfw_stage.jpg',
       tag: 'Star Activation',
+      desc: "Celebrity star Shriya Saran joins the founders of Ethos Global Food & Beverages on the prestigious Times Power 2026 main stage. Celebrating entrepreneurial excellence and bold brand vision, this signature event spotlighted Fantôme's commitment to delivering world-class premium energy to discerning consumers nationwide.",
     },
     {
       id: 'runway-btfw',
@@ -2720,15 +2724,17 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
       videoId: null,
       thumbnail: '/campaign_btfw_models.jpg',
       tag: 'Runway Highlights',
+      desc: "High-energy runway choreography featuring top models showcasing Fantôme's signature Mojito and Original cans on the ramp. Fusing avant-garde designer couture with electric performance aesthetics, this ramp presentation delivered an unforgettable showcase of youth culture, modern dynamism, and unseen power to fashion week audiences.",
     },
     {
       id: 'yt-1',
-      title: 'Fantôme Energy — Official Ad Campaign',
+      title: 'Fantôme Energy — Official Ad Campaign with Shibani',
       platform: 'YouTube',
       url: 'https://youtu.be/nY17PjJHLWA?si=hsNBHW1bZuCYsf_p',
       videoId: 'nY17PjJHLWA',
       thumbnail: 'https://img.youtube.com/vi/nY17PjJHLWA/maxresdefault.jpg',
       tag: 'Official Ad',
+      desc: 'An exclusive cinematic brand commercial featuring renowned artist Shibani, spotlighting the relentless spirit and metabolic drive of Fantôme Energy. Capturing peak physical endurance, electrifying focus, and pure stamina, this high-octane commercial demonstrates how our scientifically balanced formulation fuels modern ambition without compromise, crashing, or unnecessary artificial sugar spikes.',
     },
     {
       id: 'yt-2',
@@ -2738,24 +2744,27 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
       videoId: 'YDOju5uljKI',
       thumbnail: 'https://img.youtube.com/vi/YDOju5uljKI/maxresdefault.jpg',
       tag: 'Brand Film',
+      desc: 'The official brand film exploring the formulation philosophy, bold aesthetic identity, and uncompromising standards behind Fantôme Energy Drink. Crafted for relentless achievers, creative pioneers, and high-performance individuals, this visual transmission illustrates the science and passion powering every single drop of our advanced energy catalyst.',
     },
     {
       id: 'fb-1',
-      title: 'Fantôme Energy — Social Campaign at Birla Global University',
+      title: 'Times of India Brand Campaign at Birla Global University',
       platform: 'Facebook',
       url: 'https://www.facebook.com/share/r/1Adsam4pTG/',
       videoId: null,
       thumbnail: '/campaign_birla.jpg',
       tag: 'Social Media',
+      desc: 'A high-impact campus activation at the prestigious Times of India event hosted at Birla Global University. Engaging dynamic student innovators, youth leaders, and academic minds, Fantôme delivered refreshing sustained energy, proving that high cognitive performance, sharp daily focus, and uncompromising taste belong at the center of ambitious university life.',
     },
     {
       id: 'yt-3',
-      title: 'Fantôme Energy — Launch Event Highlights',
+      title: 'The Grand Launch of Fantôme Energy Drink',
       platform: 'YouTube',
       url: 'https://youtu.be/reWlwI_8WJo?si=CvG4GxmZJ5txHl-H',
       videoId: 'reWlwI_8WJo',
       thumbnail: 'https://img.youtube.com/vi/reWlwI_8WJo/maxresdefault.jpg',
       tag: 'Event Highlights',
+      desc: 'The official grand unveiling of Fantôme Energy Drink, introducing a revolutionary energy catalyst to discerning consumers and athletes across the region. Celebrating clean vitality, bold modern design, and advanced nutrient fortification, this milestone launch marked the arrival of unseen power into the rapidly evolving lifestyle and performance beverage market.',
     },
   ];
 
@@ -2773,8 +2782,8 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
         </p>
       </div>
 
-      {/* Campaigns Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {/* Campaigns Grid - 1 content in 1 row */}
+      <div className="grid grid-cols-1 gap-12 max-w-4xl mx-auto">
         {campaigns.map((camp, idx) => {
           const isVideo = Boolean(camp.video);
           return (
@@ -2789,7 +2798,7 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
                   setActiveVideoModal(camp);
                 }
               }}
-              className="rounded-3xl overflow-hidden glass-panel shadow-2xl relative group flex flex-col h-full border cursor-pointer no-underline text-slate-200 transition-transform duration-300 hover:-translate-y-2"
+              className="rounded-3xl overflow-hidden glass-panel shadow-2xl relative group flex flex-col h-full border cursor-pointer no-underline text-slate-200 transition-transform duration-300 hover:-translate-y-2 w-full"
               style={{
                 contain: 'content',
                 background: isDarkMode 
@@ -2864,11 +2873,18 @@ const DedicatedCampaignsPage = React.memo(function DedicatedCampaignsPage({ acti
                 </div>
               </div>
 
-              {/* Text content */}
-              <div className="p-6 relative z-20 space-y-3 flex-1 flex flex-col justify-between">
-                <h3 className="text-lg md:text-xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] group-hover:text-[var(--text-accent)] transition-all duration-300">
-                  {camp.title}
-                </h3>
+              {/* Text content with Title and 40-50 word Description */}
+              <div className="p-8 relative z-20 space-y-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-bold font-sans uppercase tracking-wide text-[var(--text-main)] group-hover:text-[var(--text-accent)] transition-all duration-300">
+                    {camp.title}
+                  </h3>
+                  {camp.desc && (
+                    <p className="text-[var(--text-sub)] font-light leading-relaxed text-sm md:text-base mt-3">
+                      {camp.desc}
+                    </p>
+                  )}
+                </div>
                 <div className="flex items-center gap-2 text-xs font-semibold tracking-wide mt-auto pt-2"
                   style={{ color: activeColor }}
                 >
